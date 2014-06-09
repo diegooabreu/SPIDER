@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+  <persistence-unit name="SpiderRMPU" transaction-type="RESOURCE_LOCAL">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <class>model.Pontodecontrole</class>
+    <class>model.Relacaosubcondicao</class>
+    <class>model.Politicaorganizacional</class>
+    <class>model.Subcondicao</class>
+    <class>model.Contem</class>
+    <class>model.Planomitigacao</class>
+    <class>model.Avaliacaocategoria</class>
+    <class>model.Avaliacaoprojeto</class>
+    <class>model.Planocontingencia</class>
+    <class>model.Organizacao</class>
+    <class>model.Projeto</class>
+    <class>model.Historicoalteracao</class>
+    <class>model.Historicorisco</class>
+    <class>model.Marcodoprojeto</class>
+    <class>model.Aviso</class>
+    <class>model.Categoriaderisco</class>
+    <class>model.Risco</class>
+    <shared-cache-mode>NONE</shared-cache-mode>
+    <properties>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/spider_rm?zeroDateTimeBehavior=convertToNull"/>
+      <property name="javax.persistence.jdbc.password" value="spider_rm"/>
+      <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+      <property name="javax.persistence.jdbc.user" value="spider_rm"/>
+    </properties>
+  </persistence-unit>
+</persistence>
