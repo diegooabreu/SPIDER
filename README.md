@@ -1,4 +1,4 @@
 SPIDER
 ======
 
-SPIDER-RM
+Repositório para uso SPIDER-RM
