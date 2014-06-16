@@ -20,12 +20,18 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="projetoCalendarioGeralJPanel" alignment="0" max="32767" attributes="0"/>
+          <Group type="102" alignment="0" attributes="0">
+              <Component id="projetoCalendarioGeralJPanel" min="-2" pref="860" max="-2" attributes="0"/>
+              <EmptySpace min="0" pref="10" max="32767" attributes="0"/>
+          </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="projetoCalendarioGeralJPanel" alignment="0" max="32767" attributes="0"/>
+          <Group type="102" alignment="0" attributes="0">
+              <Component id="projetoCalendarioGeralJPanel" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+          </Group>
       </Group>
     </DimensionLayout>
   </Layout>
@@ -35,177 +41,98 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="ProjetoCalendarioJTabbedPane" alignment="0" pref="878" max="32767" attributes="0"/>
+              <Group type="102" alignment="0" attributes="0">
+                  <Component id="jScrollPane2" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+              </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="ProjetoCalendarioJTabbedPane" alignment="0" pref="508" max="32767" attributes="0"/>
+              <Component id="jScrollPane2" min="-2" pref="510" max="-2" attributes="0"/>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Container class="javax.swing.JTabbedPane" name="ProjetoCalendarioJTabbedPane">
+        <Container class="javax.swing.JScrollPane" name="jScrollPane2">
+          <Properties>
+            <Property name="horizontalScrollBarPolicy" type="int" value="31"/>
+          </Properties>
 
-          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
+          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
-            <Container class="javax.swing.JScrollPane" name="calendarioJScrollPane">
-              <Properties>
-                <Property name="verticalScrollBarPolicy" type="int" value="21"/>
-                <Property name="horizontalScrollBar" type="javax.swing.JScrollBar" editor="org.netbeans.modules.form.ComponentChooserEditor">
-                  <ComponentRef name="null"/>
-                </Property>
-              </Properties>
-              <Constraints>
-                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                  <JTabbedPaneConstraints tabName="Calend&#xe1;rio">
-                    <Property name="tabTitle" type="java.lang.String" value="Calend&#xe1;rio"/>
-                  </JTabbedPaneConstraints>
-                </Constraint>
-              </Constraints>
+            <Container class="javax.swing.JPanel" name="jPanel1">
 
-              <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-              <SubComponents>
-                <Container class="javax.swing.JPanel" name="CalendarioGeralJPanel">
-
-                  <Layout>
-                    <DimensionLayout dim="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="legendaJLabel" min="-2" max="-2" attributes="0"/>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="datePanel1" min="-2" pref="561" max="-2" attributes="0"/>
-                                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
-                                          <Component id="taskRenderer1" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                              </Group>
-                              <EmptySpace pref="856" max="32767" attributes="0"/>
-                          </Group>
-                      </Group>
-                    </DimensionLayout>
-                    <DimensionLayout dim="1">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="datePanel1" min="-2" pref="353" max="-2" attributes="0"/>
-                                  <Component id="taskRenderer1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="-2" pref="67" max="-2" attributes="0"/>
-                              <Component id="legendaJLabel" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="216" max="32767" attributes="0"/>
-                          </Group>
-                      </Group>
-                    </DimensionLayout>
-                  </Layout>
-                  <SubComponents>
-                    <Component class="javax.swing.JLabel" name="legendaJLabel">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="Legenda:"/>
-                      </Properties>
-                    </Component>
-                    <Component class="net.sf.nachocalendar.components.DatePanel" name="datePanel1">
-                      <Properties>
-                        <Property name="model" type="net.sf.nachocalendar.model.DataModel" editor="org.netbeans.modules.form.ComponentChooserEditor">
-                          <ComponentRef name="taskDataModel1"/>
-                        </Property>
-                        <Property name="renderer" type="net.sf.nachocalendar.components.DayRenderer" editor="org.netbeans.modules.form.ComponentChooserEditor">
-                          <ComponentRef name="taskRenderer1"/>
-                        </Property>
-                        <Property name="showToday" type="boolean" value="true"/>
-                      </Properties>
-                      <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="datePanel1ActionPerformed"/>
-                      </Events>
-                    </Component>
-                    <Component class="net.sf.nachocalendar.tasks.TaskRenderer" name="taskRenderer1">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="taskRenderer1"/>
-                      </Properties>
-                    </Component>
-                    <Container class="javax.swing.JPanel" name="jPanel1">
-
-                      <Layout>
-                        <DimensionLayout dim="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="marcoPControleJLabel" min="-2" max="-2" attributes="0"/>
-                                      <Component id="marcoPControleJTextField" min="-2" pref="261" max="-2" attributes="0"/>
-                                      <Component id="dateField1" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace min="0" pref="11" max="32767" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="1" attributes="0">
-                                  <EmptySpace max="32767" attributes="0"/>
-                                  <Component id="jButton3" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                        </DimensionLayout>
-                        <DimensionLayout dim="1">
-                          <Group type="103" groupAlignment="0" attributes="0">
+              <Layout>
+                <DimensionLayout dim="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="marcoPControleJLabel" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="marcoPControleJTextField" min="-2" max="-2" attributes="0"/>
+                                  <Component id="diaDetalhesJButton" max="32767" attributes="0"/>
+                              </Group>
+                              <Group type="102" attributes="0">
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="dateField1" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="jButton3" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="0" pref="50" max="32767" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="datePanel1" pref="800" max="32767" attributes="0"/>
+                                      <Component id="jPanel2" max="32767" attributes="0"/>
+                                  </Group>
                               </Group>
                           </Group>
-                        </DimensionLayout>
-                      </Layout>
-                      <SubComponents>
-                        <Component class="javax.swing.JLabel" name="marcoPControleJLabel">
-                          <Properties>
-                            <Property name="text" type="java.lang.String" value="Marco/Ponto de Controle"/>
-                          </Properties>
-                        </Component>
-                        <Component class="javax.swing.JTextField" name="marcoPControleJTextField">
-                          <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="marcoPControleJTextFieldActionPerformed"/>
-                          </Events>
-                        </Component>
-                        <Component class="net.sf.nachocalendar.components.DateField" name="dateField1">
-                        </Component>
-                        <Component class="javax.swing.JButton" name="jButton3">
-                          <Properties>
-                            <Property name="text" type="java.lang.String" value="Salvar Marco/Ponto de Controle"/>
-                          </Properties>
-                          <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton3ActionPerformed"/>
-                          </Events>
-                        </Component>
-                      </SubComponents>
-                    </Container>
-                  </SubComponents>
-                </Container>
-              </SubComponents>
-            </Container>
-            <Container class="javax.swing.JScrollPane" name="marcosPontosDeControleJScrollPane2">
-              <Properties>
-                <Property name="horizontalScrollBarPolicy" type="int" value="31"/>
-              </Properties>
-              <Constraints>
-                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                  <JTabbedPaneConstraints tabName="Marcos e Pontos de Controle">
-                    <Property name="tabTitle" type="java.lang.String" value="Marcos e Pontos de Controle"/>
-                  </JTabbedPaneConstraints>
-                </Constraint>
-              </Constraints>
-
-              <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                          <EmptySpace min="0" pref="50" max="32767" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="novoMarcoPontoJPanel" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                      </Group>
+                      <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="430" max="-2" attributes="0"/>
+                              <Component id="taskRenderer1" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace pref="359" max="32767" attributes="0"/>
+                          </Group>
+                      </Group>
+                  </Group>
+                </DimensionLayout>
+                <DimensionLayout dim="1">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="datePanel1" min="-2" pref="353" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="diaDetalhesJButton" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="novoMarcoPontoJPanel" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace pref="23" max="32767" attributes="0"/>
+                      </Group>
+                      <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="473" max="-2" attributes="0"/>
+                              <Component id="taskRenderer1" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace pref="431" max="32767" attributes="0"/>
+                          </Group>
+                      </Group>
+                  </Group>
+                </DimensionLayout>
+              </Layout>
               <SubComponents>
-                <Container class="javax.swing.JPanel" name="marcosPontosDeProjetoGeralJPanel">
+                <Component class="net.sf.nachocalendar.components.DatePanel" name="datePanel1">
+                  <Properties>
+                    <Property name="antiAliased" type="boolean" value="true"/>
+                    <Property name="model" type="net.sf.nachocalendar.model.DataModel" editor="org.netbeans.modules.form.ComponentChooserEditor">
+                      <ComponentRef name="taskDataModel1"/>
+                    </Property>
+                    <Property name="showToday" type="boolean" value="true"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="datePanel1ActionPerformed"/>
+                  </Events>
+                </Component>
+                <Container class="javax.swing.JPanel" name="novoMarcoPontoJPanel">
 
                   <Layout>
                     <DimensionLayout dim="0">
@@ -213,31 +140,20 @@
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
-                                  <Group type="102" attributes="0">
+                                  <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Group type="102" alignment="0" attributes="0">
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="nomeMarcosPontosDeControleJLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                                           <Component id="dataMarcosPontosDeControleJLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Group type="102" attributes="0">
-                                              <Component id="dataMarcoPontoDeControleJDateChooser" pref="115" max="32767" attributes="0"/>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Component id="dataMarcoPontoDeControleJDateChooser" max="32767" attributes="0"/>
                                               <EmptySpace max="-2" attributes="0"/>
                                               <Component id="MarcoPontoDeControleJComboBox" min="-2" max="-2" attributes="0"/>
                                           </Group>
-                                          <Component id="nomeMarcosPontosDeControleJTextField" max="32767" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="pontosDeControleJLabel" min="-2" max="-2" attributes="0"/>
-                                          <Component id="tabelaPontoDeControleJScrollPane" min="-2" pref="350" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="marcosDoProjetoJLabel" min="-2" max="-2" attributes="0"/>
-                                          <Component id="tabelaMarcosDoProjetoJScrollPane" min="-2" pref="350" max="-2" attributes="0"/>
+                                          <Component id="nomeMarcosPontosDeControleJTextField" min="-2" pref="233" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
@@ -245,28 +161,28 @@
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="marcoPontoDeControleSelecionadoJLabel2" min="-2" pref="299" max="-2" attributes="0"/>
                                   </Group>
+                                  <Group type="103" alignment="0" groupAlignment="1" attributes="0">
+                                      <Group type="102" attributes="0">
+                                          <Component id="limparCamposJButton" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="excluirMarcoPontoDeControleJButton" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="criarAlterarMarcoOuPontoDeControleJButton" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Component id="jScrollPane1" min="-2" pref="770" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
-                              <EmptySpace pref="50" max="32767" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="pontosDeControleJLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="marcosDoProjetoJLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="tabelaMarcosDoProjetoJScrollPane" pref="281" max="32767" attributes="0"/>
-                                  <Component id="tabelaPontoDeControleJScrollPane" max="32767" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
+                          <Group type="102" alignment="1" attributes="0">
+                              <EmptySpace min="0" pref="13" max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                   <Component id="jLabel2" max="32767" attributes="0"/>
-                                  <Component id="marcoPontoDeControleSelecionadoJLabel2" max="32767" attributes="0"/>
+                                  <Component id="marcoPontoDeControleSelecionadoJLabel2" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
@@ -275,28 +191,81 @@
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="1" attributes="0">
-                                  <Group type="103" groupAlignment="3" attributes="0">
+                                  <Group type="103" alignment="1" groupAlignment="3" attributes="0">
                                       <Component id="dataMarcosPontosDeControleJLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="MarcoPontoDeControleJComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <Component id="dataMarcoPontoDeControleJDateChooser" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace pref="25" max="32767" attributes="0"/>
-                              <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jScrollPane1" min="-2" pref="147" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="excluirMarcoPontoDeControleJButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="criarAlterarMarcoOuPontoDeControleJButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="limparCamposJButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
                       </Group>
                     </DimensionLayout>
                   </Layout>
                   <SubComponents>
-                    <Component class="javax.swing.JLabel" name="pontosDeControleJLabel">
+                    <Container class="javax.swing.JScrollPane" name="jScrollPane1">
+                      <AuxValues>
+                        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+                      </AuxValues>
+
+                      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                      <SubComponents>
+                        <Component class="javax.swing.JTextArea" name="descricaoMarcoPontoDeControleJTextArea">
+                          <Properties>
+                            <Property name="columns" type="int" value="20"/>
+                            <Property name="lineWrap" type="boolean" value="true"/>
+                            <Property name="rows" type="int" value="5"/>
+                            <Property name="wrapStyleWord" type="boolean" value="true"/>
+                          </Properties>
+                        </Component>
+                      </SubComponents>
+                    </Container>
+                    <Component class="javax.swing.JButton" name="criarAlterarMarcoOuPontoDeControleJButton">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="Pontos de Controle"/>
+                        <Property name="text" type="java.lang.String" value="Criar/Alterar Marco ou Ponto de Controle"/>
+                      </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="criarAlterarMarcoOuPontoDeControleJButtonActionPerformed"/>
+                      </Events>
+                    </Component>
+                    <Component class="javax.swing.JButton" name="excluirMarcoPontoDeControleJButton">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Excluir Marco ou Ponto de Controle"/>
+                      </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="excluirMarcoPontoDeControleJButtonActionPerformed"/>
+                      </Events>
+                    </Component>
+                    <Component class="javax.swing.JButton" name="limparCamposJButton">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Limpar Campos"/>
+                      </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="limparCamposJButtonActionPerformed"/>
+                      </Events>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="jLabel1">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Descri&#xe7;&#xe3;o do Marco/Ponto do Controle "/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JLabel" name="marcosDoProjetoJLabel">
+                    <Component class="javax.swing.JLabel" name="jLabel2">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="Marcos do Projeto"/>
+                        <Property name="text" type="java.lang.String" value="Marco/Ponto de Controle selecionado:"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="marcoPontoDeControleSelecionadoJLabel2">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Nenhum"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JLabel" name="nomeMarcosPontosDeControleJLabel">
@@ -314,6 +283,8 @@
                         <Property name="text" type="java.lang.String" value="Data:"/>
                       </Properties>
                     </Component>
+                    <Component class="net.sf.nachocalendar.components.DateField" name="dataMarcoPontoDeControleJDateChooser">
+                    </Component>
                     <Component class="javax.swing.JComboBox" name="MarcoPontoDeControleJComboBox">
                       <Properties>
                         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
@@ -324,117 +295,55 @@
                         </Property>
                       </Properties>
                     </Component>
-                    <Container class="javax.swing.JPanel" name="jPanel2">
+                  </SubComponents>
+                </Container>
+                <Container class="javax.swing.JPanel" name="jPanel2">
 
-                      <Layout>
-                        <DimensionLayout dim="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="1" attributes="0">
-                                  <EmptySpace pref="40" max="32767" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" alignment="1" attributes="0">
-                                          <Component id="limparCamposJButton" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="excluirMarcoPontoDeControleJButton" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="criarAlterarMarcoOuPontoDeControleJButton" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="103" alignment="1" groupAlignment="0" attributes="0">
-                                          <Component id="jScrollPane1" min="-2" pref="718" max="-2" attributes="0"/>
-                                          <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                                  <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
-                              </Group>
+                  <Layout>
+                    <DimensionLayout dim="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="tabelaMarcoEPontosDeControleJScrollPane" max="32767" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
-                        </DimensionLayout>
-                        <DimensionLayout dim="1">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jScrollPane1" min="-2" pref="147" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="excluirMarcoPontoDeControleJButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="criarAlterarMarcoOuPontoDeControleJButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="limparCamposJButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
+                      </Group>
+                    </DimensionLayout>
+                    <DimensionLayout dim="1">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="tabelaMarcoEPontosDeControleJScrollPane" pref="172" max="32767" attributes="0"/>
                           </Group>
-                        </DimensionLayout>
-                      </Layout>
-                      <SubComponents>
-                        <Component class="javax.swing.JLabel" name="jLabel1">
-                          <Properties>
-                            <Property name="text" type="java.lang.String" value="Descri&#xe7;&#xe3;o do Marco/Ponto do Controle "/>
-                          </Properties>
-                        </Component>
-                        <Container class="javax.swing.JScrollPane" name="jScrollPane1">
-                          <AuxValues>
-                            <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-                          </AuxValues>
-
-                          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-                          <SubComponents>
-                            <Component class="javax.swing.JTextArea" name="descricaoMarcoPontoDeControleJTextArea">
-                              <Properties>
-                                <Property name="columns" type="int" value="20"/>
-                                <Property name="lineWrap" type="boolean" value="true"/>
-                                <Property name="rows" type="int" value="5"/>
-                                <Property name="wrapStyleWord" type="boolean" value="true"/>
-                              </Properties>
-                            </Component>
-                          </SubComponents>
-                        </Container>
-                        <Component class="javax.swing.JButton" name="excluirMarcoPontoDeControleJButton">
-                          <Properties>
-                            <Property name="text" type="java.lang.String" value="Excluir Marco ou Ponto de Controle"/>
-                          </Properties>
-                          <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="excluirMarcoPontoDeControleJButtonActionPerformed"/>
-                          </Events>
-                        </Component>
-                        <Component class="javax.swing.JButton" name="criarAlterarMarcoOuPontoDeControleJButton">
-                          <Properties>
-                            <Property name="text" type="java.lang.String" value="Criar/Alterar Marco ou Ponto de Controle"/>
-                          </Properties>
-                          <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="criarAlterarMarcoOuPontoDeControleJButtonActionPerformed"/>
-                          </Events>
-                        </Component>
-                        <Component class="javax.swing.JButton" name="limparCamposJButton">
-                          <Properties>
-                            <Property name="text" type="java.lang.String" value="Limpar Campos"/>
-                          </Properties>
-                          <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="limparCamposJButtonActionPerformed"/>
-                          </Events>
-                        </Component>
-                      </SubComponents>
-                    </Container>
-                    <Container class="javax.swing.JScrollPane" name="tabelaPontoDeControleJScrollPane">
+                      </Group>
+                    </DimensionLayout>
+                  </Layout>
+                  <SubComponents>
+                    <Container class="javax.swing.JScrollPane" name="tabelaMarcoEPontosDeControleJScrollPane">
 
                       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                     </Container>
-                    <Container class="javax.swing.JScrollPane" name="tabelaMarcosDoProjetoJScrollPane">
-
-                      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-                    </Container>
-                    <Component class="javax.swing.JLabel" name="jLabel2">
+                    <Component class="javax.swing.JLabel" name="jLabel3">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="Marco/Ponto de Controle selecionado:"/>
+                        <Property name="text" type="java.lang.String" value="Marcos e Pontos de Controle do projeto:"/>
                       </Properties>
-                    </Component>
-                    <Component class="javax.swing.JLabel" name="marcoPontoDeControleSelecionadoJLabel2">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="Nenhum"/>
-                      </Properties>
-                    </Component>
-                    <Component class="net.sf.nachocalendar.components.DateField" name="dataMarcoPontoDeControleJDateChooser">
                     </Component>
                   </SubComponents>
                 </Container>
+                <Component class="net.sf.nachocalendar.tasks.TaskRenderer" name="taskRenderer1">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="taskRenderer1"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JButton" name="diaDetalhesJButton">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Detalhes do Dia"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="diaDetalhesJButtonActionPerformed"/>
+                  </Events>
+                </Component>
               </SubComponents>
             </Container>
           </SubComponents>

@@ -8,6 +8,7 @@ package controller;
 
 import controller.exceptions.NonexistentEntityException;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -18,6 +19,7 @@ import javax.persistence.Persistence;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import model.Planomitigacao;
+import model.Projeto;
 import model.Risco;
 
 /**
@@ -159,4 +161,27 @@ public class PlanomitigacaoJpaController implements Serializable {
         }
         return listaMitigacao;
     }
+    
+        
+    public List<Planomitigacao> getPlanoMitigacaoByStatusRiscoAndDataLimiteAndIdProjeto(String statusRisco, Date dataLimite, Projeto idProjeto){
+        List<Planomitigacao> listaPM = null;
+        EntityManager em = getEntityManager();
+        
+        try{
+            
+            listaPM = em.createNamedQuery("Planomitigacao.findPlanoMitigacaoEmAcao")
+                    .setParameter("statusRisco", statusRisco)
+                    .setParameter("dataLimite", dataLimite)
+                    .setParameter("idProjeto", idProjeto)
+                    .getResultList();
+            
+        } catch (Exception e){
+            System.out.println("erro no metodo findMarcodoprojetoByIdProjeto da classe MarcodoprojetoJpaController");
+            e.printStackTrace();
+        }
+        
+        
+        return listaPM;
+    }
+    
 }

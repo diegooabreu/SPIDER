@@ -30,6 +30,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "planomitigacao")
 @XmlRootElement
 @NamedQueries({
+    @NamedQuery(name = "Planomitigacao.findPlanoMitigacaoEmAcao", query = "SELECT p FROM Planomitigacao p WHERE p.idRisco.statusRisco = :statusRisco and p.dataLimite = :dataLimite and p.idRisco.contem.projeto = :idProjeto"),
     @NamedQuery(name = "Planomitigacao.findPlanoMitigacaoByIdRisco", query = "SELECT p FROM Planomitigacao p WHERE p.idRisco = :idRisco"),
     @NamedQuery(name = "Planomitigacao.findAll", query = "SELECT p FROM Planomitigacao p"),
     @NamedQuery(name = "Planomitigacao.findByIdPlanoMitigacao", query = "SELECT p FROM Planomitigacao p WHERE p.idPlanoMitigacao = :idPlanoMitigacao"),
@@ -180,5 +181,5 @@ public class Planomitigacao implements Serializable {
     public void setIdentificacaoPlanoMitigacao(String identificacaoPlanoMitigacao) {
         this.identificacaoPlanoMitigacao = identificacaoPlanoMitigacao;
     }
-    
+ 
 }

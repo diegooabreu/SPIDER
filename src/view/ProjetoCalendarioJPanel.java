@@ -12,9 +12,12 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import java.text.DateFormat;
+import java.util.Collection;
 
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -22,6 +25,7 @@ import model.Marcodoprojeto;
 import model.Pontodecontrole;
 import model.Projeto;
 import net.sf.nachocalendar.tasks.DefaultTask;
+import net.sf.nachocalendar.tasks.TaskDataModel;
 
 /**
  *
@@ -29,35 +33,116 @@ import net.sf.nachocalendar.tasks.DefaultTask;
  */
 public class ProjetoCalendarioJPanel extends javax.swing.JPanel {
 
+    
+    final CalendarioDetalhesDoDiaJFrame calendarioDetalhesDoDiaJFrame = new CalendarioDetalhesDoDiaJFrame();
+    
     ProjetoCalendarioFacade projetoCalendarioFacade = new ProjetoCalendarioFacade();
     
     
-    JTable tabelaPontoDeControle;
-    JTable tabelaMarcoDoProjeto;
-    DefaultTableModel modeloTabelaMarcoDoProjeto;
-    DefaultTableModel modeloTabelaPontoDeControle;
-
+    
+    JTable tabelaMarcosEPontosDeControle;
+    DefaultTableModel modeloTabelaMarcosEPontosDeControle;
+    
     
     List<Marcodoprojeto> listaMarcosDoProjeto;
     List<Pontodecontrole> listaPontosDeControle;
     
     Projeto projetoSelecionado;
-    Marcodoprojeto marcoSelecionado;
-    Pontodecontrole pontoDeControleSelecionado;
+    Marcodoprojeto marcoSelecionado = null;
+    Pontodecontrole pontoDeControleSelecionado = null;
     
     public ProjetoCalendarioJPanel() {
         initComponents();
-        datePanel1.setRenderer(taskRenderer1);
-        taskRenderer1.setVisible(false);
+        
+        calendarioDetalhesDoDiaJFrame.setVisible(false);
+
+        
+        criarTarefasCalendario();
         
         criarTabelasMarcoPontoDeControle();
         popularTabelaMarcoPontoDeControle();
-        definirEventosTabelaMarcosDoProjeto();
-        definirEventosTabelaPontosDeControle();
+        
+        
+        definirEventosTabelaMarcoEPontosDeControle();
+        
+        popularCalendario();
         
     }
-
     
+    public void criarTarefasCalendario(){
+        
+        
+        
+        datePanel1.setRenderer(taskRenderer1);
+        taskRenderer1.setVisible(false);
+        
+       
+    }
+    
+    
+    
+    public void definirEventosCalendario(){
+        
+        datePanel1.addMouseListener(new MouseAdapter() {
+           
+            @Override
+            public void mousePressed(MouseEvent j) {
+                if(j.getClickCount() == 1){
+                    
+                    Date dataSelecionada = datePanel1.getDate();
+                    
+                    Collection tarefas = taskDataModel1.getTasks(dataSelecionada);
+                    
+                    System.out.println("Tarefas: " + tarefas);
+                    
+                }
+            } 
+        });
+        
+       
+        
+       
+        
+        
+    }
+    
+    public void popularCalendario(){
+        
+        //taskDataModel1.clear();
+        
+        taskDataModel1 = new net.sf.nachocalendar.tasks.TaskDataModel();
+        
+        datePanel1.setModel(taskDataModel1);
+        
+        datePanel1.refresh();
+        
+        if(listaMarcosDoProjeto != null){
+        for(int i=0; i < listaMarcosDoProjeto.size(); i++){
+            
+            DefaultTask tarefa = new DefaultTask();
+            tarefa.setDate(listaMarcosDoProjeto.get(i).getDataMarcoProjeto());
+            tarefa.setName(listaMarcosDoProjeto.get(i).getNomeMarcoDoProjeto());
+            taskDataModel1.addTask(tarefa);
+            datePanel1.refresh();
+            
+            }
+        }
+        
+        if(listaPontosDeControle != null){
+        for(int i=0; i < listaPontosDeControle.size(); i++){
+            
+            DefaultTask tarefa = new DefaultTask();
+            tarefa.setDate(listaPontosDeControle.get(i).getDataPontoControle());
+            tarefa.setName(listaPontosDeControle.get(i).getNomePontoDeControle());
+            taskDataModel1.addTask(tarefa);
+            datePanel1.refresh();
+            
+            }
+        }
+        
+        definirEventosCalendario();
+        
+    }
     
     public void getProjetoSelecionado(Projeto projetoSelecionado){
         this.projetoSelecionado = projetoSelecionado;
@@ -65,20 +150,16 @@ public class ProjetoCalendarioJPanel extends javax.swing.JPanel {
     
     public void criarTabelasMarcoPontoDeControle(){
         
-        tabelaMarcoDoProjeto = new JTable();
-        tabelaPontoDeControle = new JTable();
         
-        modeloTabelaMarcoDoProjeto = new DefaultTableModel();
-        modeloTabelaPontoDeControle = new DefaultTableModel();
+        tabelaMarcosEPontosDeControle = new JTable();
+        modeloTabelaMarcosEPontosDeControle = new DefaultTableModel();
         
-        modeloTabelaMarcoDoProjeto.setColumnIdentifiers(new Object[]{"Marco do Projeto" , "Data"});
-        modeloTabelaPontoDeControle.setColumnIdentifiers(new Object[]{"Ponto de Controle" , "Data"});
+        modeloTabelaMarcosEPontosDeControle.setColumnIdentifiers(new Object[]{"Tipo" , "Nome" , "Data"});
         
-        tabelaMarcoDoProjeto.setModel(modeloTabelaMarcoDoProjeto);
-        tabelaPontoDeControle.setModel(modeloTabelaPontoDeControle);
+        tabelaMarcosEPontosDeControle.setModel(modeloTabelaMarcosEPontosDeControle);
         
-        tabelaMarcosDoProjetoJScrollPane.setViewportView(tabelaMarcoDoProjeto);
-        tabelaPontoDeControleJScrollPane.setViewportView(tabelaPontoDeControle);
+        tabelaMarcoEPontosDeControleJScrollPane.setViewportView(tabelaMarcosEPontosDeControle);
+        
         
     }
     
@@ -94,7 +175,8 @@ public class ProjetoCalendarioJPanel extends javax.swing.JPanel {
         
         getListaMarcosPontosDeControle();
         
-        // Popular tabela Pontos de Controle
+        
+        // populando os pontos de controle
         if (listaPontosDeControle == null){
             System.out.println("Lista de Pontos de Controle nula, não existem pontos de controle.");
         } else {
@@ -103,13 +185,12 @@ public class ProjetoCalendarioJPanel extends javax.swing.JPanel {
                 DateFormat df = DateFormat.getDateInstance(DateFormat.MEDIUM);
                 Date data = listaPontosDeControle.get(i).getDataPontoControle();
                
-                Object[] linha = new Object[]{listaPontosDeControle.get(i).getNomePontoDeControle() , df.format(data) };
-                modeloTabelaPontoDeControle.addRow(linha);
+                Object[] linha = new Object[]{ "Ponto de Controle", listaPontosDeControle.get(i).getNomePontoDeControle() , df.format(data) };
+                modeloTabelaMarcosEPontosDeControle.addRow(linha);
             }
         }
         
-        
-        // Popular tabela Marcos do Projeto
+        // populando os marcos do projeto
         if (listaMarcosDoProjeto == null){
             System.out.println("Lista de Marcos do Projeto nula, não existem marcos no projeto.");
         } else {
@@ -120,32 +201,36 @@ public class ProjetoCalendarioJPanel extends javax.swing.JPanel {
                
                             
                
-               Object[] linha = new Object[]{listaMarcosDoProjeto.get(i).getNomeMarcoDoProjeto() , df.format(data)};
-               modeloTabelaMarcoDoProjeto.addRow(linha);
+               Object[] linha = new Object[]{"Marco" , listaMarcosDoProjeto.get(i).getNomeMarcoDoProjeto() , df.format(data)};
+               modeloTabelaMarcosEPontosDeControle.addRow(linha);
                
             } 
         }
         
-        definirEventosTabelaMarcosDoProjeto();
-        definirEventosTabelaPontosDeControle();
+        
+        
+        definirEventosTabelaMarcoEPontosDeControle();
+        
+        popularCalendario();
         
     }
     
-    public void definirEventosTabelaMarcosDoProjeto(){
-        tabelaMarcoDoProjeto.addMouseListener(new MouseAdapter() {
+    public void definirEventosTabelaMarcoEPontosDeControle(){
+        tabelaMarcosEPontosDeControle.addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent e) {
                 if (e.getClickCount() == 1) {
 
                     
                     
-                    int selected = tabelaMarcoDoProjeto.getSelectedRow();
+                    int selected = tabelaMarcosEPontosDeControle.getSelectedRow();
 
-                    tabelaPontoDeControle.clearSelection();
-                    pontoDeControleSelecionado = null;
+                    //tabelaPontoDeControle.clearSelection();
+                    //pontoDeControleSelecionado = null;
 
+                    if(modeloTabelaMarcosEPontosDeControle.getValueAt(selected, 0).equals("Marco")){
                     for (int i = 0; i < listaMarcosDoProjeto.size(); i++) {
                         
-                        if (tabelaMarcoDoProjeto.getValueAt(tabelaMarcoDoProjeto.getSelectedRow(), 0).equals(listaMarcosDoProjeto.get(i).getNomeMarcoDoProjeto())){
+                        if (modeloTabelaMarcosEPontosDeControle.getValueAt(selected, 1).equals(listaMarcosDoProjeto.get(i).getNomeMarcoDoProjeto())){
                                 marcoSelecionado = listaMarcosDoProjeto.get(i);
                                 pontoDeControleSelecionado = null;
                                 marcoPontoDeControleSelecionadoJLabel2.setText(listaMarcosDoProjeto.get(i).getNomeMarcoDoProjeto());
@@ -153,30 +238,16 @@ public class ProjetoCalendarioJPanel extends javax.swing.JPanel {
                                 dataMarcoPontoDeControleJDateChooser.setValue(listaMarcosDoProjeto.get(i).getDataMarcoProjeto());
                                 descricaoMarcoPontoDeControleJTextArea.setText(listaMarcosDoProjeto.get(i).getDescricaoMarcoProjeto());
                                 MarcoPontoDeControleJComboBox.setSelectedItem("Marco do Projeto");
+                                
+                                }
+
                         }
-
                     }
-
-                }
-            }
-        });
-    }
-    
-    public void definirEventosTabelaPontosDeControle(){
-        tabelaPontoDeControle.addMouseListener(new MouseAdapter() {
-            public void mousePressed(MouseEvent e) {
-                if (e.getClickCount() == 1) {
-
                     
-                    
-                    int selected = tabelaPontoDeControle.getSelectedRow();
-
-                    tabelaMarcoDoProjeto.clearSelection();
-                    marcoSelecionado = null;
-
+                    if(modeloTabelaMarcosEPontosDeControle.getValueAt(selected, 0).equals("Ponto de Controle")){
                     for (int i = 0; i < listaPontosDeControle.size(); i++) {
                         
-                        if (tabelaPontoDeControle.getValueAt(tabelaPontoDeControle.getSelectedRow(), 0).equals(listaPontosDeControle.get(i).getNomePontoDeControle())){
+                        if (tabelaMarcosEPontosDeControle.getValueAt(selected, 1).equals(listaPontosDeControle.get(i).getNomePontoDeControle())){
                                 pontoDeControleSelecionado = listaPontosDeControle.get(i);
                                 marcoSelecionado = null;
                                 marcoPontoDeControleSelecionadoJLabel2.setText(listaPontosDeControle.get(i).getNomePontoDeControle());
@@ -184,15 +255,19 @@ public class ProjetoCalendarioJPanel extends javax.swing.JPanel {
                                 dataMarcoPontoDeControleJDateChooser.setValue(listaPontosDeControle.get(i).getDataPontoControle());
                                 descricaoMarcoPontoDeControleJTextArea.setText(listaPontosDeControle.get(i).getDescricaoPontoControle());
                                 MarcoPontoDeControleJComboBox.setSelectedItem("Ponto de Controle");
+                            }
+
                         }
-
                     }
-
+                    
+                    
                 }
             }
         });
     }
     
+
+   
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -205,45 +280,33 @@ public class ProjetoCalendarioJPanel extends javax.swing.JPanel {
 
         taskDataModel1 = new net.sf.nachocalendar.tasks.TaskDataModel();
         projetoCalendarioGeralJPanel = new javax.swing.JPanel();
-        ProjetoCalendarioJTabbedPane = new javax.swing.JTabbedPane();
-        calendarioJScrollPane = new javax.swing.JScrollPane();
-        CalendarioGeralJPanel = new javax.swing.JPanel();
-        legendaJLabel = new javax.swing.JLabel();
-        datePanel1 = new net.sf.nachocalendar.components.DatePanel();
-        taskRenderer1 = new net.sf.nachocalendar.tasks.TaskRenderer();
+        jScrollPane2 = new javax.swing.JScrollPane();
         jPanel1 = new javax.swing.JPanel();
-        marcoPControleJLabel = new javax.swing.JLabel();
-        marcoPControleJTextField = new javax.swing.JTextField();
-        dateField1 = new net.sf.nachocalendar.components.DateField();
-        jButton3 = new javax.swing.JButton();
-        marcosPontosDeControleJScrollPane2 = new javax.swing.JScrollPane();
-        marcosPontosDeProjetoGeralJPanel = new javax.swing.JPanel();
-        pontosDeControleJLabel = new javax.swing.JLabel();
-        marcosDoProjetoJLabel = new javax.swing.JLabel();
+        datePanel1 = new net.sf.nachocalendar.components.DatePanel();
+        novoMarcoPontoJPanel = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        descricaoMarcoPontoDeControleJTextArea = new javax.swing.JTextArea();
+        criarAlterarMarcoOuPontoDeControleJButton = new javax.swing.JButton();
+        excluirMarcoPontoDeControleJButton = new javax.swing.JButton();
+        limparCamposJButton = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        marcoPontoDeControleSelecionadoJLabel2 = new javax.swing.JLabel();
         nomeMarcosPontosDeControleJLabel = new javax.swing.JLabel();
         nomeMarcosPontosDeControleJTextField = new javax.swing.JTextField();
         dataMarcosPontosDeControleJLabel = new javax.swing.JLabel();
+        dataMarcoPontoDeControleJDateChooser = new net.sf.nachocalendar.components.DateField();
         MarcoPontoDeControleJComboBox = new javax.swing.JComboBox();
         jPanel2 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        descricaoMarcoPontoDeControleJTextArea = new javax.swing.JTextArea();
-        excluirMarcoPontoDeControleJButton = new javax.swing.JButton();
-        criarAlterarMarcoOuPontoDeControleJButton = new javax.swing.JButton();
-        limparCamposJButton = new javax.swing.JButton();
-        tabelaPontoDeControleJScrollPane = new javax.swing.JScrollPane();
-        tabelaMarcosDoProjetoJScrollPane = new javax.swing.JScrollPane();
-        jLabel2 = new javax.swing.JLabel();
-        marcoPontoDeControleSelecionadoJLabel2 = new javax.swing.JLabel();
-        dataMarcoPontoDeControleJDateChooser = new net.sf.nachocalendar.components.DateField();
+        tabelaMarcoEPontosDeControleJScrollPane = new javax.swing.JScrollPane();
+        jLabel3 = new javax.swing.JLabel();
+        taskRenderer1 = new net.sf.nachocalendar.tasks.TaskRenderer();
+        diaDetalhesJButton = new javax.swing.JButton();
 
-        calendarioJScrollPane.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
-        calendarioJScrollPane.setHorizontalScrollBar(null);
+        jScrollPane2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
-        legendaJLabel.setText("Legenda:");
-
+        datePanel1.setAntiAliased(true);
         datePanel1.setModel(taskDataModel1);
-        datePanel1.setRenderer(taskRenderer1);
         datePanel1.setShowToday(true);
         datePanel1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -251,89 +314,38 @@ public class ProjetoCalendarioJPanel extends javax.swing.JPanel {
             }
         });
 
-        taskRenderer1.setText("taskRenderer1");
+        descricaoMarcoPontoDeControleJTextArea.setColumns(20);
+        descricaoMarcoPontoDeControleJTextArea.setLineWrap(true);
+        descricaoMarcoPontoDeControleJTextArea.setRows(5);
+        descricaoMarcoPontoDeControleJTextArea.setWrapStyleWord(true);
+        jScrollPane1.setViewportView(descricaoMarcoPontoDeControleJTextArea);
 
-        marcoPControleJLabel.setText("Marco/Ponto de Controle");
-
-        marcoPControleJTextField.addActionListener(new java.awt.event.ActionListener() {
+        criarAlterarMarcoOuPontoDeControleJButton.setText("Criar/Alterar Marco ou Ponto de Controle");
+        criarAlterarMarcoOuPontoDeControleJButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                marcoPControleJTextFieldActionPerformed(evt);
+                criarAlterarMarcoOuPontoDeControleJButtonActionPerformed(evt);
             }
         });
 
-        jButton3.setText("Salvar Marco/Ponto de Controle");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        excluirMarcoPontoDeControleJButton.setText("Excluir Marco ou Ponto de Controle");
+        excluirMarcoPontoDeControleJButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                excluirMarcoPontoDeControleJButtonActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(marcoPControleJLabel)
-                    .addComponent(marcoPControleJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(dateField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 11, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton3)
-                .addGap(39, 39, 39))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(marcoPControleJLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(marcoPControleJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(dateField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton3)
-                .addGap(0, 50, Short.MAX_VALUE))
-        );
+        limparCamposJButton.setText("Limpar Campos");
+        limparCamposJButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                limparCamposJButtonActionPerformed(evt);
+            }
+        });
 
-        javax.swing.GroupLayout CalendarioGeralJPanelLayout = new javax.swing.GroupLayout(CalendarioGeralJPanel);
-        CalendarioGeralJPanel.setLayout(CalendarioGeralJPanelLayout);
-        CalendarioGeralJPanelLayout.setHorizontalGroup(
-            CalendarioGeralJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(CalendarioGeralJPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(CalendarioGeralJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(legendaJLabel)
-                    .addGroup(CalendarioGeralJPanelLayout.createSequentialGroup()
-                        .addComponent(datePanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 561, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addGroup(CalendarioGeralJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(taskRenderer1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(856, Short.MAX_VALUE))
-        );
-        CalendarioGeralJPanelLayout.setVerticalGroup(
-            CalendarioGeralJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(CalendarioGeralJPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(CalendarioGeralJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(datePanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(taskRenderer1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(67, 67, 67)
-                .addComponent(legendaJLabel)
-                .addContainerGap(216, Short.MAX_VALUE))
-        );
+        jLabel1.setText("Descrição do Marco/Ponto do Controle ");
 
-        calendarioJScrollPane.setViewportView(CalendarioGeralJPanel);
+        jLabel2.setText("Marco/Ponto de Controle selecionado:");
 
-        ProjetoCalendarioJTabbedPane.addTab("Calendário", calendarioJScrollPane);
-
-        marcosPontosDeControleJScrollPane2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-
-        pontosDeControleJLabel.setText("Pontos de Controle");
-
-        marcosDoProjetoJLabel.setText("Marcos do Projeto");
+        marcoPontoDeControleSelecionadoJLabel2.setText("Nenhum");
 
         nomeMarcosPontosDeControleJLabel.setText("Nome:");
 
@@ -347,173 +359,169 @@ public class ProjetoCalendarioJPanel extends javax.swing.JPanel {
 
         MarcoPontoDeControleJComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Marco do Projeto", "Ponto de Controle" }));
 
-        jLabel1.setText("Descrição do Marco/Ponto do Controle ");
-
-        descricaoMarcoPontoDeControleJTextArea.setColumns(20);
-        descricaoMarcoPontoDeControleJTextArea.setLineWrap(true);
-        descricaoMarcoPontoDeControleJTextArea.setRows(5);
-        descricaoMarcoPontoDeControleJTextArea.setWrapStyleWord(true);
-        jScrollPane1.setViewportView(descricaoMarcoPontoDeControleJTextArea);
-
-        excluirMarcoPontoDeControleJButton.setText("Excluir Marco ou Ponto de Controle");
-        excluirMarcoPontoDeControleJButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                excluirMarcoPontoDeControleJButtonActionPerformed(evt);
-            }
-        });
-
-        criarAlterarMarcoOuPontoDeControleJButton.setText("Criar/Alterar Marco ou Ponto de Controle");
-        criarAlterarMarcoOuPontoDeControleJButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                criarAlterarMarcoOuPontoDeControleJButtonActionPerformed(evt);
-            }
-        });
-
-        limparCamposJButton.setText("Limpar Campos");
-        limparCamposJButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                limparCamposJButtonActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(40, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(limparCamposJButton)
+        javax.swing.GroupLayout novoMarcoPontoJPanelLayout = new javax.swing.GroupLayout(novoMarcoPontoJPanel);
+        novoMarcoPontoJPanel.setLayout(novoMarcoPontoJPanelLayout);
+        novoMarcoPontoJPanelLayout.setHorizontalGroup(
+            novoMarcoPontoJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(novoMarcoPontoJPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(novoMarcoPontoJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addGroup(novoMarcoPontoJPanelLayout.createSequentialGroup()
+                        .addGroup(novoMarcoPontoJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(nomeMarcosPontosDeControleJLabel)
+                            .addComponent(dataMarcosPontosDeControleJLabel))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(novoMarcoPontoJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(novoMarcoPontoJPanelLayout.createSequentialGroup()
+                                .addComponent(dataMarcoPontoDeControleJDateChooser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(MarcoPontoDeControleJComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(nomeMarcosPontosDeControleJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(novoMarcoPontoJPanelLayout.createSequentialGroup()
+                        .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(excluirMarcoPontoDeControleJButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(criarAlterarMarcoOuPontoDeControleJButton))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 718, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel1)))
-                .addGap(36, 36, 36))
+                        .addComponent(marcoPontoDeControleSelecionadoJLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(novoMarcoPontoJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(novoMarcoPontoJPanelLayout.createSequentialGroup()
+                            .addComponent(limparCamposJButton)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(excluirMarcoPontoDeControleJButton)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(criarAlterarMarcoOuPontoDeControleJButton))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 770, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        novoMarcoPontoJPanelLayout.setVerticalGroup(
+            novoMarcoPontoJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, novoMarcoPontoJPanelLayout.createSequentialGroup()
+                .addGap(0, 13, Short.MAX_VALUE)
+                .addGroup(novoMarcoPontoJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(marcoPontoDeControleSelecionadoJLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(novoMarcoPontoJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(nomeMarcosPontosDeControleJLabel)
+                    .addComponent(nomeMarcosPontosDeControleJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(novoMarcoPontoJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(novoMarcoPontoJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(dataMarcosPontosDeControleJLabel)
+                        .addComponent(MarcoPontoDeControleJComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(dataMarcoPontoDeControleJDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(novoMarcoPontoJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(excluirMarcoPontoDeControleJButton)
                     .addComponent(criarAlterarMarcoOuPontoDeControleJButton)
                     .addComponent(limparCamposJButton)))
         );
 
-        jLabel2.setText("Marco/Ponto de Controle selecionado:");
+        jLabel3.setText("Marcos e Pontos de Controle do projeto:");
 
-        marcoPontoDeControleSelecionadoJLabel2.setText("Nenhum");
-
-        javax.swing.GroupLayout marcosPontosDeProjetoGeralJPanelLayout = new javax.swing.GroupLayout(marcosPontosDeProjetoGeralJPanel);
-        marcosPontosDeProjetoGeralJPanel.setLayout(marcosPontosDeProjetoGeralJPanelLayout);
-        marcosPontosDeProjetoGeralJPanelLayout.setHorizontalGroup(
-            marcosPontosDeProjetoGeralJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(marcosPontosDeProjetoGeralJPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(marcosPontosDeProjetoGeralJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(marcosPontosDeProjetoGeralJPanelLayout.createSequentialGroup()
-                        .addGroup(marcosPontosDeProjetoGeralJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(nomeMarcosPontosDeControleJLabel)
-                            .addComponent(dataMarcosPontosDeControleJLabel))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(marcosPontosDeProjetoGeralJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(marcosPontosDeProjetoGeralJPanelLayout.createSequentialGroup()
-                                .addComponent(dataMarcoPontoDeControleJDateChooser, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(MarcoPontoDeControleJComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(nomeMarcosPontosDeControleJTextField)))
-                    .addGroup(marcosPontosDeProjetoGeralJPanelLayout.createSequentialGroup()
-                        .addGroup(marcosPontosDeProjetoGeralJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(pontosDeControleJLabel)
-                            .addComponent(tabelaPontoDeControleJScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(54, 54, 54)
-                        .addGroup(marcosPontosDeProjetoGeralJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(marcosDoProjetoJLabel)
-                            .addComponent(tabelaMarcosDoProjetoJScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(marcosPontosDeProjetoGeralJPanelLayout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(marcoPontoDeControleSelecionadoJLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(50, Short.MAX_VALUE))
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(tabelaMarcoEPontosDeControleJScrollPane)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(jLabel3)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
-        marcosPontosDeProjetoGeralJPanelLayout.setVerticalGroup(
-            marcosPontosDeProjetoGeralJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(marcosPontosDeProjetoGeralJPanelLayout.createSequentialGroup()
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tabelaMarcoEPontosDeControleJScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE))
+        );
+
+        taskRenderer1.setText("taskRenderer1");
+
+        diaDetalhesJButton.setText("Detalhes do Dia");
+        diaDetalhesJButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                diaDetalhesJButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(diaDetalhesJButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(datePanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addGap(0, 50, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(marcosPontosDeProjetoGeralJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(pontosDeControleJLabel)
-                    .addComponent(marcosDoProjetoJLabel))
+                .addComponent(novoMarcoPontoJPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGap(430, 430, 430)
+                    .addComponent(taskRenderer1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(359, Short.MAX_VALUE)))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(datePanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(marcosPontosDeProjetoGeralJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(tabelaMarcosDoProjetoJScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 281, Short.MAX_VALUE)
-                    .addComponent(tabelaPontoDeControleJScrollPane))
-                .addGap(25, 25, 25)
-                .addGroup(marcosPontosDeProjetoGeralJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(marcoPontoDeControleSelecionadoJLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(marcosPontosDeProjetoGeralJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(nomeMarcosPontosDeControleJLabel)
-                    .addComponent(nomeMarcosPontosDeControleJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(marcosPontosDeProjetoGeralJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(marcosPontosDeProjetoGeralJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(dataMarcosPontosDeControleJLabel)
-                        .addComponent(MarcoPontoDeControleJComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(dataMarcoPontoDeControleJDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+                .addComponent(diaDetalhesJButton)
+                .addGap(18, 18, 18)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(novoMarcoPontoJPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(23, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGap(473, 473, 473)
+                    .addComponent(taskRenderer1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(431, Short.MAX_VALUE)))
         );
 
-        marcosPontosDeControleJScrollPane2.setViewportView(marcosPontosDeProjetoGeralJPanel);
-
-        ProjetoCalendarioJTabbedPane.addTab("Marcos e Pontos de Controle", marcosPontosDeControleJScrollPane2);
+        jScrollPane2.setViewportView(jPanel1);
 
         javax.swing.GroupLayout projetoCalendarioGeralJPanelLayout = new javax.swing.GroupLayout(projetoCalendarioGeralJPanel);
         projetoCalendarioGeralJPanel.setLayout(projetoCalendarioGeralJPanelLayout);
         projetoCalendarioGeralJPanelLayout.setHorizontalGroup(
             projetoCalendarioGeralJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(ProjetoCalendarioJTabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 878, Short.MAX_VALUE)
+            .addGroup(projetoCalendarioGeralJPanelLayout.createSequentialGroup()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         projetoCalendarioGeralJPanelLayout.setVerticalGroup(
             projetoCalendarioGeralJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(ProjetoCalendarioJTabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 508, Short.MAX_VALUE)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 510, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(projetoCalendarioGeralJPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(projetoCalendarioGeralJPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 860, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 10, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(projetoCalendarioGeralJPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(projetoCalendarioGeralJPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void marcoPControleJTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_marcoPControleJTextFieldActionPerformed
-      
-    }//GEN-LAST:event_marcoPControleJTextFieldActionPerformed
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        DefaultTask tarefa = new DefaultTask();
-        tarefa.setDate((Date) dateField1.getValue());
-        tarefa.setName(marcoPControleJTextField.getText());
-        
-        taskDataModel1.addTask(tarefa);
-        
-        datePanel1.refresh();
-    }//GEN-LAST:event_jButton3ActionPerformed
 
     private void excluirMarcoPontoDeControleJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excluirMarcoPontoDeControleJButtonActionPerformed
 
@@ -529,8 +537,8 @@ public class ProjetoCalendarioJPanel extends javax.swing.JPanel {
                 
                 criarTabelasMarcoPontoDeControle();
                 popularTabelaMarcoPontoDeControle();
-                definirEventosTabelaMarcosDoProjeto();
-                definirEventosTabelaPontosDeControle();
+                
+                definirEventosTabelaMarcoEPontosDeControle();
                 
             }
             
@@ -547,8 +555,9 @@ public class ProjetoCalendarioJPanel extends javax.swing.JPanel {
             
                 criarTabelasMarcoPontoDeControle();
                 popularTabelaMarcoPontoDeControle();
-                definirEventosTabelaMarcosDoProjeto();
-                definirEventosTabelaPontosDeControle();
+                
+                
+                definirEventosTabelaMarcoEPontosDeControle();               
                 
             }
             
@@ -597,6 +606,13 @@ public class ProjetoCalendarioJPanel extends javax.swing.JPanel {
             
             projetoCalendarioFacade.criarMarcoDoProjeto(marcoDoProjeto);
             
+            DefaultTask tarefa = new DefaultTask();
+            tarefa.setDate(marcoDoProjeto.getDataMarcoProjeto());
+            tarefa.setName(marcoDoProjeto.getNomeMarcoDoProjeto());
+            taskDataModel1.addTask(tarefa);
+            datePanel1.refresh();
+            
+            
             JOptionPane.showMessageDialog(this, "Marco do Projeto criado com sucesso.");
             
           //  }
@@ -614,6 +630,12 @@ public class ProjetoCalendarioJPanel extends javax.swing.JPanel {
             
             projetoCalendarioFacade.criarPontoDeControle(pontoDeControle);
             
+            DefaultTask tarefa = new DefaultTask();
+            tarefa.setDate(pontoDeControle.getDataPontoControle());
+            tarefa.setName(pontoDeControle.getNomePontoDeControle());
+            taskDataModel1.addTask(tarefa);
+            datePanel1.refresh();
+            
             JOptionPane.showMessageDialog(this, "Ponto de Controle criado com sucesso.");
             
             
@@ -621,8 +643,11 @@ public class ProjetoCalendarioJPanel extends javax.swing.JPanel {
         
         criarTabelasMarcoPontoDeControle();
         popularTabelaMarcoPontoDeControle();
-        definirEventosTabelaMarcosDoProjeto();
-        definirEventosTabelaPontosDeControle();
+        //definirEventosTabelaMarcosDoProjeto();
+        //definirEventosTabelaPontosDeControle();
+        
+        definirEventosTabelaMarcoEPontosDeControle();
+        
         }
         
         //ALTERAR - Se nao tem marco selecionado entao tem ponto de controle selecionado
@@ -657,8 +682,8 @@ public class ProjetoCalendarioJPanel extends javax.swing.JPanel {
         marcoSelecionado = null;
         pontoDeControleSelecionado = null;
                
-        tabelaMarcoDoProjeto.clearSelection();
-        tabelaPontoDeControle.clearSelection();
+        //tabelaMarcoDoProjeto.clearSelection();
+        //tabelaPontoDeControle.clearSelection();
         
         marcoPontoDeControleSelecionadoJLabel2.setText("Nenhum");
         
@@ -674,39 +699,88 @@ public class ProjetoCalendarioJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_datePanel1ActionPerformed
 
+    private void diaDetalhesJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_diaDetalhesJButtonActionPerformed
+        Date dataLimite = null;
+        Marcodoprojeto diaSelecionadoMarco = null;
+        Pontodecontrole diaSelecionadoPonto = null;
+        
+        Collection listaTarefas = taskDataModel1.getTasks(datePanel1.getDate());
+
+        
+        if (listaTarefas != null ){
+ 
+            for(Iterator it = listaTarefas.iterator(); it.hasNext(); )  {       
+                DefaultTask tarefa = (DefaultTask) it.next();
+                
+                String nomeTarefa = tarefa.toString();          
+                System.out.println(nomeTarefa); 
+                
+                if(diaSelecionadoPonto == null){
+                    for(int i = 0; i < listaPontosDeControle.size(); i++){
+                    if(nomeTarefa.equals(listaPontosDeControle.get(i).getNomePontoDeControle())){
+                        diaSelecionadoPonto = listaPontosDeControle.get(i);
+                        dataLimite = listaPontosDeControle.get(i).getDataPontoControle();
+                    }
+                }
+                }
+                
+                if(diaSelecionadoMarco == null){
+                   for(int i = 0; i < listaMarcosDoProjeto.size(); i++){
+                   if(nomeTarefa.equals(listaMarcosDoProjeto.get(i).getNomeMarcoDoProjeto())){
+                        diaSelecionadoMarco = listaMarcosDoProjeto.get(i);
+                        dataLimite = listaMarcosDoProjeto.get(i).getDataMarcoProjeto();
+                    }
+                } 
+                }
+                
+                
+            
+        }
+        
+            
+            
+        calendarioDetalhesDoDiaJFrame.limarTela();
+        calendarioDetalhesDoDiaJFrame.criarListaDeTarefas();
+        calendarioDetalhesDoDiaJFrame.mostraInformacoesPontoDeControle(diaSelecionadoPonto);
+        calendarioDetalhesDoDiaJFrame.mostraInformacoesMarcoDoProjeto(diaSelecionadoMarco);
+        calendarioDetalhesDoDiaJFrame.popularListaDeTarefas(projetoSelecionado, dataLimite);
+        
+        calendarioDetalhesDoDiaJFrame.setVisible(true);
+        calendarioDetalhesDoDiaJFrame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+
+
+        
+        } else {
+            JOptionPane.showMessageDialog(this, "Nenhum ponto de controle ou marco do projeto para este dia.");
+        }
+        
+        
+    }//GEN-LAST:event_diaDetalhesJButtonActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel CalendarioGeralJPanel;
     private javax.swing.JComboBox MarcoPontoDeControleJComboBox;
-    private javax.swing.JTabbedPane ProjetoCalendarioJTabbedPane;
-    private javax.swing.JScrollPane calendarioJScrollPane;
     private javax.swing.JButton criarAlterarMarcoOuPontoDeControleJButton;
     private net.sf.nachocalendar.components.DateField dataMarcoPontoDeControleJDateChooser;
     private javax.swing.JLabel dataMarcosPontosDeControleJLabel;
-    private net.sf.nachocalendar.components.DateField dateField1;
     private net.sf.nachocalendar.components.DatePanel datePanel1;
     private javax.swing.JTextArea descricaoMarcoPontoDeControleJTextArea;
+    private javax.swing.JButton diaDetalhesJButton;
     private javax.swing.JButton excluirMarcoPontoDeControleJButton;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel legendaJLabel;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JButton limparCamposJButton;
-    private javax.swing.JLabel marcoPControleJLabel;
-    private javax.swing.JTextField marcoPControleJTextField;
     private javax.swing.JLabel marcoPontoDeControleSelecionadoJLabel2;
-    private javax.swing.JLabel marcosDoProjetoJLabel;
-    private javax.swing.JScrollPane marcosPontosDeControleJScrollPane2;
-    private javax.swing.JPanel marcosPontosDeProjetoGeralJPanel;
     private javax.swing.JLabel nomeMarcosPontosDeControleJLabel;
     private javax.swing.JTextField nomeMarcosPontosDeControleJTextField;
-    private javax.swing.JLabel pontosDeControleJLabel;
+    private javax.swing.JPanel novoMarcoPontoJPanel;
     private javax.swing.JPanel projetoCalendarioGeralJPanel;
-    private javax.swing.JScrollPane tabelaMarcosDoProjetoJScrollPane;
-    private javax.swing.JScrollPane tabelaPontoDeControleJScrollPane;
+    private javax.swing.JScrollPane tabelaMarcoEPontosDeControleJScrollPane;
     private net.sf.nachocalendar.tasks.TaskDataModel taskDataModel1;
     private net.sf.nachocalendar.tasks.TaskRenderer taskRenderer1;
     // End of variables declaration//GEN-END:variables

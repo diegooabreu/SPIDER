@@ -39,6 +39,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "risco")
 @XmlRootElement
 @NamedQueries({
+    @NamedQuery(name = "Risco.findByStatusRiscoAndIdProjeto", query = "SELECT r FROM Risco r WHERE r.statusRisco = :statusRisco and r.contem.projeto.idProjeto = :idProjeto"),
     @NamedQuery(name = "Risco.findAll", query = "SELECT r FROM Risco r"),
     @NamedQuery(name = "Risco.findByIdRisco", query = "SELECT r FROM Risco r WHERE r.idRisco = :idRisco"),
     @NamedQuery(name = "Risco.findByDataIdentificacao", query = "SELECT r FROM Risco r WHERE r.dataIdentificacao = :dataIdentificacao"),

@@ -87,6 +87,8 @@ public class PrincipalJFrame extends javax.swing.JFrame {
         criarArvore();
         definirEventosArvore();
         
+        
+        
     }
     
     
@@ -296,6 +298,7 @@ public class PrincipalJFrame extends javax.swing.JFrame {
                 projetoCalendarioJPanel.getProjetoSelecionado(projetoSelecionado);
                 projetoCalendarioJPanel.criarTabelasMarcoPontoDeControle();
                 projetoCalendarioJPanel.popularTabelaMarcoPontoDeControle();
+                
                 
                 if (listaProjetos.get(j).getConcluido()){
                     desabilitarProjetoConcluido();
