@@ -12,6 +12,7 @@ import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -218,8 +219,17 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
                     preencheComboBox();
 
                     //Preenche lista de riscos que influencia
-                    preencheListaRiscosInfluencia();
+                    if (riscosNaoAdd.size() > 0) {
+                        riscosNaoAdd = null;
+                        riscosNaoAdd = riscosGerenciarRiscosFacade.listarRiscos();
+                        riscosNaoAdd.clear();
+                    }
+                    modelListaRiscosApresentados.clear();
+                    modelListaRiscosInfluencia.clear();
+                    modelListaRiscosInfluenciados.clear();
+                    atualizaPreencheListaRiscosInfluencia();
                     preencheListaRiscosInfluenciados();
+                    atualizaPreencheListaRiscosApresentados();
 
                     //Preenche tabela de subcondições do risco selecionado
                     getListaSubcondicoes(riscoSelecionado);
@@ -519,22 +529,63 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
     // *******Para a Lista de riscos que influencia
     //Criando model da lista de riscos que influencia
     private DefaultListModel modelListaRiscosInfluencia = new DefaultListModel();
+    //Define o risco selecionado em JList de influencia
+    private Risco riscoSelecionadoInfluencia = new Risco();
 
     //Método que limpa a lista de riscos que influencia
     public void limparListaRiscosInfluencia() {
         modelListaRiscosInfluencia.clear();
     }
 
+    //Método que agrupa preencher e definir eventos da JList de riscos que influencia
+    private void atualizaPreencheListaRiscosInfluencia() {
+        preencheListaRiscosInfluencia();
+        definirEventosListaRiscosInfluencia();
+    }
+
     //Método que preenche a lista de riscos que influencia
     private void preencheListaRiscosInfluencia() {
+        limparListaRiscosInfluencia();
         modelListaRiscosInfluencia = null;
         modelListaRiscosInfluencia = new DefaultListModel();
-        if (listaRiscos.size() > 0) {
-            for (int i = 0; i < listaRiscos.size(); i++) {
-                modelListaRiscosInfluencia.addElement(listaRiscos.get(i).getIdentificacao().toString());
+        List<Risco> listaRiscosInfluencia = riscoSelecionado.getRiscoList2(); // Retorna a lista de riscos influenciados pelo selecionado
+        if (listaRiscosInfluencia.size() > 0) {
+            for (int i = 0; i < listaRiscosInfluencia.size(); i++) {
+                modelListaRiscosInfluencia.addElement(listaRiscosInfluencia.get(i).getIdentificacao().toString());
+                //Adiciona o risco na lista riscosNaoAdd para não aparecer na lista de riscos apresentados
+                riscosNaoAdd.add(listaRiscosInfluencia.get(i));
             }
             relacoesListaInfluenciaJList.setModel(modelListaRiscosInfluencia);
         }
+        /*
+         if (listaRiscos.size() > 0) {
+         for (int i = 0; i < listaRiscos.size(); i++) {
+         modelListaRiscosInfluencia.addElement(listaRiscos.get(i).getIdentificacao().toString());
+         }
+         relacoesListaInfluenciaJList.setModel(modelListaRiscosInfluencia);
+         }*/
+    }
+
+    //Definindo evento para lista de riscos que influencia
+    private void definirEventosListaRiscosInfluencia() {
+        relacoesListaInfluenciaJList.addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent e) {
+                if (e.getClickCount() == 1) {
+                    int indexSelecionado = relacoesListaInfluenciaJList.getSelectedIndex();
+                    String selecao = relacoesListaInfluenciaJList.getModel().getElementAt(indexSelecionado).toString();
+
+                    //Procura e seleciona o risco selecionado na JList
+                    for (int i = 0; i < listaRiscos.size(); i++) {
+                        if (selecao.equals(listaRiscos.get(i).getIdentificacao())) {
+                            riscoSelecionadoInfluencia = listaRiscos.get(i);
+                        }
+                    }
+
+                    relacoesListaRiscosJList.clearSelection();
+                    //System.out.println("Risco: " + riscoSelecionadoInfluencia.getIdentificacao());
+                }
+            }
+        });
     }
 
     // *******Para a Lista de riscos que são influenciados
@@ -548,14 +599,101 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
 
     //Método que preenche a lista de riscos que são influenciados
     private void preencheListaRiscosInfluenciados() {
+        limparListaRiscosInfluenciados();
         modelListaRiscosInfluenciados = null;
         modelListaRiscosInfluenciados = new DefaultListModel();
+        // Procurando em todos os riscos, se o riscoSelecionado aparece no campo riscoInfluenciado de algum risco
         if (listaRiscos.size() > 0) {
             for (int i = 0; i < listaRiscos.size(); i++) {
-                modelListaRiscosInfluenciados.addElement(listaRiscos.get(i).getIdentificacao().toString());
+                List<Risco> listaRiscosInfluencia2 = listaRiscos.get(i).getRiscoList2();
+                //Dentro da lista de riscos que influencia...
+                if (listaRiscosInfluencia2.size() > 0) {
+                    for (int j = 0; j < listaRiscosInfluencia2.size(); j++) {
+                        //Se o risco atual influencia no riscoSelecionado
+                        if (listaRiscosInfluencia2.get(j) == riscoSelecionado) {
+                            //Então o riscoSelecionado é INFLUENCIADO pelo riscoAtual
+                            riscosNaoAdd.add(listaRiscos.get(i));
+                            modelListaRiscosInfluenciados.addElement(listaRiscos.get(i).getIdentificacao());
+                        }
+                    }
+                }
             }
-            relacoesInfluenciadoJList.setModel(modelListaRiscosInfluenciados);
         }
+
+        relacoesInfluenciadoJList.setModel(modelListaRiscosInfluenciados);
+    }
+
+    // ********Para a lista de riscos apresentados
+    //Criando model da lista de riscos apresentados
+    private DefaultListModel modelListaRiscosApresentados = new DefaultListModel();
+    //Lista de riscos para não serem adicionados à ela
+    private List<Risco> riscosNaoAdd = riscosGerenciarRiscosFacade.listarRiscos();
+    //Define o risco selecionado na aba Relações
+    private Risco riscoSelecionadoRelacoes = new Risco();
+
+    //Método que limpa a lista de riscos apresentados
+    public void limparListaRiscosApresentados() {
+        modelListaRiscosApresentados.clear();
+    }
+
+    //Método que agrupa preencher e definir eventos da lista de riscos apresentados
+    private void atualizaPreencheListaRiscosApresentados() {
+        preencheListaRiscosApresentados();
+        definirEventosListaRiscosApresentados();
+    }
+
+    //Método que preenche a lista de riscos apresentados
+    private void preencheListaRiscosApresentados() {
+        modelListaRiscosApresentados = null;
+        modelListaRiscosApresentados = new DefaultListModel();
+        String proprioRisco = riscoSelecionado.getIdentificacao().toString();
+        if (listaRiscos.size() > 0) {
+            for (int i = 0; i < listaRiscos.size(); i++) {
+                if (listaRiscos.get(i).getIdentificacao().toString().equals(proprioRisco)) {
+
+                } else {
+                    modelListaRiscosApresentados.addElement(listaRiscos.get(i).getIdentificacao().toString());
+                }
+
+            }
+            relacoesListaRiscosJList.setModel(modelListaRiscosApresentados);
+        }
+        filtraListaRiscosApresentados();
+    }
+
+    //Metódo que filtra a lista de riscos apresentados
+    private void filtraListaRiscosApresentados() {
+        //System.out.println("Linhas: " + modelListaRiscosApresentados.getSize());
+        if (modelListaRiscosApresentados.getSize() > 0) {
+            for (int i = 0; i < modelListaRiscosApresentados.getSize(); i++) {
+                for (int j = 0; j < riscosNaoAdd.size(); j++) {
+                    if (modelListaRiscosApresentados.get(i).toString().equals(riscosNaoAdd.get(j).getIdentificacao().toString())) {
+                        modelListaRiscosApresentados.remove(i);
+                        i = 0;
+                    }
+                }
+            }
+        }
+    }
+
+    //Definindo evento para lista de riscos apresentados
+    private void definirEventosListaRiscosApresentados() {
+        relacoesListaRiscosJList.addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent e) {
+                if (e.getClickCount() == 1) {
+                    int indexSelecionado = relacoesListaRiscosJList.getSelectedIndex();
+                    String selecao = relacoesListaRiscosJList.getModel().getElementAt(indexSelecionado).toString();
+
+                    //Procura e seleciona o risco selecionado na JList
+                    for (int i = 0; i < listaRiscos.size(); i++) {
+                        if (selecao.equals(listaRiscos.get(i).getIdentificacao())) {
+                            riscoSelecionadoRelacoes = listaRiscos.get(i);
+                        }
+                    }
+                    relacoesListaInfluenciaJList.clearSelection();
+                }
+            }
+        });
     }
 
     // Fim da aba Relações
@@ -672,7 +810,7 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
                     limparCamposSubcondicao();
                     //Preenche os campos de informações da subcondição
                     subcondicoesIdentificacaoDaCondicaoJTextField.setText(subcondicaoSelecionada.getIdentificacaoSubcondicao().toString());
-                    subcondicoesDescricaoJTextPane.setText(subcondicaoSelecionada.getDescricaoSubcondicao().toString());
+                    jTextPane1.setText(subcondicaoSelecionada.getDescricaoSubcondicao().toString());
 
                     //Limpa e preenche a lista de relações entre subcondições
                     limparListaRelacoesSubcondicoes();
@@ -689,24 +827,24 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
 
     //Método que limpa os campos de informações da subcondição
     private void limparCamposSubcondicao() {
-        subcondicoesDescricaoJTextPane.setText("");
+        jTextPane1.setText("");
         subcondicoesIdentificacaoDaCondicaoJTextField.setText("");
     }
 
     //Desabilita campos de texto de subcondição
     private void desabilitaCamposSubcondicao() {
-        subcondicoesDescricaoJTextPane.setEnabled(false);
+        jTextPane1.setEnabled(false);
         subcondicoesIdentificacaoDaCondicaoJTextField.setEnabled(false);
-        subcondicoesListaRelacoesJList.setEnabled(false);
-        subcondicoesListaRelacoesJList.setBackground(Color.LIGHT_GRAY);
+        //subcondicoesListaRelacoesJList.setEnabled(false);
+        //subcondicoesListaRelacoesJList.setBackground(Color.LIGHT_GRAY);
     }
 
     //Habilita campos de texto de subcondicao
     private void habilitaCamposSubcondicao() {
-        subcondicoesDescricaoJTextPane.setEnabled(true);
+        jTextPane1.setEnabled(true);
         subcondicoesIdentificacaoDaCondicaoJTextField.setEnabled(true);
-        subcondicoesListaRelacoesJList.setEnabled(true);
-        subcondicoesListaRelacoesJList.setBackground(Color.WHITE);
+        //subcondicoesListaRelacoesJList.setEnabled(true);
+        //subcondicoesListaRelacoesJList.setBackground(Color.WHITE);
     }
 
     //Método que preenche a lista de grupo de relacoes
@@ -717,7 +855,7 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
             for (int i = 0; i < listaSubcondicoes.size(); i++) {
                 modeloListaSubcondicoes.addElement(listaSubcondicoes.get(i).getIdentificacaoSubcondicao());
             }
-            subcondicoesListaRelacoesJList.setModel(modeloListaSubcondicoes);
+            //subcondicoesListaRelacoesJList.setModel(modeloListaSubcondicoes);
         }
     }
 
@@ -742,7 +880,7 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
             for (int i = 0; i < listaRelacaoSubcondicao.size(); i++) {
                 for (int j = 0; j < listaSubcondicoes.size(); j++) {
                     if (listaRelacaoSubcondicao.get(i).getSubcondicao().getIdentificacaoSubcondicao().equals(listaSubcondicoes.get(j).getIdentificacaoSubcondicao())) {
-                        subcondicoesListaRelacoesJList.addSelectionInterval(j, j);
+                        //subcondicoesListaRelacoesJList.addSelectionInterval(j, j);
                     }
                 }
             }
@@ -804,21 +942,32 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
         jLabel14 = new javax.swing.JLabel();
         jScrollPane10 = new javax.swing.JScrollPane();
         relacoesInfluenciadoJList = new javax.swing.JList();
-        relacoesSalvarAlteracoesJButton = new javax.swing.JButton();
+        jScrollPane12 = new javax.swing.JScrollPane();
+        relacoesListaRiscosJList = new javax.swing.JList();
+        jLabel15 = new javax.swing.JLabel();
+        relacoesInfluenciarRiscoJButton = new javax.swing.JButton();
+        relacoesRemoverInfluenciaJButton = new javax.swing.JButton();
         SubcondicoesJPanel = new javax.swing.JPanel();
-        subcondicoesIdentificacaoDaCondicaoJLabel = new javax.swing.JLabel();
-        subcondicoesDescricaoJLabel = new javax.swing.JLabel();
-        subcondicoesGrupoDeRelacoesJLabel = new javax.swing.JLabel();
+        jScrollPane13 = new javax.swing.JScrollPane();
+        jPanel6 = new javax.swing.JPanel();
+        jLabel16 = new javax.swing.JLabel();
         subcondicoesIdentificacaoDaCondicaoJTextField = new javax.swing.JTextField();
-        subcondicoesDescricaoJScrollPane = new javax.swing.JScrollPane();
-        subcondicoesDescricaoJTextPane = new javax.swing.JTextPane();
-        subcondicoesTipoDeRelacaoJLabel = new javax.swing.JLabel();
-        subcondicoesTipoDeRelacaoJComboBox = new javax.swing.JComboBox();
-        subcondicoesSalvarAlteracoesDaCondicaoJButton = new javax.swing.JButton();
-        subcondicoesCriarCondicaoJButton = new javax.swing.JButton();
+        jLabel17 = new javax.swing.JLabel();
         tabelaSubcondicoesJScrollPane = new javax.swing.JScrollPane();
+        jButton1 = new javax.swing.JButton();
+        jTextField2 = new javax.swing.JTextField();
+        jButton2 = new javax.swing.JButton();
+        subcondicoesCriarCondicaoJButton = new javax.swing.JButton();
+        subcondicoesSalvarAlteracoesDaCondicaoJButtob = new javax.swing.JButton();
+        subcondicoesTipoDeRelacaoJComboBox = new javax.swing.JComboBox();
+        jScrollPane15 = new javax.swing.JScrollPane();
+        jTextPane1 = new javax.swing.JTextPane();
         jScrollPane11 = new javax.swing.JScrollPane();
-        subcondicoesListaRelacoesJList = new javax.swing.JList();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        jTextField1 = new javax.swing.JTextField();
+        jButton5 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
         PlanoDeMitigacaoJPanel = new javax.swing.JPanel();
         planoDeMitigacaoPlanoDeMitigacaoJLabel = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
@@ -1057,42 +1206,68 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
 
         jScrollPane10.setViewportView(relacoesInfluenciadoJList);
 
-        relacoesSalvarAlteracoesJButton.setText("Salvar Alterações");
+        jScrollPane12.setViewportView(relacoesListaRiscosJList);
+
+        jLabel15.setText("Lista de riscos:");
+
+        relacoesInfluenciarRiscoJButton.setText("Marcar Influência - v");
+        relacoesInfluenciarRiscoJButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                relacoesInfluenciarRiscoJButtonActionPerformed(evt);
+            }
+        });
+
+        relacoesRemoverInfluenciaJButton.setText("Remover Influência - ^");
+        relacoesRemoverInfluenciaJButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                relacoesRemoverInfluenciaJButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(131, 131, 131)
+                .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(relacoesSalvarAlteracoesJButton, javax.swing.GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE))
-                    .addComponent(jLabel13))
-                .addGap(10, 10, 10)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel14))
-                .addGap(88, 88, 88))
+                    .addComponent(jScrollPane12)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel15)
+                            .addComponent(jLabel13)
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addComponent(relacoesInfluenciarRiscoJButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(55, 55, 55)
+                                .addComponent(relacoesRemoverInfluenciaJButton))
+                            .addComponent(jScrollPane1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 174, Short.MAX_VALUE)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                                .addComponent(jLabel14)
+                                .addGap(175, 175, 175))
+                            .addComponent(jScrollPane10, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(relacoesSalvarAlteracoesJButton))
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel13)
-                            .addComponent(jLabel14))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 289, Short.MAX_VALUE)
-                            .addComponent(jScrollPane10))))
+                .addContainerGap(14, Short.MAX_VALUE)
+                .addComponent(jLabel15)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane12, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(relacoesInfluenciarRiscoJButton)
+                    .addComponent(relacoesRemoverInfluenciaJButton))
+                .addGap(12, 12, 12)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel13)
+                    .addComponent(jLabel14))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
+                    .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -1109,103 +1284,124 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
 
         gerenciarRiscosJTabbedPane.addTab("Relações", RelacoesJPanel);
 
-        subcondicoesIdentificacaoDaCondicaoJLabel.setText("Identificação da Condição:");
+        jScrollPane13.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
-        subcondicoesDescricaoJLabel.setText("Descrição:");
+        jLabel16.setText("Identificação da Condição:");
 
-        subcondicoesGrupoDeRelacoesJLabel.setText("Grupo de Relações:");
+        jLabel17.setText("Descrição: ");
 
-        subcondicoesDescricaoJScrollPane.setViewportView(subcondicoesDescricaoJTextPane);
+        tabelaSubcondicoesJScrollPane.setBorder(javax.swing.BorderFactory.createTitledBorder("Condições"));
 
-        subcondicoesTipoDeRelacaoJLabel.setText("Tipo de Relação:");
+        jButton1.setText("Inserir condição (campo 1) - v");
+
+        jButton2.setText("Inserir relação (campo 1) - ^");
+
+        subcondicoesCriarCondicaoJButton.setText("Criar Condição");
+
+        subcondicoesSalvarAlteracoesDaCondicaoJButtob.setText("Salvar Alterações da Condicao");
 
         subcondicoesTipoDeRelacaoJComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "E", "OU" }));
-        subcondicoesTipoDeRelacaoJComboBox.setBorder(null);
 
-        subcondicoesSalvarAlteracoesDaCondicaoJButton.setText("Salvar alterações da condição");
-        subcondicoesSalvarAlteracoesDaCondicaoJButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                subcondicoesSalvarAlteracoesDaCondicaoJButtonActionPerformed(evt);
-            }
-        });
+        jScrollPane15.setViewportView(jTextPane1);
 
-        subcondicoesCriarCondicaoJButton.setText("Criar nova condição");
-        subcondicoesCriarCondicaoJButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                subcondicoesCriarCondicaoJButtonActionPerformed(evt);
-            }
-        });
+        jScrollPane11.setBorder(javax.swing.BorderFactory.createTitledBorder("Relações"));
 
-        jScrollPane11.setViewportView(subcondicoesListaRelacoesJList);
+        jButton3.setText("Inserir condição (campo 2) - v");
+
+        jButton4.setText("Inserir relação (campo 2) - ^");
+
+        jButton5.setText("Criar Relação");
+
+        jButton6.setText("Limpar Campos");
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel17)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addComponent(jLabel16)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(subcondicoesIdentificacaoDaCondicaoJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 637, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jScrollPane11, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jScrollPane15, javax.swing.GroupLayout.PREFERRED_SIZE, 732, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(tabelaSubcondicoesJScrollPane, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel6Layout.createSequentialGroup()
+                            .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jTextField2)
+                                .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(subcondicoesTipoDeRelacaoJComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jButton3)
+                                .addGroup(jPanel6Layout.createSequentialGroup()
+                                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jButton5))
+                                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(92, 92, 92)
+                            .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(subcondicoesSalvarAlteracoesDaCondicaoJButtob, javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(subcondicoesCriarCondicaoJButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE))
+                            .addGap(0, 0, Short.MAX_VALUE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel16)
+                    .addComponent(subcondicoesIdentificacaoDaCondicaoJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel17)
+                    .addComponent(jScrollPane15, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tabelaSubcondicoesJScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(subcondicoesCriarCondicaoJButton)
+                    .addComponent(jButton3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(subcondicoesSalvarAlteracoesDaCondicaoJButtob)
+                    .addComponent(subcondicoesTipoDeRelacaoJComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton5))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton2)
+                    .addComponent(jButton4)
+                    .addComponent(jButton6))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane11, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jScrollPane13.setViewportView(jPanel6);
 
         javax.swing.GroupLayout SubcondicoesJPanelLayout = new javax.swing.GroupLayout(SubcondicoesJPanel);
         SubcondicoesJPanel.setLayout(SubcondicoesJPanelLayout);
         SubcondicoesJPanelLayout.setHorizontalGroup(
             SubcondicoesJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(SubcondicoesJPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(SubcondicoesJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(SubcondicoesJPanelLayout.createSequentialGroup()
-                        .addComponent(subcondicoesIdentificacaoDaCondicaoJLabel)
-                        .addGap(10, 10, 10)
-                        .addComponent(subcondicoesIdentificacaoDaCondicaoJTextField))
-                    .addGroup(SubcondicoesJPanelLayout.createSequentialGroup()
-                        .addGroup(SubcondicoesJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(subcondicoesGrupoDeRelacoesJLabel)
-                            .addComponent(subcondicoesDescricaoJLabel))
-                        .addGap(10, 10, 10)
-                        .addGroup(SubcondicoesJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(SubcondicoesJPanelLayout.createSequentialGroup()
-                                .addComponent(jScrollPane11, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(SubcondicoesJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(SubcondicoesJPanelLayout.createSequentialGroup()
-                                        .addComponent(subcondicoesTipoDeRelacaoJLabel)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(subcondicoesTipoDeRelacaoJComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 197, Short.MAX_VALUE)
-                                        .addComponent(subcondicoesSalvarAlteracoesDaCondicaoJButton))
-                                    .addGroup(SubcondicoesJPanelLayout.createSequentialGroup()
-                                        .addGap(0, 0, Short.MAX_VALUE)
-                                        .addComponent(subcondicoesCriarCondicaoJButton, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addComponent(subcondicoesDescricaoJScrollPane)))
-                    .addComponent(tabelaSubcondicoesJScrollPane))
-                .addContainerGap())
+            .addComponent(jScrollPane13)
         );
         SubcondicoesJPanelLayout.setVerticalGroup(
             SubcondicoesJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(SubcondicoesJPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(SubcondicoesJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(subcondicoesIdentificacaoDaCondicaoJLabel)
-                    .addComponent(subcondicoesIdentificacaoDaCondicaoJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(SubcondicoesJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(subcondicoesDescricaoJScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(subcondicoesDescricaoJLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(SubcondicoesJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(SubcondicoesJPanelLayout.createSequentialGroup()
-                        .addGroup(SubcondicoesJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, SubcondicoesJPanelLayout.createSequentialGroup()
-                                .addGap(0, 5, Short.MAX_VALUE)
-                                .addComponent(subcondicoesSalvarAlteracoesDaCondicaoJButton))
-                            .addGroup(SubcondicoesJPanelLayout.createSequentialGroup()
-                                .addGroup(SubcondicoesJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(SubcondicoesJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(subcondicoesTipoDeRelacaoJLabel)
-                                        .addComponent(subcondicoesTipoDeRelacaoJComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(subcondicoesGrupoDeRelacoesJLabel))
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(subcondicoesCriarCondicaoJButton))
-                    .addComponent(jScrollPane11, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addGap(17, 17, 17)
-                .addComponent(tabelaSubcondicoesJScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+            .addComponent(jScrollPane13, javax.swing.GroupLayout.DEFAULT_SIZE, 331, Short.MAX_VALUE)
         );
 
-        gerenciarRiscosJTabbedPane.addTab("Subcondições", SubcondicoesJPanel);
+        gerenciarRiscosJTabbedPane.addTab("Condições", SubcondicoesJPanel);
 
         planoDeMitigacaoPlanoDeMitigacaoJLabel.setText("Plano de Mitigação:");
 
@@ -1541,7 +1737,7 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
                     .addGroup(PlanoContigenciaJPanelLayout.createSequentialGroup()
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(219, Short.MAX_VALUE))
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 300, Short.MAX_VALUE)))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)))
         );
 
         gerenciarRiscosJTabbedPane.addTab("Plano de Contigência", PlanoContigenciaJPanel);
@@ -1613,7 +1809,7 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(gerenciarRiscosJPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 857, Short.MAX_VALUE)
+            .addComponent(gerenciarRiscosJPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 857, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2049,90 +2245,77 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_planoDeContingenciaSalvarAlteracoesJButtonActionPerformed
 
-    private void subcondicoesSalvarAlteracoesDaCondicaoJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_subcondicoesSalvarAlteracoesDaCondicaoJButtonActionPerformed
-        if (subcondicaoSelecionada != null) {
-            int indexSelecionado = tabelaSubcondicoesJTable.getSelectedRow();
-
-            subcondicaoSelecionada.setDescricaoSubcondicao(subcondicoesDescricaoJTextPane.getText());
-            subcondicaoSelecionada.setIdentificacaoSubcondicao(subcondicoesIdentificacaoDaCondicaoJTextField.getText());
-            /*List elementosSelecionados = subcondicoesListaRelacoesJList.getSelectedValuesList();
-             System.out.println("Linha: " + elementosSelecionados.get(0));
-             for (int i = 0; i < elementosSelecionados.size(); i++) {
-             Relacaosubcondicao relacaoTemp = null;
-             relacaoTemp.setSubcondicao1(subcondicaoSelecionada);
-             Subcondicao subcondicaoRelacionada = null;
-             for (int j = 0; j < listaSubcondicoes.size(); j++) {
-             String pesquisa = elementosSelecionados.get(i).toString();
-             if (pesquisa.equals(listaSubcondicoes.get(j).getIdentificacaoSubcondicao().toString())) {
-             subcondicaoRelacionada = listaSubcondicoes.get(i);
-             }
-             }
-             relacaoTemp.setSubcondicao(subcondicaoRelacionada);
-             RelacaosubcondicaoPK relacaoPK = null;
-
-             }*/
-
-            riscosGerenciarRiscosFacade.editarSubcondicao(subcondicaoSelecionada);
-            JOptionPane.showMessageDialog(null, "Informações da Subcondição alteradas com sucesso");
-            atualizaPreencheSubcondicao();
-            tabelaSubcondicoesJTable.setRowSelectionInterval(indexSelecionado, indexSelecionado);
-            Historicoalteracao historico = new Historicoalteracao();
-            historico.setDescricaoAlteracao("Alterações realizadas na subcondição " + subcondicaoSelecionada.getIdentificacaoSubcondicao());
-            Calendar c = Calendar.getInstance();
-            historico.setDataAlteracao(c.getTime());
-            historico.setIdRisco(riscoSelecionado);
-            riscosGerenciarRiscosFacade.criaHistorioAlteracao(historico);
-            getListaHistoricoAlteracoes(riscoSelecionado);
-            limparTabelaHistoricoAlteracoes();
-            preencheTabelaHistoricoAlteracoes();
-        }
-    }//GEN-LAST:event_subcondicoesSalvarAlteracoesDaCondicaoJButtonActionPerformed
-
-    private void subcondicoesCriarCondicaoJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_subcondicoesCriarCondicaoJButtonActionPerformed
-        Subcondicao novaSubcondicao = new Subcondicao();
-        novaSubcondicao.setDescricaoSubcondicao(subcondicoesDescricaoJTextPane.getText());
-        novaSubcondicao.setIdentificacaoSubcondicao(subcondicoesIdentificacaoDaCondicaoJTextField.getText());
-        novaSubcondicao.setStatusSubcondicao("Não Ocorreu");
-        novaSubcondicao.setIdRisco(riscoSelecionado);
-        boolean nulo = false;
-        if (novaSubcondicao.getIdentificacaoSubcondicao() == null) {
-            nulo = true;
-        }
-        if (novaSubcondicao.getDescricaoSubcondicao() == null) {
-            nulo = true;
-        }
-
-        if (nulo == true) {
-            JOptionPane.showMessageDialog(null, "Um ou mais campos estão vazios. Preencha-os");
-        } else {
-            boolean repetido = false;
-            for (int i = 0; i < listaSubcondicoes.size(); i++) {
-                if (novaSubcondicao.getIdentificacaoSubcondicao().equals(listaSubcondicoes.get(i).getIdentificacaoSubcondicao())) {
-                    repetido = true;
+    private void relacoesInfluenciarRiscoJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_relacoesInfluenciarRiscoJButtonActionPerformed
+        try {
+            if (riscoSelecionadoRelacoes != null) {
+                List<Risco> listaInfluneciaTemp = riscoSelecionado.getRiscoList2();
+                listaInfluneciaTemp.add(riscoSelecionadoRelacoes);
+                riscoSelecionado.setRiscoList2(listaInfluneciaTemp);
+                try{
+                    riscosGerenciarRiscosFacade.editarRisco(riscoSelecionado);
+                }catch(Exception e){
+                    JOptionPane.showMessageDialog(null, "Erro ao adicionar influência. Tabela desatualizada.");
                 }
+                
+                JOptionPane.showMessageDialog(null, "O risco " + riscoSelecionado.getIdentificacao() + " agora influencia em " + riscoSelecionadoRelacoes.getIdentificacao());
+                if (riscosNaoAdd.size() > 0) {
+                    riscosNaoAdd = null;
+                    riscosNaoAdd = riscosGerenciarRiscosFacade.listarRiscos();
+                    riscosNaoAdd.clear();
+                }
+                modelListaRiscosApresentados.clear();
+                modelListaRiscosInfluencia.clear();
+                modelListaRiscosInfluenciados.clear();
+                atualizaPreencheListaRiscosInfluencia();
+                preencheListaRiscosInfluenciados();
+                atualizaPreencheListaRiscosApresentados();
+                riscoSelecionadoRelacoes = null;
+            }else{
+                JOptionPane.showMessageDialog(null, "Nenhum risco selecionado na tabela acima. Selecione um para adicionar influência.");
             }
-
-            if (repetido == true) {
-                JOptionPane.showMessageDialog(null, "Já existe um identificador para tal subcondição. Escolha outro nome.");
-            } else {
-                riscosGerenciarRiscosFacade.criaSubcondicao(novaSubcondicao);
-                JOptionPane.showMessageDialog(null, "Subcondição criada com sucesso para o risco " + riscoSelecionado.getIdentificacao());
-                getListaSubcondicoes(riscoSelecionado);
-                limparCamposSubcondicao();
-                limparListaRelacoesSubcondicoes();
-                reiniciarTabelaSubcondicoes();
-                Historicoalteracao historico = new Historicoalteracao();
-                historico.setDescricaoAlteracao("Criação da subcondição " + novaSubcondicao.getIdentificacaoSubcondicao());
-                Calendar c = Calendar.getInstance();
-                historico.setDataAlteracao(c.getTime());
-                historico.setIdRisco(riscoSelecionado);
-                riscosGerenciarRiscosFacade.criaHistorioAlteracao(historico);
-                getListaHistoricoAlteracoes(riscoSelecionado);
-                limparTabelaHistoricoAlteracoes();
-                preencheTabelaHistoricoAlteracoes();
-            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Nenhum risco selecionado na tabela acima. Selecione um para adicionar influência.");
         }
-    }//GEN-LAST:event_subcondicoesCriarCondicaoJButtonActionPerformed
+    }//GEN-LAST:event_relacoesInfluenciarRiscoJButtonActionPerformed
+
+    private void relacoesRemoverInfluenciaJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_relacoesRemoverInfluenciaJButtonActionPerformed
+        try {
+            if (riscoSelecionadoInfluencia != null && riscoSelecionado != null) {
+                List<Risco> listaInfluenciaTemp = riscoSelecionado.getRiscoList2();
+                if (listaInfluenciaTemp.size() > 0) {
+                    for (int i = 0; i < listaInfluenciaTemp.size(); i++) {
+                        if (listaInfluenciaTemp.get(i) == riscoSelecionadoInfluencia) {
+                            listaInfluenciaTemp.remove(i);
+                            break;
+                        }
+                    }
+                }
+                riscoSelecionado.setRiscoList2(listaInfluenciaTemp);
+                try{
+                    riscosGerenciarRiscosFacade.editarRisco(riscoSelecionado);
+                }catch(Exception e){
+                    JOptionPane.showMessageDialog(null, "Erro ao remover influência do risco. Tabela desatualizada.");
+                }
+                JOptionPane.showMessageDialog(null, "Influência de " + riscoSelecionadoInfluencia.getIdentificacao() + " removida do risco " + riscoSelecionado.getIdentificacao());
+                if (riscosNaoAdd.size() > 0) {
+                    riscosNaoAdd = null;
+                    riscosNaoAdd = riscosGerenciarRiscosFacade.listarRiscos();
+                    riscosNaoAdd.clear();
+                }
+                modelListaRiscosApresentados.clear();
+                modelListaRiscosInfluencia.clear();
+                modelListaRiscosInfluenciados.clear();
+                atualizaPreencheListaRiscosInfluencia();
+                preencheListaRiscosInfluenciados();
+                atualizaPreencheListaRiscosApresentados();
+                riscoSelecionadoInfluencia = null;
+            }else{
+                JOptionPane.showMessageDialog(null, "Nenhum risco selecionado na tabela abaixo à esquerda. Selecione um para remover influência");
+            }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Nenhum risco selecionado na tabela abaixo à esquerda. Selecione um para remover influência");
+        }
+    }//GEN-LAST:event_relacoesRemoverInfluenciaJButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -2169,12 +2352,21 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel informacoesGeraisProbabilidadePorcentagemJLabel;
     private javax.swing.JButton informacoesGeraisRemoverRiscoJButton;
     private javax.swing.JButton informacoesGeraisSalvarAlteracoesDoRiscoJButton;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -2188,9 +2380,13 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane10;
     private javax.swing.JScrollPane jScrollPane11;
+    private javax.swing.JScrollPane jScrollPane12;
+    private javax.swing.JScrollPane jScrollPane13;
+    private javax.swing.JScrollPane jScrollPane15;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
@@ -2199,6 +2395,9 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JScrollPane jScrollPane9;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextPane jTextPane1;
     private javax.swing.JLabel planoContigenciaPlanoDeContigenciaJLabel;
     private javax.swing.JButton planoDeContingenciaAdicionarPlanoJButton;
     private javax.swing.JTextArea planoDeContingenciaComoSeraFeitoJTextArea;
@@ -2222,19 +2421,14 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
     private javax.swing.JTextField planoDeMitigacaoResponsavelJTextField;
     private javax.swing.JButton planoDeMitigacaoSalvarAlteracoesJButton;
     private javax.swing.JList relacoesInfluenciadoJList;
+    private javax.swing.JButton relacoesInfluenciarRiscoJButton;
     private javax.swing.JList relacoesListaInfluenciaJList;
-    private javax.swing.JButton relacoesSalvarAlteracoesJButton;
+    private javax.swing.JList relacoesListaRiscosJList;
+    private javax.swing.JButton relacoesRemoverInfluenciaJButton;
     private javax.swing.JButton subcondicoesCriarCondicaoJButton;
-    private javax.swing.JLabel subcondicoesDescricaoJLabel;
-    private javax.swing.JScrollPane subcondicoesDescricaoJScrollPane;
-    private javax.swing.JTextPane subcondicoesDescricaoJTextPane;
-    private javax.swing.JLabel subcondicoesGrupoDeRelacoesJLabel;
-    private javax.swing.JLabel subcondicoesIdentificacaoDaCondicaoJLabel;
     private javax.swing.JTextField subcondicoesIdentificacaoDaCondicaoJTextField;
-    private javax.swing.JList subcondicoesListaRelacoesJList;
-    private javax.swing.JButton subcondicoesSalvarAlteracoesDaCondicaoJButton;
+    private javax.swing.JButton subcondicoesSalvarAlteracoesDaCondicaoJButtob;
     private javax.swing.JComboBox subcondicoesTipoDeRelacaoJComboBox;
-    private javax.swing.JLabel subcondicoesTipoDeRelacaoJLabel;
     private javax.swing.JScrollPane tabelaHistoricoAlteracoesJScrollPane;
     private javax.swing.JScrollPane tabelaRiscosJScrollPane;
     private javax.swing.JScrollPane tabelaSubcondicoesJScrollPane;

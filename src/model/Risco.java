@@ -10,7 +10,6 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -24,7 +23,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -39,7 +37,6 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "risco")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Risco.findByStatusRiscoAndIdProjeto", query = "SELECT r FROM Risco r WHERE r.statusRisco = :statusRisco and r.contem.projeto.idProjeto = :idProjeto"),
     @NamedQuery(name = "Risco.findAll", query = "SELECT r FROM Risco r"),
     @NamedQuery(name = "Risco.findByIdRisco", query = "SELECT r FROM Risco r WHERE r.idRisco = :idRisco"),
     @NamedQuery(name = "Risco.findByDataIdentificacao", query = "SELECT r FROM Risco r WHERE r.dataIdentificacao = :dataIdentificacao"),
@@ -51,29 +48,6 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Risco.findByGrauSeveridade", query = "SELECT r FROM Risco r WHERE r.grauSeveridade = :grauSeveridade"),
     @NamedQuery(name = "Risco.findByIdentificacao", query = "SELECT r FROM Risco r WHERE r.identificacao = :identificacao")})
 public class Risco implements Serializable {
-    @JoinTable(name = "relacaoentreriscos", joinColumns = {
-        @JoinColumn(name = "idRisco1", referencedColumnName = "idRisco")}, inverseJoinColumns = {
-        @JoinColumn(name = "idRisco2", referencedColumnName = "idRisco")})
-    @ManyToMany
-    private List<Risco> riscoList2;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idRisco")
-    private List<Planomitigacao> planomitigacaoList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idRisco")
-    private List<Planocontingencia> planocontingenciaList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idRisco")
-    private List<Subcondicao> subcondicaoList;
-    @JoinTable(name = "relacaorisco", joinColumns = {
-        @JoinColumn(name = "idRisco1", referencedColumnName = "idRisco")}, inverseJoinColumns = {
-        @JoinColumn(name = "idRisco2", referencedColumnName = "idRisco")})
-    @ManyToMany
-    private List<Risco> riscoList;
-    @ManyToMany(mappedBy = "riscoList")
-    private List<Risco> riscoList1;
-    @JoinColumns({
-        @JoinColumn(name = "idProjeto", referencedColumnName = "idProjeto"),
-        @JoinColumn(name = "idCategoriaDeRisco", referencedColumnName = "idCategoriaDeRisco")})
-    @ManyToOne(optional = false)
-    private Contem contem;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -109,6 +83,25 @@ public class Risco implements Serializable {
     @Basic(optional = false)
     @Column(name = "identificacao")
     private String identificacao;
+    @JoinTable(name = "relacaorisco", joinColumns = {
+        @JoinColumn(name = "idRisco1", referencedColumnName = "idRisco")}, inverseJoinColumns = {
+        @JoinColumn(name = "idRisco2", referencedColumnName = "idRisco")})
+    @ManyToMany
+    private List<Risco> riscoList;
+    @ManyToMany(mappedBy = "riscoList")
+    private List<Risco> riscoList1;
+    @JoinTable(name = "relacaoentreriscos", joinColumns = {
+        @JoinColumn(name = "idRiscoInfluenciador", referencedColumnName = "idRisco")}, inverseJoinColumns = {
+        @JoinColumn(name = "idRiscoInfluenciado", referencedColumnName = "idRisco")})
+    @ManyToMany
+    private List<Risco> riscoList2;
+    @ManyToMany(mappedBy = "riscoList2")
+    private List<Risco> riscoList3;
+    @JoinColumns({
+        @JoinColumn(name = "idProjeto", referencedColumnName = "idProjeto"),
+        @JoinColumn(name = "idCategoriaDeRisco", referencedColumnName = "idCategoriaDeRisco")})
+    @ManyToOne(optional = false)
+    private Contem contem;
 
     public Risco() {
     }
@@ -210,6 +203,50 @@ public class Risco implements Serializable {
         this.identificacao = identificacao;
     }
 
+    @XmlTransient
+    public List<Risco> getRiscoList() {
+        return riscoList;
+    }
+
+    public void setRiscoList(List<Risco> riscoList) {
+        this.riscoList = riscoList;
+    }
+
+    @XmlTransient
+    public List<Risco> getRiscoList1() {
+        return riscoList1;
+    }
+
+    public void setRiscoList1(List<Risco> riscoList1) {
+        this.riscoList1 = riscoList1;
+    }
+
+    @XmlTransient
+    public List<Risco> getRiscoList2() {
+        return riscoList2;
+    }
+
+    public void setRiscoList2(List<Risco> riscoList2) {
+        this.riscoList2 = riscoList2;
+    }
+
+    @XmlTransient
+    public List<Risco> getRiscoList3() {
+        return riscoList3;
+    }
+
+    public void setRiscoList3(List<Risco> riscoList3) {
+        this.riscoList3 = riscoList3;
+    }
+
+    public Contem getContem() {
+        return contem;
+    }
+
+    public void setContem(Contem contem) {
+        this.contem = contem;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -233,68 +270,6 @@ public class Risco implements Serializable {
     @Override
     public String toString() {
         return "model.Risco[ idRisco=" + idRisco + " ]";
-    }
-
-    @XmlTransient
-    public List<Risco> getRiscoList() {
-        return riscoList;
-    }
-
-    public void setRiscoList(List<Risco> riscoList) {
-        this.riscoList = riscoList;
-    }
-
-    @XmlTransient
-    public List<Risco> getRiscoList1() {
-        return riscoList1;
-    }
-
-    public void setRiscoList1(List<Risco> riscoList1) {
-        this.riscoList1 = riscoList1;
-    }
-
-    public Contem getContem() {
-        return contem;
-    }
-
-    public void setContem(Contem contem) {
-        this.contem = contem;
-    }
-
-    @XmlTransient
-    public List<Planomitigacao> getPlanomitigacaoList() {
-        return planomitigacaoList;
-    }
-
-    public void setPlanomitigacaoList(List<Planomitigacao> planomitigacaoList) {
-        this.planomitigacaoList = planomitigacaoList;
-    }
-
-    @XmlTransient
-    public List<Planocontingencia> getPlanocontingenciaList() {
-        return planocontingenciaList;
-    }
-
-    public void setPlanocontingenciaList(List<Planocontingencia> planocontingenciaList) {
-        this.planocontingenciaList = planocontingenciaList;
-    }
-
-    @XmlTransient
-    public List<Subcondicao> getSubcondicaoList() {
-        return subcondicaoList;
-    }
-
-    public void setSubcondicaoList(List<Subcondicao> subcondicaoList) {
-        this.subcondicaoList = subcondicaoList;
-    }
-
-    @XmlTransient
-    public List<Risco> getRiscoList2() {
-        return riscoList2;
-    }
-
-    public void setRiscoList2(List<Risco> riscoList2) {
-        this.riscoList2 = riscoList2;
     }
     
 }
