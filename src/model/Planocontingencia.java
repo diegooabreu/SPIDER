@@ -38,6 +38,12 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Planocontingencia.findByDataLimite", query = "SELECT p FROM Planocontingencia p WHERE p.dataLimite = :dataLimite"),
     @NamedQuery(name = "Planocontingencia.findByDataRealizacao", query = "SELECT p FROM Planocontingencia p WHERE p.dataRealizacao = :dataRealizacao")})
 public class Planocontingencia implements Serializable {
+    @JoinColumn(name = "idPontoDeControle", referencedColumnName = "idPontoDeControle")
+    @ManyToOne
+    private Pontodecontrole idPontoDeControle;
+    @JoinColumn(name = "idMarcoDoProjeto", referencedColumnName = "idMarcoDoProjeto")
+    @ManyToOne
+    private Marcodoprojeto idMarcoDoProjeto;
     @Basic(optional = false)
     @Column(name = "identificacaoPlanoContingencia")
     private String identificacaoPlanoContingencia;
@@ -180,6 +186,22 @@ public class Planocontingencia implements Serializable {
 
     public void setIdentificacaoPlanoContingencia(String identificacaoPlanoContingencia) {
         this.identificacaoPlanoContingencia = identificacaoPlanoContingencia;
+    }
+
+    public Pontodecontrole getIdPontoDeControle() {
+        return idPontoDeControle;
+    }
+
+    public void setIdPontoDeControle(Pontodecontrole idPontoDeControle) {
+        this.idPontoDeControle = idPontoDeControle;
+    }
+
+    public Marcodoprojeto getIdMarcoDoProjeto() {
+        return idMarcoDoProjeto;
+    }
+
+    public void setIdMarcoDoProjeto(Marcodoprojeto idMarcoDoProjeto) {
+        this.idMarcoDoProjeto = idMarcoDoProjeto;
     }
     
 }

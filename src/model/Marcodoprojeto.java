@@ -1,11 +1,14 @@
 /*
- * To change this template, choose Tools | Templates
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,14 +19,16 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Mariano
+ * @author MarcosSenna
  */
 @Entity
 @Table(name = "marcodoprojeto")
@@ -36,6 +41,10 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Marcodoprojeto.findByDataMarcoProjeto", query = "SELECT m FROM Marcodoprojeto m WHERE m.dataMarcoProjeto = :dataMarcoProjeto"),
     @NamedQuery(name = "Marcodoprojeto.findByDescricaoMarcoProjeto", query = "SELECT m FROM Marcodoprojeto m WHERE m.descricaoMarcoProjeto = :descricaoMarcoProjeto")})
 public class Marcodoprojeto implements Serializable {
+    @OneToMany(mappedBy = "idMarcoDoProjeto")
+    private List<Planomitigacao> planomitigacaoList;
+    @OneToMany(mappedBy = "idMarcoDoProjeto")
+    private List<Planocontingencia> planocontingenciaList;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -123,6 +132,24 @@ public class Marcodoprojeto implements Serializable {
     @Override
     public String toString() {
         return "model.Marcodoprojeto[ idMarcoDoProjeto=" + idMarcoDoProjeto + " ]";
+    }
+
+    @XmlTransient
+    public List<Planocontingencia> getPlanocontingenciaList() {
+        return planocontingenciaList;
+    }
+
+    public void setPlanocontingenciaList(List<Planocontingencia> planocontingenciaList) {
+        this.planocontingenciaList = planocontingenciaList;
+    }
+
+    @XmlTransient
+    public List<Planomitigacao> getPlanomitigacaoList() {
+        return planomitigacaoList;
+    }
+
+    public void setPlanomitigacaoList(List<Planomitigacao> planomitigacaoList) {
+        this.planomitigacaoList = planomitigacaoList;
     }
     
 }

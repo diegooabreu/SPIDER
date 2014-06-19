@@ -26,8 +26,10 @@ import model.Categoriaderisco;
 import model.Contem;
 import model.ContemPK;
 import model.Historicoalteracao;
+import model.Marcodoprojeto;
 import model.Planocontingencia;
 import model.Planomitigacao;
+import model.Pontodecontrole;
 import model.Projeto;
 import model.Relacaosubcondicao;
 import model.RelacaosubcondicaoPK;
@@ -70,6 +72,14 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
     private List<Historicoalteracao> listaHistoricoAlteracao;
     //Variável que armazena a subcondição selecionada
     Subcondicao subcondicaoSelecionada = null;
+    //Variável que verifica se mitigação é marco ou ponto de controle selecionado
+    private boolean mitigacaoEhMarco;
+    //Variável que verifica se o plano de mitigação possui marco ou ponto de controle
+    private boolean MitigacaoPossuiMarco;
+    //Variável que verifica se em plano de contingência é o é marco ou ponto de controle selecionado
+    private boolean contingenciaEhMarco;
+    //Variável que verifica se o plano de contigência possui marco ou ponto de controle
+    private boolean ContingenciaPossuiMarco;
 
     public RiscosGerenciarRiscosJPanel() {
         initComponents();
@@ -188,6 +198,7 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
         informacoesGeraisCategoriaDeRiscoJComboBox.removeAllItems();
         informacoesGeraisProbabilidadeJSpinner.setValue(0);
         informacoesGeraisImpactoJComboBox.setSelectedIndex(2);
+        estadoAtualRiscoJLabel.setText("");
         //desabilitaCheckBoxStatusRisco();
         informacoesGeraisGrauDeSeveridadeJTextField.setText("0");
         tabelaRiscosJTable.clearSelection();
@@ -218,6 +229,15 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
                     //Preenche comboBox
                     preencheComboBox();
 
+                    //Retorna lista de marcos e pontos de controle
+                    getListaMarcosProjeto(projetoSelecionado);
+                    getListaPontosControle(projetoSelecionado);
+                    //Preenche combo box de data limite em plano de mitigação
+                    preencheComboBoxDataLimiteMitigacao();
+
+                    //Preenche combo box de data limite em plano de contingência
+                    preencheComboBoxDataLimiteContingencia();
+                    
                     //Preenche lista de riscos que influencia
                     if (riscosNaoAdd.size() > 0) {
                         riscosNaoAdd = null;
@@ -244,6 +264,7 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
                     informacoesGeraisEmissorJTextField.setText(riscoSelecionado.getEmissor());
                     informacoesGeraisProbabilidadeJSpinner.setValue(riscoSelecionado.getProbabilidade());
                     informacoesGeraisGrauDeSeveridadeJTextField.setText(Integer.toString(riscoSelecionado.getGrauSeveridade()));
+                    estadoAtualRiscoJLabel.setText(riscoSelecionado.getStatusRisco());
                     /*
                      // Determina qual caixa de status do risco será selecionada
                      if (riscoSelecionado.getStatusRisco().equals("Novo")) {
@@ -328,6 +349,16 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
     private List<Planomitigacao> listaMitigacao;
     //Instanciando variável que armazena o Plano de Mitigacao Selecionado no momento
     private Planomitigacao planoMitigacaoSelecionado;
+    //Variável que armazena a data selecionada
+    Calendar dataLimiteSelecionada = Calendar.getInstance();
+    //Variável que armazena a lista de marcos do projeto
+    private List<Marcodoprojeto> listaMarcosProjeto;
+    //Variável que armazena a lista de pontos de controle do projeto
+    private List<Pontodecontrole> listaPontosControle;
+    //Variável que armazena o Marco Selecionado
+    private Marcodoprojeto marcoSelecionado = null;
+    //Variável que armazena o ponto de controle selecionado
+    private Pontodecontrole pontoControleSelecionado = null;
 
     //Criando model da Lista de Planos de Mitigacao
     private DefaultListModel planoMitigacaoListModel = new DefaultListModel();
@@ -335,6 +366,16 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
     //Método que lista os planos de mitigacao do risco selecionado
     private void getListaMitigacaoDoRisco(Risco risco) {
         listaMitigacao = riscosGerenciarRiscosFacade.listarPlanosMitigacao(risco);
+    }
+
+    //Método que retorna a lista de pontos de controle do projeto selecionado
+    public void getListaPontosControle(Projeto projeto) {
+        listaPontosControle = riscosGerenciarRiscosFacade.listarPontosControleProjetoSelecionado(projeto);
+    }
+
+    //Método que retorna a lista de marcos do projeto selecionado
+    public void getListaMarcosProjeto(Projeto projeto) {
+        listaMarcosProjeto = riscosGerenciarRiscosFacade.listarMarcosProjetoProjetoSelecionado(projeto);
     }
 
     //Método que limpa a lista de Planos de Mitigação
@@ -381,10 +422,30 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
     public void limparCamposPlanoMitigacao() {
         planoDeMitigacaoIdentificacaoJTextField.setText("");
         planoDeMitigacaoResponsavelJTextField.setText("");
-        planoDeMitigacaoDataLimiteJDateChooser.setDate(null);
+        //planoDeMitigacaoDataLimiteJDateChooser.setDate(null);
+        //planoMitigacaoDataLimiteJComboBox.setSelectedIndex(0);
         planoDeMitigacaoDescricaoJTextArea.setText("");
         planoDeMitigacaoComoSeraFeitoJTextArea.setText("");
         planoDeMitigacaoInfAdicionaisJTextArea.setText("");
+    }
+
+    //Método que preenche o comboBox de data limite em planos de Mitigação
+    public void preencheComboBoxDataLimiteMitigacao() {
+        planoMitigacaoDataLimiteJComboBox.removeAllItems();
+        List<Pontodecontrole> listaPontoControle = null;
+        List<Marcodoprojeto> listaMarcosProjeto = null;
+        listaPontoControle = riscosGerenciarRiscosFacade.listarPontosControleProjetoSelecionado(projetoSelecionado);
+        listaMarcosProjeto = riscosGerenciarRiscosFacade.listarMarcosProjetoProjetoSelecionado(projetoSelecionado);
+        if (listaPontoControle.size() > 0) {
+            for (int i = 0; i < listaPontoControle.size(); i++) {
+                planoMitigacaoDataLimiteJComboBox.addItem(listaPontoControle.get(i).getNomePontoDeControle());
+            }
+        }
+        if (listaMarcosProjeto.size() > 0) {
+            for (int i = 0; i < listaMarcosProjeto.size(); i++) {
+                planoMitigacaoDataLimiteJComboBox.addItem(listaMarcosProjeto.get(i).getNomeMarcoDoProjeto());
+            }
+        }
     }
 
     //Método que cria um evento quando for selecionado um Plano de Mitigação da Lista de Planos de Mitigação
@@ -403,6 +464,25 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
                         }
                     }
 
+                    //Procura se o plano de mitigação possui um Marco ou ponto de controle já definido
+                    if (planoMitigacaoSelecionado.getIdMarcoDoProjeto() != null) {
+                        String nomeMarco = planoMitigacaoSelecionado.getIdMarcoDoProjeto().getNomeMarcoDoProjeto();
+                        for (int i = 0; i < planoMitigacaoDataLimiteJComboBox.getItemCount(); i++) {
+                            if (planoMitigacaoDataLimiteJComboBox.getItemAt(i).equals(nomeMarco)) {
+                                planoMitigacaoDataLimiteJComboBox.setSelectedIndex(i);
+                            }
+                        }
+                    } else {
+                        if (planoMitigacaoSelecionado.getIdPontoDeControle() != null) {
+                            String nomePonto = planoMitigacaoSelecionado.getIdPontoDeControle().getNomePontoDeControle();
+                            for (int i = 0; i < planoMitigacaoDataLimiteJComboBox.getItemCount(); i++) {
+                                if (planoMitigacaoDataLimiteJComboBox.getItemAt(i).equals(nomePonto)) {
+                                    planoMitigacaoDataLimiteJComboBox.setSelectedIndex(i);
+                                }
+                            }
+                        }
+                    }
+
                     //Preenchendo as informações nos campos de Plano de Mitigação
                     planoDeMitigacaoIdentificacaoJTextField.setText(planoMitigacaoSelecionado.getIdentificacaoPlanoMitigacao());
                     planoDeMitigacaoResponsavelJTextField.setText(planoMitigacaoSelecionado.getResponsavel());
@@ -410,10 +490,10 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
                     planoDeMitigacaoComoSeraFeitoJTextArea.setText(planoMitigacaoSelecionado.getComoRealizar());
                     planoDeMitigacaoInfAdicionaisJTextArea.setText(planoMitigacaoSelecionado.getInformacoesAdicionais());
 
-                    Calendar dataLimite = Calendar.getInstance();
-                    dataLimite.setTime(planoMitigacaoSelecionado.getDataLimite());
-                    planoDeMitigacaoDataLimiteJDateChooser.setCalendar(dataLimite);
-
+                    //Calendar dataLimite = Calendar.getInstance();
+                    //dataLimite.setTime(planoMitigacaoSelecionado.getDataLimite());
+                    //planoDeMitigacaoDataLimiteJDateChooser.setCalendar(dataLimite);
+                    //Determina qual campo do comboBox de dataLimite será selecionado
                     planoDeMitigacaoRemoverPlanoJButton.setEnabled(true);
                     planoDeMitigacaoSalvarAlteracoesJButton.setEnabled(true);
                 }
@@ -455,6 +535,25 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
         }
     }
 
+    //Método que preenche o comboBox de data limite em planos de contingência
+    public void preencheComboBoxDataLimiteContingencia() {
+        planoContingenciaDataLimiteJComboBox.removeAllItems();
+        List<Pontodecontrole> listaPontoControle = null;
+        List<Marcodoprojeto> listaMarcosProjeto = null;
+        listaPontoControle = riscosGerenciarRiscosFacade.listarPontosControleProjetoSelecionado(projetoSelecionado);
+        listaMarcosProjeto = riscosGerenciarRiscosFacade.listarMarcosProjetoProjetoSelecionado(projetoSelecionado);
+        if (listaPontoControle.size() > 0) {
+            for (int i = 0; i < listaPontoControle.size(); i++) {
+                planoContingenciaDataLimiteJComboBox.addItem(listaPontoControle.get(i).getNomePontoDeControle());
+            }
+        }
+        if (listaMarcosProjeto.size() > 0) {
+            for (int i = 0; i < listaMarcosProjeto.size(); i++) {
+                planoContingenciaDataLimiteJComboBox.addItem(listaMarcosProjeto.get(i).getNomeMarcoDoProjeto());
+            }
+        }
+    }
+
     //Método que recria a lista de Planos de Contingência
     public void criarListaPlanoContingencia() {
         planoContingenciaListModel = null;
@@ -482,7 +581,8 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
     public void limparCamposPlanoContingencia() {
         planoDeContingenciaIdentificacaoJTextField.setText("");
         planoDeContingenciaResponsavelJTextField.setText("");
-        planoDeContingenciaDataLimiteJDateChooser.setDate(null);
+        marcoSelecionado = null;
+        pontoControleSelecionado = null;
         planoDeContingenciaDescricaoJTextArea.setText("");
         planoDeContingenciaComoSeraFeitoJTextArea.setText("");
         planoDeContingenciaInfAdicionaisJTextArea.setText("");
@@ -504,6 +604,25 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
                         }
                     }
 
+                    //Procura se o plano de contingência possui um Marco ou ponto de controle já definido
+                    if (planoContingenciaSelecionado.getIdMarcoDoProjeto() != null) {
+                        String nomeMarco = planoContingenciaSelecionado.getIdMarcoDoProjeto().getNomeMarcoDoProjeto();
+                        for (int i = 0; i < planoContingenciaDataLimiteJComboBox.getItemCount(); i++) {
+                            if (planoContingenciaDataLimiteJComboBox.getItemAt(i).equals(nomeMarco)) {
+                                planoContingenciaDataLimiteJComboBox.setSelectedIndex(i);
+                            }
+                        }
+                    } else {
+                        if (planoContingenciaSelecionado.getIdPontoDeControle() != null) {
+                            String nomePonto = planoContingenciaSelecionado.getIdPontoDeControle().getNomePontoDeControle();
+                            for (int i = 0; i < planoContingenciaDataLimiteJComboBox.getItemCount(); i++) {
+                                if (planoContingenciaDataLimiteJComboBox.getItemAt(i).equals(nomePonto)) {
+                                    planoContingenciaDataLimiteJComboBox.setSelectedIndex(i);
+                                }
+                            }
+                        }
+                    }
+
                     //Preenchendo as informações nos campos de Plano de Mitigação
                     planoDeContingenciaIdentificacaoJTextField.setText(planoContingenciaSelecionado.getIdentificacaoPlanoContingencia());
                     planoDeContingenciaResponsavelJTextField.setText(planoContingenciaSelecionado.getResponsavel());
@@ -511,10 +630,9 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
                     planoDeContingenciaComoSeraFeitoJTextArea.setText(planoContingenciaSelecionado.getComoRealizar());
                     planoDeContingenciaInfAdicionaisJTextArea.setText(planoContingenciaSelecionado.getInformacoesAdicionais());
 
-                    Calendar dataLimite = Calendar.getInstance();
-                    dataLimite.setTime(planoContingenciaSelecionado.getDataLimite());
-                    planoDeContingenciaDataLimiteJDateChooser.setCalendar(dataLimite);
-
+                    //Calendar dataLimite = Calendar.getInstance();
+                    //dataLimite.setTime(planoContingenciaSelecionado.getDataLimite());
+                    //planoDeContingenciaDataLimiteJDateChooser.setCalendar(dataLimite);
                     planoDeContingenciaRemoverPlanoJButton.setEnabled(true);
                     planoDeContingenciaSalvarAlteracoesJButton.setEnabled(true);
                 }
@@ -978,7 +1096,6 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
         jScrollPane2 = new javax.swing.JScrollPane();
         planoDeMitigacaoDescricaoJTextArea = new javax.swing.JTextArea();
         jLabel4 = new javax.swing.JLabel();
-        planoDeMitigacaoDataLimiteJDateChooser = new com.toedter.calendar.JDateChooser();
         jLabel5 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         planoDeMitigacaoComoSeraFeitoJTextArea = new javax.swing.JTextArea();
@@ -988,6 +1105,9 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
         planoDeMitigacaoIdentificacaoJTextField = new javax.swing.JTextField();
         jScrollPane9 = new javax.swing.JScrollPane();
         planoDeMitigacaoListaPlanosJList = new javax.swing.JList();
+        planoMitigacaoDataLimiteJComboBox = new javax.swing.JComboBox();
+        jLabel18 = new javax.swing.JLabel();
+        planoMitigacaoDataSelecionadaJLabel = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         planoDeMitigacaoAdicionarPlanoJButton = new javax.swing.JButton();
         planoDeMitigacaoSalvarAlteracoesJButton = new javax.swing.JButton();
@@ -1001,7 +1121,6 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
         jLabel8 = new javax.swing.JLabel();
         planoDeContingenciaResponsavelJTextField = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
-        planoDeContingenciaDataLimiteJDateChooser = new com.toedter.calendar.JDateChooser();
         jLabel10 = new javax.swing.JLabel();
         jScrollPane6 = new javax.swing.JScrollPane();
         planoDeContingenciaDescricaoJTextArea = new javax.swing.JTextArea();
@@ -1012,6 +1131,9 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
         jScrollPane8 = new javax.swing.JScrollPane();
         planoDeContingenciaInfAdicionaisJTextArea = new javax.swing.JTextArea();
         planoDeContingenciaIdentificacaoJTextField = new javax.swing.JTextField();
+        planoContingenciaDataLimiteJComboBox = new javax.swing.JComboBox();
+        jLabel19 = new javax.swing.JLabel();
+        planoContingenciaDataSelecionadaJLabel = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         planoDeContingenciaAdicionarPlanoJButton = new javax.swing.JButton();
         planoDeContingenciaRemoverPlanoJButton = new javax.swing.JButton();
@@ -1437,6 +1559,14 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
 
         jScrollPane9.setViewportView(planoDeMitigacaoListaPlanosJList);
 
+        planoMitigacaoDataLimiteJComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                planoMitigacaoDataLimiteJComboBoxActionPerformed(evt);
+            }
+        });
+
+        jLabel18.setText("Data:");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -1459,13 +1589,17 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
                                 .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGap(43, 43, 43)))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(planoDeMitigacaoIdentificacaoJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 374, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addComponent(planoDeMitigacaoResponsavelJTextField)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel18))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(planoDeMitigacaoDataLimiteJDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(planoDeMitigacaoIdentificacaoJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 374, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(planoMitigacaoDataLimiteJComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(planoMitigacaoDataSelecionadaJLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addComponent(jScrollPane4))
                 .addContainerGap())
         );
@@ -1476,14 +1610,16 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
                     .addComponent(jLabel1)
                     .addComponent(planoDeMitigacaoIdentificacaoJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel2)
-                        .addComponent(planoDeMitigacaoResponsavelJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel4))
-                    .addComponent(planoDeMitigacaoDataLimiteJDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(planoDeMitigacaoResponsavelJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4)
+                    .addComponent(planoMitigacaoDataLimiteJComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel3)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel18)
+                    .addComponent(planoMitigacaoDataSelecionadaJLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1605,6 +1741,14 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
         planoDeContingenciaInfAdicionaisJTextArea.setWrapStyleWord(true);
         jScrollPane8.setViewportView(planoDeContingenciaInfAdicionaisJTextArea);
 
+        planoContingenciaDataLimiteJComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                planoContingenciaDataLimiteJComboBoxActionPerformed(evt);
+            }
+        });
+
+        jLabel19.setText("Data:");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -1625,13 +1769,17 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
                                 .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGap(37, 37, 37)))
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addComponent(planoDeContingenciaIdentificacaoJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 374, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                                 .addComponent(planoDeContingenciaResponsavelJTextField)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel19))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(planoDeContingenciaDataLimiteJDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(planoDeContingenciaIdentificacaoJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 374, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(planoContingenciaDataLimiteJComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(planoContingenciaDataSelecionadaJLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addComponent(jScrollPane6)
                     .addComponent(jScrollPane7)
                     .addComponent(jScrollPane8))
@@ -1640,19 +1788,20 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(planoDeContingenciaIdentificacaoJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel7))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel8)
-                            .addComponent(planoDeContingenciaResponsavelJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel9)))
-                    .addComponent(planoDeContingenciaDataLimiteJDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(planoDeContingenciaIdentificacaoJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel10)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(planoDeContingenciaResponsavelJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel9)
+                    .addComponent(planoContingenciaDataLimiteJComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10)
+                    .addComponent(jLabel19)
+                    .addComponent(planoContingenciaDataSelecionadaJLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1737,7 +1886,7 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
                     .addGroup(PlanoContigenciaJPanelLayout.createSequentialGroup()
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(219, Short.MAX_VALUE))
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 300, Short.MAX_VALUE)))
         );
 
         gerenciarRiscosJTabbedPane.addTab("Plano de Contigência", PlanoContigenciaJPanel);
@@ -1809,7 +1958,7 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(gerenciarRiscosJPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 857, Short.MAX_VALUE)
+            .addComponent(gerenciarRiscosJPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 857, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2041,7 +2190,15 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
 
             planoMitigacaoSelecionado.setIdentificacaoPlanoMitigacao(planoDeMitigacaoIdentificacaoJTextField.getText());
             planoMitigacaoSelecionado.setResponsavel(planoDeMitigacaoResponsavelJTextField.getText());
-            planoMitigacaoSelecionado.setDataLimite(planoDeMitigacaoDataLimiteJDateChooser.getDate());
+            if (mitigacaoEhMarco == true) {
+                planoMitigacaoSelecionado.setDataLimite(marcoSelecionado.getDataMarcoProjeto());
+                planoMitigacaoSelecionado.setIdMarcoDoProjeto(marcoSelecionado);
+                planoMitigacaoSelecionado.setIdPontoDeControle(null);
+            } else {
+                planoMitigacaoSelecionado.setDataLimite(pontoControleSelecionado.getDataPontoControle());
+                planoMitigacaoSelecionado.setIdPontoDeControle(pontoControleSelecionado);
+                planoMitigacaoSelecionado.setIdMarcoDoProjeto(null);
+            }
             planoMitigacaoSelecionado.setDescricaoPlanoMitigacao(planoDeMitigacaoDescricaoJTextArea.getText());
             planoMitigacaoSelecionado.setComoRealizar(planoDeMitigacaoComoSeraFeitoJTextArea.getText());
             planoMitigacaoSelecionado.setInformacoesAdicionais(planoDeMitigacaoInfAdicionaisJTextArea.getText());
@@ -2051,7 +2208,7 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
             atualizaPreencheEventosListaPlanoMitigacao();
             planoDeMitigacaoListaPlanosJList.setSelectedIndex(indexSelecionado);
             Historicoalteracao historico = new Historicoalteracao();
-            historico.setDescricaoAlteracao("Plano de mitigação " + planoContingenciaSelecionado.getIdentificacaoPlanoContingencia() + " alterado.");
+            historico.setDescricaoAlteracao("Plano de mitigação " + planoMitigacaoSelecionado.getIdentificacaoPlanoMitigacao() + " alterado.");
             Calendar c = Calendar.getInstance();
             historico.setDataAlteracao(c.getTime());
             historico.setIdRisco(riscoSelecionado);
@@ -2067,10 +2224,14 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
 
         Planomitigacao novoPlanoMitigacao = new Planomitigacao();
         novoPlanoMitigacao.setResponsavel(planoDeMitigacaoResponsavelJTextField.getText());
-        //Calendar dataIdentificacao = Calendar.getInstance();
-        //Date data = dataIdentificacao.getTime();
 
-        novoPlanoMitigacao.setDataLimite(planoDeMitigacaoDataLimiteJDateChooser.getDate());
+        if (mitigacaoEhMarco == true) {
+            novoPlanoMitigacao.setDataLimite(marcoSelecionado.getDataMarcoProjeto());
+            novoPlanoMitigacao.setIdMarcoDoProjeto(marcoSelecionado);
+        } else {
+            novoPlanoMitigacao.setDataLimite(pontoControleSelecionado.getDataPontoControle());
+            novoPlanoMitigacao.setIdPontoDeControle(pontoControleSelecionado);
+        }
         novoPlanoMitigacao.setDescricaoPlanoMitigacao(planoDeMitigacaoDescricaoJTextArea.getText());
         novoPlanoMitigacao.setComoRealizar(planoDeMitigacaoComoSeraFeitoJTextArea.getText());
         novoPlanoMitigacao.setInformacoesAdicionais(planoDeMitigacaoInfAdicionaisJTextArea.getText());
@@ -2137,7 +2298,14 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
         //Calendar dataIdentificacao = Calendar.getInstance();
         //Date data = dataIdentificacao.getTime();
 
-        novoPlanoContingencia.setDataLimite(planoDeContingenciaDataLimiteJDateChooser.getDate());
+        //novoPlanoContingencia.setDataLimite(planoDeContingenciaDataLimiteJDateChooser.getDate());
+        if (contingenciaEhMarco == true) {
+            novoPlanoContingencia.setDataLimite(marcoSelecionado.getDataMarcoProjeto());
+            novoPlanoContingencia.setIdMarcoDoProjeto(marcoSelecionado);
+        } else {
+            novoPlanoContingencia.setDataLimite(pontoControleSelecionado.getDataPontoControle());
+            novoPlanoContingencia.setIdPontoDeControle(pontoControleSelecionado);
+        }
         novoPlanoContingencia.setDescricaoPlanoContingencia(planoDeContingenciaDescricaoJTextArea.getText());
         novoPlanoContingencia.setComoRealizar(planoDeContingenciaComoSeraFeitoJTextArea.getText());
         novoPlanoContingencia.setInformacoesAdicionais(planoDeContingenciaInfAdicionaisJTextArea.getText());
@@ -2224,7 +2392,16 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
             int indexSelecionado = planoDeContingenciaListaPlanosJList.getSelectedIndex();
 
             planoContingenciaSelecionado.setResponsavel(planoDeContingenciaResponsavelJTextField.getText());
-            planoContingenciaSelecionado.setDataLimite(planoDeContingenciaDataLimiteJDateChooser.getDate());
+            if (contingenciaEhMarco == true) {
+                planoContingenciaSelecionado.setDataLimite(marcoSelecionado.getDataMarcoProjeto());
+                planoContingenciaSelecionado.setIdMarcoDoProjeto(marcoSelecionado);
+                planoContingenciaSelecionado.setIdPontoDeControle(null);
+            } else {
+                planoContingenciaSelecionado.setDataLimite(pontoControleSelecionado.getDataPontoControle());
+                planoContingenciaSelecionado.setIdPontoDeControle(pontoControleSelecionado);
+                planoContingenciaSelecionado.setIdMarcoDoProjeto(null);
+            }
+            //planoContingenciaSelecionado.setDataLimite(planoDeContingenciaDataLimiteJDateChooser.getDate());
             planoContingenciaSelecionado.setDescricaoPlanoContingencia(planoDeContingenciaDescricaoJTextArea.getText());
             planoContingenciaSelecionado.setComoRealizar(planoDeContingenciaComoSeraFeitoJTextArea.getText());
             planoContingenciaSelecionado.setInformacoesAdicionais(planoDeContingenciaInfAdicionaisJTextArea.getText());
@@ -2251,12 +2428,12 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
                 List<Risco> listaInfluneciaTemp = riscoSelecionado.getRiscoList2();
                 listaInfluneciaTemp.add(riscoSelecionadoRelacoes);
                 riscoSelecionado.setRiscoList2(listaInfluneciaTemp);
-                try{
+                try {
                     riscosGerenciarRiscosFacade.editarRisco(riscoSelecionado);
-                }catch(Exception e){
+                } catch (Exception e) {
                     JOptionPane.showMessageDialog(null, "Erro ao adicionar influência. Tabela desatualizada.");
                 }
-                
+
                 JOptionPane.showMessageDialog(null, "O risco " + riscoSelecionado.getIdentificacao() + " agora influencia em " + riscoSelecionadoRelacoes.getIdentificacao());
                 if (riscosNaoAdd.size() > 0) {
                     riscosNaoAdd = null;
@@ -2270,7 +2447,16 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
                 preencheListaRiscosInfluenciados();
                 atualizaPreencheListaRiscosApresentados();
                 riscoSelecionadoRelacoes = null;
-            }else{
+                Historicoalteracao historico = new Historicoalteracao();
+                historico.setDescricaoAlteracao("Modificação nas relações do risco " + riscoSelecionado.getIdentificacao());
+                Calendar c = Calendar.getInstance();
+                historico.setDataAlteracao(c.getTime());
+                historico.setIdRisco(riscoSelecionado);
+                riscosGerenciarRiscosFacade.criaHistorioAlteracao(historico);
+                getListaHistoricoAlteracoes(riscoSelecionado);
+                limparTabelaHistoricoAlteracoes();
+                preencheTabelaHistoricoAlteracoes();
+            } else {
                 JOptionPane.showMessageDialog(null, "Nenhum risco selecionado na tabela acima. Selecione um para adicionar influência.");
             }
         } catch (Exception e) {
@@ -2291,9 +2477,9 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
                     }
                 }
                 riscoSelecionado.setRiscoList2(listaInfluenciaTemp);
-                try{
+                try {
                     riscosGerenciarRiscosFacade.editarRisco(riscoSelecionado);
-                }catch(Exception e){
+                } catch (Exception e) {
                     JOptionPane.showMessageDialog(null, "Erro ao remover influência do risco. Tabela desatualizada.");
                 }
                 JOptionPane.showMessageDialog(null, "Influência de " + riscoSelecionadoInfluencia.getIdentificacao() + " removida do risco " + riscoSelecionado.getIdentificacao());
@@ -2309,13 +2495,98 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
                 preencheListaRiscosInfluenciados();
                 atualizaPreencheListaRiscosApresentados();
                 riscoSelecionadoInfluencia = null;
-            }else{
+                Historicoalteracao historico = new Historicoalteracao();
+                historico.setDescricaoAlteracao("Modificação nas relações do risco " + riscoSelecionado.getIdentificacao());
+                Calendar c = Calendar.getInstance();
+                historico.setDataAlteracao(c.getTime());
+                historico.setIdRisco(riscoSelecionado);
+                riscosGerenciarRiscosFacade.criaHistorioAlteracao(historico);
+                getListaHistoricoAlteracoes(riscoSelecionado);
+                limparTabelaHistoricoAlteracoes();
+                preencheTabelaHistoricoAlteracoes();
+            } else {
                 JOptionPane.showMessageDialog(null, "Nenhum risco selecionado na tabela abaixo à esquerda. Selecione um para remover influência");
             }
-        }catch(Exception e){
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Nenhum risco selecionado na tabela abaixo à esquerda. Selecione um para remover influência");
         }
     }//GEN-LAST:event_relacoesRemoverInfluenciaJButtonActionPerformed
+
+    private void planoMitigacaoDataLimiteJComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_planoMitigacaoDataLimiteJComboBoxActionPerformed
+        if (planoMitigacaoDataLimiteJComboBox.getSelectedItem() != null) {
+            String nomeItem = planoMitigacaoDataLimiteJComboBox.getSelectedItem().toString();
+            mitigacaoEhMarco = false;
+
+            for (int i = 0; i < listaMarcosProjeto.size(); i++) {
+                if (listaMarcosProjeto.get(i).getNomeMarcoDoProjeto().equals(nomeItem)) {
+                    mitigacaoEhMarco = true;
+                    Calendar dataMarcoSelecionado = Calendar.getInstance();
+
+                    DateFormat df = DateFormat.getDateInstance(DateFormat.MEDIUM);
+                    dataMarcoSelecionado.setTime(listaMarcosProjeto.get(i).getDataMarcoProjeto());
+                    String dataImprimida = df.format(dataMarcoSelecionado.getTime());
+                    planoMitigacaoDataSelecionadaJLabel.setText(dataImprimida);
+                    marcoSelecionado = listaMarcosProjeto.get(i);
+                    pontoControleSelecionado = null;
+                    System.out.println("Item: " + marcoSelecionado.getNomeMarcoDoProjeto());
+                }
+            }
+
+            if (mitigacaoEhMarco == false) {
+                for (int i = 0; i < listaPontosControle.size(); i++) {
+                    if (listaPontosControle.get(i).getNomePontoDeControle().equals(nomeItem)) {
+                        Calendar dataPontoSelecionado = Calendar.getInstance();
+
+                        DateFormat df = DateFormat.getDateInstance(DateFormat.MEDIUM);
+                        dataPontoSelecionado.setTime(listaPontosControle.get(i).getDataPontoControle());
+                        String dataImprimida = df.format(dataPontoSelecionado.getTime());
+                        planoMitigacaoDataSelecionadaJLabel.setText(dataImprimida);
+                        pontoControleSelecionado = listaPontosControle.get(i);
+                        marcoSelecionado = null;
+                        System.out.println("Item: " + pontoControleSelecionado.getNomePontoDeControle());
+                    }
+                }
+            }
+        }
+    }//GEN-LAST:event_planoMitigacaoDataLimiteJComboBoxActionPerformed
+
+    private void planoContingenciaDataLimiteJComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_planoContingenciaDataLimiteJComboBoxActionPerformed
+        if (planoContingenciaDataLimiteJComboBox.getSelectedItem() != null) {
+            String nomeItem = planoContingenciaDataLimiteJComboBox.getSelectedItem().toString();
+            contingenciaEhMarco = false;
+
+            for (int i = 0; i < listaMarcosProjeto.size(); i++) {
+                if (listaMarcosProjeto.get(i).getNomeMarcoDoProjeto().equals(nomeItem)) {
+                    contingenciaEhMarco = true;
+                    Calendar dataMarcoSelecionado = Calendar.getInstance();
+
+                    DateFormat df = DateFormat.getDateInstance(DateFormat.MEDIUM);
+                    dataMarcoSelecionado.setTime(listaMarcosProjeto.get(i).getDataMarcoProjeto());
+                    String dataImprimida = df.format(dataMarcoSelecionado.getTime());
+                    planoContingenciaDataSelecionadaJLabel.setText(dataImprimida);
+                    marcoSelecionado = listaMarcosProjeto.get(i);
+                    pontoControleSelecionado = null;
+                    System.out.println("Item: " + marcoSelecionado.getNomeMarcoDoProjeto());
+                }
+            }
+
+            if (contingenciaEhMarco == false) {
+                for (int i = 0; i < listaPontosControle.size(); i++) {
+                    if (listaPontosControle.get(i).getNomePontoDeControle().equals(nomeItem)) {
+                        Calendar dataPontoSelecionado = Calendar.getInstance();
+
+                        DateFormat df = DateFormat.getDateInstance(DateFormat.MEDIUM);
+                        dataPontoSelecionado.setTime(listaPontosControle.get(i).getDataPontoControle());
+                        String dataImprimida = df.format(dataPontoSelecionado.getTime());
+                        planoContingenciaDataSelecionadaJLabel.setText(dataImprimida);
+                        pontoControleSelecionado = listaPontosControle.get(i);
+                        marcoSelecionado = null;
+                        System.out.println("Item: " + pontoControleSelecionado.getNomePontoDeControle());
+                    }
+                }
+            }
+        }
+    }//GEN-LAST:event_planoContingenciaDataLimiteJComboBoxActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -2367,6 +2638,8 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -2399,9 +2672,10 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextPane jTextPane1;
     private javax.swing.JLabel planoContigenciaPlanoDeContigenciaJLabel;
+    private javax.swing.JComboBox planoContingenciaDataLimiteJComboBox;
+    private javax.swing.JLabel planoContingenciaDataSelecionadaJLabel;
     private javax.swing.JButton planoDeContingenciaAdicionarPlanoJButton;
     private javax.swing.JTextArea planoDeContingenciaComoSeraFeitoJTextArea;
-    private com.toedter.calendar.JDateChooser planoDeContingenciaDataLimiteJDateChooser;
     private javax.swing.JTextArea planoDeContingenciaDescricaoJTextArea;
     private javax.swing.JTextField planoDeContingenciaIdentificacaoJTextField;
     private javax.swing.JTextArea planoDeContingenciaInfAdicionaisJTextArea;
@@ -2411,7 +2685,6 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
     private javax.swing.JButton planoDeContingenciaSalvarAlteracoesJButton;
     private javax.swing.JButton planoDeMitigacaoAdicionarPlanoJButton;
     private javax.swing.JTextArea planoDeMitigacaoComoSeraFeitoJTextArea;
-    private com.toedter.calendar.JDateChooser planoDeMitigacaoDataLimiteJDateChooser;
     private javax.swing.JTextArea planoDeMitigacaoDescricaoJTextArea;
     private javax.swing.JTextField planoDeMitigacaoIdentificacaoJTextField;
     private javax.swing.JTextArea planoDeMitigacaoInfAdicionaisJTextArea;
@@ -2420,6 +2693,8 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
     private javax.swing.JButton planoDeMitigacaoRemoverPlanoJButton;
     private javax.swing.JTextField planoDeMitigacaoResponsavelJTextField;
     private javax.swing.JButton planoDeMitigacaoSalvarAlteracoesJButton;
+    private javax.swing.JComboBox planoMitigacaoDataLimiteJComboBox;
+    private javax.swing.JLabel planoMitigacaoDataSelecionadaJLabel;
     private javax.swing.JList relacoesInfluenciadoJList;
     private javax.swing.JButton relacoesInfluenciarRiscoJButton;
     private javax.swing.JList relacoesListaInfluenciaJList;

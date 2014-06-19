@@ -260,8 +260,9 @@ public class PrincipalJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_configuracoesFerramentaJButtonActionPerformed
 
     private void projetoSelecionadoJComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_projetoSelecionadoJComboBoxActionPerformed
-       
-        for (int j = 0; j < listaProjetos.size(); j++){
+       if (projetoSelecionadoJComboBox.getSelectedItem() != null){
+           if (projetoSelecionadoJComboBox.getSelectedItem() != null){
+           for (int j = 0; j < listaProjetos.size(); j++){
             if (listaProjetos.get(j).getNomeProjeto().equals(projetoSelecionadoJComboBox.getSelectedItem())){
                 projetoSelecionado = listaProjetos.get(j);
                 
@@ -287,6 +288,8 @@ public class PrincipalJFrame extends javax.swing.JFrame {
                 riscosGerenciarRiscosJPanel.iniciaBotoesCinzaPlanoMitigacao();
                 riscosGerenciarRiscosJPanel.limparListaPlanoMitigacao();
                 riscosGerenciarRiscosJPanel.limparCamposPlanoMitigacao();
+                riscosGerenciarRiscosJPanel.getListaMarcosProjeto(projetoSelecionado);
+                riscosGerenciarRiscosJPanel.getListaPontosControle(projetoSelecionado);
                 //Na aba Plano de Contingencia
                 riscosGerenciarRiscosJPanel.iniciaBotoesCinzaPlanoContingencia();
                 riscosGerenciarRiscosJPanel.limparListaPlanoContingencia();
@@ -307,7 +310,10 @@ public class PrincipalJFrame extends javax.swing.JFrame {
                 }
                 
             } 
-        } 
+           }
+       }
+       }
+         
          
         
     }//GEN-LAST:event_projetoSelecionadoJComboBoxActionPerformed

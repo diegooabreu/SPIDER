@@ -10,6 +10,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -23,6 +24,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -48,6 +50,10 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Risco.findByGrauSeveridade", query = "SELECT r FROM Risco r WHERE r.grauSeveridade = :grauSeveridade"),
     @NamedQuery(name = "Risco.findByIdentificacao", query = "SELECT r FROM Risco r WHERE r.identificacao = :identificacao")})
 public class Risco implements Serializable {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idRisco")
+    private List<Planomitigacao> planomitigacaoList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idRisco")
+    private List<Planocontingencia> planocontingenciaList;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -270,6 +276,24 @@ public class Risco implements Serializable {
     @Override
     public String toString() {
         return "model.Risco[ idRisco=" + idRisco + " ]";
+    }
+
+    @XmlTransient
+    public List<Planocontingencia> getPlanocontingenciaList() {
+        return planocontingenciaList;
+    }
+
+    public void setPlanocontingenciaList(List<Planocontingencia> planocontingenciaList) {
+        this.planocontingenciaList = planocontingenciaList;
+    }
+
+    @XmlTransient
+    public List<Planomitigacao> getPlanomitigacaoList() {
+        return planomitigacaoList;
+    }
+
+    public void setPlanomitigacaoList(List<Planomitigacao> planomitigacaoList) {
+        this.planomitigacaoList = planomitigacaoList;
     }
     
 }

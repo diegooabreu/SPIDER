@@ -7,8 +7,10 @@
 package facade;
 
 import controller.HistoricoalteracaoJpaController;
+import controller.MarcodoprojetoJpaController;
 import controller.PlanocontingenciaJpaController;
 import controller.PlanomitigacaoJpaController;
+import controller.PontodecontroleJpaController;
 import controller.RelacaosubcondicaoJpaController;
 import controller.RiscoJpaController;
 import controller.SubcondicaoJpaController;
@@ -17,8 +19,11 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Historicoalteracao;
+import model.Marcodoprojeto;
 import model.Planocontingencia;
 import model.Planomitigacao;
+import model.Pontodecontrole;
+import model.Projeto;
 import model.Relacaosubcondicao;
 import model.Risco;
 import model.Subcondicao;
@@ -255,6 +260,34 @@ public class RiscosGerenciarRiscosFacade {
             System.out.println("Erro no método criaHistoricoAlteracao na classe RiscosGerenciarRiscosFacade");
             e.printStackTrace();
         }
+    }
+    
+    public List<Pontodecontrole> listarPontosControleProjetoSelecionado(Projeto Projeto){
+        PontodecontroleJpaController pontoJPA = new PontodecontroleJpaController();
+        List<Pontodecontrole> listaPontos = null;
+        
+        try{
+            listaPontos = pontoJPA.findPontodecontroleByIdProjeto(Projeto);
+        }catch(Exception e){
+            System.out.println("Erro no método listarPontosControleProjetoSelecionado na classe RiscosGerenciarRiscosFacade");
+            e.printStackTrace();
+        }
+        
+        return listaPontos;
+    }
+    
+    public List<Marcodoprojeto> listarMarcosProjetoProjetoSelecionado(Projeto projeto){
+        MarcodoprojetoJpaController marcoJPA = new MarcodoprojetoJpaController();
+        List<Marcodoprojeto> listaMarcos = null;
+        
+        try{
+            listaMarcos = marcoJPA.findMarcodoprojetoByIdProjeto(projeto);
+        }catch(Exception e){
+            System.out.println("Erro no método listarMarcosProjetoProjetoSelecionado na classe RiscosGerenciarRiscosFacade");
+            e.printStackTrace();
+        }
+        
+        return listaMarcos;
     }
     
 }
