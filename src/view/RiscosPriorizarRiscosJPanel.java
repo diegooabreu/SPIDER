@@ -256,7 +256,7 @@ public class RiscosPriorizarRiscosJPanel extends javax.swing.JPanel {
 
     private void RiscosPriorizarRiscosSelecionarMonitorarJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RiscosPriorizarRiscosSelecionarMonitorarJButtonActionPerformed
 
-        SelecionarRiscosParaMonitorarJFrame selecionar = new SelecionarRiscosParaMonitorarJFrame();
+        RiscosSelecionarRiscosParaMonitorarJFrame selecionar = new RiscosSelecionarRiscosParaMonitorarJFrame();
         selecionar.setLocationRelativeTo(this);
         selecionar.setVisible(true);
         selecionar.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);

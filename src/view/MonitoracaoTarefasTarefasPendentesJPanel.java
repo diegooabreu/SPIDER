@@ -189,7 +189,7 @@ public class MonitoracaoTarefasTarefasPendentesJPanel extends javax.swing.JPanel
 
         JOptionPane.showConfirmDialog(this, "Deseja checar os riscos Monitorados?" , "Checar Riscos" , JOptionPane.YES_NO_OPTION);
         
-        ChecarRiscosJFrame checar = new ChecarRiscosJFrame();
+        RiscosChecarRiscosJFrame checar = new RiscosChecarRiscosJFrame();
         checar.setLocationRelativeTo(this);
         checar.setVisible(true);
         checar.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);

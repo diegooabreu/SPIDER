@@ -6,12 +6,17 @@
 
 package view;
 
+import facade.RiscosRiscosOcorridosFacade;
+import javax.swing.JFrame;
+
 /**
  *
  * @author Victor
  */
 public class RiscosRiscosOcorridosJPanel extends javax.swing.JPanel {
 
+    RiscosRiscosOcorridosFacade riscosOcorridosFacade = new RiscosRiscosOcorridosFacade();
+    
     /**
      * Creates new form RiscosRiscosOcorridosJPanel
      */
@@ -31,6 +36,7 @@ public class RiscosRiscosOcorridosJPanel extends javax.swing.JPanel {
         RiscosRiscosOcorridosJPanel = new javax.swing.JPanel();
         RiscosRiscosOcorridosJScrollPane = new javax.swing.JScrollPane();
         RiscosRiscosOcorridosJTable = new javax.swing.JTable();
+        jButton1 = new javax.swing.JButton();
 
         RiscosRiscosOcorridosJPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Riscos Ocorridos", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP));
 
@@ -143,17 +149,30 @@ public class RiscosRiscosOcorridosJPanel extends javax.swing.JPanel {
         ));
         RiscosRiscosOcorridosJScrollPane.setViewportView(RiscosRiscosOcorridosJTable);
 
+        jButton1.setText("selecionar riscos");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout RiscosRiscosOcorridosJPanelLayout = new javax.swing.GroupLayout(RiscosRiscosOcorridosJPanel);
         RiscosRiscosOcorridosJPanel.setLayout(RiscosRiscosOcorridosJPanelLayout);
         RiscosRiscosOcorridosJPanelLayout.setHorizontalGroup(
             RiscosRiscosOcorridosJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(RiscosRiscosOcorridosJScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 829, Short.MAX_VALUE)
+            .addGroup(RiscosRiscosOcorridosJPanelLayout.createSequentialGroup()
+                .addGap(289, 289, 289)
+                .addComponent(jButton1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         RiscosRiscosOcorridosJPanelLayout.setVerticalGroup(
             RiscosRiscosOcorridosJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(RiscosRiscosOcorridosJPanelLayout.createSequentialGroup()
                 .addComponent(RiscosRiscosOcorridosJScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 386, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 109, Short.MAX_VALUE))
+                .addGap(39, 39, 39)
+                .addComponent(jButton1)
+                .addGap(0, 47, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -173,10 +192,21 @@ public class RiscosRiscosOcorridosJPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+
+        RiscosSelecionarRiscosParaMonitorarJFrame selecionar = new RiscosSelecionarRiscosParaMonitorarJFrame();
+        selecionar.criarTabelaSelecionarRiscos(riscosOcorridosFacade.getListaDeRiscos());
+        selecionar.setLocationRelativeTo(this);
+        selecionar.setVisible(true);
+        selecionar.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel RiscosRiscosOcorridosJPanel;
     private javax.swing.JScrollPane RiscosRiscosOcorridosJScrollPane;
     private javax.swing.JTable RiscosRiscosOcorridosJTable;
+    private javax.swing.JButton jButton1;
     // End of variables declaration//GEN-END:variables
 }

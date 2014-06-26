@@ -34,7 +34,7 @@ import net.sf.nachocalendar.tasks.TaskDataModel;
 public class ProjetoCalendarioJPanel extends javax.swing.JPanel {
 
     
-    final CalendarioDetalhesDoDiaJFrame calendarioDetalhesDoDiaJFrame = new CalendarioDetalhesDoDiaJFrame();
+    final CalendarioDetalhesMarcoEpontoDoDiaJFrame calendarioDetalhesMarcoEpontoDoDiaJFrame = new CalendarioDetalhesMarcoEpontoDoDiaJFrame();
     
     ProjetoCalendarioFacade projetoCalendarioFacade = new ProjetoCalendarioFacade();
     
@@ -54,8 +54,8 @@ public class ProjetoCalendarioJPanel extends javax.swing.JPanel {
     public ProjetoCalendarioJPanel() {
         initComponents();
         
-        calendarioDetalhesDoDiaJFrame.setVisible(false);
-
+        calendarioDetalhesMarcoEpontoDoDiaJFrame.setVisible(false);
+        calendarioDetalhesMarcoEpontoDoDiaJFrame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         
         criarTarefasCalendario();
         
@@ -199,8 +199,6 @@ public class ProjetoCalendarioJPanel extends javax.swing.JPanel {
                DateFormat df = DateFormat.getDateInstance(DateFormat.MEDIUM);
                Date data = (Date) listaMarcosDoProjeto.get(i).getDataMarcoProjeto();
                
-                            
-               
                Object[] linha = new Object[]{"Marco" , listaMarcosDoProjeto.get(i).getNomeMarcoDoProjeto() , df.format(data)};
                modeloTabelaMarcosEPontosDeControle.addRow(linha);
                
@@ -307,7 +305,6 @@ public class ProjetoCalendarioJPanel extends javax.swing.JPanel {
 
         datePanel1.setAntiAliased(true);
         datePanel1.setModel(taskDataModel1);
-        datePanel1.setShowToday(true);
         datePanel1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 datePanel1ActionPerformed(evt);
@@ -453,20 +450,17 @@ public class ProjetoCalendarioJPanel extends javax.swing.JPanel {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(diaDetalhesJButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(datePanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addGap(0, 50, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(novoMarcoPontoJPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(diaDetalhesJButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(datePanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 50, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(novoMarcoPontoJPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addGap(430, 430, 430)
@@ -553,10 +547,18 @@ public class ProjetoCalendarioJPanel extends javax.swing.JPanel {
                                 
                 JOptionPane.showMessageDialog(this, "Ponto de Controle excluido com sucesso.");
             
+                 // Limpar campos
+                marcoSelecionado = null;
+                pontoDeControleSelecionado = null;        
+                marcoPontoDeControleSelecionadoJLabel2.setText("Nenhum");
+                nomeMarcosPontosDeControleJTextField.setText("");
+                descricaoMarcoPontoDeControleJTextArea.setText("");
+                dataMarcoPontoDeControleJDateChooser.setValue(null);
+        
+                
                 criarTabelasMarcoPontoDeControle();
                 popularTabelaMarcoPontoDeControle();
-                
-                
+                               
                 definirEventosTabelaMarcoEPontosDeControle();               
                 
             }
@@ -577,26 +579,60 @@ public class ProjetoCalendarioJPanel extends javax.swing.JPanel {
     private void criarAlterarMarcoOuPontoDeControleJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_criarAlterarMarcoOuPontoDeControleJButtonActionPerformed
 
         
-        // CRIAR projeto se nenhum marco ou ponto de controle esttiver selecionado
+        
+        // CRIAR se nenhum marco ou ponto de controle esttiver selecionado
         if ((marcoSelecionado == null) && (pontoDeControleSelecionado == null)){
         
+        boolean existeMesmoNome = false;
+        boolean existeMarcoNesseDia = false;
+        boolean existePontoDeControleNesseDia = false;
+        
+        DateFormat df = DateFormat.getDateInstance(DateFormat.MEDIUM);
+          //  Date dataPontoDeControle = ponto.getDataPontoControle();
+            
+        for(int i=0; i < listaMarcosDoProjeto.size(); i++){
+            if(nomeMarcosPontosDeControleJTextField.getText().equals(listaMarcosDoProjeto.get(i).getNomeMarcoDoProjeto()) | 
+                    df.format(listaMarcosDoProjeto.get(i).getDataMarcoProjeto()).equals(df.format(dataMarcoPontoDeControleJDateChooser.getValue()))){
+                
+                if(nomeMarcosPontosDeControleJTextField.getText().equals(listaMarcosDoProjeto.get(i).getNomeMarcoDoProjeto())){
+                existeMesmoNome = true;
+                } else if(df.format(listaMarcosDoProjeto.get(i).getDataMarcoProjeto()).equals(df.format(dataMarcoPontoDeControleJDateChooser.getValue()))){
+                    existeMarcoNesseDia = true;
+                }
+            }
+            
+        }
+        
+        for(int i=0; i < listaPontosDeControle.size(); i++){
+            if(nomeMarcosPontosDeControleJTextField.getText().equals(listaPontosDeControle.get(i).getNomePontoDeControle()) | 
+                    df.format(listaPontosDeControle.get(i).getDataPontoControle()).equals(df.format(dataMarcoPontoDeControleJDateChooser.getValue()))){
+                
+                if(nomeMarcosPontosDeControleJTextField.getText().equals(listaPontosDeControle.get(i).getNomePontoDeControle())){
+                existeMesmoNome = true;
+                } else if(df.format(listaPontosDeControle.get(i).getDataPontoControle()).equals(df.format(dataMarcoPontoDeControleJDateChooser.getValue()))){
+                    existePontoDeControleNesseDia = true;
+                }
+            }
+        }
+        
+        Date data = (Date) dataMarcoPontoDeControleJDateChooser.getValue();
+        
+        if(nomeMarcosPontosDeControleJTextField.getText().equals(null) | nomeMarcosPontosDeControleJTextField.getText().equals("")){
+            JOptionPane.showMessageDialog(this, "Por favor insira um nome.");
+        }
+        else if(data == null){
+            JOptionPane.showMessageDialog(this, "Por favor selecione uma data.");
+        }
+        else if(existeMesmoNome == false){   
+            
+                
         if (MarcoPontoDeControleJComboBox.getSelectedItem().equals("Marco do Projeto")){
             
-            //boolean existeMarcoDeMesmoNome = false;
+            if(existeMarcoNesseDia == true){
+                JOptionPane.showMessageDialog(this, "Ja existe um Marco para este dia.");
+            } else {
             
-            // checa se existe marco com este nome no projeto
-            //for(int i = 0; i < listaMarcosDoProjeto.size(); i++){           
-            //    if (listaMarcosDoProjeto.get(i).getNomeMarcoDoProjeto().equals(nomeMarcosPontosDeControleJTextField.getText())){
-            //        existeMarcoDeMesmoNome = true;
-           //     }   
-           // }
-            
-            //if (existeMarcoDeMesmoNome = true){
-                
-            //    JOptionPane.showMessageDialog(this, "Já existe um marco com este nome no projeto.");
                         
-           // } else {
-            
             Marcodoprojeto marcoDoProjeto = new Marcodoprojeto();
             
             marcoDoProjeto.setNomeMarcoDoProjeto(nomeMarcosPontosDeControleJTextField.getText());
@@ -612,14 +648,24 @@ public class ProjetoCalendarioJPanel extends javax.swing.JPanel {
             taskDataModel1.addTask(tarefa);
             datePanel1.refresh();
             
-            
+            // Limpar campos
+        marcoSelecionado = null;
+        pontoDeControleSelecionado = null;        
+        marcoPontoDeControleSelecionadoJLabel2.setText("Nenhum");
+        nomeMarcosPontosDeControleJTextField.setText("");
+        descricaoMarcoPontoDeControleJTextArea.setText("");
+        dataMarcoPontoDeControleJDateChooser.setValue(null);
+        
             JOptionPane.showMessageDialog(this, "Marco do Projeto criado com sucesso.");
             
-          //  }
+          
+            }
+        } else if (MarcoPontoDeControleJComboBox.getSelectedItem().equals("Ponto de Controle")){
             
-        } else {
-            
-            
+            if(existePontoDeControleNesseDia == true){
+                JOptionPane.showMessageDialog(this, "Ja existe um Ponto de Controle para este dia.");
+            } else {
+                       
             
             Pontodecontrole pontoDeControle = new Pontodecontrole();
             
@@ -636,33 +682,96 @@ public class ProjetoCalendarioJPanel extends javax.swing.JPanel {
             taskDataModel1.addTask(tarefa);
             datePanel1.refresh();
             
+            // Limpar campos
+        marcoSelecionado = null;
+        pontoDeControleSelecionado = null;        
+        marcoPontoDeControleSelecionadoJLabel2.setText("Nenhum");
+        nomeMarcosPontosDeControleJTextField.setText("");
+        descricaoMarcoPontoDeControleJTextArea.setText("");
+        dataMarcoPontoDeControleJDateChooser.setValue(null);
+        
             JOptionPane.showMessageDialog(this, "Ponto de Controle criado com sucesso.");
             
-            
+            } 
         }
         
         criarTabelasMarcoPontoDeControle();
         popularTabelaMarcoPontoDeControle();
-        //definirEventosTabelaMarcosDoProjeto();
-        //definirEventosTabelaPontosDeControle();
-        
         definirEventosTabelaMarcoEPontosDeControle();
         
         }
         
+         else {
+            JOptionPane.showMessageDialog(this, "Já existem um marco ou ponto de controle com este nome.");
+        } 
+        
+        
         //ALTERAR - Se nao tem marco selecionado entao tem ponto de controle selecionado
-        else if((marcoSelecionado == null) && (pontoDeControleSelecionado != null)) {
+        } else if((marcoSelecionado == null) && (pontoDeControleSelecionado != null)) {
+            
+            boolean existeMesmoNomeAlterarPonto = false;
+            boolean existePontoDeControleNesseDiaAlterarPonto = false;
+            
+            DateFormat df2 = DateFormat.getDateInstance(DateFormat.MEDIUM);
+            
+            for(int i=0; i < listaPontosDeControle.size(); i++){
+            if(nomeMarcosPontosDeControleJTextField.getText().equals(listaPontosDeControle.get(i).getNomePontoDeControle()) | 
+                    df2.format(listaPontosDeControle.get(i).getDataPontoControle()).equals(df2.format(dataMarcoPontoDeControleJDateChooser.getValue()))){
+                
+                if(nomeMarcosPontosDeControleJTextField.getText().equals(listaPontosDeControle.get(i).getNomePontoDeControle())){
+                existeMesmoNomeAlterarPonto = true;
+                } else if(df2.format(listaPontosDeControle.get(i).getDataPontoControle()).equals(df2.format(dataMarcoPontoDeControleJDateChooser.getValue()))){
+                    existePontoDeControleNesseDiaAlterarPonto = true;
+                }
+            }
+        }
+            
+            if(existeMesmoNomeAlterarPonto == true){
+                JOptionPane.showMessageDialog(this, "Ja existe um ponto de controle com este nome.");
+            } else if (existePontoDeControleNesseDiaAlterarPonto == true){
+                JOptionPane.showMessageDialog(this, "Ja existe um ponto de controle para esta data.");
+            } else {
+            
             
             pontoDeControleSelecionado.setNomePontoDeControle(nomeMarcosPontosDeControleJTextField.getText());
             pontoDeControleSelecionado.setDescricaoPontoControle(descricaoMarcoPontoDeControleJTextArea.getText());
             pontoDeControleSelecionado.setDataPontoControle((Date)dataMarcoPontoDeControleJDateChooser.getValue());
-            
             projetoCalendarioFacade.alterarPontoDeControle(pontoDeControleSelecionado);
             
+            criarTabelasMarcoPontoDeControle();
+            popularTabelaMarcoPontoDeControle();
+            definirEventosTabelaMarcoEPontosDeControle();
+        
+            
             JOptionPane.showMessageDialog(this, "Ponto de controle alterado com sucesso.");
+            }
             
         //ALTERAR - Se nao tem ponto de controle selecionado entao tem marco selecionado    
         } else if((pontoDeControleSelecionado == null) && (marcoSelecionado != null)){
+            
+            boolean existeMesmoNomeAlterarMarco = false;
+            boolean existeMarcoNesseDiaAlterarMarco = false;
+            
+            DateFormat df2 = DateFormat.getDateInstance(DateFormat.MEDIUM);
+            
+            for(int i=0; i < listaMarcosDoProjeto.size(); i++){
+            if(nomeMarcosPontosDeControleJTextField.getText().equals(listaMarcosDoProjeto.get(i).getNomeMarcoDoProjeto()) | 
+                    df2.format(listaMarcosDoProjeto.get(i).getDataMarcoProjeto()).equals(df2.format(dataMarcoPontoDeControleJDateChooser.getValue()))){
+                
+                if(nomeMarcosPontosDeControleJTextField.getText().equals(listaMarcosDoProjeto.get(i).getNomeMarcoDoProjeto())){
+                existeMesmoNomeAlterarMarco = true;
+                } else if(df2.format(listaMarcosDoProjeto.get(i).getDataMarcoProjeto()).equals(df2.format(dataMarcoPontoDeControleJDateChooser.getValue()))){
+                    existeMarcoNesseDiaAlterarMarco = true;
+                }
+            }
+            
+        }
+            
+            if(existeMesmoNomeAlterarMarco == true){
+                JOptionPane.showMessageDialog(this, "Ja existe um marco com este nome.");
+            } else if(existeMarcoNesseDiaAlterarMarco == true){
+                JOptionPane.showMessageDialog(this, "Ja existe um marco para este dia.");
+            } else {
             
             marcoSelecionado.setNomeMarcoDoProjeto(nomeMarcosPontosDeControleJTextField.getText());
             marcoSelecionado.setDescricaoMarcoProjeto(descricaoMarcoPontoDeControleJTextArea.getText());
@@ -670,10 +779,16 @@ public class ProjetoCalendarioJPanel extends javax.swing.JPanel {
             
             projetoCalendarioFacade.alterarMarcoDoProjeto(marcoSelecionado);
             
+            criarTabelasMarcoPontoDeControle();
+            popularTabelaMarcoPontoDeControle();
+            definirEventosTabelaMarcoEPontosDeControle();
+                    
             JOptionPane.showMessageDialog(this, "Marco do projeto alterado com sucesso.");            
+                
+                }
+            
         }
-        
-
+    
     }//GEN-LAST:event_criarAlterarMarcoOuPontoDeControleJButtonActionPerformed
 
     private void limparCamposJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limparCamposJButtonActionPerformed
@@ -690,6 +805,8 @@ public class ProjetoCalendarioJPanel extends javax.swing.JPanel {
         nomeMarcosPontosDeControleJTextField.setText("");
         descricaoMarcoPontoDeControleJTextArea.setText("");
         dataMarcoPontoDeControleJDateChooser.setValue(null);
+        
+        tabelaMarcosEPontosDeControle.clearSelection();
         
         
 // TODO add your handling code here:
@@ -736,17 +853,41 @@ public class ProjetoCalendarioJPanel extends javax.swing.JPanel {
                 
             
         }
-        
             
-            
-        calendarioDetalhesDoDiaJFrame.limarTela();
-        calendarioDetalhesDoDiaJFrame.criarListaDeTarefas();
-        calendarioDetalhesDoDiaJFrame.mostraInformacoesPontoDeControle(diaSelecionadoPonto);
-        calendarioDetalhesDoDiaJFrame.mostraInformacoesMarcoDoProjeto(diaSelecionadoMarco);
-        calendarioDetalhesDoDiaJFrame.popularListaDeTarefas(projetoSelecionado, dataLimite);
+        calendarioDetalhesMarcoEpontoDoDiaJFrame.setAllVisibleFalse();
+        calendarioDetalhesMarcoEpontoDoDiaJFrame.limparTela();    
         
-        calendarioDetalhesDoDiaJFrame.setVisible(true);
-        calendarioDetalhesDoDiaJFrame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        // se existem marco e ponto de controle para o dia selecionado
+        if(diaSelecionadoMarco != null && diaSelecionadoPonto != null){
+            
+            calendarioDetalhesMarcoEpontoDoDiaJFrame.criarListaDeTarefas();
+            calendarioDetalhesMarcoEpontoDoDiaJFrame.mostraInformacoesPontoDeControle(diaSelecionadoPonto);
+            calendarioDetalhesMarcoEpontoDoDiaJFrame.mostraInformacoesMarcoDoProjeto(diaSelecionadoMarco);
+            calendarioDetalhesMarcoEpontoDoDiaJFrame.popularListaDeTarefas(projetoSelecionado, dataLimite);
+            calendarioDetalhesMarcoEpontoDoDiaJFrame.setVisible(true);
+            
+            calendarioDetalhesMarcoEpontoDoDiaJFrame.setVisibleMarcoEpontoJPanel(true);
+           
+            
+        // se existe somente um marco para o dia selecionado
+        } else if(diaSelecionadoMarco != null && diaSelecionadoPonto == null){
+            calendarioDetalhesMarcoEpontoDoDiaJFrame.mostraInformacoesMarcoSomenteMarco(diaSelecionadoMarco);
+          
+            calendarioDetalhesMarcoEpontoDoDiaJFrame.setVisible(true);
+            calendarioDetalhesMarcoEpontoDoDiaJFrame.setVisibleSomenteMarcoJPanel(true);
+            
+        // se existe somente um ponto de controle para o dia selecionado   
+        } else if(diaSelecionadoPonto != null && diaSelecionadoMarco == null){
+            
+            calendarioDetalhesMarcoEpontoDoDiaJFrame.criarListaDeTarefasPontoSomentePonto();
+            calendarioDetalhesMarcoEpontoDoDiaJFrame.popularListaDeTarefasPontoSomentePonto(projetoSelecionado, dataLimite);
+            
+            calendarioDetalhesMarcoEpontoDoDiaJFrame.mostraInformacoesPontoSomentePonto(diaSelecionadoPonto);
+            
+            calendarioDetalhesMarcoEpontoDoDiaJFrame.setVisible(true);
+            calendarioDetalhesMarcoEpontoDoDiaJFrame.setVisibleSomentePonto(true);
+            
+        }
 
 
         

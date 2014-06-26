@@ -6,6 +6,7 @@
 package view;
 
 import facade.OrganizacionalEARFacade;
+import facade.TabelaMonitorarRiscosTableModel;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
@@ -45,6 +46,7 @@ public class OrganizacionalEARJPanel extends javax.swing.JPanel {
     // Criando Tabela Categorias //
     private JTable categoriasTabelaJTable = null;
     private DefaultTableModel modeloCategoriasTabelaJTable = null;
+    
 
     //**************************//
     /**
@@ -70,7 +72,8 @@ public class OrganizacionalEARJPanel extends javax.swing.JPanel {
 
     public void criarTabela() {
 
-        categoriasTabelaJTable = new JTable();
+        categoriasTabelaJTable = new JTable(){@Override
+        public boolean isCellEditable(int rowIndex, int colIndex) { return false; }};  
         modeloCategoriasTabelaJTable = new DefaultTableModel();
         modeloCategoriasTabelaJTable.setColumnIdentifiers(new String[]{"Id", "Categoria", "Categoria Pai", "Projeto", "Status da Avaliação"});
         categoriasTabelaJTable.setModel(modeloCategoriasTabelaJTable);
