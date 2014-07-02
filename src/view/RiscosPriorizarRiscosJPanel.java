@@ -3,16 +3,37 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package view;
 
+import com.sun.java.accessibility.AccessBridge;
+import controller.RiscoJpaController;
+import facade.RiscosGerenciarRiscosFacade;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.util.ArrayList;
+import java.util.List;
+import javax.sql.RowSetEvent;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
+import model.Risco;
 
 /**
  *
  * @author Victor
  */
 public class RiscosPriorizarRiscosJPanel extends javax.swing.JPanel {
+
+    private JTable tabelaDeRiscosJTable;
+    private DefaultTableModel modeloTabelaDeRiscosJTable;
+    private List<Risco> listaDeRisco;
+    private Risco RiscoSelecionado;
+    private List<Risco> listaDeRiscoModificada;
+    public int riscoSelecionado;
 
     /**
      * Creates new form RiscosPriorizarRiscosJPanel
@@ -31,128 +52,32 @@ public class RiscosPriorizarRiscosJPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         RiscosPriorizarRiscosJPanel = new javax.swing.JPanel();
-        RiscosPriorizarRiscosJScrollPane = new javax.swing.JScrollPane();
-        RiscosPriorizarRiscosJTable = new javax.swing.JTable();
         RiscosPriorizarRiscosSalvarAlteracoesJButton = new javax.swing.JButton();
         RiscosPriorizarRiscosSelecionarMonitorarJButton = new javax.swing.JButton();
         RiscosPriorizarRiscosAcoesJPanel = new javax.swing.JPanel();
         RiscosPriorizarRiscosAcoesAumentarPrioridadeJButton = new javax.swing.JButton();
         RiscosPriorizarRiscosAcoesDiminuirPrioridadeJButton = new javax.swing.JButton();
-        RiscosPriorizarRiscosacoesDefinirManualJButton = new javax.swing.JButton();
-        RiscosPriorizarRiscosAcoesJSpinner = new javax.swing.JSpinner();
+        TabelaDeRiscosJScrollPane = new javax.swing.JScrollPane();
+        jPanel1 = new javax.swing.JPanel();
+        emissorJLabel = new javax.swing.JLabel();
+        probabilidadeJLabel = new javax.swing.JLabel();
+        impactoJLabel = new javax.swing.JLabel();
+        grauDeSeveridadeJLabel = new javax.swing.JLabel();
+        emissorJTextField = new javax.swing.JTextField();
+        probabilidadeJTextField = new javax.swing.JTextField();
+        impactoJTextField = new javax.swing.JTextField();
+        grauDeSeveridadeJTextField = new javax.swing.JTextField();
+        descartarAlteraçõesJButton = new javax.swing.JButton();
+        resetarPrioridadesJButton = new javax.swing.JButton();
 
         RiscosPriorizarRiscosJPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Priorizar Riscos", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP));
 
-        RiscosPriorizarRiscosJTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {"R01", "20", "Alto", "15", "0", "Novo"},
-                {"R02", "35", "Alto", "15", "0", "Novo"},
-                {"R03", "80", "Alto", "60", "0", "Novo"},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
-            },
-            new String [] {
-                "Identificação", "Probabilidade", "Impacto", "Grau de Severidade", "Prioridade", "Estado"
-            }
-        ));
-        RiscosPriorizarRiscosJScrollPane.setViewportView(RiscosPriorizarRiscosJTable);
-
         RiscosPriorizarRiscosSalvarAlteracoesJButton.setText("Salvar alterações de risco");
+        RiscosPriorizarRiscosSalvarAlteracoesJButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RiscosPriorizarRiscosSalvarAlteracoesJButtonActionPerformed(evt);
+            }
+        });
 
         RiscosPriorizarRiscosSelecionarMonitorarJButton.setText("Selecionar riscos para monitorar");
         RiscosPriorizarRiscosSelecionarMonitorarJButton.addActionListener(new java.awt.event.ActionListener() {
@@ -164,13 +89,16 @@ public class RiscosPriorizarRiscosJPanel extends javax.swing.JPanel {
         RiscosPriorizarRiscosAcoesJPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Ações", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP));
 
         RiscosPriorizarRiscosAcoesAumentarPrioridadeJButton.setText("Aumentar prioridade");
+        RiscosPriorizarRiscosAcoesAumentarPrioridadeJButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RiscosPriorizarRiscosAcoesAumentarPrioridadeJButtonActionPerformed(evt);
+            }
+        });
 
         RiscosPriorizarRiscosAcoesDiminuirPrioridadeJButton.setText("Diminuir prioridade");
-
-        RiscosPriorizarRiscosacoesDefinirManualJButton.setText("Definir prioridade manual");
-        RiscosPriorizarRiscosacoesDefinirManualJButton.addActionListener(new java.awt.event.ActionListener() {
+        RiscosPriorizarRiscosAcoesDiminuirPrioridadeJButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                RiscosPriorizarRiscosacoesDefinirManualJButtonActionPerformed(evt);
+                RiscosPriorizarRiscosAcoesDiminuirPrioridadeJButtonActionPerformed(evt);
             }
         });
 
@@ -181,58 +109,147 @@ public class RiscosPriorizarRiscosJPanel extends javax.swing.JPanel {
             .addGroup(RiscosPriorizarRiscosAcoesJPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(RiscosPriorizarRiscosAcoesJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(RiscosPriorizarRiscosAcoesJPanelLayout.createSequentialGroup()
-                        .addComponent(RiscosPriorizarRiscosacoesDefinirManualJButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
-                        .addComponent(RiscosPriorizarRiscosAcoesJSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(RiscosPriorizarRiscosAcoesJPanelLayout.createSequentialGroup()
-                        .addGroup(RiscosPriorizarRiscosAcoesJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(RiscosPriorizarRiscosAcoesAumentarPrioridadeJButton)
-                            .addComponent(RiscosPriorizarRiscosAcoesDiminuirPrioridadeJButton))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                    .addComponent(RiscosPriorizarRiscosAcoesDiminuirPrioridadeJButton, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(RiscosPriorizarRiscosAcoesAumentarPrioridadeJButton, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         RiscosPriorizarRiscosAcoesJPanelLayout.setVerticalGroup(
             RiscosPriorizarRiscosAcoesJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, RiscosPriorizarRiscosAcoesJPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(22, 22, 22)
                 .addComponent(RiscosPriorizarRiscosAcoesAumentarPrioridadeJButton)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(RiscosPriorizarRiscosAcoesDiminuirPrioridadeJButton)
-                .addGap(18, 18, 18)
-                .addGroup(RiscosPriorizarRiscosAcoesJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(RiscosPriorizarRiscosacoesDefinirManualJButton)
-                    .addComponent(RiscosPriorizarRiscosAcoesJSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(25, 25, 25))
+        );
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Outras informações"));
+
+        emissorJLabel.setText("Emissor:");
+
+        probabilidadeJLabel.setText("Probabilidade:");
+
+        impactoJLabel.setText("Impacto:");
+
+        grauDeSeveridadeJLabel.setText("Grau de Severidade");
+
+        emissorJTextField.setEditable(false);
+        emissorJTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                emissorJTextFieldActionPerformed(evt);
+            }
+        });
+
+        probabilidadeJTextField.setEditable(false);
+
+        impactoJTextField.setEditable(false);
+
+        grauDeSeveridadeJTextField.setEditable(false);
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(probabilidadeJLabel)
+                            .addComponent(emissorJLabel))
+                        .addGap(45, 45, 45)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(emissorJTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 223, Short.MAX_VALUE)
+                            .addComponent(probabilidadeJTextField)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(grauDeSeveridadeJLabel)
+                                .addGap(18, 18, 18))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(impactoJLabel)
+                                .addGap(70, 70, 70)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(impactoJTextField)
+                            .addComponent(grauDeSeveridadeJTextField))))
                 .addContainerGap())
         );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(emissorJLabel)
+                    .addComponent(emissorJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(probabilidadeJLabel)
+                    .addComponent(probabilidadeJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(impactoJLabel)
+                    .addComponent(impactoJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(grauDeSeveridadeJLabel)
+                    .addComponent(grauDeSeveridadeJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
+
+        descartarAlteraçõesJButton.setText("Descartar alterações");
+        descartarAlteraçõesJButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                descartarAlteraçõesJButtonActionPerformed(evt);
+            }
+        });
+
+        resetarPrioridadesJButton.setText("Resetar Prioridades");
+        resetarPrioridadesJButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                resetarPrioridadesJButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout RiscosPriorizarRiscosJPanelLayout = new javax.swing.GroupLayout(RiscosPriorizarRiscosJPanel);
         RiscosPriorizarRiscosJPanel.setLayout(RiscosPriorizarRiscosJPanelLayout);
         RiscosPriorizarRiscosJPanelLayout.setHorizontalGroup(
             RiscosPriorizarRiscosJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(RiscosPriorizarRiscosJScrollPane)
             .addGroup(RiscosPriorizarRiscosJPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(RiscosPriorizarRiscosAcoesJPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(RiscosPriorizarRiscosJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(TabelaDeRiscosJScrollPane)
                     .addGroup(RiscosPriorizarRiscosJPanelLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(RiscosPriorizarRiscosSalvarAlteracoesJButton)
-                        .addContainerGap())
-                    .addGroup(RiscosPriorizarRiscosJPanelLayout.createSequentialGroup()
+                        .addComponent(RiscosPriorizarRiscosAcoesJPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(RiscosPriorizarRiscosSelecionarMonitorarJButton)
-                        .addContainerGap(339, Short.MAX_VALUE))))
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 109, Short.MAX_VALUE)
+                        .addGroup(RiscosPriorizarRiscosJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(RiscosPriorizarRiscosSalvarAlteracoesJButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(descartarAlteraçõesJButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(resetarPrioridadesJButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, RiscosPriorizarRiscosJPanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(RiscosPriorizarRiscosSelecionarMonitorarJButton)
+                .addGap(303, 303, 303))
         );
         RiscosPriorizarRiscosJPanelLayout.setVerticalGroup(
             RiscosPriorizarRiscosJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(RiscosPriorizarRiscosJPanelLayout.createSequentialGroup()
-                .addComponent(RiscosPriorizarRiscosJScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(TabelaDeRiscosJScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 283, Short.MAX_VALUE)
+                .addGap(11, 11, 11)
+                .addComponent(RiscosPriorizarRiscosSelecionarMonitorarJButton)
+                .addGap(18, 18, 18)
                 .addGroup(RiscosPriorizarRiscosJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(RiscosPriorizarRiscosAcoesJPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(RiscosPriorizarRiscosJPanelLayout.createSequentialGroup()
-                        .addComponent(RiscosPriorizarRiscosSelecionarMonitorarJButton)
+                        .addGroup(RiscosPriorizarRiscosJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(RiscosPriorizarRiscosAcoesJPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(1, 1, 1))
+                    .addGroup(RiscosPriorizarRiscosJPanelLayout.createSequentialGroup()
+                        .addComponent(resetarPrioridadesJButton)
+                        .addGap(18, 18, 18)
+                        .addComponent(descartarAlteraçõesJButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(RiscosPriorizarRiscosSalvarAlteracoesJButton)
                         .addContainerGap())))
@@ -250,31 +267,196 @@ public class RiscosPriorizarRiscosJPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void RiscosPriorizarRiscosacoesDefinirManualJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RiscosPriorizarRiscosacoesDefinirManualJButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_RiscosPriorizarRiscosacoesDefinirManualJButtonActionPerformed
-
     private void RiscosPriorizarRiscosSelecionarMonitorarJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RiscosPriorizarRiscosSelecionarMonitorarJButtonActionPerformed
 
-        RiscosSelecionarRiscosParaMonitorarJFrame selecionar = new RiscosSelecionarRiscosParaMonitorarJFrame();
+        SelecionarRiscosParaMonitorarJFrame selecionar = new SelecionarRiscosParaMonitorarJFrame();
         selecionar.setLocationRelativeTo(this);
         selecionar.setVisible(true);
         selecionar.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-        
+
 // TODO add your handling code here:
     }//GEN-LAST:event_RiscosPriorizarRiscosSelecionarMonitorarJButtonActionPerformed
+
+    private void RiscosPriorizarRiscosAcoesAumentarPrioridadeJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RiscosPriorizarRiscosAcoesAumentarPrioridadeJButtonActionPerformed
+        int linhaSelecionada = tabelaDeRiscosJTable.getSelectedRow();
+        if (linhaSelecionada > 0) {
+            listaDeRiscoModificada = listaDeRisco;
+            Risco riscoSelecionado = listaDeRiscoModificada.get(linhaSelecionada);
+
+            listaDeRiscoModificada.set(linhaSelecionada, listaDeRiscoModificada.get(linhaSelecionada - 1));
+            listaDeRiscoModificada.set(linhaSelecionada - 1, riscoSelecionado);
+
+            criaTabela();
+            populaTabelaDeRiscos(listaDeRiscoModificada);
+
+            tabelaDeRiscosJTable.addRowSelectionInterval(linhaSelecionada - 1, linhaSelecionada - 1);
+        }
+
+    }//GEN-LAST:event_RiscosPriorizarRiscosAcoesAumentarPrioridadeJButtonActionPerformed
+
+    private void RiscosPriorizarRiscosSalvarAlteracoesJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RiscosPriorizarRiscosSalvarAlteracoesJButtonActionPerformed
+        for (int i = 0; i < modeloTabelaDeRiscosJTable.getRowCount(); i++) {
+            String identificadorRisco = (String) tabelaDeRiscosJTable.getValueAt(i, 0);
+            for (int j = 0; j < listaDeRiscoModificada.size(); j++) {
+                if (identificadorRisco == listaDeRiscoModificada.get(j).getIdentificacao()) {
+                    Risco objRisco = listaDeRiscoModificada.get(j);
+                    objRisco.setPrioridade(i + 1);
+                    RiscosGerenciarRiscosFacade riscoFacade = new RiscosGerenciarRiscosFacade();
+                    riscoFacade.editarRisco(objRisco);
+                    break;
+                }
+            }
+        }
+        JOptionPane.showMessageDialog(this, "Riscos priorizados com sucesso");
+    }//GEN-LAST:event_RiscosPriorizarRiscosSalvarAlteracoesJButtonActionPerformed
+
+    private void RiscosPriorizarRiscosAcoesDiminuirPrioridadeJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RiscosPriorizarRiscosAcoesDiminuirPrioridadeJButtonActionPerformed
+        int linhaSelecionada = tabelaDeRiscosJTable.getSelectedRow();
+        if (linhaSelecionada <= listaDeRisco.size()) {
+            listaDeRiscoModificada = listaDeRisco;
+            Risco riscoSelecionado = listaDeRiscoModificada.get(linhaSelecionada);
+
+            listaDeRiscoModificada.set(linhaSelecionada, listaDeRiscoModificada.get(linhaSelecionada + 1));
+            listaDeRiscoModificada.set(linhaSelecionada + 1, riscoSelecionado);
+
+            criaTabela();
+            populaTabelaDeRiscos(listaDeRiscoModificada);
+
+            tabelaDeRiscosJTable.addRowSelectionInterval(linhaSelecionada + 1, linhaSelecionada + 1);
+        }
+        else{
+            JOptionPane.showConfirmDialog(impactoJLabel, "Prioridade do risco selecionado não pode ser diminuida");
+        }
+    }//GEN-LAST:event_RiscosPriorizarRiscosAcoesDiminuirPrioridadeJButtonActionPerformed
+
+    private void emissorJTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emissorJTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_emissorJTextFieldActionPerformed
+
+    private void resetarPrioridadesJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetarPrioridadesJButtonActionPerformed
+        for (int i = 0; i < modeloTabelaDeRiscosJTable.getRowCount(); i++) {
+            String identificadorRisco = (String) tabelaDeRiscosJTable.getValueAt(i, 0);
+            for (int j = 0; j < listaDeRiscoModificada.size(); j++) {
+                if (identificadorRisco == listaDeRiscoModificada.get(j).getIdentificacao()) {
+                    Risco objRisco = listaDeRiscoModificada.get(j);
+                    objRisco.setPrioridade(i * 0);
+                    RiscosGerenciarRiscosFacade riscoFacade = new RiscosGerenciarRiscosFacade();
+                    riscoFacade.editarRisco(objRisco);
+                    break;
+                }
+            }
+            criaTabela();
+        }
+    }//GEN-LAST:event_resetarPrioridadesJButtonActionPerformed
+
+    private void descartarAlteraçõesJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_descartarAlteraçõesJButtonActionPerformed
+        criaTabela();
+        populaTabelaDeRiscos(listaDeRisco);
+    }//GEN-LAST:event_descartarAlteraçõesJButtonActionPerformed
+
+    public void definirEventosTabelaPriorizarRiscos() {
+        tabelaDeRiscosJTable.addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent e) {
+                if (e.getClickCount() == 1) {
+
+                    int selected = tabelaDeRiscosJTable.getSelectedRow();
+
+                    //arvoreEARJTree.clearSelection();
+                    for (int i = 0; i < listaDeRisco.size(); i++) {
+
+                        if (tabelaDeRiscosJTable.getValueAt(tabelaDeRiscosJTable.getSelectedRow(), 0).equals(listaDeRisco.get(i).getIdentificacao())) {
+                            RiscoSelecionado = listaDeRisco.get(i);
+                            break;
+                        }
+                    }
+                    
+                    emissorJTextField.setText(RiscoSelecionado.getEmissor());
+                    probabilidadeJTextField.setText(Integer.toString(RiscoSelecionado.getProbabilidade()));
+                    impactoJTextField.setText((RiscoSelecionado.getImpacto()));
+                    grauDeSeveridadeJTextField.setText(Integer.toString(RiscoSelecionado.getGrauSeveridade()));
+                    
+                }
+                
+            }
+        });
+    }
+
+    public void criaTabela() {
+        tabelaDeRiscosJTable = new JTable();
+        modeloTabelaDeRiscosJTable = new DefaultTableModel();
+        modeloTabelaDeRiscosJTable.setColumnIdentifiers(new String[]{"Identificação", "Descrição", "Estado"});
+        tabelaDeRiscosJTable.setModel(modeloTabelaDeRiscosJTable);
+        TabelaDeRiscosJScrollPane.setViewportView(tabelaDeRiscosJTable);
+        
+        tabelaDeRiscosJTable.addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent e){
+                int riscoSelecionado = e.getClickCount();
+                
+            }
+});
+    }
+    
+    /*public void criaTabelaInfosAdicionais(){
+        tabelaInfosAdicionais = new JTable();
+        modeloTabelaInfosAdicionaisJTable = new DefaultTableModel();
+        modeloTabelaInfosAdicionaisJTable.setColumnIdentifiers(new String[]{"Emissor", "Probabilidade", "Impacto", "Grau de severidade"});
+        tabelaInfosAdicionais.setModel(modeloTabelaInfosAdicionaisJTable);
+        infosAdicionaisJScrollPane.setViewportView(tabelaInfosAdicionais);
+        
+        int linhaSelecionada = tabelaDeRiscosJTable.getSelectedRow();
+        String[] linha;
+        linha = new String[]{listaDeRisco.get(linhaSelecionada).getEmissor(),
+            Integer.toString(listaDeRisco.get(linhaSelecionada).getProbabilidade()),
+            listaDeRisco.get(linhaSelecionada).getImpacto(),
+            Integer.toString(listaDeRisco.get(linhaSelecionada).getGrauSeveridade())};
+    }*/
+
+    public void populaTabelaDeRiscos(List<Risco> novaListaDeRisco) {
+        listaDeRisco = novaListaDeRisco;
+        List<Risco> listaTemp = new ArrayList<Risco>();
+        for (int i = 0; i < novaListaDeRisco.size(); i++) {
+            if (novaListaDeRisco.get(i).getPrioridade() > 0) {
+                String[] linha = new String[]{novaListaDeRisco.get(i).getIdentificacao().toString(),
+                    novaListaDeRisco.get(i).getDescricao().toString(),
+                    novaListaDeRisco.get(i).getStatusRisco()};
+                modeloTabelaDeRiscosJTable.addRow(linha);
+            } else {
+                listaTemp.add(novaListaDeRisco.get(i));
+            }
+
+        }
+
+        for (int i = 0; i < listaTemp.size(); i++) {
+            String[] linha = new String[]{novaListaDeRisco.get(i).getIdentificacao().toString(),
+                novaListaDeRisco.get(i).getDescricao().toString(),
+                novaListaDeRisco.get(i).getStatusRisco()};
+            modeloTabelaDeRiscosJTable.addRow(linha);
+        }
+    }
+
+    public void limparTabela() {
+
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton RiscosPriorizarRiscosAcoesAumentarPrioridadeJButton;
     private javax.swing.JButton RiscosPriorizarRiscosAcoesDiminuirPrioridadeJButton;
     private javax.swing.JPanel RiscosPriorizarRiscosAcoesJPanel;
-    private javax.swing.JSpinner RiscosPriorizarRiscosAcoesJSpinner;
     private javax.swing.JPanel RiscosPriorizarRiscosJPanel;
-    private javax.swing.JScrollPane RiscosPriorizarRiscosJScrollPane;
-    private javax.swing.JTable RiscosPriorizarRiscosJTable;
     private javax.swing.JButton RiscosPriorizarRiscosSalvarAlteracoesJButton;
     private javax.swing.JButton RiscosPriorizarRiscosSelecionarMonitorarJButton;
-    private javax.swing.JButton RiscosPriorizarRiscosacoesDefinirManualJButton;
+    private javax.swing.JScrollPane TabelaDeRiscosJScrollPane;
+    private javax.swing.JButton descartarAlteraçõesJButton;
+    private javax.swing.JLabel emissorJLabel;
+    private javax.swing.JTextField emissorJTextField;
+    private javax.swing.JLabel grauDeSeveridadeJLabel;
+    private javax.swing.JTextField grauDeSeveridadeJTextField;
+    private javax.swing.JLabel impactoJLabel;
+    private javax.swing.JTextField impactoJTextField;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel probabilidadeJLabel;
+    private javax.swing.JTextField probabilidadeJTextField;
+    private javax.swing.JButton resetarPrioridadesJButton;
     // End of variables declaration//GEN-END:variables
 }

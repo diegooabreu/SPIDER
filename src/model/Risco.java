@@ -49,6 +49,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Risco.findByPrioridade", query = "SELECT r FROM Risco r WHERE r.prioridade = :prioridade"),
     @NamedQuery(name = "Risco.findByGrauSeveridade", query = "SELECT r FROM Risco r WHERE r.grauSeveridade = :grauSeveridade"),
     @NamedQuery(name = "Risco.findByIdentificacao", query = "SELECT r FROM Risco r WHERE r.identificacao = :identificacao")})
+    @NamedQuery(name = "Risco.findAllPOrdemGrauDeEsposicao", query = "SELECT r FROM Risco r order by r.prioridade asc, r.grauSeveridade desc")
+
 public class Risco implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idRisco")
     private List<Planomitigacao> planomitigacaoList;

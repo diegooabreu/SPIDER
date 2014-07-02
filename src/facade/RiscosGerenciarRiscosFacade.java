@@ -42,6 +42,12 @@ public class RiscosGerenciarRiscosFacade {
         return listaRiscos;
     }
     
+    public List<Risco> listarRiscosPOrdemGrauDeEsposicao (){
+        RiscoJpaController riscoJPA = new RiscoJpaController();
+        List<Risco> listaRiscos = riscoJPA.findRiscosPOrdemGrauDeEsposicao();
+        return listaRiscos;
+    }
+    
     public void editarRisco(Risco risco){
         RiscoJpaController riscoJPA = new RiscoJpaController();
         try{

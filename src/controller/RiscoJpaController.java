@@ -250,6 +250,20 @@ public class RiscoJpaController implements Serializable {
         }
     }
     
+    public List<Risco> findRiscosPOrdemGrauDeEsposicao() {
+        List<Risco> riscos = null;
+        EntityManager em = getEntityManager();
+        try {
+            riscos =  em.createNamedQuery("Risco.findAllPOrdemGrauDeEsposicao")
+                    .getResultList();
+            
+        } catch (Exception e){
+            System.out.println("erro no metodo findContemByIdCategoriaDeRisco da classe ContemJpaController");
+            e.printStackTrace();
+        }
+        return riscos;
+    }
+    
     public List<Risco> findRiscoByStatusAndIdProjeto(String status, int idProjeto){
         
         List<Risco> listaRiscos = null;

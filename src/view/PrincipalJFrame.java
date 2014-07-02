@@ -5,6 +5,7 @@
 package view;
 
 import facade.PrincipalFacade;
+import facade.RiscosGerenciarRiscosFacade;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
@@ -14,6 +15,7 @@ import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
 import model.Projeto;
+import model.Risco;
 
 /**
  *
@@ -630,6 +632,11 @@ public class PrincipalJFrame extends javax.swing.JFrame {
                         
                         else if (node == priorizarRiscos){
                             riscosPriorizarRiscosJPanel.setVisible(true);
+                            riscosPriorizarRiscosJPanel.criaTabela();
+                            RiscosGerenciarRiscosFacade rGRfacade = new RiscosGerenciarRiscosFacade();
+                            List<Risco> listaDeRisco = rGRfacade.listarRiscosPOrdemGrauDeEsposicao();
+                            riscosPriorizarRiscosJPanel.populaTabelaDeRiscos(listaDeRisco);
+                            riscosPriorizarRiscosJPanel.definirEventosTabelaPriorizarRiscos();
                         }
                         
                         else if (node == riscosOcorridos){
