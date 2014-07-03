@@ -18,7 +18,9 @@ import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import model.Marcodoprojeto;
 import model.Planomitigacao;
+import model.Pontodecontrole;
 import model.Projeto;
 import model.Risco;
 
@@ -163,25 +165,38 @@ public class PlanomitigacaoJpaController implements Serializable {
     }
     
         
-    public List<Planomitigacao> getPlanoMitigacaoByStatusRiscoAndDataLimiteAndIdProjeto(String statusRisco, Date dataLimite, Projeto idProjeto){
-        List<Planomitigacao> listaPM = null;
+    public List<Planomitigacao> getListPlanoMitigacaoByIdPontoDeControle(Pontodecontrole ponto){
+        List<Planomitigacao> listaMitigacao = null;
         EntityManager em = getEntityManager();
-        
         try{
-            
-            listaPM = em.createNamedQuery("Planomitigacao.findPlanoMitigacaoEmAcao")
-                    .setParameter("statusRisco", statusRisco)
-                    .setParameter("dataLimite", dataLimite)
-                    .setParameter("idProjeto", idProjeto)
+            listaMitigacao = (List<Planomitigacao>) em.createNamedQuery("Planomitigacao.findPlanoMitigacaoByIdPontodecontrole")
+                    .setParameter("idPontodecontrole",ponto)
                     .getResultList();
             
-        } catch (Exception e){
-            System.out.println("erro no metodo findMarcodoprojetoByIdProjeto da classe MarcodoprojetoJpaController");
+        }catch( NoResultException e){
+            return null;
+        }catch (Exception e){
+            System.out.println("Erro no método getListPlanoMitigacaoByIdRisco da classe PlanomitigacaoJpaController");
             e.printStackTrace();
         }
-        
-        
-        return listaPM;
+        return listaMitigacao;
     }
+    
+    public List<Planomitigacao> getListPlanoMitigacaoByIdMarcoDoProjeto(Marcodoprojeto marco){
+        List<Planomitigacao> listaMitigacao = null;
+        EntityManager em = getEntityManager();
+        try{
+            listaMitigacao = (List<Planomitigacao>) em.createNamedQuery("Planomitigacao.findPlanoMitigacaoByIdMarcoDoProjeto")
+                    .setParameter("idMarcoDoProjeto",marco)
+                    .getResultList();
+            
+        }catch( NoResultException e){
+            return null;
+        }catch (Exception e){
+            System.out.println("Erro no método getListPlanoMitigacaoByIdRisco da classe PlanomitigacaoJpaController");
+            e.printStackTrace();
+        }
+        return listaMitigacao;
+    } 
     
 }

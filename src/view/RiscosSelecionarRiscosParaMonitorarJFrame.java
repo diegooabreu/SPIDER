@@ -7,6 +7,7 @@
 package view;
 
 import facade.RiscosRiscosOcorridosFacade;
+import facade.RiscosSelecionarRiscosParaMonitorarFacade;
 import facade.TabelaMonitorarRiscosTableModel;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,11 +26,16 @@ import testetabela.TesteTabelaRisco;
  */
 public class RiscosSelecionarRiscosParaMonitorarJFrame extends javax.swing.JFrame {
 
-    
+    RiscosSelecionarRiscosParaMonitorarFacade riscosSelecionarRiscosParaMonitorarFacade = new RiscosSelecionarRiscosParaMonitorarFacade();
     RiscosRiscosOcorridosFacade riscosOcorridosFacade = new RiscosRiscosOcorridosFacade();
     
     private JTable tabelaSelecionarRiscosMonitorarJTable;
     private RiscoTabelaModel riscoTabelaModel;
+    
+    
+    List<RiscoTabela> listaRiscosTabela = null;
+    List<Risco> listaRiscos = null;
+    
     /**
      * Creates new form SelecionarRiscosParaMonitorarJFrame
      */
@@ -49,7 +55,7 @@ public class RiscosSelecionarRiscosParaMonitorarJFrame extends javax.swing.JFram
             return String.class;
     }
     
-    public void criarTabelaSelecionarRiscos(List<Risco> listaRiscos){
+    public void criarTabelaSelecionarRiscos(List<Risco> listaDeRiscos){
         
         tabelaSelecionarRiscosMonitorarJTable = new JTable();
         riscoTabelaModel = new RiscoTabelaModel();
@@ -58,7 +64,7 @@ public class RiscosSelecionarRiscosParaMonitorarJFrame extends javax.swing.JFram
         
         tabelaJScrollPane.setViewportView(tabelaSelecionarRiscosMonitorarJTable);
         
-        
+        listaRiscos = listaDeRiscos;
         
         riscoTabelaModel.addListaDeRiscos(criaListaDeRiscoTabela(listaRiscos));
         
@@ -81,7 +87,7 @@ public class RiscosSelecionarRiscosParaMonitorarJFrame extends javax.swing.JFram
     
     // cria uma lista de <RiscoTabela> para ser criada a tabela a partir de uma lista de <Risco>
     private List<RiscoTabela> criaListaDeRiscoTabela(List<Risco> listaRiscos) {
-        List<RiscoTabela> listaRiscosTabela = new ArrayList<RiscoTabela>();
+        listaRiscosTabela = new ArrayList<RiscoTabela>();
         
         for(int i=0; i < listaRiscos.size(); i++){
             RiscoTabela riscoTabela = new RiscoTabela();
@@ -95,6 +101,10 @@ public class RiscosSelecionarRiscosParaMonitorarJFrame extends javax.swing.JFram
             riscoTabela.setPrioridade(listaRiscos.get(i).getPrioridade());
             riscoTabela.setProbabilidade(listaRiscos.get(i).getProbabilidade());
             riscoTabela.setStatusRisco(listaRiscos.get(i).getStatusRisco());
+            
+            if(listaRiscos.get(i).getStatusRisco().equals("Mitigando")){
+                riscoTabela.setMonitorar(true);
+            }
             
             listaRiscosTabela.add(riscoTabela);
             
@@ -117,7 +127,7 @@ public class RiscosSelecionarRiscosParaMonitorarJFrame extends javax.swing.JFram
         jPanel2 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        monitorarJButton = new javax.swing.JButton();
         tabelaJPanel = new javax.swing.JPanel();
         tabelaJScrollPane = new javax.swing.JScrollPane();
 
@@ -136,10 +146,10 @@ public class RiscosSelecionarRiscosParaMonitorarJFrame extends javax.swing.JFram
 
         jLabel1.setText("Selecione os Riscos que deseja Monitorar:");
 
-        jButton1.setText("Monitorar Riscos Selecionados");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        monitorarJButton.setText("Monitorar Riscos Selecionados");
+        monitorarJButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                monitorarJButtonActionPerformed(evt);
             }
         });
 
@@ -151,7 +161,7 @@ public class RiscosSelecionarRiscosParaMonitorarJFrame extends javax.swing.JFram
         );
         tabelaJPanelLayout.setVerticalGroup(
             tabelaJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(tabelaJScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
+            .addComponent(tabelaJScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 285, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -162,7 +172,7 @@ public class RiscosSelecionarRiscosParaMonitorarJFrame extends javax.swing.JFram
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addContainerGap(500, Short.MAX_VALUE)
-                        .addComponent(jButton1))
+                        .addComponent(monitorarJButton))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(10, 10, 10)
                         .addComponent(jLabel1)
@@ -178,10 +188,10 @@ public class RiscosSelecionarRiscosParaMonitorarJFrame extends javax.swing.JFram
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tabelaJPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1)
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addComponent(tabelaJPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(monitorarJButton)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -200,11 +210,28 @@ public class RiscosSelecionarRiscosParaMonitorarJFrame extends javax.swing.JFram
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void monitorarJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_monitorarJButtonActionPerformed
 
+        for(int i=0; i < listaRiscosTabela.size(); i++){
+            if((Boolean)riscoTabelaModel.getValueAt(i, 0) == true){
+                listaRiscosTabela.get(i).setStatusRisco("Mitigando");
+                listaRiscos.get(i).setStatusRisco("Mitigando");
+                
+                riscosSelecionarRiscosParaMonitorarFacade.editRisco(listaRiscos.get(i));
+                
+            } else {
+                listaRiscosTabela.get(i).setStatusRisco("Novo");
+                listaRiscos.get(i).setStatusRisco("Novo");
+                
+                riscosSelecionarRiscosParaMonitorarFacade.editRisco(listaRiscos.get(i));
+            }
+        }
+       
+        criarTabelaSelecionarRiscos(listaRiscos);
+        
         JOptionPane.showMessageDialog(this, "Riscos selecionados agora estão sendo monitorados, seus planos de mitigação agora são\ntarefas a serem realizadas.");
 // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_monitorarJButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -242,10 +269,10 @@ public class RiscosSelecionarRiscosParaMonitorarJFrame extends javax.swing.JFram
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JButton monitorarJButton;
     private javax.swing.JPanel tabelaJPanel;
     private javax.swing.JScrollPane tabelaJScrollPane;
     // End of variables declaration//GEN-END:variables

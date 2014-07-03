@@ -14,6 +14,7 @@ import java.util.Date;
  */
 public class RiscoTabela {
     
+    private boolean monitorar;
     private Integer idRisco;
     private Date dataIdentificacao;
     private String emissor;
@@ -25,6 +26,16 @@ public class RiscoTabela {
     private int grauSeveridade;
     private String identificacao;
 
+    public boolean isMonitorar() {
+        return monitorar;
+    }
+
+    public void setMonitorar(boolean monitorar) {
+        this.monitorar = monitorar;
+    }
+
+    
+    
     public Integer getIdRisco() {
         return idRisco;
     }

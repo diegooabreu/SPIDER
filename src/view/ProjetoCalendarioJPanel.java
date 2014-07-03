@@ -861,9 +861,11 @@ public class ProjetoCalendarioJPanel extends javax.swing.JPanel {
         if(diaSelecionadoMarco != null && diaSelecionadoPonto != null){
             
             calendarioDetalhesMarcoEpontoDoDiaJFrame.criarListaDeTarefas();
+            calendarioDetalhesMarcoEpontoDoDiaJFrame.popularListaDeTarefas(diaSelecionadoMarco, diaSelecionadoPonto);
+            
             calendarioDetalhesMarcoEpontoDoDiaJFrame.mostraInformacoesPontoDeControle(diaSelecionadoPonto);
             calendarioDetalhesMarcoEpontoDoDiaJFrame.mostraInformacoesMarcoDoProjeto(diaSelecionadoMarco);
-            calendarioDetalhesMarcoEpontoDoDiaJFrame.popularListaDeTarefas(projetoSelecionado, dataLimite);
+            
             calendarioDetalhesMarcoEpontoDoDiaJFrame.setVisible(true);
             
             calendarioDetalhesMarcoEpontoDoDiaJFrame.setVisibleMarcoEpontoJPanel(true);
@@ -871,6 +873,9 @@ public class ProjetoCalendarioJPanel extends javax.swing.JPanel {
             
         // se existe somente um marco para o dia selecionado
         } else if(diaSelecionadoMarco != null && diaSelecionadoPonto == null){
+            calendarioDetalhesMarcoEpontoDoDiaJFrame.criarListaDeTarefasMarcoSomenteMarco();
+            calendarioDetalhesMarcoEpontoDoDiaJFrame.popularListaDeTarefasMarcoSomenteMarco(diaSelecionadoMarco);
+            
             calendarioDetalhesMarcoEpontoDoDiaJFrame.mostraInformacoesMarcoSomenteMarco(diaSelecionadoMarco);
           
             calendarioDetalhesMarcoEpontoDoDiaJFrame.setVisible(true);
@@ -880,7 +885,7 @@ public class ProjetoCalendarioJPanel extends javax.swing.JPanel {
         } else if(diaSelecionadoPonto != null && diaSelecionadoMarco == null){
             
             calendarioDetalhesMarcoEpontoDoDiaJFrame.criarListaDeTarefasPontoSomentePonto();
-            calendarioDetalhesMarcoEpontoDoDiaJFrame.popularListaDeTarefasPontoSomentePonto(projetoSelecionado, dataLimite);
+            calendarioDetalhesMarcoEpontoDoDiaJFrame.popularListaDeTarefasPontoSomentePonto(diaSelecionadoPonto);
             
             calendarioDetalhesMarcoEpontoDoDiaJFrame.mostraInformacoesPontoSomentePonto(diaSelecionadoPonto);
             

@@ -27,9 +27,13 @@ public class CalendarioDetalhesMarcoEpontoDoDiaJFrame extends javax.swing.JFrame
     CalendarioDetalhesDoDiaFacade calendarioDetalhesDoDiaFacade = new CalendarioDetalhesDoDiaFacade();
     
     
-    private JTable listaTarefasJTable;
+    private JTable listaTarefasPontoJTable;
+    private JTable listaTarefasMarcoJTable;
     private JTable listaTarefasPontoSomentePontoJTable;
-    private DefaultTableModel listaTarefasJTableModel;
+    private JTable listaTarefasMarcoSomenteMarcoJTable;
+    private DefaultTableModel listaTarefasMarcoSomenteMarcoJTableModel;
+    private DefaultTableModel listaTarefasPontoJTableModel;
+    private DefaultTableModel listaTarefasMarcoJTableModel;
     private DefaultTableModel listaTarefasPontoSomentePontoJTableModel;
     
     /**
@@ -43,13 +47,27 @@ public class CalendarioDetalhesMarcoEpontoDoDiaJFrame extends javax.swing.JFrame
     
     
     public void criarListaDeTarefas(){
-        listaTarefasJTable = new JTable();
-        listaTarefasJTableModel = new DefaultTableModel();
-        listaTarefasJTableModel.setColumnIdentifiers(new Object[]{"Risco" , "Tarefa", "Responsavel" , "Data de Realização"});
-        listaTarefasJTable.setModel(listaTarefasJTableModel);
-        listaTarefasJScrollPane.setViewportView(listaTarefasJTable);
+        listaTarefasPontoJTable = new JTable();
+        listaTarefasPontoJTableModel = new DefaultTableModel();
+        listaTarefasPontoJTableModel.setColumnIdentifiers(new Object[]{"Risco" , "Tarefa", "Responsavel" , "Data de Realização"});
+        listaTarefasPontoJTable.setModel(listaTarefasPontoJTableModel);
+        listaTarefasJScrollPane.setViewportView(listaTarefasPontoJTable);
+        
+        listaTarefasMarcoJTable = new JTable();
+        listaTarefasMarcoJTableModel = new DefaultTableModel();
+        listaTarefasMarcoJTableModel.setColumnIdentifiers(new Object[]{"Risco" , "Tarefa", "Responsavel" , "Data de Realização"});
+        listaTarefasMarcoJTable.setModel(listaTarefasMarcoJTableModel);
+        listaTarefasMarcoJScrollPane.setViewportView(listaTarefasMarcoJTable);
         
         
+    }
+    
+    public void criarListaDeTarefasMarcoSomenteMarco(){
+        listaTarefasMarcoSomenteMarcoJTable = new JTable();
+        listaTarefasMarcoSomenteMarcoJTableModel = new DefaultTableModel();
+        listaTarefasMarcoSomenteMarcoJTableModel.setColumnIdentifiers(new Object[]{"Risco" , "Tarefa", "Responsavel" , "Data de Realização"});
+        listaTarefasMarcoSomenteMarcoJTable.setModel(listaTarefasMarcoSomenteMarcoJTableModel);
+        listaTarefasMacroSomenteMarcoJScrollPane.setViewportView(listaTarefasMarcoSomenteMarcoJTable);
         
     }
     
@@ -132,17 +150,17 @@ public class CalendarioDetalhesMarcoEpontoDoDiaJFrame extends javax.swing.JFrame
         
     }
     
-    public void popularListaDeTarefas(Projeto projetoSelecionado, Date dataLimite){
+        
+    public void popularListaDeTarefasPontoSomentePonto(Pontodecontrole pontoSelecionado){
         
         String dataRealizacaoPMString = "Não realizada";
         String dataRealizacaoPCString = "Não realizada";
         
         // inserindo os planos de mitigação dos riscos sendo monitorados(Em estado = Mitigando)
-        List<Planomitigacao> listaPlanosDeMitigacao = calendarioDetalhesDoDiaFacade.getPlanosMitigacaoByDateAndIdProjetoAndStatusRisco(projetoSelecionado, "Mitigando", dataLimite);
+        List<Planomitigacao> listaPlanosDeMitigacao = calendarioDetalhesDoDiaFacade.getPlanosMitigacaoByPontoDeControle(pontoSelecionado);
         
         for(int i=0; i < listaPlanosDeMitigacao.size(); i++){
-            //String[] linha = String[]{listaPlanosDeMitigacao.get(i).getIdentificacaoPlanoMitigacao()};
-            
+
             DateFormat df = DateFormat.getDateInstance(DateFormat.MEDIUM);
                
             Date dataRealizacaoPM = listaPlanosDeMitigacao.get(i).getDataRealizacao();
@@ -156,14 +174,15 @@ public class CalendarioDetalhesMarcoEpontoDoDiaJFrame extends javax.swing.JFrame
                 listaPlanosDeMitigacao.get(i).getResponsavel() ,
                 dataRealizacaoPMString };
                 
-            listaTarefasJTableModel.addRow(linha);
+            listaTarefasPontoSomentePontoJTableModel.addRow(linha);
             dataRealizacaoPMString = "Não realizada";
-            
+  
         }
+        
         
         //inserindo os planos de contingencia dos riscos sendo contingenciados (Estado = Contingenciando)
         
-        List<Planocontingencia> listaPlanosContingencia = calendarioDetalhesDoDiaFacade.getPlanosContingenciaByDateAndIdProjetoAndStatusRisco(projetoSelecionado, "Contingenciando", dataLimite);
+        List<Planocontingencia> listaPlanosContingencia = calendarioDetalhesDoDiaFacade.getPlanosContingenciaByPontoDeControle(pontoSelecionado);
         
         for(int i=0; i < listaPlanosContingencia.size(); i++){
             
@@ -182,7 +201,7 @@ public class CalendarioDetalhesMarcoEpontoDoDiaJFrame extends javax.swing.JFrame
             
            
             
-            listaTarefasJTableModel.addRow(linha);
+            listaTarefasPontoSomentePontoJTableModel.addRow(linha);
             dataRealizacaoPCString = "Não realizada";
             
         }
@@ -190,17 +209,16 @@ public class CalendarioDetalhesMarcoEpontoDoDiaJFrame extends javax.swing.JFrame
         
     }
     
-    public void popularListaDeTarefasPontoSomentePonto(Projeto projetoSelecionado, Date dataLimite){
+    public void popularListaDeTarefasMarcoSomenteMarco(Marcodoprojeto marcoSelecionado){
         
         String dataRealizacaoPMString = "Não realizada";
         String dataRealizacaoPCString = "Não realizada";
         
         // inserindo os planos de mitigação dos riscos sendo monitorados(Em estado = Mitigando)
-        List<Planomitigacao> listaPlanosDeMitigacao = calendarioDetalhesDoDiaFacade.getPlanosMitigacaoByDateAndIdProjetoAndStatusRisco(projetoSelecionado, "Mitigando", dataLimite);
+        List<Planomitigacao> listaPlanosDeMitigacao = calendarioDetalhesDoDiaFacade.getPlanosMitigacaoByMarcoDoProjeto(marcoSelecionado);
         
         for(int i=0; i < listaPlanosDeMitigacao.size(); i++){
-            //String[] linha = String[]{listaPlanosDeMitigacao.get(i).getIdentificacaoPlanoMitigacao()};
-            
+
             DateFormat df = DateFormat.getDateInstance(DateFormat.MEDIUM);
                
             Date dataRealizacaoPM = listaPlanosDeMitigacao.get(i).getDataRealizacao();
@@ -214,14 +232,15 @@ public class CalendarioDetalhesMarcoEpontoDoDiaJFrame extends javax.swing.JFrame
                 listaPlanosDeMitigacao.get(i).getResponsavel() ,
                 dataRealizacaoPMString };
                 
-            listaTarefasPontoSomentePontoJTableModel.addRow(linha);
+            listaTarefasMarcoSomenteMarcoJTableModel.addRow(linha);
             dataRealizacaoPMString = "Não realizada";
-            
+  
         }
+        
         
         //inserindo os planos de contingencia dos riscos sendo contingenciados (Estado = Contingenciando)
         
-        List<Planocontingencia> listaPlanosContingencia = calendarioDetalhesDoDiaFacade.getPlanosContingenciaByDateAndIdProjetoAndStatusRisco(projetoSelecionado, "Contingenciando", dataLimite);
+        List<Planocontingencia> listaPlanosContingencia = calendarioDetalhesDoDiaFacade.getPlanosContingenciaByMarcoDoProjeto(marcoSelecionado);
         
         for(int i=0; i < listaPlanosContingencia.size(); i++){
             
@@ -240,11 +259,121 @@ public class CalendarioDetalhesMarcoEpontoDoDiaJFrame extends javax.swing.JFrame
             
            
             
-            listaTarefasPontoSomentePontoJTableModel.addRow(linha);
+            listaTarefasMarcoSomenteMarcoJTableModel.addRow(linha);
             dataRealizacaoPCString = "Não realizada";
             
         }
         
+    }
+    
+    public void popularListaDeTarefas(Marcodoprojeto marco, Pontodecontrole ponto){
+        
+        String dataRealizacaoPMString = "Não realizada";
+        String dataRealizacaoPCString = "Não realizada";
+        
+        // POPULANDO LISTA DE TAREFAS DO PONTO DE CONTROLE
+        
+        // inserindo os planos de mitigação dos riscos sendo monitorados(Em estado = Mitigando)
+        List<Planomitigacao> listaPlanosDeMitigacao = calendarioDetalhesDoDiaFacade.getPlanosMitigacaoByPontoDeControle(ponto);
+        
+        for(int i=0; i < listaPlanosDeMitigacao.size(); i++){
+
+            DateFormat df = DateFormat.getDateInstance(DateFormat.MEDIUM);
+               
+            Date dataRealizacaoPM = listaPlanosDeMitigacao.get(i).getDataRealizacao();
+            
+            if(dataRealizacaoPM != null){
+                dataRealizacaoPMString = df.format(dataRealizacaoPM);
+            }
+            
+            Object[] linha = new Object[]{listaPlanosDeMitigacao.get(i).getIdRisco().getIdentificacao() ,
+                listaPlanosDeMitigacao.get(i).getIdentificacaoPlanoMitigacao() ,
+                listaPlanosDeMitigacao.get(i).getResponsavel() ,
+                dataRealizacaoPMString };
+                
+            listaTarefasPontoJTableModel.addRow(linha);
+            dataRealizacaoPMString = "Não realizada";
+  
+        }
+        
+        
+        //inserindo os planos de contingencia dos riscos sendo contingenciados (Estado = Contingenciando)
+        
+        List<Planocontingencia> listaPlanosContingencia = calendarioDetalhesDoDiaFacade.getPlanosContingenciaByPontoDeControle(ponto);
+        
+        for(int i=0; i < listaPlanosContingencia.size(); i++){
+            
+            DateFormat df = DateFormat.getDateInstance(DateFormat.MEDIUM);
+            
+            Date dataRealizacaoPC = listaPlanosContingencia.get(i).getDataRealizacao();
+            
+            if(dataRealizacaoPC != null){
+                dataRealizacaoPCString = df.format(dataRealizacaoPCString);
+            }
+            
+            Object[] linha = new Object[]{listaPlanosContingencia.get(i).getIdRisco().getIdentificacao() ,
+                listaPlanosContingencia.get(i).getIdentificacaoPlanoContingencia() ,
+                listaPlanosContingencia.get(i).getResponsavel() ,
+                dataRealizacaoPCString };
+            
+           
+            
+            listaTarefasPontoJTableModel.addRow(linha);
+            dataRealizacaoPCString = "Não realizada";
+            
+        }
+        
+        // POPULANDO LISTA DE TAREFAS DO MARCO DO PROJETO
+        
+        // inserindo os planos de mitigação dos riscos sendo monitorados(Em estado = Mitigando)
+        List<Planomitigacao> listaPlanosDeMitigacaoMarco = calendarioDetalhesDoDiaFacade.getPlanosMitigacaoByMarcoDoProjeto(marco);
+        
+        for(int i=0; i < listaPlanosDeMitigacaoMarco.size(); i++){
+
+            DateFormat df = DateFormat.getDateInstance(DateFormat.MEDIUM);
+               
+            Date dataRealizacaoPM = listaPlanosDeMitigacaoMarco.get(i).getDataRealizacao();
+            
+            if(dataRealizacaoPM != null){
+                dataRealizacaoPMString = df.format(dataRealizacaoPM);
+            }
+            
+            Object[] linha = new Object[]{listaPlanosDeMitigacaoMarco.get(i).getIdRisco().getIdentificacao() ,
+                listaPlanosDeMitigacaoMarco.get(i).getIdentificacaoPlanoMitigacao() ,
+                listaPlanosDeMitigacaoMarco.get(i).getResponsavel() ,
+                dataRealizacaoPMString };
+                
+            listaTarefasMarcoJTableModel.addRow(linha);
+            dataRealizacaoPMString = "Não realizada";
+  
+        }
+        
+        
+        //inserindo os planos de contingencia dos riscos sendo contingenciados (Estado = Contingenciando)
+        
+        List<Planocontingencia> listaPlanosContingenciaMarco = calendarioDetalhesDoDiaFacade.getPlanosContingenciaByMarcoDoProjeto(marco);
+        
+        for(int i=0; i < listaPlanosContingenciaMarco.size(); i++){
+            
+            DateFormat df = DateFormat.getDateInstance(DateFormat.MEDIUM);
+            
+            Date dataRealizacaoPC = listaPlanosContingenciaMarco.get(i).getDataRealizacao();
+            
+            if(dataRealizacaoPC != null){
+                dataRealizacaoPCString = df.format(dataRealizacaoPCString);
+            }
+            
+            Object[] linha = new Object[]{listaPlanosContingenciaMarco.get(i).getIdRisco().getIdentificacao() ,
+                listaPlanosContingenciaMarco.get(i).getIdentificacaoPlanoContingencia() ,
+                listaPlanosContingenciaMarco.get(i).getResponsavel() ,
+                dataRealizacaoPCString };
+            
+           
+            
+            listaTarefasMarcoJTableModel.addRow(linha);
+            dataRealizacaoPCString = "Não realizada";
+            
+        }
         
     }
     

@@ -18,7 +18,9 @@ import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import model.Marcodoprojeto;
 import model.Planocontingencia;
+import model.Pontodecontrole;
 import model.Projeto;
 import model.Risco;
 
@@ -162,25 +164,46 @@ public class PlanocontingenciaJpaController implements Serializable {
         }
         return listaContingencia;
     }    
+
     
-    public List<Planocontingencia> getPlanoContingenciaByStatusRiscoAndDataLimiteAndIdProjeto(String statusRisco, Date dataLimite, Projeto idProjeto){
+    
+    public List<Planocontingencia> getPlanoContingenciaByIdPontoDeControle(Pontodecontrole ponto){
         List<Planocontingencia> listaPC = null;
         EntityManager em = getEntityManager();
         
         try{
             
-            listaPC = em.createNamedQuery("Planocontingencia.findPlanoContingenciaEmAcao")
-                    .setParameter("statusRisco", statusRisco)
-                    .setParameter("dataLimite", dataLimite)
-                    .setParameter("idProjeto", idProjeto)
+            listaPC = em.createNamedQuery("Planocontingencia.findPlanoContingenciaByPontodecontrole")
+                    .setParameter("idPontoDeControle", ponto)
                     .getResultList();
             
         } catch (Exception e){
-            System.out.println("erro no metodo findMarcodoprojetoByIdProjeto da classe MarcodoprojetoJpaController");
+            System.out.println("erro no metodo getPlanoContingenciaByIdPontoDeControle da classe MarcodoprojetoJpaController");
             e.printStackTrace();
         }
         
         
         return listaPC;
+    }
+    
+    public List<Planocontingencia> getPlanoContingenciaByIdMarcoDoProjeto(Marcodoprojeto marco){
+        
+        List<Planocontingencia> listaPC = null;
+        EntityManager em = getEntityManager();
+        
+        try{
+            
+            listaPC = em.createNamedQuery("Planocontingencia.findPlanoContingenciaByMarcoDoProjeto")
+                    .setParameter("idMarcoDoProjeto", marco)
+                    .getResultList();
+            
+        } catch (Exception e){
+            System.out.println("erro no metodo getPlanoContingenciaByIdPontoDeControle da classe MarcodoprojetoJpaController");
+            e.printStackTrace();
+        }
+        
+        
+        return listaPC;
+        
     }
 }

@@ -17,19 +17,20 @@ import javax.swing.table.AbstractTableModel;
  */
 public class RiscoTabelaModel extends AbstractTableModel{
 
-private static final int IDRISCO = 0;
-private static final int DATAIDENTIFICACAO = 1;
-private static final int EMISSOR = 2;
-private static final int PROBABILIDADE = 3;
-private static final int IMPACTO = 4;
-private static final int STATUSRISCO = 5;
-private static final int DESCRICAO = 6;
-private static final int PRIORIDADE = 7;
-private static final int GRAUSEVERIDADE = 8;
-private static final int IDENTIFICACAO = 9;
+private static final int MONITORAR = 0;
+private static final int IDRISCO = 1;
+private static final int DATAIDENTIFICACAO = 2;
+private static final int EMISSOR = 3;
+private static final int PROBABILIDADE = 4;
+private static final int IMPACTO = 5;
+private static final int STATUSRISCO = 6;
+private static final int DESCRICAO = 7;
+private static final int PRIORIDADE = 8;
+private static final int GRAUSEVERIDADE = 9;
+private static final int IDENTIFICACAO = 10;
 
 // Array com os nomes das colunas.
-    private String[] colunas = new String[] { "Id", "Data de Identificação", "Emissor", "Probabilidade", "Impacto", 
+    private String[] colunas = new String[] { "Monitorar", "Id", "Data de Identificação", "Emissor", "Probabilidade", "Impacto", 
     "Status", "Descrição", "Prioridade", "Grau Severidade", "Identificação"};
     
     // Lista de Sócios a serem exibidos na tabela
@@ -60,6 +61,8 @@ private static final int IDENTIFICACAO = 9;
     
     public Class<?> getColumnClass(int columnIndex) {
     switch (columnIndex) {
+    case MONITORAR:
+        return Boolean.class;
     case IDRISCO:
         return Integer.class;
     case DATAIDENTIFICACAO:
@@ -90,13 +93,13 @@ private static final int IDENTIFICACAO = 9;
         }
     }
     
-    /*
+    
      public boolean isCellEditable(int rowIndex, int columnIndex) {
-        // apenas o campo "ATIVO" será editável
-        //return columnIndex == ATIVO;
+        // apenas o campo "MONITORAR" será editável
+        return columnIndex == MONITORAR;
     
 }
-    */
+    
     
     
     public Object getValueAt(int rowIndex, int columnIndex) {
@@ -106,6 +109,8 @@ private static final int IDENTIFICACAO = 9;
        // Socio socio = linhas.get(rowIndex);
  
     switch (columnIndex) {
+        case MONITORAR:
+            return riscoTabela.isMonitorar();
         case IDRISCO:
             return riscoTabela.getIdRisco();
         case DATAIDENTIFICACAO:
@@ -145,6 +150,9 @@ private static final int IDENTIFICACAO = 9;
         //Socio socio = linhas.get(rowIndex);
  
     switch (columnIndex) {
+    case MONITORAR:
+        riscoTabela.setMonitorar((Boolean) aValue);
+        break;
     case IDRISCO:
         riscoTabela.setIdRisco((Integer) aValue);
         break;

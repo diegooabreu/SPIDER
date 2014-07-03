@@ -30,7 +30,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "planocontingencia")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Planocontingencia.findPlanoContingenciaEmAcao", query = "SELECT p FROM Planocontingencia p WHERE p.idRisco.statusRisco = :statusRisco and p.dataLimite = :dataLimite and p.idRisco.contem.projeto = :idProjeto"),
+    @NamedQuery(name = "Planocontingencia.findPlanoContingenciaByMarcoDoProjeto", query = "SELECT p FROM Planocontingencia p WHERE p.idMarcoDoProjeto = :idMarcoDoProjeto"),
+    @NamedQuery(name = "Planocontingencia.findPlanoContingenciaByPontodecontrole", query = "SELECT p FROM Planocontingencia p WHERE p.idPontoDeControle = :idPontoDeControle"),
     @NamedQuery(name = "Planocontingencia.findPlanoContingenciaByIdRisco", query = "SELECT p FROM Planocontingencia p WHERE p.idRisco = :idRisco"),
     @NamedQuery(name = "Planocontingencia.findAll", query = "SELECT p FROM Planocontingencia p"),
     @NamedQuery(name = "Planocontingencia.findByIdPlanoContingencia", query = "SELECT p FROM Planocontingencia p WHERE p.idPlanoContingencia = :idPlanoContingencia"),
