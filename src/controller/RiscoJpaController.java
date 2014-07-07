@@ -251,11 +251,12 @@ public class RiscoJpaController implements Serializable {
         }
     }
     
-    public List<Risco> findRiscosPOrdemGrauDeEsposicao() {
+    public List<Risco> findRiscosPOrdemGrauDeEsposicao(Projeto projetoSelecionado) {
         List<Risco> riscos = null;
         EntityManager em = getEntityManager();
         try {
             riscos =  em.createNamedQuery("Risco.findAllPOrdemGrauDeEsposicao")
+                    .setParameter("idProjeto", projetoSelecionado)
                     .getResultList();
             
         } catch (Exception e){

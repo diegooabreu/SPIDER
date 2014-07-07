@@ -351,7 +351,7 @@ public class RiscosPriorizarRiscosJPanel extends javax.swing.JPanel {
             riscoFacade.editarRisco(objRisco);
         }
         RiscosGerenciarRiscosFacade rGRfacade = new RiscosGerenciarRiscosFacade();
-        List<Risco> listaDeRisco = rGRfacade.listarRiscosPOrdemGrauDeEsposicao();
+        List<Risco> listaDeRisco = rGRfacade.listarRiscosPOrdemGrauDeEsposicao(projetoSelecionado);
         criaTabela();
         populaTabelaDeRiscos(listaDeRisco, true);
         definirEventosTabelaPriorizarRiscos();
@@ -360,7 +360,7 @@ public class RiscosPriorizarRiscosJPanel extends javax.swing.JPanel {
 
     private void descartarAlteraçõesJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_descartarAlteraçõesJButtonActionPerformed
         RiscosGerenciarRiscosFacade rGRfacade = new RiscosGerenciarRiscosFacade();
-        List<Risco> listaDeRisco = rGRfacade.listarRiscosPOrdemGrauDeEsposicao();
+        List<Risco> listaDeRisco = rGRfacade.listarRiscosPOrdemGrauDeEsposicao(projetoSelecionado);
         criaTabela();
         populaTabelaDeRiscos(listaDeRisco, false);
         definirEventosTabelaPriorizarRiscos();

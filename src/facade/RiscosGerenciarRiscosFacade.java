@@ -42,9 +42,9 @@ public class RiscosGerenciarRiscosFacade {
         return listaRiscos;
     }
     
-    public List<Risco> listarRiscosPOrdemGrauDeEsposicao (){
+    public List<Risco> listarRiscosPOrdemGrauDeEsposicao (Projeto projetoSelecionado){
         RiscoJpaController riscoJPA = new RiscoJpaController();
-        List<Risco> listaRiscos = riscoJPA.findRiscosPOrdemGrauDeEsposicao();
+        List<Risco> listaRiscos = riscoJPA.findRiscosPOrdemGrauDeEsposicao(projetoSelecionado);
         return listaRiscos;
     }
     
