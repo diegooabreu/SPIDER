@@ -54,6 +54,8 @@ import javax.xml.bind.annotation.XmlTransient;
 
 public class Risco implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idRisco")
+    private List<Historicorisco> historicoriscoList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idRisco")
     private List<Planomitigacao> planomitigacaoList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idRisco")
     private List<Planocontingencia> planocontingenciaList;
@@ -297,6 +299,15 @@ public class Risco implements Serializable {
 
     public void setPlanomitigacaoList(List<Planomitigacao> planomitigacaoList) {
         this.planomitigacaoList = planomitigacaoList;
+    }
+
+    @XmlTransient
+    public List<Historicorisco> getHistoricoriscoList() {
+        return historicoriscoList;
+    }
+
+    public void setHistoricoriscoList(List<Historicorisco> historicoriscoList) {
+        this.historicoriscoList = historicoriscoList;
     }
     
 }

@@ -2226,10 +2226,10 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
         novoPlanoMitigacao.setResponsavel(planoDeMitigacaoResponsavelJTextField.getText());
 
         if (mitigacaoEhMarco == true) {
-            novoPlanoMitigacao.setDataLimite(marcoSelecionado.getDataMarcoProjeto());
+            //novoPlanoMitigacao.setDataLimite(marcoSelecionado.getDataMarcoProjeto());
             novoPlanoMitigacao.setIdMarcoDoProjeto(marcoSelecionado);
         } else {
-            novoPlanoMitigacao.setDataLimite(pontoControleSelecionado.getDataPontoControle());
+            //novoPlanoMitigacao.setDataLimite(pontoControleSelecionado.getDataPontoControle());
             novoPlanoMitigacao.setIdPontoDeControle(pontoControleSelecionado);
         }
         novoPlanoMitigacao.setDescricaoPlanoMitigacao(planoDeMitigacaoDescricaoJTextArea.getText());
@@ -2240,9 +2240,9 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
 
         boolean nulo = false;
 
-        if (novoPlanoMitigacao.getDataLimite() == null) {
-            nulo = true;
-        }
+        //if (novoPlanoMitigacao.getDataLimite() == null) {
+        //    nulo = true;
+        //}
         if (novoPlanoMitigacao.getResponsavel() == null) {
             nulo = true;
         }
@@ -2300,10 +2300,10 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
 
         //novoPlanoContingencia.setDataLimite(planoDeContingenciaDataLimiteJDateChooser.getDate());
         if (contingenciaEhMarco == true) {
-            novoPlanoContingencia.setDataLimite(marcoSelecionado.getDataMarcoProjeto());
+            //novoPlanoContingencia.setDataLimite(marcoSelecionado.getDataMarcoProjeto());
             novoPlanoContingencia.setIdMarcoDoProjeto(marcoSelecionado);
         } else {
-            novoPlanoContingencia.setDataLimite(pontoControleSelecionado.getDataPontoControle());
+            //novoPlanoContingencia.setDataLimite(pontoControleSelecionado.getDataPontoControle());
             novoPlanoContingencia.setIdPontoDeControle(pontoControleSelecionado);
         }
         novoPlanoContingencia.setDescricaoPlanoContingencia(planoDeContingenciaDescricaoJTextArea.getText());
@@ -2314,9 +2314,9 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
 
         boolean nulo = false;
 
-        if (novoPlanoContingencia.getDataLimite() == null) {
-            nulo = true;
-        }
+        //if (novoPlanoContingencia.getDataLimite() == null) {
+        //    nulo = true;
+        //}
         if (novoPlanoContingencia.getResponsavel() == null) {
             nulo = true;
         }

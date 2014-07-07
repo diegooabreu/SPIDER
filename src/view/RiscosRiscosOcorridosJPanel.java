@@ -59,7 +59,7 @@ public class RiscosRiscosOcorridosJPanel extends javax.swing.JPanel {
             Date data = listaHistoricoRisco.get(i).getDataOcorrencia();
                
             
-            Object[] linha = new Object[]{listaHistoricoRisco.get(i).getIdRisco().getIdentificacao(), listaHistoricoRisco.get(i).getIdRisco().getDescricao(), df.format(data), " "};
+            Object[] linha = new Object[]{listaHistoricoRisco.get(i).getIdRisco().getIdentificacao(), listaHistoricoRisco.get(i).getIdRisco().getDescricao(), df.format(data), listaHistoricoRisco.get(i).getStatusRisco()};
             modeloTabelaRiscosOcorridos.addRow(linha);
         }
     }
@@ -74,18 +74,10 @@ public class RiscosRiscosOcorridosJPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         RiscosRiscosOcorridosJPanel = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         tabelaRiscosOcorridosJScrollPane = new javax.swing.JScrollPane();
 
         RiscosRiscosOcorridosJPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Riscos Ocorridos", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP));
-
-        jButton1.setText("selecionar riscos");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -103,10 +95,6 @@ public class RiscosRiscosOcorridosJPanel extends javax.swing.JPanel {
         RiscosRiscosOcorridosJPanelLayout.setHorizontalGroup(
             RiscosRiscosOcorridosJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(RiscosRiscosOcorridosJPanelLayout.createSequentialGroup()
-                .addGap(289, 289, 289)
-                .addComponent(jButton1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(RiscosRiscosOcorridosJPanelLayout.createSequentialGroup()
                 .addComponent(tabelaRiscosOcorridosJScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 830, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -118,9 +106,7 @@ public class RiscosRiscosOcorridosJPanel extends javax.swing.JPanel {
                 .addGroup(RiscosRiscosOcorridosJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(tabelaRiscosOcorridosJScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 387, Short.MAX_VALUE))
-                .addGap(27, 27, 27)
-                .addComponent(jButton1)
-                .addGap(0, 47, Short.MAX_VALUE))
+                .addGap(0, 97, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -140,23 +126,9 @@ public class RiscosRiscosOcorridosJPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-
-        RiscosSelecionarRiscosParaMonitorarJFrame selecionar = new RiscosSelecionarRiscosParaMonitorarJFrame();
-        
-        RiscosSelecionarRiscosParaMonitorarFacade selecionarRiscosFacade = new RiscosSelecionarRiscosParaMonitorarFacade();
-        
-        //selecionar.criarTabelaSelecionarRiscos(selecionarRiscosFacade.getListaDeRiscosDoProjeto(projetoSelecionado));
-        selecionar.setLocationRelativeTo(this);
-        selecionar.setVisible(true);
-        selecionar.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-
-    }//GEN-LAST:event_jButton1ActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel RiscosRiscosOcorridosJPanel;
-    private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane tabelaRiscosOcorridosJScrollPane;
     // End of variables declaration//GEN-END:variables

@@ -39,6 +39,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Historicorisco.findByIdHistoricoRisco", query = "SELECT h FROM Historicorisco h WHERE h.idHistoricoRisco = :idHistoricoRisco"),
     @NamedQuery(name = "Historicorisco.findByDataOcorrencia", query = "SELECT h FROM Historicorisco h WHERE h.dataOcorrencia = :dataOcorrencia")})
 public class Historicorisco implements Serializable {
+    @Column(name = "statusRisco")
+    private String statusRisco;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -142,6 +144,14 @@ public class Historicorisco implements Serializable {
     @Override
     public String toString() {
         return "model.Historicorisco[ idHistoricoRisco=" + idHistoricoRisco + " ]";
+    }
+
+    public String getStatusRisco() {
+        return statusRisco;
+    }
+
+    public void setStatusRisco(String statusRisco) {
+        this.statusRisco = statusRisco;
     }
     
 }
