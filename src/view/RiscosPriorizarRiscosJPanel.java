@@ -287,7 +287,7 @@ public class RiscosPriorizarRiscosJPanel extends javax.swing.JPanel {
             listaDeRiscoModificada.set(linhaSelecionada - 1, riscoSelecionado);
 
             criaTabela();
-            populaTabelaDeRiscos(listaDeRiscoModificada);
+            populaTabelaDeRiscos(listaDeRiscoModificada, true);
 
             tabelaDeRiscosJTable.addRowSelectionInterval(linhaSelecionada - 1, linhaSelecionada - 1);
         }
@@ -312,7 +312,7 @@ public class RiscosPriorizarRiscosJPanel extends javax.swing.JPanel {
 
     private void RiscosPriorizarRiscosAcoesDiminuirPrioridadeJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RiscosPriorizarRiscosAcoesDiminuirPrioridadeJButtonActionPerformed
         int linhaSelecionada = tabelaDeRiscosJTable.getSelectedRow();
-        if (linhaSelecionada <= listaDeRisco.size()) {
+        if (linhaSelecionada < listaDeRisco.size()-1) {
             listaDeRiscoModificada = listaDeRisco;
             Risco riscoSelecionado = listaDeRiscoModificada.get(linhaSelecionada);
 
@@ -320,13 +320,10 @@ public class RiscosPriorizarRiscosJPanel extends javax.swing.JPanel {
             listaDeRiscoModificada.set(linhaSelecionada + 1, riscoSelecionado);
 
             criaTabela();
-            populaTabelaDeRiscos(listaDeRiscoModificada);
+            populaTabelaDeRiscos(listaDeRiscoModificada, true);
 
             tabelaDeRiscosJTable.addRowSelectionInterval(linhaSelecionada + 1, linhaSelecionada + 1);
-        }
-        else{
-            JOptionPane.showConfirmDialog(impactoJLabel, "Prioridade do risco selecionado não pode ser diminuida");
-        }
+        } 
     }//GEN-LAST:event_RiscosPriorizarRiscosAcoesDiminuirPrioridadeJButtonActionPerformed
 
     private void emissorJTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emissorJTextFieldActionPerformed
@@ -334,24 +331,27 @@ public class RiscosPriorizarRiscosJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_emissorJTextFieldActionPerformed
 
     private void resetarPrioridadesJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetarPrioridadesJButtonActionPerformed
-        for (int i = 0; i < modeloTabelaDeRiscosJTable.getRowCount(); i++) {
-            String identificadorRisco = (String) tabelaDeRiscosJTable.getValueAt(i, 0);
-            for (int j = 0; j < listaDeRiscoModificada.size(); j++) {
-                if (identificadorRisco == listaDeRiscoModificada.get(j).getIdentificacao()) {
-                    Risco objRisco = listaDeRiscoModificada.get(j);
-                    objRisco.setPrioridade(i * 0);
-                    RiscosGerenciarRiscosFacade riscoFacade = new RiscosGerenciarRiscosFacade();
-                    riscoFacade.editarRisco(objRisco);
-                    break;
-                }
-            }
-            criaTabela();
+        listaDeRiscoModificada = preencheListaModificada(listaDeRisco);
+        for (int j = 0; j < listaDeRiscoModificada.size(); j++) {
+            Risco objRisco = listaDeRiscoModificada.get(j);
+            objRisco.setPrioridade(0);
+            RiscosGerenciarRiscosFacade riscoFacade = new RiscosGerenciarRiscosFacade();
+            riscoFacade.editarRisco(objRisco);
         }
+        RiscosGerenciarRiscosFacade rGRfacade = new RiscosGerenciarRiscosFacade();
+        List<Risco> listaDeRisco = rGRfacade.listarRiscosPOrdemGrauDeEsposicao();
+        criaTabela();
+        populaTabelaDeRiscos(listaDeRisco, true);
+        definirEventosTabelaPriorizarRiscos();
+        JOptionPane.showMessageDialog(this, "Prioridade dos riscos foram resetadas");
     }//GEN-LAST:event_resetarPrioridadesJButtonActionPerformed
 
     private void descartarAlteraçõesJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_descartarAlteraçõesJButtonActionPerformed
+        RiscosGerenciarRiscosFacade rGRfacade = new RiscosGerenciarRiscosFacade();
+        List<Risco> listaDeRisco = rGRfacade.listarRiscosPOrdemGrauDeEsposicao();
         criaTabela();
-        populaTabelaDeRiscos(listaDeRisco);
+        populaTabelaDeRiscos(listaDeRisco, false);
+        definirEventosTabelaPriorizarRiscos();
     }//GEN-LAST:event_descartarAlteraçõesJButtonActionPerformed
 
     public void definirEventosTabelaPriorizarRiscos() {
@@ -382,6 +382,7 @@ public class RiscosPriorizarRiscosJPanel extends javax.swing.JPanel {
     }
 
     public void criaTabela() {
+        limparCamposOutrasInformacoes();
         tabelaDeRiscosJTable = new JTable();
         modeloTabelaDeRiscosJTable = new DefaultTableModel();
         modeloTabelaDeRiscosJTable.setColumnIdentifiers(new String[]{"Identificação", "Descrição", "Estado"});
@@ -393,26 +394,13 @@ public class RiscosPriorizarRiscosJPanel extends javax.swing.JPanel {
                 int riscoSelecionado = e.getClickCount();
                 
             }
-});
+        });
     }
-    
-    /*public void criaTabelaInfosAdicionais(){
-        tabelaInfosAdicionais = new JTable();
-        modeloTabelaInfosAdicionaisJTable = new DefaultTableModel();
-        modeloTabelaInfosAdicionaisJTable.setColumnIdentifiers(new String[]{"Emissor", "Probabilidade", "Impacto", "Grau de severidade"});
-        tabelaInfosAdicionais.setModel(modeloTabelaInfosAdicionaisJTable);
-        infosAdicionaisJScrollPane.setViewportView(tabelaInfosAdicionais);
-        
-        int linhaSelecionada = tabelaDeRiscosJTable.getSelectedRow();
-        String[] linha;
-        linha = new String[]{listaDeRisco.get(linhaSelecionada).getEmissor(),
-            Integer.toString(listaDeRisco.get(linhaSelecionada).getProbabilidade()),
-            listaDeRisco.get(linhaSelecionada).getImpacto(),
-            Integer.toString(listaDeRisco.get(linhaSelecionada).getGrauSeveridade())};
-    }*/
 
-    public void populaTabelaDeRiscos(List<Risco> novaListaDeRisco) {
-        listaDeRisco = novaListaDeRisco;
+    public void populaTabelaDeRiscos(List<Risco> novaListaDeRisco, boolean atualizacao) {
+        if (atualizacao == false){
+            listaDeRisco = novaListaDeRisco;
+        }
         List<Risco> listaTemp = new ArrayList<Risco>();
         for (int i = 0; i < novaListaDeRisco.size(); i++) {
             if (novaListaDeRisco.get(i).getPrioridade() > 0) {
@@ -432,10 +420,6 @@ public class RiscosPriorizarRiscosJPanel extends javax.swing.JPanel {
                 novaListaDeRisco.get(i).getStatusRisco()};
             modeloTabelaDeRiscosJTable.addRow(linha);
         }
-    }
-
-    public void limparTabela() {
-
     }
 
 
@@ -459,4 +443,19 @@ public class RiscosPriorizarRiscosJPanel extends javax.swing.JPanel {
     private javax.swing.JTextField probabilidadeJTextField;
     private javax.swing.JButton resetarPrioridadesJButton;
     // End of variables declaration//GEN-END:variables
+
+    private List<Risco> preencheListaModificada(List<Risco> listaDeRisco) {
+        List<Risco> listaModificada = new ArrayList<Risco>();
+        for (int i = 0; i < listaDeRisco.size(); i++){
+            listaModificada.add(listaDeRisco.get(i));
+        }
+        return listaModificada;
+    }
+
+    private void limparCamposOutrasInformacoes() {
+        emissorJTextField.setText("");
+        probabilidadeJTextField.setText("");
+        impactoJTextField.setText("");
+        grauDeSeveridadeJTextField.setText("");
+    }
 }

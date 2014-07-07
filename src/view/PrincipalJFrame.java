@@ -635,7 +635,7 @@ public class PrincipalJFrame extends javax.swing.JFrame {
                             riscosPriorizarRiscosJPanel.criaTabela();
                             RiscosGerenciarRiscosFacade rGRfacade = new RiscosGerenciarRiscosFacade();
                             List<Risco> listaDeRisco = rGRfacade.listarRiscosPOrdemGrauDeEsposicao();
-                            riscosPriorizarRiscosJPanel.populaTabelaDeRiscos(listaDeRisco);
+                            riscosPriorizarRiscosJPanel.populaTabelaDeRiscos(listaDeRisco, false);
                             riscosPriorizarRiscosJPanel.definirEventosTabelaPriorizarRiscos();
                         }
                         
