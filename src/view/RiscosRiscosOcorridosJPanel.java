@@ -8,7 +8,14 @@ package view;
 
 import facade.RiscosRiscosOcorridosFacade;
 import facade.RiscosSelecionarRiscosParaMonitorarFacade;
+import java.text.DateFormat;
+import java.util.Date;
+import java.util.List;
 import javax.swing.JFrame;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import model.Historicorisco;
+import model.Projeto;
 
 /**
  *
@@ -17,6 +24,11 @@ import javax.swing.JFrame;
 public class RiscosRiscosOcorridosJPanel extends javax.swing.JPanel {
 
     RiscosRiscosOcorridosFacade riscosOcorridosFacade = new RiscosRiscosOcorridosFacade();
+    // criando tabela
+    private JTable tabelaRiscosOcorridos;
+    private DefaultTableModel modeloTabelaRiscosOcorridos;
+    
+    private Projeto projetoSelecionado;
     
     /**
      * Creates new form RiscosRiscosOcorridosJPanel
@@ -25,6 +37,33 @@ public class RiscosRiscosOcorridosJPanel extends javax.swing.JPanel {
         initComponents();
     }
 
+     public void getProjeto (Projeto projeto){
+        this.projetoSelecionado = projeto;
+    }
+    
+    public void criarTabelaRiscosOcorridos(){
+        
+        tabelaRiscosOcorridos = new JTable();
+        modeloTabelaRiscosOcorridos = new DefaultTableModel();
+        modeloTabelaRiscosOcorridos.setColumnIdentifiers(new Object[] {"Identificação", "Descrição", "Data de ocorrencia", "Status"});
+        tabelaRiscosOcorridos.setModel(modeloTabelaRiscosOcorridos);
+        tabelaRiscosOcorridosJScrollPane.setViewportView(tabelaRiscosOcorridos);
+    }
+    
+    public void popularTabelaRiscosOcorridos(){
+        
+        List<Historicorisco> listaHistoricoRisco = riscosOcorridosFacade.getListaHistoricoriscosByIdProjeto(projetoSelecionado.getIdProjeto());
+        for (int i=0; i < listaHistoricoRisco.size(); i++){
+            
+            DateFormat df = DateFormat.getDateInstance(DateFormat.MEDIUM);
+            Date data = listaHistoricoRisco.get(i).getDataOcorrencia();
+               
+            
+            Object[] linha = new Object[]{listaHistoricoRisco.get(i).getIdRisco().getIdentificacao(), listaHistoricoRisco.get(i).getIdRisco().getDescricao(), df.format(data), " "};
+            modeloTabelaRiscosOcorridos.addRow(linha);
+        }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -37,7 +76,7 @@ public class RiscosRiscosOcorridosJPanel extends javax.swing.JPanel {
         RiscosRiscosOcorridosJPanel = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        tabelaRiscosOcorridosJScrollPane = new javax.swing.JScrollPane();
 
         RiscosRiscosOcorridosJPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Riscos Ocorridos", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP));
 
@@ -68,7 +107,7 @@ public class RiscosRiscosOcorridosJPanel extends javax.swing.JPanel {
                 .addComponent(jButton1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(RiscosRiscosOcorridosJPanelLayout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 830, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tabelaRiscosOcorridosJScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 830, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -78,7 +117,7 @@ public class RiscosRiscosOcorridosJPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(RiscosRiscosOcorridosJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 387, Short.MAX_VALUE))
+                    .addComponent(tabelaRiscosOcorridosJScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 387, Short.MAX_VALUE))
                 .addGap(27, 27, 27)
                 .addComponent(jButton1)
                 .addGap(0, 47, Short.MAX_VALUE))
@@ -119,6 +158,6 @@ public class RiscosRiscosOcorridosJPanel extends javax.swing.JPanel {
     private javax.swing.JPanel RiscosRiscosOcorridosJPanel;
     private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane tabelaRiscosOcorridosJScrollPane;
     // End of variables declaration//GEN-END:variables
 }

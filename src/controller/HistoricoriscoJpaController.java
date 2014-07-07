@@ -238,14 +238,13 @@ public class HistoricoriscoJpaController implements Serializable {
         return listaHistoricoRisco;
     }
     
-    public List<Historicorisco> findHistoricoRiscoByIdProjetoAndStatusRisco(String statusRisco, int idProjeto){
+    public List<Historicorisco> findHistoricoRiscoByIdProjeto(int idProjeto){
         
         List<Historicorisco> listaHistoricoriscos = null;
         try {
             EntityManager entityManager = getEntityManager();
-            listaHistoricoriscos = entityManager.createNamedQuery("Historicorisco.findByIdProjetoAndStatusRisco")
+            listaHistoricoriscos = entityManager.createNamedQuery("Historicorisco.findByIdProjeto")
                                                                  .setParameter("idProjeto", idProjeto)
-                                                                 .setParameter("statusRisco", statusRisco)
                                                                  .getResultList();
         } catch (Exception e){
             System.err.println("erro no metodo findHistoricoRiscoByIdProjetoAndStatusRisco da classe HistoricoRiscoJpaController");

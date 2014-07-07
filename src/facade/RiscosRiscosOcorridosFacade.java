@@ -32,9 +32,9 @@ public class RiscosRiscosOcorridosFacade {
         return listaHistoricoRiscos;
     }
     
-    public List<Historicorisco> getListaHistoricoriscosByIdProjetoAndStatusRisco (String statusRisco, int idProjeto){
+    public List<Historicorisco> getListaHistoricoriscosByIdProjeto (int idProjeto){
         HistoricoriscoJpaController historicoRiscoJPA = new HistoricoriscoJpaController();
-        List<Historicorisco> listaHistoricoRiscos = historicoRiscoJPA.findHistoricoRiscoByIdProjetoAndStatusRisco(statusRisco, idProjeto);
+        List<Historicorisco> listaHistoricoRiscos = historicoRiscoJPA.findHistoricoRiscoByIdProjeto(idProjeto);
         return listaHistoricoRiscos;
     }
 }

@@ -607,6 +607,9 @@ public class PrincipalJFrame extends javax.swing.JFrame {
                         riscosPriorizarRiscosJPanel.definirEventosTabelaPriorizarRiscos();
                     } else if (node == riscosOcorridos) {
                         riscosRiscosOcorridosJPanel.setVisible(true);
+                        riscosRiscosOcorridosJPanel.criarTabelaRiscosOcorridos();
+                        riscosRiscosOcorridosJPanel.getProjeto(projetoSelecionado);
+                        riscosRiscosOcorridosJPanel.popularTabelaRiscosOcorridos();
                     } else if (node == quadroAvisos) {
                         monitoracaoQuadroDeAvisoJPanel.setVisible(true);
                     } else if (node == tabelaAlteracoes) {

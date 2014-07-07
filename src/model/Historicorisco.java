@@ -35,7 +35,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Historicorisco.findAll", query = "SELECT h FROM Historicorisco h"),
     @NamedQuery(name = "Historicorisco.findByIdRisco", query = "SELECT h FROM Historicorisco h WHERE h.idRisco.idRisco = :idRisco"),
-    @NamedQuery(name = "Historicorisco.findByIdProjetoAndStatusRisco", query = "SELECT h FROM Historicorisco h WHERE h.idRisco.contem.projeto.idProjeto = :idProjeto AND h.idRisco.statusRisco = :statusRisco"),
+    @NamedQuery(name = "Historicorisco.findByIdProjeto", query = "SELECT h FROM Historicorisco h WHERE h.idRisco.contem.projeto.idProjeto = :idProjeto"),
     @NamedQuery(name = "Historicorisco.findByIdHistoricoRisco", query = "SELECT h FROM Historicorisco h WHERE h.idHistoricoRisco = :idHistoricoRisco"),
     @NamedQuery(name = "Historicorisco.findByDataOcorrencia", query = "SELECT h FROM Historicorisco h WHERE h.dataOcorrencia = :dataOcorrencia")})
 public class Historicorisco implements Serializable {
