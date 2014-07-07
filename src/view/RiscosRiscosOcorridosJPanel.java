@@ -7,6 +7,7 @@
 package view;
 
 import facade.RiscosRiscosOcorridosFacade;
+import facade.RiscosSelecionarRiscosParaMonitorarFacade;
 import javax.swing.JFrame;
 
 /**
@@ -103,7 +104,10 @@ public class RiscosRiscosOcorridosJPanel extends javax.swing.JPanel {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
         RiscosSelecionarRiscosParaMonitorarJFrame selecionar = new RiscosSelecionarRiscosParaMonitorarJFrame();
-        selecionar.criarTabelaSelecionarRiscos(riscosOcorridosFacade.getListaDeRiscos());
+        
+        RiscosSelecionarRiscosParaMonitorarFacade selecionarRiscosFacade = new RiscosSelecionarRiscosParaMonitorarFacade();
+        
+        //selecionar.criarTabelaSelecionarRiscos(selecionarRiscosFacade.getListaDeRiscosDoProjeto(projetoSelecionado));
         selecionar.setLocationRelativeTo(this);
         selecionar.setVisible(true);
         selecionar.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);

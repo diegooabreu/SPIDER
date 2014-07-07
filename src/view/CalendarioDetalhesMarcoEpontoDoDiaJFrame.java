@@ -49,13 +49,13 @@ public class CalendarioDetalhesMarcoEpontoDoDiaJFrame extends javax.swing.JFrame
     public void criarListaDeTarefas(){
         listaTarefasPontoJTable = new JTable();
         listaTarefasPontoJTableModel = new DefaultTableModel();
-        listaTarefasPontoJTableModel.setColumnIdentifiers(new Object[]{"Risco" , "Tarefa", "Responsavel" , "Data de Realização"});
+        listaTarefasPontoJTableModel.setColumnIdentifiers(new Object[]{"Risco" , "Status","Tarefa", "Responsavel" , "Data de Realização"});
         listaTarefasPontoJTable.setModel(listaTarefasPontoJTableModel);
         listaTarefasJScrollPane.setViewportView(listaTarefasPontoJTable);
         
         listaTarefasMarcoJTable = new JTable();
         listaTarefasMarcoJTableModel = new DefaultTableModel();
-        listaTarefasMarcoJTableModel.setColumnIdentifiers(new Object[]{"Risco" , "Tarefa", "Responsavel" , "Data de Realização"});
+        listaTarefasMarcoJTableModel.setColumnIdentifiers(new Object[]{"Risco" , "Status","Tarefa", "Responsavel" , "Data de Realização"});
         listaTarefasMarcoJTable.setModel(listaTarefasMarcoJTableModel);
         listaTarefasMarcoJScrollPane.setViewportView(listaTarefasMarcoJTable);
         
@@ -65,7 +65,7 @@ public class CalendarioDetalhesMarcoEpontoDoDiaJFrame extends javax.swing.JFrame
     public void criarListaDeTarefasMarcoSomenteMarco(){
         listaTarefasMarcoSomenteMarcoJTable = new JTable();
         listaTarefasMarcoSomenteMarcoJTableModel = new DefaultTableModel();
-        listaTarefasMarcoSomenteMarcoJTableModel.setColumnIdentifiers(new Object[]{"Risco" , "Tarefa", "Responsavel" , "Data de Realização"});
+        listaTarefasMarcoSomenteMarcoJTableModel.setColumnIdentifiers(new Object[]{"Risco" ,"Status", "Tarefa", "Responsavel" , "Data de Realização"});
         listaTarefasMarcoSomenteMarcoJTable.setModel(listaTarefasMarcoSomenteMarcoJTableModel);
         listaTarefasMacroSomenteMarcoJScrollPane.setViewportView(listaTarefasMarcoSomenteMarcoJTable);
         
@@ -74,7 +74,7 @@ public class CalendarioDetalhesMarcoEpontoDoDiaJFrame extends javax.swing.JFrame
     public void criarListaDeTarefasPontoSomentePonto(){
         listaTarefasPontoSomentePontoJTable = new JTable();
         listaTarefasPontoSomentePontoJTableModel = new DefaultTableModel();
-        listaTarefasPontoSomentePontoJTableModel.setColumnIdentifiers(new Object[]{"Risco" , "Tarefa" , "Responsável" , "Data de Realização"});
+        listaTarefasPontoSomentePontoJTableModel.setColumnIdentifiers(new Object[]{"Risco" ,"Status", "Tarefa" , "Responsável" , "Data de Realização"});
         listaTarefasPontoSomentePontoJTable.setModel(listaTarefasPontoSomentePontoJTableModel);
         listaTarefasPontoSomentePontoJScrollPane.setViewportView(listaTarefasPontoSomentePontoJTable);
     }
@@ -170,6 +170,7 @@ public class CalendarioDetalhesMarcoEpontoDoDiaJFrame extends javax.swing.JFrame
             }
             
             Object[] linha = new Object[]{listaPlanosDeMitigacao.get(i).getIdRisco().getIdentificacao() ,
+                listaPlanosDeMitigacao.get(i).getIdRisco().getStatusRisco(),
                 listaPlanosDeMitigacao.get(i).getIdentificacaoPlanoMitigacao() ,
                 listaPlanosDeMitigacao.get(i).getResponsavel() ,
                 dataRealizacaoPMString };
@@ -195,6 +196,7 @@ public class CalendarioDetalhesMarcoEpontoDoDiaJFrame extends javax.swing.JFrame
             }
             
             Object[] linha = new Object[]{listaPlanosContingencia.get(i).getIdRisco().getIdentificacao() ,
+                listaPlanosContingencia.get(i).getIdRisco().getStatusRisco(),
                 listaPlanosContingencia.get(i).getIdentificacaoPlanoContingencia() ,
                 listaPlanosContingencia.get(i).getResponsavel() ,
                 dataRealizacaoPCString };
@@ -228,6 +230,7 @@ public class CalendarioDetalhesMarcoEpontoDoDiaJFrame extends javax.swing.JFrame
             }
             
             Object[] linha = new Object[]{listaPlanosDeMitigacao.get(i).getIdRisco().getIdentificacao() ,
+                listaPlanosDeMitigacao.get(i).getIdRisco().getStatusRisco(),
                 listaPlanosDeMitigacao.get(i).getIdentificacaoPlanoMitigacao() ,
                 listaPlanosDeMitigacao.get(i).getResponsavel() ,
                 dataRealizacaoPMString };
@@ -253,6 +256,7 @@ public class CalendarioDetalhesMarcoEpontoDoDiaJFrame extends javax.swing.JFrame
             }
             
             Object[] linha = new Object[]{listaPlanosContingencia.get(i).getIdRisco().getIdentificacao() ,
+                listaPlanosContingencia.get(i).getIdRisco().getStatusRisco(),
                 listaPlanosContingencia.get(i).getIdentificacaoPlanoContingencia() ,
                 listaPlanosContingencia.get(i).getResponsavel() ,
                 dataRealizacaoPCString };
@@ -287,6 +291,7 @@ public class CalendarioDetalhesMarcoEpontoDoDiaJFrame extends javax.swing.JFrame
             }
             
             Object[] linha = new Object[]{listaPlanosDeMitigacao.get(i).getIdRisco().getIdentificacao() ,
+                listaPlanosDeMitigacao.get(i).getIdRisco().getStatusRisco(),
                 listaPlanosDeMitigacao.get(i).getIdentificacaoPlanoMitigacao() ,
                 listaPlanosDeMitigacao.get(i).getResponsavel() ,
                 dataRealizacaoPMString };
@@ -312,6 +317,7 @@ public class CalendarioDetalhesMarcoEpontoDoDiaJFrame extends javax.swing.JFrame
             }
             
             Object[] linha = new Object[]{listaPlanosContingencia.get(i).getIdRisco().getIdentificacao() ,
+                listaPlanosContingencia.get(i).getIdRisco().getStatusRisco(),
                 listaPlanosContingencia.get(i).getIdentificacaoPlanoContingencia() ,
                 listaPlanosContingencia.get(i).getResponsavel() ,
                 dataRealizacaoPCString };
@@ -339,6 +345,7 @@ public class CalendarioDetalhesMarcoEpontoDoDiaJFrame extends javax.swing.JFrame
             }
             
             Object[] linha = new Object[]{listaPlanosDeMitigacaoMarco.get(i).getIdRisco().getIdentificacao() ,
+                listaPlanosDeMitigacaoMarco.get(i).getIdRisco().getStatusRisco(),
                 listaPlanosDeMitigacaoMarco.get(i).getIdentificacaoPlanoMitigacao() ,
                 listaPlanosDeMitigacaoMarco.get(i).getResponsavel() ,
                 dataRealizacaoPMString };
@@ -364,6 +371,7 @@ public class CalendarioDetalhesMarcoEpontoDoDiaJFrame extends javax.swing.JFrame
             }
             
             Object[] linha = new Object[]{listaPlanosContingenciaMarco.get(i).getIdRisco().getIdentificacao() ,
+                listaPlanosContingenciaMarco.get(i).getIdRisco().getStatusRisco(),
                 listaPlanosContingenciaMarco.get(i).getIdentificacaoPlanoContingencia() ,
                 listaPlanosContingenciaMarco.get(i).getResponsavel() ,
                 dataRealizacaoPCString };

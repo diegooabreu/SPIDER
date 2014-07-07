@@ -19,6 +19,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import model.Projeto;
 
 /**
  *
@@ -282,5 +283,25 @@ public class RiscoJpaController implements Serializable {
         }
         
         return listaRiscos;
+    }
+    
+    public List<Risco> findRiscosByIdProjeto(Projeto idProjeto){
+        
+        List<Risco> listaRiscos = null;
+        EntityManager em = getEntityManager();
+        
+        try{
+            
+            listaRiscos = em.createNamedQuery("Risco.findRiscosByIdProjeto")
+                    .setParameter("idProjeto", idProjeto)
+                    .getResultList();
+            
+        } catch (Exception e){
+            System.out.println("erro no metodo findRiscoByStatus da classe RiscoJpaController");
+            e.printStackTrace();
+        }
+        
+        return listaRiscos;
+        
     }
 }

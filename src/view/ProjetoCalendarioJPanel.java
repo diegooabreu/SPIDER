@@ -7,6 +7,7 @@
 package view;
 
 
+import facade.CalendarioDetalhesDoDiaFacade;
 import facade.ProjetoCalendarioFacade;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -221,6 +222,8 @@ public class ProjetoCalendarioJPanel extends javax.swing.JPanel {
                     
                     
                     int selected = tabelaMarcosEPontosDeControle.getSelectedRow();
+                    
+                    MarcoPontoDeControleJComboBox.setEnabled(false);
 
                     //tabelaPontoDeControle.clearSelection();
                     //pontoDeControleSelecionado = null;
@@ -253,6 +256,7 @@ public class ProjetoCalendarioJPanel extends javax.swing.JPanel {
                                 dataMarcoPontoDeControleJDateChooser.setValue(listaPontosDeControle.get(i).getDataPontoControle());
                                 descricaoMarcoPontoDeControleJTextArea.setText(listaPontosDeControle.get(i).getDescricaoPontoControle());
                                 MarcoPontoDeControleJComboBox.setSelectedItem("Ponto de Controle");
+                                
                             }
 
                         }
@@ -521,6 +525,17 @@ public class ProjetoCalendarioJPanel extends javax.swing.JPanel {
 
         if (marcoSelecionado != null){
             
+            // checando se existem tarefas alocadas a este marco
+            
+            CalendarioDetalhesDoDiaFacade calendarioDetalhesDoDiaFacade = new CalendarioDetalhesDoDiaFacade();
+            
+            if(calendarioDetalhesDoDiaFacade.getPlanosContingenciaByMarcoDoProjeto(marcoSelecionado).size() != 0){
+                JOptionPane.showMessageDialog(this, "Existem tarefas para este marco.");
+            } else if (calendarioDetalhesDoDiaFacade.getPlanosMitigacaoByMarcoDoProjeto(marcoSelecionado).size() != 0){
+                JOptionPane.showMessageDialog(this, "Existem tarefas para este marco.");
+            } else {
+            
+            
             int n = JOptionPane.showConfirmDialog(this, "Deseja excluir o marco do projeto ( " + marcoSelecionado.getNomeMarcoDoProjeto() + " )?","Excluir marco do projeto", JOptionPane.YES_NO_OPTION);
 
             if(n == JOptionPane.YES_OPTION){
@@ -534,10 +549,20 @@ public class ProjetoCalendarioJPanel extends javax.swing.JPanel {
                 
                 definirEventosTabelaMarcoEPontosDeControle();
                 
+                }
             }
             
-            
         } else if(pontoDeControleSelecionado != null){
+            
+            // checando se ecistem tarefas alocadas para este ponto de controle
+            
+            CalendarioDetalhesDoDiaFacade calendarioDetalhesDoDiaFacade = new CalendarioDetalhesDoDiaFacade();
+            
+            if (calendarioDetalhesDoDiaFacade.getPlanosContingenciaByPontoDeControle(pontoDeControleSelecionado).size() != 0){
+                JOptionPane.showMessageDialog(this, "Existem tarefas para este ponto de controle.");
+            } else if(calendarioDetalhesDoDiaFacade.getPlanosMitigacaoByPontoDeControle(pontoDeControleSelecionado).size() != 0){
+                JOptionPane.showMessageDialog(this, "Existem tarefas para este ponto de controle.");
+            } else {
             
              int n = JOptionPane.showConfirmDialog(this, "Deseja excluir o ponto de controle ( " + pontoDeControleSelecionado.getNomePontoDeControle() + " )?","Excluir ponto de controle", JOptionPane.YES_NO_OPTION);
 
@@ -561,8 +586,8 @@ public class ProjetoCalendarioJPanel extends javax.swing.JPanel {
                                
                 definirEventosTabelaMarcoEPontosDeControle();               
                 
-            }
-            
+                }
+            } 
             
         } else {
             
@@ -710,6 +735,7 @@ public class ProjetoCalendarioJPanel extends javax.swing.JPanel {
         } else if((marcoSelecionado == null) && (pontoDeControleSelecionado != null)) {
             
             boolean existeMesmoNomeAlterarPonto = false;
+            boolean nomeIgualNomeSelecionado = true;
             boolean existePontoDeControleNesseDiaAlterarPonto = false;
             
             DateFormat df2 = DateFormat.getDateInstance(DateFormat.MEDIUM);
@@ -718,9 +744,11 @@ public class ProjetoCalendarioJPanel extends javax.swing.JPanel {
             if(nomeMarcosPontosDeControleJTextField.getText().equals(listaPontosDeControle.get(i).getNomePontoDeControle()) | 
                     df2.format(listaPontosDeControle.get(i).getDataPontoControle()).equals(df2.format(dataMarcoPontoDeControleJDateChooser.getValue()))){
                 
-                if(nomeMarcosPontosDeControleJTextField.getText().equals(listaPontosDeControle.get(i).getNomePontoDeControle())){
+                if(nomeMarcosPontosDeControleJTextField.getText().equals(listaPontosDeControle.get(i).getNomePontoDeControle()) && (nomeMarcosPontosDeControleJTextField.getText().equals(pontoDeControleSelecionado.getNomePontoDeControle()) == false)){
                 existeMesmoNomeAlterarPonto = true;
-                } else if(df2.format(listaPontosDeControle.get(i).getDataPontoControle()).equals(df2.format(dataMarcoPontoDeControleJDateChooser.getValue()))){
+                
+                
+                } else if(df2.format(listaPontosDeControle.get(i).getDataPontoControle()).equals(df2.format(dataMarcoPontoDeControleJDateChooser.getValue())) && (df2.format(dataMarcoPontoDeControleJDateChooser.getValue()).equals(df2.format(pontoDeControleSelecionado.getDataPontoControle())) == false)){
                     existePontoDeControleNesseDiaAlterarPonto = true;
                 }
             }
@@ -758,9 +786,9 @@ public class ProjetoCalendarioJPanel extends javax.swing.JPanel {
             if(nomeMarcosPontosDeControleJTextField.getText().equals(listaMarcosDoProjeto.get(i).getNomeMarcoDoProjeto()) | 
                     df2.format(listaMarcosDoProjeto.get(i).getDataMarcoProjeto()).equals(df2.format(dataMarcoPontoDeControleJDateChooser.getValue()))){
                 
-                if(nomeMarcosPontosDeControleJTextField.getText().equals(listaMarcosDoProjeto.get(i).getNomeMarcoDoProjeto())){
+                if(nomeMarcosPontosDeControleJTextField.getText().equals(listaMarcosDoProjeto.get(i).getNomeMarcoDoProjeto()) && (nomeMarcosPontosDeControleJTextField.getText().equals(marcoSelecionado.getNomeMarcoDoProjeto()) == false)){
                 existeMesmoNomeAlterarMarco = true;
-                } else if(df2.format(listaMarcosDoProjeto.get(i).getDataMarcoProjeto()).equals(df2.format(dataMarcoPontoDeControleJDateChooser.getValue()))){
+                } else if(df2.format(listaMarcosDoProjeto.get(i).getDataMarcoProjeto()).equals(df2.format(dataMarcoPontoDeControleJDateChooser.getValue())) && (df2.format(dataMarcoPontoDeControleJDateChooser.getValue()).equals(df2.format(marcoSelecionado.getDataMarcoProjeto())))){
                     existeMarcoNesseDiaAlterarMarco = true;
                 }
             }
@@ -797,6 +825,8 @@ public class ProjetoCalendarioJPanel extends javax.swing.JPanel {
         marcoSelecionado = null;
         pontoDeControleSelecionado = null;
                
+        MarcoPontoDeControleJComboBox.setEnabled(true);
+        
         //tabelaMarcoDoProjeto.clearSelection();
         //tabelaPontoDeControle.clearSelection();
         

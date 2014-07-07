@@ -8,6 +8,7 @@ package view;
 import com.sun.java.accessibility.AccessBridge;
 import controller.RiscoJpaController;
 import facade.RiscosGerenciarRiscosFacade;
+import facade.RiscosSelecionarRiscosParaMonitorarFacade;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -20,6 +21,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
+import model.Projeto;
 import model.Risco;
 
 /**
@@ -34,6 +36,7 @@ public class RiscosPriorizarRiscosJPanel extends javax.swing.JPanel {
     private Risco RiscoSelecionado;
     private List<Risco> listaDeRiscoModificada;
     public int riscoSelecionado;
+    public Projeto projetoSelecionado;
 
     /**
      * Creates new form RiscosPriorizarRiscosJPanel
@@ -267,9 +270,18 @@ public class RiscosPriorizarRiscosJPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    
+    public void getProjetoSelecionado(Projeto projeto){
+        projetoSelecionado = projeto;
+    }
+    
     private void RiscosPriorizarRiscosSelecionarMonitorarJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RiscosPriorizarRiscosSelecionarMonitorarJButtonActionPerformed
 
-        SelecionarRiscosParaMonitorarJFrame selecionar = new SelecionarRiscosParaMonitorarJFrame();
+        RiscosSelecionarRiscosParaMonitorarJFrame selecionar = new RiscosSelecionarRiscosParaMonitorarJFrame();
+        
+        
+        
+        selecionar.criarTabelaSelecionarRiscos(listaDeRisco);
         selecionar.setLocationRelativeTo(this);
         selecionar.setVisible(true);
         selecionar.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);

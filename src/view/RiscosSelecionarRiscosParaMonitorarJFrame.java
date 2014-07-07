@@ -68,6 +68,16 @@ public class RiscosSelecionarRiscosParaMonitorarJFrame extends javax.swing.JFram
         
         riscoTabelaModel.addListaDeRiscos(criaListaDeRiscoTabela(listaRiscos));
         
+        tabelaSelecionarRiscosMonitorarJTable.getColumnModel().getColumn(1).setMaxWidth(0);
+        tabelaSelecionarRiscosMonitorarJTable.getColumnModel().getColumn(1).setMinWidth(0);
+        tabelaSelecionarRiscosMonitorarJTable.getTableHeader().getColumnModel().getColumn(1).setMaxWidth(0);
+        tabelaSelecionarRiscosMonitorarJTable.getTableHeader().getColumnModel().getColumn(1).setMinWidth(0);
+        
+        tabelaSelecionarRiscosMonitorarJTable.getColumnModel().getColumn(2).setMaxWidth(0);
+        tabelaSelecionarRiscosMonitorarJTable.getColumnModel().getColumn(2).setMinWidth(0);
+        tabelaSelecionarRiscosMonitorarJTable.getTableHeader().getColumnModel().getColumn(2).setMaxWidth(0);
+        tabelaSelecionarRiscosMonitorarJTable.getTableHeader().getColumnModel().getColumn(2).setMinWidth(0);
+        
     }
     
     private JTable getTabelaSelecionarRiscosMonitorarJTable(List<Risco> listaDeRiscos) {
@@ -214,9 +224,13 @@ public class RiscosSelecionarRiscosParaMonitorarJFrame extends javax.swing.JFram
 
         for(int i=0; i < listaRiscosTabela.size(); i++){
             if((Boolean)riscoTabelaModel.getValueAt(i, 0) == true){
+                
+                // verificando se existem planos de mitigação para o risco selecionado e se nao existir, exigir a criação
+                
+                
+                
                 listaRiscosTabela.get(i).setStatusRisco("Mitigando");
                 listaRiscos.get(i).setStatusRisco("Mitigando");
-                
                 riscosSelecionarRiscosParaMonitorarFacade.editRisco(listaRiscos.get(i));
                 
             } else {

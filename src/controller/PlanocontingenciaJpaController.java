@@ -186,6 +186,26 @@ public class PlanocontingenciaJpaController implements Serializable {
         return listaPC;
     }
     
+    public List<Planocontingencia> getPlanoContingenciaByIdPontoDeControleEStatusRisco(Pontodecontrole ponto, String statusRisco){
+        List<Planocontingencia> listaPC = null;
+        EntityManager em = getEntityManager();
+        
+        try{
+            
+            listaPC = em.createNamedQuery("Planocontingencia.findPlanoContingenciaByPontodecontroleEStatusRisco")
+                    .setParameter("idPontoDeControle", ponto)
+                    .setParameter("statusRisco", statusRisco)
+                    .getResultList();
+            
+        } catch (Exception e){
+            System.out.println("erro no metodo getPlanoContingenciaByIdPontoDeControle da classe MarcodoprojetoJpaController");
+            e.printStackTrace();
+        }
+        
+        
+        return listaPC;
+    }
+    
     public List<Planocontingencia> getPlanoContingenciaByIdMarcoDoProjeto(Marcodoprojeto marco){
         
         List<Planocontingencia> listaPC = null;
@@ -195,6 +215,28 @@ public class PlanocontingenciaJpaController implements Serializable {
             
             listaPC = em.createNamedQuery("Planocontingencia.findPlanoContingenciaByMarcoDoProjeto")
                     .setParameter("idMarcoDoProjeto", marco)
+                    .getResultList();
+            
+        } catch (Exception e){
+            System.out.println("erro no metodo getPlanoContingenciaByIdPontoDeControle da classe MarcodoprojetoJpaController");
+            e.printStackTrace();
+        }
+        
+        
+        return listaPC;
+        
+    }
+    
+    public List<Planocontingencia> getPlanoContingenciaByIdMarcoDoProjetoEStatusRisco(Marcodoprojeto marco, String statusRisco){
+        
+        List<Planocontingencia> listaPC = null;
+        EntityManager em = getEntityManager();
+        
+        try{
+            
+            listaPC = em.createNamedQuery("Planocontingencia.findPlanoContingenciaByMarcoDoProjetoEStatusRisco")
+                    .setParameter("idMarcoDoProjeto", marco)
+                    .setParameter("statusRisco",statusRisco)
                     .getResultList();
             
         } catch (Exception e){

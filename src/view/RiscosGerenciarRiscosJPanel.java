@@ -2080,9 +2080,9 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
                         historico.setDescricaoAlteracao("Risco criado.");
                         Calendar c = Calendar.getInstance();
                         historico.setDataAlteracao(c.getTime());
-                        historico.setIdRisco(riscoSelecionado);
+                        historico.setIdRisco(novoRisco);
                         riscosGerenciarRiscosFacade.criaHistorioAlteracao(historico);
-                        getListaHistoricoAlteracoes(riscoSelecionado);
+                        getListaHistoricoAlteracoes(novoRisco);
                         limparTabelaHistoricoAlteracoes();
                         preencheTabelaHistoricoAlteracoes();
                     } else {

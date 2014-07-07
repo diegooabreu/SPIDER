@@ -182,12 +182,48 @@ public class PlanomitigacaoJpaController implements Serializable {
         return listaMitigacao;
     }
     
+     public List<Planomitigacao> getListPlanoMitigacaoByIdPontoDeControleEStatusRisco(Pontodecontrole ponto, String statusRisco){
+        List<Planomitigacao> listaMitigacao = null;
+        EntityManager em = getEntityManager();
+        try{
+            listaMitigacao = (List<Planomitigacao>) em.createNamedQuery("Planomitigacao.findPlanoMitigacaoByIdPontodecontrole")
+                    .setParameter("idPontodecontrole",ponto)
+                    .setParameter("statusRisco",statusRisco)
+                    .getResultList();
+            
+        }catch( NoResultException e){
+            return null;
+        }catch (Exception e){
+            System.out.println("Erro no método getListPlanoMitigacaoByIdRisco da classe PlanomitigacaoJpaController");
+            e.printStackTrace();
+        }
+        return listaMitigacao;
+    }
+    
     public List<Planomitigacao> getListPlanoMitigacaoByIdMarcoDoProjeto(Marcodoprojeto marco){
         List<Planomitigacao> listaMitigacao = null;
         EntityManager em = getEntityManager();
         try{
             listaMitigacao = (List<Planomitigacao>) em.createNamedQuery("Planomitigacao.findPlanoMitigacaoByIdMarcoDoProjeto")
                     .setParameter("idMarcoDoProjeto",marco)
+                    .getResultList();
+            
+        }catch( NoResultException e){
+            return null;
+        }catch (Exception e){
+            System.out.println("Erro no método getListPlanoMitigacaoByIdRisco da classe PlanomitigacaoJpaController");
+            e.printStackTrace();
+        }
+        return listaMitigacao;
+    } 
+    
+    public List<Planomitigacao> getListPlanoMitigacaoByIdMarcoDoProjetoEStatusRisco(Marcodoprojeto marco, String statusRisco){
+        List<Planomitigacao> listaMitigacao = null;
+        EntityManager em = getEntityManager();
+        try{
+            listaMitigacao = (List<Planomitigacao>) em.createNamedQuery("Planomitigacao.findPlanoMitigacaoByIdMarcoDoProjetoEStatusRisco")
+                    .setParameter("idMarcoDoProjeto",marco)
+                    .setParameter("statusRisco", statusRisco)
                     .getResultList();
             
         }catch( NoResultException e){
