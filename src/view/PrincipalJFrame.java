@@ -300,6 +300,11 @@ public class PrincipalJFrame extends javax.swing.JFrame {
                         List<Risco> listaDeRisco = rGRfacade.listarRiscosPOrdemGrauDeEsposicao(projetoSelecionado);
                         riscosPriorizarRiscosJPanel.populaTabelaDeRiscos(listaDeRisco, false);
                         riscosPriorizarRiscosJPanel.definirEventosTabelaPriorizarRiscos();
+                        
+                        // Na tela Riscos Ocorridos
+                        riscosRiscosOcorridosJPanel.criarTabelaRiscosOcorridos();
+                        riscosRiscosOcorridosJPanel.getProjeto(projetoSelecionado);
+                        riscosRiscosOcorridosJPanel.popularTabelaRiscosOcorridos();
 
                         if (listaProjetos.get(j).getConcluido()) {
                             desabilitarProjetoConcluido();
