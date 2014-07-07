@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import model.Historicorisco;
 import model.Subcondicao;
 
@@ -28,6 +29,10 @@ public class HistoricoriscoJpaController implements Serializable {
 
     public HistoricoriscoJpaController(EntityManagerFactory emf) {
         this.emf = emf;
+    }
+    
+    public HistoricoriscoJpaController(){
+        emf = Persistence.createEntityManagerFactory("SpiderRMPU");
     }
     private EntityManagerFactory emf = null;
 
@@ -216,6 +221,37 @@ public class HistoricoriscoJpaController implements Serializable {
         } finally {
             em.close();
         }
+    }
+    
+    public List<Historicorisco> findHistoricoRiscoByIdRisco(int idRisco){
+        
+        List<Historicorisco> listaHistoricoRisco = null;
+        try {
+            EntityManager entityManager = getEntityManager();
+            listaHistoricoRisco = entityManager.createNamedQuery("Historicorisco.findByIdRisco")
+                                                               .setParameter("idRisco", idRisco)
+                                                               .getResultList();
+        } catch (Exception e){
+            System.err.println("erro no metodo findHistoricoRiscoByIdRisco da classe HistoricoRiscoJpaController");
+            e.printStackTrace();
+        }
+        return listaHistoricoRisco;
+    }
+    
+    public List<Historicorisco> findHistoricoRiscoByIdProjetoAndStatusRisco(String statusRisco, int idProjeto){
+        
+        List<Historicorisco> listaHistoricoriscos = null;
+        try {
+            EntityManager entityManager = getEntityManager();
+            listaHistoricoriscos = entityManager.createNamedQuery("Historicorisco.findByIdProjetoAndStatusRisco")
+                                                                 .setParameter("idProjeto", idProjeto)
+                                                                 .setParameter("statusRisco", statusRisco)
+                                                                 .getResultList();
+        } catch (Exception e){
+            System.err.println("erro no metodo findHistoricoRiscoByIdProjetoAndStatusRisco da classe HistoricoRiscoJpaController");
+            e.printStackTrace();
+        }
+        return listaHistoricoriscos;
     }
     
 }

@@ -6,8 +6,10 @@
 
 package facade;
 
+import controller.HistoricoriscoJpaController;
 import controller.RiscoJpaController;
 import java.util.List;
+import model.Historicorisco;
 import model.Risco;
 
 /**
@@ -22,5 +24,17 @@ public class RiscosRiscosOcorridosFacade {
         List<Risco> listaRiscos = riscoJPA.findRiscoEntities();
         
         return listaRiscos;
+    }
+    
+    public List<Historicorisco> getListaHistoricoRiscoByIdRisco (int idRisco){
+        HistoricoriscoJpaController historicoRiscoJPA = new HistoricoriscoJpaController();
+        List<Historicorisco> listaHistoricoRiscos = historicoRiscoJPA.findHistoricoRiscoByIdRisco(idRisco);
+        return listaHistoricoRiscos;
+    }
+    
+    public List<Historicorisco> getListaHistoricoriscosByIdProjetoAndStatusRisco (String statusRisco, int idProjeto){
+        HistoricoriscoJpaController historicoRiscoJPA = new HistoricoriscoJpaController();
+        List<Historicorisco> listaHistoricoRiscos = historicoRiscoJPA.findHistoricoRiscoByIdProjetoAndStatusRisco(statusRisco, idProjeto);
+        return listaHistoricoRiscos;
     }
 }
