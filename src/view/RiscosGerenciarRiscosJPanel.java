@@ -630,9 +630,7 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
                     planoDeContingenciaComoSeraFeitoJTextArea.setText(planoContingenciaSelecionado.getComoRealizar());
                     planoDeContingenciaInfAdicionaisJTextArea.setText(planoContingenciaSelecionado.getInformacoesAdicionais());
 
-                    //Calendar dataLimite = Calendar.getInstance();
-                    //dataLimite.setTime(planoContingenciaSelecionado.getDataLimite());
-                    //planoDeContingenciaDataLimiteJDateChooser.setCalendar(dataLimite);
+                    
                     planoDeContingenciaRemoverPlanoJButton.setEnabled(true);
                     planoDeContingenciaSalvarAlteracoesJButton.setEnabled(true);
                 }
@@ -2191,11 +2189,11 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
             planoMitigacaoSelecionado.setIdentificacaoPlanoMitigacao(planoDeMitigacaoIdentificacaoJTextField.getText());
             planoMitigacaoSelecionado.setResponsavel(planoDeMitigacaoResponsavelJTextField.getText());
             if (mitigacaoEhMarco == true) {
-                planoMitigacaoSelecionado.setDataLimite(marcoSelecionado.getDataMarcoProjeto());
+               
                 planoMitigacaoSelecionado.setIdMarcoDoProjeto(marcoSelecionado);
                 planoMitigacaoSelecionado.setIdPontoDeControle(null);
             } else {
-                planoMitigacaoSelecionado.setDataLimite(pontoControleSelecionado.getDataPontoControle());
+                
                 planoMitigacaoSelecionado.setIdPontoDeControle(pontoControleSelecionado);
                 planoMitigacaoSelecionado.setIdMarcoDoProjeto(null);
             }
@@ -2226,10 +2224,10 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
         novoPlanoMitigacao.setResponsavel(planoDeMitigacaoResponsavelJTextField.getText());
 
         if (mitigacaoEhMarco == true) {
-            //novoPlanoMitigacao.setDataLimite(marcoSelecionado.getDataMarcoProjeto());
+            
             novoPlanoMitigacao.setIdMarcoDoProjeto(marcoSelecionado);
         } else {
-            //novoPlanoMitigacao.setDataLimite(pontoControleSelecionado.getDataPontoControle());
+            
             novoPlanoMitigacao.setIdPontoDeControle(pontoControleSelecionado);
         }
         novoPlanoMitigacao.setDescricaoPlanoMitigacao(planoDeMitigacaoDescricaoJTextArea.getText());
@@ -2240,9 +2238,7 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
 
         boolean nulo = false;
 
-        //if (novoPlanoMitigacao.getDataLimite() == null) {
-        //    nulo = true;
-        //}
+        
         if (novoPlanoMitigacao.getResponsavel() == null) {
             nulo = true;
         }
@@ -2298,12 +2294,12 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
         //Calendar dataIdentificacao = Calendar.getInstance();
         //Date data = dataIdentificacao.getTime();
 
-        //novoPlanoContingencia.setDataLimite(planoDeContingenciaDataLimiteJDateChooser.getDate());
+        
         if (contingenciaEhMarco == true) {
-            //novoPlanoContingencia.setDataLimite(marcoSelecionado.getDataMarcoProjeto());
+            
             novoPlanoContingencia.setIdMarcoDoProjeto(marcoSelecionado);
         } else {
-            //novoPlanoContingencia.setDataLimite(pontoControleSelecionado.getDataPontoControle());
+            
             novoPlanoContingencia.setIdPontoDeControle(pontoControleSelecionado);
         }
         novoPlanoContingencia.setDescricaoPlanoContingencia(planoDeContingenciaDescricaoJTextArea.getText());
@@ -2314,9 +2310,7 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
 
         boolean nulo = false;
 
-        //if (novoPlanoContingencia.getDataLimite() == null) {
-        //    nulo = true;
-        //}
+        
         if (novoPlanoContingencia.getResponsavel() == null) {
             nulo = true;
         }
@@ -2393,15 +2387,15 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
 
             planoContingenciaSelecionado.setResponsavel(planoDeContingenciaResponsavelJTextField.getText());
             if (contingenciaEhMarco == true) {
-                planoContingenciaSelecionado.setDataLimite(marcoSelecionado.getDataMarcoProjeto());
+                
                 planoContingenciaSelecionado.setIdMarcoDoProjeto(marcoSelecionado);
                 planoContingenciaSelecionado.setIdPontoDeControle(null);
             } else {
-                planoContingenciaSelecionado.setDataLimite(pontoControleSelecionado.getDataPontoControle());
+                
                 planoContingenciaSelecionado.setIdPontoDeControle(pontoControleSelecionado);
                 planoContingenciaSelecionado.setIdMarcoDoProjeto(null);
             }
-            //planoContingenciaSelecionado.setDataLimite(planoDeContingenciaDataLimiteJDateChooser.getDate());
+            
             planoContingenciaSelecionado.setDescricaoPlanoContingencia(planoDeContingenciaDescricaoJTextArea.getText());
             planoContingenciaSelecionado.setComoRealizar(planoDeContingenciaComoSeraFeitoJTextArea.getText());
             planoContingenciaSelecionado.setInformacoesAdicionais(planoDeContingenciaInfAdicionaisJTextArea.getText());

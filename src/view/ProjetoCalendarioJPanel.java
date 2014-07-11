@@ -735,7 +735,7 @@ public class ProjetoCalendarioJPanel extends javax.swing.JPanel {
         } else if((marcoSelecionado == null) && (pontoDeControleSelecionado != null)) {
             
             boolean existeMesmoNomeAlterarPonto = false;
-            boolean nomeIgualNomeSelecionado = true;
+            
             boolean existePontoDeControleNesseDiaAlterarPonto = false;
             
             DateFormat df2 = DateFormat.getDateInstance(DateFormat.MEDIUM);
@@ -764,6 +764,7 @@ public class ProjetoCalendarioJPanel extends javax.swing.JPanel {
             pontoDeControleSelecionado.setNomePontoDeControle(nomeMarcosPontosDeControleJTextField.getText());
             pontoDeControleSelecionado.setDescricaoPontoControle(descricaoMarcoPontoDeControleJTextArea.getText());
             pontoDeControleSelecionado.setDataPontoControle((Date)dataMarcoPontoDeControleJDateChooser.getValue());
+            
             projetoCalendarioFacade.alterarPontoDeControle(pontoDeControleSelecionado);
             
             criarTabelasMarcoPontoDeControle();
@@ -772,12 +773,21 @@ public class ProjetoCalendarioJPanel extends javax.swing.JPanel {
         
             
             JOptionPane.showMessageDialog(this, "Ponto de controle alterado com sucesso.");
+            
+            marcoSelecionado = null;
+            pontoDeControleSelecionado = null;        
+            marcoPontoDeControleSelecionadoJLabel2.setText("Nenhum");
+            nomeMarcosPontosDeControleJTextField.setText("");
+            descricaoMarcoPontoDeControleJTextArea.setText("");
+            dataMarcoPontoDeControleJDateChooser.setValue(null);
+        
             }
             
         //ALTERAR - Se nao tem ponto de controle selecionado entao tem marco selecionado    
         } else if((pontoDeControleSelecionado == null) && (marcoSelecionado != null)){
             
             boolean existeMesmoNomeAlterarMarco = false;
+            
             boolean existeMarcoNesseDiaAlterarMarco = false;
             
             DateFormat df2 = DateFormat.getDateInstance(DateFormat.MEDIUM);
@@ -786,9 +796,11 @@ public class ProjetoCalendarioJPanel extends javax.swing.JPanel {
             if(nomeMarcosPontosDeControleJTextField.getText().equals(listaMarcosDoProjeto.get(i).getNomeMarcoDoProjeto()) | 
                     df2.format(listaMarcosDoProjeto.get(i).getDataMarcoProjeto()).equals(df2.format(dataMarcoPontoDeControleJDateChooser.getValue()))){
                 
+                               
                 if(nomeMarcosPontosDeControleJTextField.getText().equals(listaMarcosDoProjeto.get(i).getNomeMarcoDoProjeto()) && (nomeMarcosPontosDeControleJTextField.getText().equals(marcoSelecionado.getNomeMarcoDoProjeto()) == false)){
                 existeMesmoNomeAlterarMarco = true;
-                } else if(df2.format(listaMarcosDoProjeto.get(i).getDataMarcoProjeto()).equals(df2.format(dataMarcoPontoDeControleJDateChooser.getValue())) && (df2.format(dataMarcoPontoDeControleJDateChooser.getValue()).equals(df2.format(marcoSelecionado.getDataMarcoProjeto())))){
+                
+                } else if(df2.format(listaMarcosDoProjeto.get(i).getDataMarcoProjeto()).equals(df2.format(dataMarcoPontoDeControleJDateChooser.getValue())) && (df2.format(dataMarcoPontoDeControleJDateChooser.getValue()).equals(df2.format(marcoSelecionado.getDataMarcoProjeto())) == false )){
                     existeMarcoNesseDiaAlterarMarco = true;
                 }
             }
@@ -811,7 +823,14 @@ public class ProjetoCalendarioJPanel extends javax.swing.JPanel {
             popularTabelaMarcoPontoDeControle();
             definirEventosTabelaMarcoEPontosDeControle();
                     
-            JOptionPane.showMessageDialog(this, "Marco do projeto alterado com sucesso.");            
+            JOptionPane.showMessageDialog(this, "Marco do projeto alterado com sucesso."); 
+            
+            marcoSelecionado = null;
+            pontoDeControleSelecionado = null;        
+            marcoPontoDeControleSelecionadoJLabel2.setText("Nenhum");
+            nomeMarcosPontosDeControleJTextField.setText("");
+            descricaoMarcoPontoDeControleJTextArea.setText("");
+            dataMarcoPontoDeControleJDateChooser.setValue(null);
                 
                 }
             

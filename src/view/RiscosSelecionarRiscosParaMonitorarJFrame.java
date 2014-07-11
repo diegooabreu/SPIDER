@@ -9,12 +9,16 @@ package view;
 import facade.RiscosRiscosOcorridosFacade;
 import facade.RiscosSelecionarRiscosParaMonitorarFacade;
 import facade.TabelaMonitorarRiscosTableModel;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import model.Planomitigacao;
+import model.Projeto;
 import model.Risco;
 import view.tabelas.RiscoTabela;
 import view.tabelas.RiscoTabelaModel;
@@ -36,6 +40,8 @@ public class RiscosSelecionarRiscosParaMonitorarJFrame extends javax.swing.JFram
     List<RiscoTabela> listaRiscosTabela = null;
     List<Risco> listaRiscos = null;
     
+    Projeto projetoSelecionado;
+    
     /**
      * Creates new form SelecionarRiscosParaMonitorarJFrame
      */
@@ -55,7 +61,15 @@ public class RiscosSelecionarRiscosParaMonitorarJFrame extends javax.swing.JFram
             return String.class;
     }
     
+    private void getListaRiscosNoBanco(){
+        listaRiscos = riscosSelecionarRiscosParaMonitorarFacade.getListaDeRiscosDoProjeto(projetoSelecionado);
+    }
+    
     public void criarTabelaSelecionarRiscos(List<Risco> listaDeRiscos){
+        
+        if(listaDeRiscos != null){
+            projetoSelecionado = listaDeRiscos.get(1).getContem().getProjeto();
+        }
         
         tabelaSelecionarRiscosMonitorarJTable = new JTable();
         riscoTabelaModel = new RiscoTabelaModel();
@@ -77,6 +91,8 @@ public class RiscosSelecionarRiscosParaMonitorarJFrame extends javax.swing.JFram
         tabelaSelecionarRiscosMonitorarJTable.getColumnModel().getColumn(2).setMinWidth(0);
         tabelaSelecionarRiscosMonitorarJTable.getTableHeader().getColumnModel().getColumn(2).setMaxWidth(0);
         tabelaSelecionarRiscosMonitorarJTable.getTableHeader().getColumnModel().getColumn(2).setMinWidth(0);
+        
+        definirEventosTabela();
         
     }
     
@@ -124,6 +140,86 @@ public class RiscosSelecionarRiscosParaMonitorarJFrame extends javax.swing.JFram
         
         
     }
+    
+    int selected;
+    public void definirEventosTabela() {
+        tabelaSelecionarRiscosMonitorarJTable.addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent e) {
+                if (e.getClickCount() >= 1) {
+
+                    
+                    
+                    selected = tabelaSelecionarRiscosMonitorarJTable.getSelectedRow();
+                    riscoTabelaModel.isCellEditable(selected, 0);
+                    
+                    if(listaRiscos.get(selected).getPlanomitigacaoList().isEmpty()){
+                        //riscoTabelaModel.setValueAt(false, selected, 0);
+                        //tabelaSelecionarRiscosMonitorarJTable.clearSelection();
+                        //monitorarJButton.requestFocus();
+                        JOptionPane.showMessageDialog(tabelaSelecionarRiscosMonitorarJTable, "O risco selecionado não possui Planos de Mitigação.\nPara monitorá-lo inclua novo plano de mitigação.");
+                    } else {
+                        //se monitorar nao estiver marcado entao marca
+                        if((boolean)riscoTabelaModel.getValueAt(selected, 0) == false){
+                            riscoTabelaModel.setValueAt(true, selected, 0);
+                        // se monitorar estiver marcado entao desmarca
+                        } else {
+                            riscoTabelaModel.setValueAt(false, selected, 0);
+                        }
+                        
+                    }
+                    
+                    /*
+                    List<RiscoTabela> listaDeNovosRiscosParaMonitorar = null;
+                    
+                    
+                    for(int i=0; i < riscoTabelaModel.getRowCount(); i++){
+                        if((boolean)riscoTabelaModel.getValueAt(i, 0) == true){
+                            listaDeNovosRiscosParaMonitorar.add(riscoTabelaModel.getRiscoTabela(i));
+                        }
+                    }
+                    */
+                    
+                    //criarTabelaSelecionarRiscos(listaRiscos);
+       
+    
+                    
+
+                }
+            }
+        });
+    }
+    private void tabelaSelecionarRiscosMonitorarJTableMouseClicked(java.awt.event.MouseEvent evt) {                                       
+   JOptionPane.showMessageDialog(null,"MouseCliked" );      
+   Double valor = 0.0;  
+   
+   int selected = tabelaSelecionarRiscosMonitorarJTable.getSelectedRow();
+   
+   if(listaRiscos.get(selected).getPlanomitigacaoList().isEmpty()){
+       JOptionPane.showMessageDialog(this, "O risco selecionado não possui Planos de Mitigação.\nPara monitorá-lo inclua novo plano de mitigação.");
+       
+       listaRiscosTabela.get(selected).setMonitorar(false);
+       
+   } 
+   
+   /*
+   for (int i = 0; i < riscoTabelaModel.getRowCount(); i++) {   
+   
+       Boolean active = (Boolean)riscoTabelaModel.getValueAt(i,0);     
+   //JOptionPane.showMessageDialog(null,active);  
+    if (active == true){  
+        //SOMAR O CAMPO DO CLIENTE  
+        //JOptionPane.showMessageDialog(null,tableModel.getValueAt(i,2) );  
+        String x  = riscoTabelaModel.getValueAt(i,3).toString();  
+        valor = valor+Double.parseDouble(x);  
+        //JOptionPane.showMessageDialog(null,tableModel.getValueAt(i,3) );  
+         
+    }  
+   //EXIBIR DO TEXT FIELD O VALOR SOMADO E FORMATADO  
+    //tf_valorselecionado.setText(nf.format(valor));  
+   }  
+   */
+         
+   }        
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -220,31 +316,96 @@ public class RiscosSelecionarRiscosParaMonitorarJFrame extends javax.swing.JFram
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
+    
     private void monitorarJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_monitorarJButtonActionPerformed
 
+        //List<Risco> listaRiscosSemPlanosDeMitigacao = null;
+        //List<Risco> listaRiscosParaMonitorar = null;
+        //List<Risco> listaRiscosParaStatusNovo = null;
+        
+        
         for(int i=0; i < listaRiscosTabela.size(); i++){
             if((Boolean)riscoTabelaModel.getValueAt(i, 0) == true){
                 
+                //listaRiscosParaMonitorar.add(listaRiscos.get(i));
+                
+                
+                
+                
                 // verificando se existem planos de mitigação para o risco selecionado e se nao existir, exigir a criação
                 
+                //List<Planomitigacao> planosDeMitigacao = riscosSelecionarRiscosParaMonitorarFacade.getListaPlanosMitigacaoByRisco(listaRiscos.get(i));
                 
+                
+                //listaRiscosSemPlanosDeMitigacao.add(listaRiscos.get(i));
                 
                 listaRiscosTabela.get(i).setStatusRisco("Mitigando");
                 listaRiscos.get(i).setStatusRisco("Mitigando");
                 riscosSelecionarRiscosParaMonitorarFacade.editRisco(listaRiscos.get(i));
                 
+                
+                
             } else {
+                
+                //listaRiscosParaStatusNovo.add(listaRiscos.get(i));
+                
+                
                 listaRiscosTabela.get(i).setStatusRisco("Novo");
                 listaRiscos.get(i).setStatusRisco("Novo");
                 
                 riscosSelecionarRiscosParaMonitorarFacade.editRisco(listaRiscos.get(i));
+                
             }
         }
-       
-        criarTabelaSelecionarRiscos(listaRiscos);
         
-        JOptionPane.showMessageDialog(this, "Riscos selecionados agora estão sendo monitorados, seus planos de mitigação agora são\ntarefas a serem realizadas.");
-// TODO add your handling code here:
+        /*
+        // checando se existem riscos selecionados para monitorar sem planos de mitigação
+        
+        for (int i=0; i < listaRiscosParaMonitorar.size(); i++){
+            
+            if(riscosSelecionarRiscosParaMonitorarFacade.getListaPlanosMitigacaoByRisco(listaRiscosParaMonitorar.get(i)).size() == 0){
+                listaRiscosSemPlanosDeMitigacao.add(listaRiscosParaMonitorar.get(i));
+            }
+            
+        }
+        
+        if(listaRiscosSemPlanosDeMitigacao.size() == 0){
+            
+            // atualizar os riscos para status mitigando
+            for (int i=0; i < listaRiscosParaMonitorar.size(); i++){
+                listaRiscosParaMonitorar.get(i).setStatusRisco("Mitigando");
+                riscosSelecionarRiscosParaMonitorarFacade.editRisco(listaRiscosParaMonitorar.get(i));
+                
+            }
+            
+            // atualizar os riscos para status novo
+            for (int i=0; i < listaRiscosParaStatusNovo.size(); i++){
+                listaRiscosParaStatusNovo.get(i).setStatusRisco("Novo");
+                riscosSelecionarRiscosParaMonitorarFacade.editRisco(listaRiscosParaStatusNovo.get(i));
+                
+            }
+            
+            getListaRiscosNoBanco();
+            criarTabelaSelecionarRiscos(listaRiscos);
+        
+            JOptionPane.showMessageDialog(this, "Riscos selecionados agora estão sendo monitorados, seus planos de mitigação agora são\ntarefas a serem realizadas.");
+
+            
+        } else {
+            
+           JOptionPane.showMessageDialog(this, "sadaasdaem realizadas.");
+ 
+            
+        }
+        */
+       
+        //getListaRiscosNoBanco();
+            criarTabelaSelecionarRiscos(listaRiscos);
+        
+            JOptionPane.showMessageDialog(this, "Riscos selecionados agora estão sendo monitorados, seus planos de mitigação agora são\ntarefas a serem realizadas.");
+
+        // TODO add your handling code here:
     }//GEN-LAST:event_monitorarJButtonActionPerformed
 
     /**

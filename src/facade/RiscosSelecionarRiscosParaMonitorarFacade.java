@@ -37,19 +37,20 @@ public class RiscosSelecionarRiscosParaMonitorarFacade {
         
     }
     
-    public void getListaDeRiscosDoProjeto(Projeto projetoSelecionado){
+    public List<Risco> getListaDeRiscosDoProjeto(Projeto projetoSelecionado){
         
         RiscoJpaController riscoJPA = new RiscoJpaController();
-        
+        List<Risco> lista = null;
         try{
             
-            riscoJPA.findRiscosByIdProjeto(projetoSelecionado);
+            lista = riscoJPA.findRiscosByIdProjeto(projetoSelecionado);
             
             
         } catch (Exception e){
             System.out.println("Erro no metodo getListaDeRiscos da classe RiscosSelecionarRiscosParaMonitorarFacade");
         }
         
+        return lista;
     }
     
     public void editRisco(Risco risco){

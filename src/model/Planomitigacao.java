@@ -38,7 +38,6 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Planomitigacao.findAll", query = "SELECT p FROM Planomitigacao p"),
     @NamedQuery(name = "Planomitigacao.findByIdPlanoMitigacao", query = "SELECT p FROM Planomitigacao p WHERE p.idPlanoMitigacao = :idPlanoMitigacao"),
     @NamedQuery(name = "Planomitigacao.findByResponsavel", query = "SELECT p FROM Planomitigacao p WHERE p.responsavel = :responsavel"),
-    @NamedQuery(name = "Planomitigacao.findByDataLimite", query = "SELECT p FROM Planomitigacao p WHERE p.dataLimite = :dataLimite"),
     @NamedQuery(name = "Planomitigacao.findByDataRealizacao", query = "SELECT p FROM Planomitigacao p WHERE p.dataRealizacao = :dataRealizacao")})
 public class Planomitigacao implements Serializable {
     @JoinColumn(name = "idPontoDeControle", referencedColumnName = "idPontoDeControle")
@@ -63,10 +62,6 @@ public class Planomitigacao implements Serializable {
     @Column(name = "responsavel")
     private String responsavel;
     @Basic(optional = false)
-    @Column(name = "dataLimite")
-    @Temporal(TemporalType.DATE)
-    private Date dataLimite;
-    @Basic(optional = false)
     @Lob
     @Column(name = "comoRealizar")
     private String comoRealizar;
@@ -87,10 +82,9 @@ public class Planomitigacao implements Serializable {
         this.idPlanoMitigacao = idPlanoMitigacao;
     }
 
-    public Planomitigacao(Integer idPlanoMitigacao, String responsavel, Date dataLimite, String comoRealizar) {
+    public Planomitigacao(Integer idPlanoMitigacao, String responsavel, String comoRealizar) {
         this.idPlanoMitigacao = idPlanoMitigacao;
         this.responsavel = responsavel;
-        this.dataLimite = dataLimite;
         this.comoRealizar = comoRealizar;
     }
 
@@ -118,13 +112,6 @@ public class Planomitigacao implements Serializable {
         this.responsavel = responsavel;
     }
 
-    public Date getDataLimite() {
-        return dataLimite;
-    }
-
-    public void setDataLimite(Date dataLimite) {
-        this.dataLimite = dataLimite;
-    }
 
     public String getComoRealizar() {
         return comoRealizar;

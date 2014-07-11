@@ -96,7 +96,10 @@ private static final int IDENTIFICACAO = 10;
     
      public boolean isCellEditable(int rowIndex, int columnIndex) {
         // apenas o campo "MONITORAR" será editável
-        return columnIndex == MONITORAR;
+        //return columnIndex == MONITORAR;
+         
+         
+         return false;
     
 }
     

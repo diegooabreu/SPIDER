@@ -38,7 +38,6 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Planocontingencia.findAll", query = "SELECT p FROM Planocontingencia p"),
     @NamedQuery(name = "Planocontingencia.findByIdPlanoContingencia", query = "SELECT p FROM Planocontingencia p WHERE p.idPlanoContingencia = :idPlanoContingencia"),
     @NamedQuery(name = "Planocontingencia.findByResponsavel", query = "SELECT p FROM Planocontingencia p WHERE p.responsavel = :responsavel"),
-    @NamedQuery(name = "Planocontingencia.findByDataLimite", query = "SELECT p FROM Planocontingencia p WHERE p.dataLimite = :dataLimite"),
     @NamedQuery(name = "Planocontingencia.findByDataRealizacao", query = "SELECT p FROM Planocontingencia p WHERE p.dataRealizacao = :dataRealizacao")})
 public class Planocontingencia implements Serializable {
     @JoinColumn(name = "idPontoDeControle", referencedColumnName = "idPontoDeControle")
@@ -63,10 +62,6 @@ public class Planocontingencia implements Serializable {
     @Column(name = "responsavel")
     private String responsavel;
     @Basic(optional = false)
-    @Column(name = "dataLimite")
-    @Temporal(TemporalType.DATE)
-    private Date dataLimite;
-    @Basic(optional = false)
     @Lob
     @Column(name = "comoRealizar")
     private String comoRealizar;
@@ -87,10 +82,9 @@ public class Planocontingencia implements Serializable {
         this.idPlanoContingencia = idPlanoContingencia;
     }
 
-    public Planocontingencia(Integer idPlanoContingencia, String responsavel, Date dataLimite, String comoRealizar) {
+    public Planocontingencia(Integer idPlanoContingencia, String responsavel, String comoRealizar) {
         this.idPlanoContingencia = idPlanoContingencia;
         this.responsavel = responsavel;
-        this.dataLimite = dataLimite;
         this.comoRealizar = comoRealizar;
     }
 
@@ -118,13 +112,6 @@ public class Planocontingencia implements Serializable {
         this.responsavel = responsavel;
     }
 
-    public Date getDataLimite() {
-        return dataLimite;
-    }
-
-    public void setDataLimite(Date dataLimite) {
-        this.dataLimite = dataLimite;
-    }
 
     public String getComoRealizar() {
         return comoRealizar;
