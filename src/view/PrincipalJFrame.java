@@ -599,6 +599,7 @@ public class PrincipalJFrame extends javax.swing.JFrame {
                         projetoPlanoRiscoJpanel.preenchePlanoRisco(projetoSelecionado);
                     } else if (node == gerenciarRiscos) {
                         riscosGerenciarRiscosJPanel.setVisible(true);
+                        riscosGerenciarRiscosJPanel.reiniciarTabelaRiscos();
                     } else if (node == earProjeto) {
                         projetoEstruturaAnaliticaRiscosJpanel.setVisible(true);
                     } else if (node == calendario) {

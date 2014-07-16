@@ -21,6 +21,7 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import javax.swing.SpinnerNumberModel;
 import javax.swing.table.DefaultTableModel;
 import model.Categoriaderisco;
 import model.Contem;
@@ -144,7 +145,7 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
     }
 
     //Método que constrói a Tabela de Riscos
-    private void criarTabelaRiscos() {
+    void criarTabelaRiscos() {
         tabelaRiscosJTable = new JTable();
         modeloTabelaRiscosJTable = new DefaultTableModel();
         modeloTabelaRiscosJTable.setColumnIdentifiers(new String[]{"Identificação", "Probabilidade", "Impacto", "Grau de Severidade", "Prioridade", "Estado"});
@@ -162,7 +163,7 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
      */
 
     //Método que preenche os dados da Tabela de Riscos, conforme o projeto selecionado
-    private void preencherDadosTabelaRiscos() {
+    void preencherDadosTabelaRiscos() {
         for (int i = 0; i < listaRiscos.size(); i++) {
             //Verifica se o ID do projeto selecionado é igual ao ID do Projeto do Contém do Risco atual
             if (projetoSelecionado.getIdProjeto() == listaRiscos.get(i).getContem().getProjeto().getIdProjeto()) {
@@ -205,7 +206,7 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
     }
 
     //Define os eventos para quando um item da tabela for selecionado
-    private void definirEventosTabelaRiscos() {
+    void definirEventosTabelaRiscos() {
         tabelaRiscosJTable.addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent e) {
                 if (e.getClickCount() == 1) {
@@ -1162,6 +1163,16 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
         informacoesGeraisIdentificacaoDeRiscoJTextField.setDisabledTextColor(new java.awt.Color(0, 0, 0));
 
         informacoesGeraisImpactoJComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Crítico", "Alto", "Médio", "Baixo" }));
+        informacoesGeraisImpactoJComboBox.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                informacoesGeraisImpactoJComboBoxItemStateChanged(evt);
+            }
+        });
+        informacoesGeraisImpactoJComboBox.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                informacoesGeraisImpactoJComboBoxFocusLost(evt);
+            }
+        });
 
         informacoesGeraisSalvarAlteracoesDoRiscoJButton.setText("Salvar alterações do risco");
         informacoesGeraisSalvarAlteracoesDoRiscoJButton.addActionListener(new java.awt.event.ActionListener() {
@@ -1174,6 +1185,24 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
         InformacoesGeraisDescricaoDeRiscoJTextArea.setRows(5);
         InformacoesGeraisDescricaoDeRiscoJTextArea.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Descrição de Risco", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP));
         informacoesGeraisDescricaoDeRiscoJScrollPane.setViewportView(InformacoesGeraisDescricaoDeRiscoJTextArea);
+
+        informacoesGeraisProbabilidadeJSpinner.setModel(new javax.swing.SpinnerNumberModel(0, 0, 100, 1));
+        informacoesGeraisProbabilidadeJSpinner.setFocusable(false);
+        informacoesGeraisProbabilidadeJSpinner.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                informacoesGeraisProbabilidadeJSpinnerMouseClicked(evt);
+            }
+        });
+        informacoesGeraisProbabilidadeJSpinner.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                informacoesGeraisProbabilidadeJSpinnerFocusLost(evt);
+            }
+        });
+        informacoesGeraisProbabilidadeJSpinner.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                informacoesGeraisProbabilidadeJSpinnerKeyTyped(evt);
+            }
+        });
 
         informacoesGeraisProbabilidadePorcentagemJLabel.setText("%");
 
@@ -1231,7 +1260,7 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
                                                 .addComponent(informacoesGeraisProbabilidadeJSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                 .addComponent(informacoesGeraisProbabilidadePorcentagemJLabel)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 100, Short.MAX_VALUE))))))
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 97, Short.MAX_VALUE))))))
                             .addGroup(InformacoesGeraisJPanelLayout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
                                 .addGroup(InformacoesGeraisJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2581,6 +2610,95 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
             }
         }
     }//GEN-LAST:event_planoContingenciaDataLimiteJComboBoxActionPerformed
+
+    private void informacoesGeraisProbabilidadeJSpinnerFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_informacoesGeraisProbabilidadeJSpinnerFocusLost
+        
+    }//GEN-LAST:event_informacoesGeraisProbabilidadeJSpinnerFocusLost
+
+    private void informacoesGeraisImpactoJComboBoxFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_informacoesGeraisImpactoJComboBoxFocusLost
+   
+    }//GEN-LAST:event_informacoesGeraisImpactoJComboBoxFocusLost
+
+    private void informacoesGeraisImpactoJComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_informacoesGeraisImpactoJComboBoxItemStateChanged
+        double impactoDouble;
+        int probabilidade = Integer.parseInt(informacoesGeraisProbabilidadeJSpinner.getValue().toString());
+        String impactoTemp  = informacoesGeraisImpactoJComboBox.getSelectedItem().toString();
+        
+        if (impactoTemp == "Alto"){
+            impactoDouble = 0.75;
+            String grauDeSeveridade = String.valueOf(impactoDouble * probabilidade);
+            informacoesGeraisGrauDeSeveridadeJTextField.setText((grauDeSeveridade));
+        }
+        else if (impactoTemp == "Médio"){
+            impactoDouble = 0.5;
+            String grauDeSeveridade = String.valueOf(impactoDouble * probabilidade);
+            informacoesGeraisGrauDeSeveridadeJTextField.setText((grauDeSeveridade));
+        }
+        else if (impactoTemp == "Baixo"){
+            impactoDouble = 0.25;
+            String grauDeSeveridade = String.valueOf(impactoDouble * probabilidade);
+            informacoesGeraisGrauDeSeveridadeJTextField.setText((grauDeSeveridade));
+        }
+        else if (impactoTemp == "Crítico"){
+            impactoDouble = 1;
+            String grauDeSeveridade = String.valueOf(impactoDouble * probabilidade);
+            informacoesGeraisGrauDeSeveridadeJTextField.setText((grauDeSeveridade));
+        }
+    }//GEN-LAST:event_informacoesGeraisImpactoJComboBoxItemStateChanged
+
+    private void informacoesGeraisProbabilidadeJSpinnerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_informacoesGeraisProbabilidadeJSpinnerMouseClicked
+        double impactoDouble;
+        int probabilidade = Integer.parseInt(informacoesGeraisProbabilidadeJSpinner.getValue().toString());
+        String impactoTemp  = informacoesGeraisImpactoJComboBox.getSelectedItem().toString();
+        
+        if (impactoTemp == "Alto"){
+            impactoDouble = 0.75;
+            String grauDeSeveridade = String.valueOf(impactoDouble * probabilidade);
+            informacoesGeraisGrauDeSeveridadeJTextField.setText((grauDeSeveridade));
+        }
+        else if (impactoTemp == "Médio"){
+            impactoDouble = 0.5;
+            String grauDeSeveridade = String.valueOf(impactoDouble * probabilidade);
+            informacoesGeraisGrauDeSeveridadeJTextField.setText((grauDeSeveridade));
+        }
+        else if (impactoTemp == "Baixo"){
+            impactoDouble = 0.25;
+            String grauDeSeveridade = String.valueOf(impactoDouble * probabilidade);
+            informacoesGeraisGrauDeSeveridadeJTextField.setText((grauDeSeveridade));
+        }
+        else if (impactoTemp == "Crítico"){
+            impactoDouble = 1;
+            String grauDeSeveridade = String.valueOf(impactoDouble * probabilidade);
+            informacoesGeraisGrauDeSeveridadeJTextField.setText((grauDeSeveridade));
+        }
+    }//GEN-LAST:event_informacoesGeraisProbabilidadeJSpinnerMouseClicked
+
+    private void informacoesGeraisProbabilidadeJSpinnerKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_informacoesGeraisProbabilidadeJSpinnerKeyTyped
+        double impactoDouble;
+        int probabilidade = Integer.parseInt(informacoesGeraisProbabilidadeJSpinner.getValue().toString());
+        String impactoTemp  = informacoesGeraisImpactoJComboBox.getSelectedItem().toString();
+        
+        if (impactoTemp == "Alto"){
+            impactoDouble = 0.75;
+            String grauDeSeveridade = String.valueOf(impactoDouble * probabilidade);
+            informacoesGeraisGrauDeSeveridadeJTextField.setText((grauDeSeveridade));
+        }
+        else if (impactoTemp == "Médio"){
+            impactoDouble = 0.5;
+            String grauDeSeveridade = String.valueOf(impactoDouble * probabilidade);
+            informacoesGeraisGrauDeSeveridadeJTextField.setText((grauDeSeveridade));
+        }
+        else if (impactoTemp == "Baixo"){
+            impactoDouble = 0.25;
+            String grauDeSeveridade = String.valueOf(impactoDouble * probabilidade);
+            informacoesGeraisGrauDeSeveridadeJTextField.setText((grauDeSeveridade));
+        }
+        else if (impactoTemp == "Crítico"){
+            impactoDouble = 1;
+            String grauDeSeveridade = String.valueOf(impactoDouble * probabilidade);
+            informacoesGeraisGrauDeSeveridadeJTextField.setText((grauDeSeveridade));
+        }
+    }//GEN-LAST:event_informacoesGeraisProbabilidadeJSpinnerKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

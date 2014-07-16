@@ -102,7 +102,7 @@
                                                           <Component id="informacoesGeraisProbabilidadeJSpinner" min="-2" pref="61" max="-2" attributes="0"/>
                                                           <EmptySpace max="-2" attributes="0"/>
                                                           <Component id="informacoesGeraisProbabilidadePorcentagemJLabel" min="-2" max="-2" attributes="0"/>
-                                                          <EmptySpace pref="100" max="32767" attributes="0"/>
+                                                          <EmptySpace pref="97" max="32767" attributes="0"/>
                                                       </Group>
                                                   </Group>
                                               </Group>
@@ -291,6 +291,10 @@
                       </StringArray>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="informacoesGeraisImpactoJComboBoxItemStateChanged"/>
+                    <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="informacoesGeraisImpactoJComboBoxFocusLost"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JButton" name="informacoesGeraisSalvarAlteracoesDoRiscoJButton">
                   <Properties>
@@ -327,6 +331,17 @@
                 <Component class="javax.swing.JTextField" name="informacoesGeraisGrauDeSeveridadeJTextField">
                 </Component>
                 <Component class="javax.swing.JSpinner" name="informacoesGeraisProbabilidadeJSpinner">
+                  <Properties>
+                    <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
+                      <SpinnerModel initial="0" maximum="100" minimum="0" numberType="java.lang.Integer" stepSize="1" type="number"/>
+                    </Property>
+                    <Property name="focusable" type="boolean" value="false"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="informacoesGeraisProbabilidadeJSpinnerMouseClicked"/>
+                    <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="informacoesGeraisProbabilidadeJSpinnerFocusLost"/>
+                    <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="informacoesGeraisProbabilidadeJSpinnerKeyTyped"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="informacoesGeraisProbabilidadePorcentagemJLabel">
                   <Properties>
