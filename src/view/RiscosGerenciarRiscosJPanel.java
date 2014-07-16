@@ -193,7 +193,7 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
     //Método que limpa todos os campos de Informações Gerais
     public void limparCampos() {
         informacoesGeraisIdentificacaoDeRiscoJTextField.setText("");
-        informacoesGeraisDataDeIdentificacaoJDateChooser.setCalendar(null);
+        dataIdentificacaoDoRisco.setValue(null);
         informacoesGeraisEmissorJTextField.setText("");
         InformacoesGeraisDescricaoDeRiscoJTextArea.setText("");
         informacoesGeraisCategoriaDeRiscoJComboBox.removeAllItems();
@@ -258,9 +258,7 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
                     limparListaRelacoesSubcondicoes();
                     reiniciarTabelaSubcondicoes();
 
-                    Calendar dataIdentificacao = Calendar.getInstance();
-                    dataIdentificacao.setTime(riscoSelecionado.getDataIdentificacao());
-                    informacoesGeraisDataDeIdentificacaoJDateChooser.setCalendar(dataIdentificacao);
+                    dataIdentificacaoDoRisco.setValue(riscoSelecionado.getDataIdentificacao());
 
                     informacoesGeraisEmissorJTextField.setText(riscoSelecionado.getEmissor());
                     informacoesGeraisProbabilidadeJSpinner.setValue(riscoSelecionado.getProbabilidade());
@@ -1046,11 +1044,11 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
         informacoesGeraisGrauDeSeveridadeJTextField = new javax.swing.JTextField();
         informacoesGeraisProbabilidadeJSpinner = new javax.swing.JSpinner();
         informacoesGeraisProbabilidadePorcentagemJLabel = new javax.swing.JLabel();
-        informacoesGeraisDataDeIdentificacaoJDateChooser = new com.toedter.calendar.JDateChooser();
         informacoesGeraisAdicionarNovoRiscoJButton = new javax.swing.JButton();
         informacoesGeraisLimparCamposJButton = new javax.swing.JButton();
         informacoesGeraisRemoverRiscoJButton = new javax.swing.JButton();
         estadoAtualRiscoJLabel = new javax.swing.JLabel();
+        dataIdentificacaoDoRisco = new net.sf.nachocalendar.components.DateField();
         RelacoesJPanel = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
@@ -1240,7 +1238,7 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
                         .addComponent(informacoesGeraisEstadoAtualJLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(estadoAtualRiscoJLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 102, Short.MAX_VALUE))
                     .addGroup(InformacoesGeraisJPanelLayout.createSequentialGroup()
                         .addGroup(InformacoesGeraisJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(InformacoesGeraisJPanelLayout.createSequentialGroup()
@@ -1274,7 +1272,7 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
                                 .addGroup(InformacoesGeraisJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(informacoesGeraisEmissorJTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
                                     .addComponent(informacoesGeraisIdentificacaoDeRiscoJTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
-                                    .addComponent(informacoesGeraisDataDeIdentificacaoJDateChooser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                    .addComponent(dataIdentificacaoDoRisco, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                         .addGap(31, 31, 31)))
                 .addGroup(InformacoesGeraisJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(InformacoesGeraisJPanelLayout.createSequentialGroup()
@@ -1305,7 +1303,7 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(InformacoesGeraisJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(informacoesGeraisDataDeIdentificacaoJLabel)
-                            .addComponent(informacoesGeraisDataDeIdentificacaoJDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(dataIdentificacaoDoRisco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(5, 5, 5)
                         .addGroup(InformacoesGeraisJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(informacoesGeraisEmissorJLabel)
@@ -2001,7 +1999,7 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
         if (novoRisco.getEmissor() == null) {
             valorNulo = true;
         }
-        novoRisco.setDataIdentificacao(informacoesGeraisDataDeIdentificacaoJDateChooser.getDate());
+        novoRisco.setDataIdentificacao((Date) dataIdentificacaoDoRisco.getValue());
         if (novoRisco.getDataIdentificacao() == null) {
             valorNulo = true;
         }
@@ -2138,7 +2136,7 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
         if (riscoSelecionado.getIdRisco() > 0) {
             int linhaSelecionada = tabelaRiscosJTable.getSelectedRow();
             riscoSelecionado.setEmissor(informacoesGeraisEmissorJTextField.getText());
-            riscoSelecionado.setDataIdentificacao(informacoesGeraisDataDeIdentificacaoJDateChooser.getDate());
+            riscoSelecionado.setDataIdentificacao((Date) dataIdentificacaoDoRisco.getValue());
             riscoSelecionado.setDescricao(InformacoesGeraisDescricaoDeRiscoJTextArea.getText());
             riscoSelecionado.setIdentificacao(informacoesGeraisIdentificacaoDeRiscoJTextField.getText());
             riscoSelecionado.setGrauSeveridade(Integer.parseInt(informacoesGeraisGrauDeSeveridadeJTextField.getText()));
@@ -2710,6 +2708,7 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
     private javax.swing.JPanel RelacoesJPanel;
     private javax.swing.JPanel SubcondicoesJPanel;
     private javax.swing.JPanel TabelaDeRiscosJPanel;
+    private net.sf.nachocalendar.components.DateField dataIdentificacaoDoRisco;
     private javax.swing.JLabel estadoAtualRiscoJLabel;
     private javax.swing.JPanel gerenciarRiscosJPanel;
     private javax.swing.JTabbedPane gerenciarRiscosJTabbedPane;
@@ -2717,7 +2716,6 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
     private javax.swing.JButton informacoesGeraisAdicionarNovoRiscoJButton;
     private javax.swing.JComboBox informacoesGeraisCategoriaDeRiscoJComboBox;
     private javax.swing.JLabel informacoesGeraisCategoriaDeRiscoJLabel;
-    private com.toedter.calendar.JDateChooser informacoesGeraisDataDeIdentificacaoJDateChooser;
     private javax.swing.JLabel informacoesGeraisDataDeIdentificacaoJLabel;
     private javax.swing.JScrollPane informacoesGeraisDescricaoDeRiscoJScrollPane;
     private javax.swing.JLabel informacoesGeraisEmissorJLabel;

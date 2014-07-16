@@ -256,6 +256,8 @@ public class RiscosSelecionarRiscosParaMonitorarJFrame extends javax.swing.JFram
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Selecionar Riscos a serem monitorados");
+        setAlwaysOnTop(true);
 
         jLabel1.setText("Selecione os Riscos que deseja Monitorar:");
 
