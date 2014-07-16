@@ -19,19 +19,19 @@ public class RiscoTabelaModel extends AbstractTableModel{
 
 private static final int MONITORAR = 0;
 private static final int IDRISCO = 1;
-private static final int DATAIDENTIFICACAO = 2;
-private static final int EMISSOR = 3;
-private static final int PROBABILIDADE = 4;
-private static final int IMPACTO = 5;
-private static final int STATUSRISCO = 6;
-private static final int DESCRICAO = 7;
-private static final int PRIORIDADE = 8;
-private static final int GRAUSEVERIDADE = 9;
-private static final int IDENTIFICACAO = 10;
+private static final int IDENTIFICACAO = 2;
+private static final int DATAIDENTIFICACAO = 3;
+private static final int EMISSOR = 4;
+private static final int PROBABILIDADE = 5;
+private static final int IMPACTO = 6;
+private static final int STATUSRISCO = 7;
+private static final int DESCRICAO = 8;
+private static final int PRIORIDADE = 9;
+private static final int GRAUSEVERIDADE = 10;
 
 // Array com os nomes das colunas.
-    private String[] colunas = new String[] { "Monitorar", "Id", "Data de Identificação", "Emissor", "Probabilidade", "Impacto", 
-    "Status", "Descrição", "Prioridade", "Grau Severidade", "Identificação"};
+    private String[] colunas = new String[] { "Monitorar", "Id", "Identificação", "Data de Identificação", "Emissor", "Probabilidade", "Impacto", 
+    "Status", "Descrição", "Prioridade", "Grau Severidade"};
     
     // Lista de Sócios a serem exibidos na tabela
     private List<RiscoTabela> linhas;

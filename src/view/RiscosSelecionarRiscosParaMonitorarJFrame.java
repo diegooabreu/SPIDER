@@ -9,8 +9,12 @@ package view;
 import facade.RiscosRiscosOcorridosFacade;
 import facade.RiscosSelecionarRiscosParaMonitorarFacade;
 import facade.TabelaMonitorarRiscosTableModel;
+import static java.awt.Frame.MAXIMIZED_BOTH;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -20,9 +24,9 @@ import javax.swing.table.DefaultTableModel;
 import model.Planomitigacao;
 import model.Projeto;
 import model.Risco;
+import testetabela.TesteTabelaRisco;
 import view.tabelas.RiscoTabela;
 import view.tabelas.RiscoTabelaModel;
-import testetabela.TesteTabelaRisco;
 
 /**
  *
@@ -36,11 +40,13 @@ public class RiscosSelecionarRiscosParaMonitorarJFrame extends javax.swing.JFram
     private JTable tabelaSelecionarRiscosMonitorarJTable;
     private RiscoTabelaModel riscoTabelaModel;
     
+    private RiscosPriorizarRiscosJPanel priorizar = new RiscosPriorizarRiscosJPanel();
     
     List<RiscoTabela> listaRiscosTabela = null;
     List<Risco> listaRiscos = null;
     
     Projeto projetoSelecionado;
+
     
     /**
      * Creates new form SelecionarRiscosParaMonitorarJFrame
@@ -49,8 +55,9 @@ public class RiscosSelecionarRiscosParaMonitorarJFrame extends javax.swing.JFram
         initComponents();
         //criarTabelaSelecionarRiscos(riscosOcorridosFacade.getListaDeRiscos());
         //tabelaJPanel.add(new JScrollPane(getTabelaSelecionarRiscosMonitorarJTable(riscosOcorridosFacade.getListaDeRiscos())));
-        criarTabelaSelecionarRiscos(riscosOcorridosFacade.getListaDeRiscos());
+        criarTabelaSelecionarRiscos(riscosOcorridosFacade.getListaDeRiscos());    
         
+        addWindowListener(new Teste());
     }
 
     
@@ -68,7 +75,7 @@ public class RiscosSelecionarRiscosParaMonitorarJFrame extends javax.swing.JFram
     public void criarTabelaSelecionarRiscos(List<Risco> listaDeRiscos){
         
         if(listaDeRiscos != null){
-            projetoSelecionado = listaDeRiscos.get(1).getContem().getProjeto();
+            projetoSelecionado = listaDeRiscos.get(0).getContem().getProjeto();
         }
         
         tabelaSelecionarRiscosMonitorarJTable = new JTable();
@@ -87,10 +94,10 @@ public class RiscosSelecionarRiscosParaMonitorarJFrame extends javax.swing.JFram
         tabelaSelecionarRiscosMonitorarJTable.getTableHeader().getColumnModel().getColumn(1).setMaxWidth(0);
         tabelaSelecionarRiscosMonitorarJTable.getTableHeader().getColumnModel().getColumn(1).setMinWidth(0);
         
-        tabelaSelecionarRiscosMonitorarJTable.getColumnModel().getColumn(2).setMaxWidth(0);
-        tabelaSelecionarRiscosMonitorarJTable.getColumnModel().getColumn(2).setMinWidth(0);
-        tabelaSelecionarRiscosMonitorarJTable.getTableHeader().getColumnModel().getColumn(2).setMaxWidth(0);
-        tabelaSelecionarRiscosMonitorarJTable.getTableHeader().getColumnModel().getColumn(2).setMinWidth(0);
+        //tabelaSelecionarRiscosMonitorarJTable.getColumnModel().getColumn(2).setMaxWidth(0);
+        //tabelaSelecionarRiscosMonitorarJTable.getColumnModel().getColumn(2).setMinWidth(0);
+        //tabelaSelecionarRiscosMonitorarJTable.getTableHeader().getColumnModel().getColumn(2).setMaxWidth(0);
+        //tabelaSelecionarRiscosMonitorarJTable.getTableHeader().getColumnModel().getColumn(2).setMinWidth(0);
         
         definirEventosTabela();
         
@@ -128,7 +135,7 @@ public class RiscosSelecionarRiscosParaMonitorarJFrame extends javax.swing.JFram
             riscoTabela.setProbabilidade(listaRiscos.get(i).getProbabilidade());
             riscoTabela.setStatusRisco(listaRiscos.get(i).getStatusRisco());
             
-            if(listaRiscos.get(i).getStatusRisco().equals("Mitigando")){
+            if(listaRiscos.get(i).getStatusRisco().equals("Mitigando") || listaRiscos.get(i).getStatusRisco().equals("Contingenciando") ){
                 riscoTabela.setMonitorar(true);
             }
             
@@ -451,4 +458,27 @@ public class RiscosSelecionarRiscosParaMonitorarJFrame extends javax.swing.JFram
     private javax.swing.JPanel tabelaJPanel;
     private javax.swing.JScrollPane tabelaJScrollPane;
     // End of variables declaration//GEN-END:variables
+
+    private static class Teste extends WindowAdapter {
+        
+        @Override
+        public void windowOpened(WindowEvent e){
+            System.out.println("A janela abriu!!! estamos de olho!");
+        }
+        //método escuta janela quando ela for minimizada
+        @Override
+        public void windowIconified(WindowEvent e) {  
+            System.out.println("Minimzando a janela!! estamos de olho!");  
+        } 
+        //método escuta janela quando ela for maximizada
+        @Override
+        public void windowDeiconified(WindowEvent e){
+            System.out.println("Maximizando a janela!! estamos de olho!");
+            
+            PrincipalJFrame principal = new PrincipalJFrame();
+            principal.setExtendedState(MAXIMIZED_BOTH);
+        }
+    }
 }
+
+    

@@ -45,7 +45,7 @@ public class RiscosRiscosOcorridosJPanel extends javax.swing.JPanel {
         
         tabelaRiscosOcorridos = new JTable();
         modeloTabelaRiscosOcorridos = new DefaultTableModel();
-        modeloTabelaRiscosOcorridos.setColumnIdentifiers(new Object[] {"Identificação", "Descrição", "Data de ocorrencia", "Status"});
+        modeloTabelaRiscosOcorridos.setColumnIdentifiers(new Object[] {"Identificação", "Descrição", "Data de ocorrencia"});
         tabelaRiscosOcorridos.setModel(modeloTabelaRiscosOcorridos);
         tabelaRiscosOcorridosJScrollPane.setViewportView(tabelaRiscosOcorridos);
     }
@@ -59,7 +59,7 @@ public class RiscosRiscosOcorridosJPanel extends javax.swing.JPanel {
             Date data = listaHistoricoRisco.get(i).getDataOcorrencia();
                
             
-            Object[] linha = new Object[]{listaHistoricoRisco.get(i).getIdRisco().getIdentificacao(), listaHistoricoRisco.get(i).getIdRisco().getDescricao(), df.format(data), listaHistoricoRisco.get(i).getStatusRisco()};
+            Object[] linha = new Object[]{listaHistoricoRisco.get(i).getIdRisco().getIdentificacao(), listaHistoricoRisco.get(i).getIdRisco().getDescricao(), df.format(data)};
             modeloTabelaRiscosOcorridos.addRow(linha);
         }
     }
