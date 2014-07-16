@@ -353,18 +353,18 @@ public class RiscosPriorizarRiscosJPanel extends javax.swing.JPanel {
             riscoFacade.editarRisco(objRisco);
         }
         RiscosGerenciarRiscosFacade rGRfacade = new RiscosGerenciarRiscosFacade();
-        List<Risco> listaDeRisco = rGRfacade.listarRiscosPOrdemGrauDeEsposicao(projetoSelecionado);
+        List<Risco> listaDeRiscoLocal = rGRfacade.listarRiscosPOrdemGrauDeEsposicao(projetoSelecionado);
         criaTabela();
-        populaTabelaDeRiscos(listaDeRisco, true);
+        populaTabelaDeRiscos(listaDeRiscoLocal, true);
         definirEventosTabelaPriorizarRiscos();
         JOptionPane.showMessageDialog(this, "Prioridade dos riscos foram resetadas");
     }//GEN-LAST:event_resetarPrioridadesJButtonActionPerformed
 
     private void descartarAlteraçõesJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_descartarAlteraçõesJButtonActionPerformed
         RiscosGerenciarRiscosFacade rGRfacade = new RiscosGerenciarRiscosFacade();
-        List<Risco> listaDeRisco = rGRfacade.listarRiscosPOrdemGrauDeEsposicao(projetoSelecionado);
+        List<Risco> listaDeRiscoLocal = rGRfacade.listarRiscosPOrdemGrauDeEsposicao(projetoSelecionado);
         criaTabela();
-        populaTabelaDeRiscos(listaDeRisco, false);
+        populaTabelaDeRiscos(listaDeRiscoLocal, true);
         definirEventosTabelaPriorizarRiscos();
     }//GEN-LAST:event_descartarAlteraçõesJButtonActionPerformed
 

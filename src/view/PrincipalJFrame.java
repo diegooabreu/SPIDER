@@ -295,6 +295,7 @@ public class PrincipalJFrame extends javax.swing.JFrame {
                         projetoCalendarioJPanel.popularTabelaMarcoPontoDeControle();
 
                         // Na tela Priorizar Riscos
+                        riscosPriorizarRiscosJPanel.getProjetoSelecionado(projetoSelecionado);
                         riscosPriorizarRiscosJPanel.criaTabela();
                         RiscosGerenciarRiscosFacade rGRfacade = new RiscosGerenciarRiscosFacade();
                         List<Risco> listaDeRisco = rGRfacade.listarRiscosPOrdemGrauDeEsposicao(projetoSelecionado);
