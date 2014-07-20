@@ -15,6 +15,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 import javax.sql.RowSetEvent;
@@ -24,6 +25,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
+import model.Historicoalteracao;
 import model.Projeto;
 import model.Risco;
 
@@ -40,11 +42,11 @@ public class RiscosPriorizarRiscosJPanel extends javax.swing.JPanel {
     private List<Risco> listaDeRiscoModificada;
     public int riscoSelecionado;
     public Projeto projetoSelecionado;
+    RiscosGerenciarRiscosFacade riscosGerenciarRiscosFacade = new RiscosGerenciarRiscosFacade();
 
     /**
      * Creates new form RiscosPriorizarRiscosJPanel
      */
-    
     public RiscosPriorizarRiscosJPanel() {
         initComponents();
     }
@@ -274,16 +276,14 @@ public class RiscosPriorizarRiscosJPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    
-    public void getProjetoSelecionado(Projeto projeto){
+    public void getProjetoSelecionado(Projeto projeto) {
         projetoSelecionado = projeto;
     }
-    
+
     private void RiscosPriorizarRiscosSelecionarMonitorarJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RiscosPriorizarRiscosSelecionarMonitorarJButtonActionPerformed
 
         RiscosSelecionarRiscosParaMonitorarJFrame selecionar = new RiscosSelecionarRiscosParaMonitorarJFrame();
-        
-        
+
         selecionar.criarTabelaSelecionarRiscos(listaDeRisco);
         selecionar.setLocationRelativeTo(this);
         selecionar.setVisible(true);
@@ -317,6 +317,13 @@ public class RiscosPriorizarRiscosJPanel extends javax.swing.JPanel {
                     objRisco.setPrioridade(i + 1);
                     RiscosGerenciarRiscosFacade riscoFacade = new RiscosGerenciarRiscosFacade();
                     riscoFacade.editarRisco(objRisco);
+
+                    Historicoalteracao historico = new Historicoalteracao();
+                    historico.setDescricaoAlteracao("Prioridade do Risco alterada");
+                    Calendar c = Calendar.getInstance();
+                    historico.setDataAlteracao(c.getTime());
+                    historico.setIdRisco(objRisco);
+                    riscosGerenciarRiscosFacade.criaHistorioAlteracao(historico);
                     break;
                 }
             }
@@ -326,7 +333,7 @@ public class RiscosPriorizarRiscosJPanel extends javax.swing.JPanel {
 
     private void RiscosPriorizarRiscosAcoesDiminuirPrioridadeJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RiscosPriorizarRiscosAcoesDiminuirPrioridadeJButtonActionPerformed
         int linhaSelecionada = tabelaDeRiscosJTable.getSelectedRow();
-        if (linhaSelecionada < listaDeRisco.size()-1) {
+        if (linhaSelecionada < listaDeRisco.size() - 1) {
             listaDeRiscoModificada = listaDeRisco;
             Risco riscoSelecionado = listaDeRiscoModificada.get(linhaSelecionada);
 
@@ -337,7 +344,7 @@ public class RiscosPriorizarRiscosJPanel extends javax.swing.JPanel {
             populaTabelaDeRiscos(listaDeRiscoModificada, true);
 
             tabelaDeRiscosJTable.addRowSelectionInterval(linhaSelecionada + 1, linhaSelecionada + 1);
-        } 
+        }
     }//GEN-LAST:event_RiscosPriorizarRiscosAcoesDiminuirPrioridadeJButtonActionPerformed
 
     private void emissorJTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emissorJTextFieldActionPerformed
@@ -351,6 +358,12 @@ public class RiscosPriorizarRiscosJPanel extends javax.swing.JPanel {
             objRisco.setPrioridade(0);
             RiscosGerenciarRiscosFacade riscoFacade = new RiscosGerenciarRiscosFacade();
             riscoFacade.editarRisco(objRisco);
+            Historicoalteracao historico = new Historicoalteracao();
+            historico.setDescricaoAlteracao("Prioridade do Risco resetada");
+            Calendar c = Calendar.getInstance();
+            historico.setDataAlteracao(c.getTime());
+            historico.setIdRisco(objRisco);
+            riscosGerenciarRiscosFacade.criaHistorioAlteracao(historico);
         }
         RiscosGerenciarRiscosFacade rGRfacade = new RiscosGerenciarRiscosFacade();
         List<Risco> listaDeRiscoLocal = rGRfacade.listarRiscosPOrdemGrauDeEsposicao(projetoSelecionado);
@@ -383,14 +396,14 @@ public class RiscosPriorizarRiscosJPanel extends javax.swing.JPanel {
                             break;
                         }
                     }
-                    
+
                     emissorJTextField.setText(RiscoSelecionado.getEmissor());
                     probabilidadeJTextField.setText(Integer.toString(RiscoSelecionado.getProbabilidade()));
                     impactoJTextField.setText((RiscoSelecionado.getImpacto()));
                     grauDeSeveridadeJTextField.setText(Integer.toString(RiscoSelecionado.getGrauSeveridade()));
-                    
+
                 }
-                
+
             }
         });
     }
@@ -402,17 +415,17 @@ public class RiscosPriorizarRiscosJPanel extends javax.swing.JPanel {
         modeloTabelaDeRiscosJTable.setColumnIdentifiers(new String[]{"Identificação", "Descrição", "Estado"});
         tabelaDeRiscosJTable.setModel(modeloTabelaDeRiscosJTable);
         TabelaDeRiscosJScrollPane.setViewportView(tabelaDeRiscosJTable);
-        
+
         tabelaDeRiscosJTable.addMouseListener(new MouseAdapter() {
-            public void mousePressed(MouseEvent e){
+            public void mousePressed(MouseEvent e) {
                 int riscoSelecionado = e.getClickCount();
-                
+
             }
         });
     }
 
     public void populaTabelaDeRiscos(List<Risco> novaListaDeRisco, boolean atualizacao) {
-        if (atualizacao == false){
+        if (atualizacao == false) {
             listaDeRisco = novaListaDeRisco;
         }
         List<Risco> listaTemp = new ArrayList<Risco>();
@@ -460,7 +473,7 @@ public class RiscosPriorizarRiscosJPanel extends javax.swing.JPanel {
 
     private List<Risco> preencheListaModificada(List<Risco> listaDeRisco) {
         List<Risco> listaModificada = new ArrayList<Risco>();
-        for (int i = 0; i < listaDeRisco.size(); i++){
+        for (int i = 0; i < listaDeRisco.size(); i++) {
             listaModificada.add(listaDeRisco.get(i));
         }
         return listaModificada;
