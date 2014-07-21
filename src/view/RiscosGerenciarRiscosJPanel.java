@@ -2019,15 +2019,13 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
         if (novoRisco.getIdentificacao() == null) {
             valorNulo = true;
         }
-        novoRisco.setProbabilidade(Integer.parseInt(informacoesGeraisProbabilidadeJSpinner.getValue().toString()));
-        if (novoRisco.getProbabilidade() == 0) {
-            valorNulo = true;
-        }
         
+        novoRisco.setProbabilidade(Integer.parseInt(informacoesGeraisProbabilidadeJSpinner.getValue().toString()));
         if (!(novoRisco.getProbabilidade() >= 0) && (novoRisco.getProbabilidade() <= 100)){
             valorNulo = true;
         }
         
+        novoRisco.setImpacto(informacoesGeraisImpactoJComboBox.getSelectedItem().toString());
         if (novoRisco.getImpacto().equals("--Selecione--")){
             valorNulo = true;
         }
@@ -2087,7 +2085,7 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
                         String impactoSelecionado = informacoesGeraisImpactoJComboBox.getSelectedItem().toString();
                         novoRisco.setImpacto(impactoSelecionado);
 
-                        novoRisco.setGrauSeveridade(Integer.parseInt(informacoesGeraisGrauDeSeveridadeJTextField.getText()));
+                        novoRisco.setGrauSeveridade(Double.parseDouble(informacoesGeraisGrauDeSeveridadeJTextField.getText()));
                         if (novoRisco.getGrauSeveridade() == 0) {
                             int grauSeveridade = 0;
                             double auxiliar = 0;

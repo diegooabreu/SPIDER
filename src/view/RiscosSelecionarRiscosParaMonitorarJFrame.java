@@ -24,7 +24,6 @@ import javax.swing.table.DefaultTableModel;
 import model.Planomitigacao;
 import model.Projeto;
 import model.Risco;
-import testetabela.TesteTabelaRisco;
 import view.tabelas.RiscoTabela;
 import view.tabelas.RiscoTabelaModel;
 

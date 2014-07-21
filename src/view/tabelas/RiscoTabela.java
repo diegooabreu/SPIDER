@@ -23,7 +23,7 @@ public class RiscoTabela {
     private String statusRisco;
     private String descricao;
     private int prioridade;
-    private int grauSeveridade;
+    private double grauSeveridade;
     private String identificacao;
 
     public boolean isMonitorar() {
@@ -100,11 +100,11 @@ public class RiscoTabela {
         this.prioridade = prioridade;
     }
 
-    public int getGrauSeveridade() {
+    public double getGrauSeveridade() {
         return grauSeveridade;
     }
 
-    public void setGrauSeveridade(int grauSeveridade) {
+    public void setGrauSeveridade(double grauSeveridade) {
         this.grauSeveridade = grauSeveridade;
     }
 
