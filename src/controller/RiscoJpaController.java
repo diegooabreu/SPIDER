@@ -305,4 +305,26 @@ public class RiscoJpaController implements Serializable {
         return listaRiscos;
         
     }
+    
+    public List<Risco> findRiscosPOrdemGrauDeEsposicaoAndStatus(Projeto idProjeto, String statusRisco){
+        
+        List<Risco> listaRiscos = null;
+        EntityManager em = getEntityManager();
+        
+        try{
+            
+            listaRiscos = em.createNamedQuery("Risco.findAllPOrdemGrauDeEsposicaoAndStatus")
+                    .setParameter("idProjeto", idProjeto)
+                    .setParameter("statusRisco", statusRisco)
+                    .getResultList();
+            
+        } catch (Exception e){
+            System.out.println("erro no metodo findRiscosPOrdemGrauDeEsposicaoAndStatus da classe RiscoJpaController");
+            e.printStackTrace();
+        }
+        
+        return listaRiscos;
+        
+    }
+    
 }

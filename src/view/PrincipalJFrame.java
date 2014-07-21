@@ -44,7 +44,9 @@ public class PrincipalJFrame extends javax.swing.JFrame {
     final OrganizacionalEditarEARJPanel organizacionalEditarEARJPanel = new OrganizacionalEditarEARJPanel();
     final RiscosPriorizarRiscosJPanel riscosPriorizarRiscosJPanel = new RiscosPriorizarRiscosJPanel();
     final RiscosRiscosOcorridosJPanel riscosRiscosOcorridosJPanel = new RiscosRiscosOcorridosJPanel();
-    final MonitoracaoQuadroDeAvisosJPanel monitoracaoQuadroDeAvisoJPanel = new MonitoracaoQuadroDeAvisosJPanel();
+    
+    final MonitoracaoAnaliseDosRiscosJPanel monitoracaoAnaliseDosRiscosJPanel = new MonitoracaoAnaliseDosRiscosJPanel();
+    
     final MonitoracaoTabelaDeAlteracaoJPanel monitoracoaTabelaDeAlteracaoJPanel = new MonitoracaoTabelaDeAlteracaoJPanel();
     final MonitoracaoTarefasTarefasPendentesJPanel monitoracaoTarefasTarefasPendentesJPanel = new MonitoracaoTarefasTarefasPendentesJPanel();
     final MonitoracaoTarefasHistoricoDeTarefasJPanel monitoracaoTarefasHistoricoDeTarefasJPanel = new MonitoracaoTarefasHistoricoDeTarefasJPanel();
@@ -459,8 +461,8 @@ public class PrincipalJFrame extends javax.swing.JFrame {
         riscosRiscosOcorridosJPanel.setBounds(0, 0, 861, 529);
         camadasJDesktopPane.add(riscosRiscosOcorridosJPanel);
 
-        monitoracaoQuadroDeAvisoJPanel.setBounds(0, 0, 861, 529);
-        camadasJDesktopPane.add(monitoracaoQuadroDeAvisoJPanel);
+        monitoracaoAnaliseDosRiscosJPanel.setBounds(0, 0, 861, 529);
+        camadasJDesktopPane.add(monitoracaoAnaliseDosRiscosJPanel);
 
         monitoracoaTabelaDeAlteracaoJPanel.setBounds(0, 0, 861, 529);
         camadasJDesktopPane.add(monitoracoaTabelaDeAlteracaoJPanel);
@@ -489,7 +491,7 @@ public class PrincipalJFrame extends javax.swing.JFrame {
         organizacionalEditarEARJPanel.setVisible(false);
         riscosPriorizarRiscosJPanel.setVisible(false);
         riscosRiscosOcorridosJPanel.setVisible(false);
-        monitoracaoQuadroDeAvisoJPanel.setVisible(false);
+        monitoracaoAnaliseDosRiscosJPanel.setVisible(false);
         monitoracoaTabelaDeAlteracaoJPanel.setVisible(false);
         monitoracaoTarefasTarefasPendentesJPanel.setVisible(false);
         monitoracaoTarefasHistoricoDeTarefasJPanel.setVisible(false);
@@ -618,7 +620,10 @@ public class PrincipalJFrame extends javax.swing.JFrame {
                         riscosRiscosOcorridosJPanel.getProjeto(projetoSelecionado);
                         riscosRiscosOcorridosJPanel.popularTabelaRiscosOcorridos();
                     } else if (node == quadroAvisos) {
-                        monitoracaoQuadroDeAvisoJPanel.setVisible(true);
+                        monitoracaoAnaliseDosRiscosJPanel.setVisible(true);
+                        monitoracaoAnaliseDosRiscosJPanel.criarTabelaAnalisarRiscos();
+                        
+                        
                     } else if (node == tabelaAlteracoes) {
                         monitoracoaTabelaDeAlteracaoJPanel.setVisible(true);
                     } else if (node == tarefasPendentes) {
