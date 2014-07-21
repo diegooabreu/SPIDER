@@ -400,7 +400,7 @@ public class RiscosPriorizarRiscosJPanel extends javax.swing.JPanel {
                     emissorJTextField.setText(RiscoSelecionado.getEmissor());
                     probabilidadeJTextField.setText(Integer.toString(RiscoSelecionado.getProbabilidade()));
                     impactoJTextField.setText((RiscoSelecionado.getImpacto()));
-                    grauDeSeveridadeJTextField.setText(Integer.toString(RiscoSelecionado.getGrauSeveridade()));
+                    grauDeSeveridadeJTextField.setText(Double.toString(RiscoSelecionado.getGrauSeveridade()));
 
                 }
 
