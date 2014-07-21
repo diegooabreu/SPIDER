@@ -51,8 +51,10 @@ public class PrincipalJFrame extends javax.swing.JFrame {
     final MonitoracaoTabelaDeAlteracaoJPanel monitoracoaTabelaDeAlteracaoJPanel = new MonitoracaoTabelaDeAlteracaoJPanel();
     final MonitoracaoTarefasTarefasPendentesJPanel monitoracaoTarefasTarefasPendentesJPanel = new MonitoracaoTarefasTarefasPendentesJPanel();
     final MonitoracaoTarefasHistoricoDeTarefasJPanel monitoracaoTarefasHistoricoDeTarefasJPanel = new MonitoracaoTarefasHistoricoDeTarefasJPanel();
-
-    //***************************/
+    
+   // static TesteInternalFrame testeInternalFrame = new TesteInternalFrame();
+    static RiscoSelecioanrRiscoParaMonitorarInternalJFrame riscoSelecioanrRiscoParaMonitorarInternalJFrame = new RiscoSelecioanrRiscoParaMonitorarInternalJFrame();
+    
     // Criando Arvore de Funcionalidades - Menu //
     private JTree arvoreFuncionalidadesJTree;
     private DefaultMutableTreeNode funcionalidades;
@@ -86,6 +88,8 @@ public class PrincipalJFrame extends javax.swing.JFrame {
         esconderFrames();
         criarArvore();
         definirEventosArvore();
+        
+        //teste.setVisible(true);
 
     }
 
@@ -104,6 +108,7 @@ public class PrincipalJFrame extends javax.swing.JFrame {
         projetoSelecionadoJLabel = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         editarEARJButton = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
         menuJPanel = new javax.swing.JPanel();
         arvoreFuncionalidadesJScrollPane = new javax.swing.JScrollPane();
         camadasJDesktopPane = new javax.swing.JDesktopPane();
@@ -171,6 +176,13 @@ public class PrincipalJFrame extends javax.swing.JFrame {
             }
         });
 
+        jButton2.setText("Teste");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -181,6 +193,8 @@ public class PrincipalJFrame extends javax.swing.JFrame {
                 .addComponent(configuracoesFerramentaJButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(editarEARJButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(projetoSelecionadoJLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -198,6 +212,7 @@ public class PrincipalJFrame extends javax.swing.JFrame {
                         .addComponent(projetoSelecionadoJLabel))
                     .addComponent(configuracoesFerramentaJButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         menuJPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
@@ -249,6 +264,11 @@ public class PrincipalJFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    static void aparecerInternalFrame() {
+        //testeInternalFrame.setVisible(true);
+        riscoSelecioanrRiscoParaMonitorarInternalJFrame.setVisible(true);
+    }
+    
     private void configuracoesFerramentaJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_configuracoesFerramentaJButtonActionPerformed
         esconderFrames();
         configuracoesFerramentaJPanel.setVisible(true);
@@ -368,6 +388,11 @@ public class PrincipalJFrame extends javax.swing.JFrame {
 // TODO add your handling code here:
     }//GEN-LAST:event_editarEARJButtonActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        esconderFrames();
+        //teste.setVisible(true);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -473,6 +498,13 @@ public class PrincipalJFrame extends javax.swing.JFrame {
 
         monitoracaoTarefasHistoricoDeTarefasJPanel.setBounds(0, 0, 861, 529);
         camadasJDesktopPane.add(monitoracaoTarefasHistoricoDeTarefasJPanel);
+        
+        camadasJDesktopPane.add(riscoSelecioanrRiscoParaMonitorarInternalJFrame);
+        
+        //riscosPriorizarRiscosJPanel.setBounds(0, 0, 861, 529);
+        //camadasJDesktopPane.add(riscosPriorizarRiscosJPanel);
+
+        //camadasJDesktopPane.add(riscosSelecionarRiscosParaMonitorarInternalJFrame);
 
     }
     //**************************************************************//
@@ -496,6 +528,9 @@ public class PrincipalJFrame extends javax.swing.JFrame {
         monitoracoaTabelaDeAlteracaoJPanel.setVisible(false);
         monitoracaoTarefasTarefasPendentesJPanel.setVisible(false);
         monitoracaoTarefasHistoricoDeTarefasJPanel.setVisible(false);
+        
+        //testeInternalFrame.setVisible(false);
+        riscoSelecioanrRiscoParaMonitorarInternalJFrame.setVisible(false);
     }
 
     // Criando os nós da arvore e adicionando-os //
@@ -660,6 +695,7 @@ public class PrincipalJFrame extends javax.swing.JFrame {
     private javax.swing.JButton configuracoesFerramentaJButton;
     private javax.swing.JButton editarEARJButton;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel menuJPanel;
     private javax.swing.JComboBox projetoSelecionadoJComboBox;

@@ -54,6 +54,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Risco.findAllPOrdemGrauDeEsposicao", query = "SELECT r FROM Risco r WHERE r.contem.projeto = :idProjeto order by r.prioridade asc, r.grauSeveridade desc")
 
 public class Risco implements Serializable {
+    @Basic(optional = false)
+    @Column(name = "grauSeveridade")
+    private double grauSeveridade;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idRisco")
     private List<Historicorisco> historicoriscoList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idRisco")
@@ -89,9 +92,6 @@ public class Risco implements Serializable {
     @Basic(optional = false)
     @Column(name = "prioridade")
     private int prioridade;
-    @Basic(optional = false)
-    @Column(name = "grauSeveridade")
-    private int grauSeveridade;
     @Basic(optional = false)
     @Column(name = "identificacao")
     private String identificacao;
@@ -199,14 +199,6 @@ public class Risco implements Serializable {
         this.prioridade = prioridade;
     }
 
-    public int getGrauSeveridade() {
-        return grauSeveridade;
-    }
-
-    public void setGrauSeveridade(int grauSeveridade) {
-        this.grauSeveridade = grauSeveridade;
-    }
-
     public String getIdentificacao() {
         return identificacao;
     }
@@ -309,6 +301,14 @@ public class Risco implements Serializable {
 
     public void setHistoricoriscoList(List<Historicorisco> historicoriscoList) {
         this.historicoriscoList = historicoriscoList;
+    }
+
+    public double getGrauSeveridade() {
+        return grauSeveridade;
+    }
+
+    public void setGrauSeveridade(double grauSeveridade) {
+        this.grauSeveridade = grauSeveridade;
     }
     
 }

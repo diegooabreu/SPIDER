@@ -19,6 +19,7 @@ import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
+import javax.swing.JSpinner;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.SpinnerNumberModel;
@@ -96,6 +97,7 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
         iniciaBotosRiscoCinza();
         criaTabelaHistoricoAlteracoes();
         criarTabelaSubcondicoes();
+        informacoesGeraisProbabilidadeJSpinner.setEditor(new JSpinner.NumberEditor(informacoesGeraisProbabilidadeJSpinner, "#"));
     }
 
     // -------------------------***************************--------------------------*******************************
@@ -170,7 +172,7 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
                 String identificacao = listaRiscos.get(i).getIdentificacao();
                 String probabilidade = Integer.toString(listaRiscos.get(i).getProbabilidade());
                 String impacto = listaRiscos.get(i).getImpacto();
-                String grauSeveridade = Integer.toString(listaRiscos.get(i).getGrauSeveridade());
+                String grauSeveridade = Double.toString(listaRiscos.get(i).getGrauSeveridade());
                 String prioridade = Integer.toString(listaRiscos.get(i).getPrioridade());
                 String statusRisco = listaRiscos.get(i).getStatusRisco();
 
@@ -198,11 +200,12 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
         InformacoesGeraisDescricaoDeRiscoJTextArea.setText("");
         informacoesGeraisCategoriaDeRiscoJComboBox.removeAllItems();
         informacoesGeraisProbabilidadeJSpinner.setValue(0);
-        informacoesGeraisImpactoJComboBox.setSelectedIndex(2);
+        informacoesGeraisImpactoJComboBox.setSelectedIndex(0);
         estadoAtualRiscoJLabel.setText("");
         //desabilitaCheckBoxStatusRisco();
         informacoesGeraisGrauDeSeveridadeJTextField.setText("0");
         tabelaRiscosJTable.clearSelection();
+        
     }
 
     //Define os eventos para quando um item da tabela for selecionado
@@ -262,7 +265,7 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
 
                     informacoesGeraisEmissorJTextField.setText(riscoSelecionado.getEmissor());
                     informacoesGeraisProbabilidadeJSpinner.setValue(riscoSelecionado.getProbabilidade());
-                    informacoesGeraisGrauDeSeveridadeJTextField.setText(Integer.toString(riscoSelecionado.getGrauSeveridade()));
+                    informacoesGeraisGrauDeSeveridadeJTextField.setText(Double.toString(riscoSelecionado.getGrauSeveridade()));
                     estadoAtualRiscoJLabel.setText(riscoSelecionado.getStatusRisco());
                     /*
                      // Determina qual caixa de status do risco será selecionada
@@ -282,13 +285,13 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
                      */
                     // Determina qual campo do comboBox de Impacto será selecionado
                     if (riscoSelecionado.getImpacto().equals("Alto")) {
-                        informacoesGeraisImpactoJComboBox.setSelectedIndex(1);
-                    } else if (riscoSelecionado.getImpacto().equals("Médio")) {
                         informacoesGeraisImpactoJComboBox.setSelectedIndex(2);
-                    } else if (riscoSelecionado.getImpacto().equals("Baixo")) {
+                    } else if (riscoSelecionado.getImpacto().equals("Médio")) {
                         informacoesGeraisImpactoJComboBox.setSelectedIndex(3);
+                    } else if (riscoSelecionado.getImpacto().equals("Baixo")) {
+                        informacoesGeraisImpactoJComboBox.setSelectedIndex(4);
                     } else if (riscoSelecionado.getImpacto().equals("Crítico")) {
-                        informacoesGeraisImpactoJComboBox.setSelectedIndex(0);
+                        informacoesGeraisImpactoJComboBox.setSelectedIndex(1);
                     }
 
                     //Determina qual campo do comboBox de Categoria de Risco será selecionado
@@ -1160,10 +1163,15 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
         informacoesGeraisIdentificacaoDeRiscoJTextField.setToolTipText("");
         informacoesGeraisIdentificacaoDeRiscoJTextField.setDisabledTextColor(new java.awt.Color(0, 0, 0));
 
-        informacoesGeraisImpactoJComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Crítico", "Alto", "Médio", "Baixo" }));
+        informacoesGeraisImpactoJComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "--Selecione--", "Crítico", "Alto", "Médio", "Baixo" }));
         informacoesGeraisImpactoJComboBox.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 informacoesGeraisImpactoJComboBoxItemStateChanged(evt);
+            }
+        });
+        informacoesGeraisImpactoJComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                informacoesGeraisImpactoJComboBoxActionPerformed(evt);
             }
         });
         informacoesGeraisImpactoJComboBox.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -2011,14 +2019,20 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
         if (novoRisco.getIdentificacao() == null) {
             valorNulo = true;
         }
+        
         novoRisco.setProbabilidade(Integer.parseInt(informacoesGeraisProbabilidadeJSpinner.getValue().toString()));
-        if (novoRisco.getProbabilidade() == 0) {
+        if (!(novoRisco.getProbabilidade() >= 0) && (novoRisco.getProbabilidade() <= 100)){
+            valorNulo = true;
+        }
+        
+        novoRisco.setImpacto(informacoesGeraisImpactoJComboBox.getSelectedItem().toString());
+        if (novoRisco.getImpacto().equals("--Selecione--")){
             valorNulo = true;
         }
 
         if (valorNulo == true) {
-            JOptionPane.showMessageDialog(null, "Um ou mais campos estão vazios, preencha-os antes de adicionar um novo risco");
-        } else {
+            JOptionPane.showMessageDialog(null, "Um ou mais campos apresentam valores invalidos. Preencha-os corretamente antes de adicionar um novo risco");
+        } else { 
 
             boolean probabilidadeInvalida = false;
             boolean riscoOcorreu = false;
@@ -2071,7 +2085,7 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
                         String impactoSelecionado = informacoesGeraisImpactoJComboBox.getSelectedItem().toString();
                         novoRisco.setImpacto(impactoSelecionado);
 
-                        novoRisco.setGrauSeveridade(Integer.parseInt(informacoesGeraisGrauDeSeveridadeJTextField.getText()));
+                        novoRisco.setGrauSeveridade(Double.parseDouble(informacoesGeraisGrauDeSeveridadeJTextField.getText()));
                         if (novoRisco.getGrauSeveridade() == 0) {
                             int grauSeveridade = 0;
                             double auxiliar = 0;
@@ -2697,6 +2711,10 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
             informacoesGeraisGrauDeSeveridadeJTextField.setText((grauDeSeveridade));
         }
     }//GEN-LAST:event_informacoesGeraisProbabilidadeJSpinnerKeyTyped
+
+    private void informacoesGeraisImpactoJComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_informacoesGeraisImpactoJComboBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_informacoesGeraisImpactoJComboBoxActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
