@@ -4,6 +4,7 @@
  */
 package view;
 
+import facade.MonitoracaoAnaliseDosRiscosFacade;
 import facade.PrincipalFacade;
 import facade.RiscosGerenciarRiscosFacade;
 import java.awt.event.MouseAdapter;
@@ -622,8 +623,8 @@ public class PrincipalJFrame extends javax.swing.JFrame {
                     } else if (node == analiseRiscos) {
                         monitoracaoAnaliseDosRiscosJPanel.setVisible(true);
                         monitoracaoAnaliseDosRiscosJPanel.criarTabelaAnalisarRiscos();
-                        RiscosGerenciarRiscosFacade rGRfacade = new RiscosGerenciarRiscosFacade();
-                        List<Risco> listaDeRisco = rGRfacade.listarRiscosPOrdemGrauDeEsposicao(projetoSelecionado);
+                        MonitoracaoAnaliseDosRiscosFacade analiseFacade = new MonitoracaoAnaliseDosRiscosFacade();
+                        List<Risco> listaDeRisco = analiseFacade.listarRiscosPOrdemGrauDeEsposicaoByStatus(projetoSelecionado, "Mitigando");
                         monitoracaoAnaliseDosRiscosJPanel.populaTabelaDeRiscos(listaDeRisco, false);
                         monitoracaoAnaliseDosRiscosJPanel.definirEventosTabelaDeRiscos();
                         

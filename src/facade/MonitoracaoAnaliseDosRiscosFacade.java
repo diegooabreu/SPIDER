@@ -6,9 +6,13 @@
 
 package facade;
 
+import controller.HistoricoalteracaoJpaController;
+import controller.HistoricoriscoJpaController;
 import controller.RiscoJpaController;
 import controller.SubcondicaoJpaController;
 import java.util.List;
+import model.Historicoalteracao;
+import model.Historicorisco;
 import model.Projeto;
 import model.Risco;
 import model.Subcondicao;
@@ -19,6 +23,21 @@ import model.Subcondicao;
  */
 public class MonitoracaoAnaliseDosRiscosFacade {
  
+    public Risco getRisco(int id){
+        
+        RiscoJpaController riscoJPA = new RiscoJpaController();
+        Risco risco = null;
+        try {
+            
+            risco = riscoJPA.findRisco(id);
+            
+        } catch (Exception e){
+            System.out.println("Erro no metodo getRisco da classe monitoracaoanalisefacade");
+        }
+        
+        return risco;
+    }
+    
     public List<Risco> listarRiscosPOrdemGrauDeEsposicaoByStatus (Projeto projetoSelecionado, String statusRisco){
         RiscoJpaController riscoJPA = new RiscoJpaController();
         List<Risco> listaRiscos = riscoJPA.findRiscosPOrdemGrauDeEsposicaoAndStatus(projetoSelecionado, statusRisco);
@@ -66,5 +85,32 @@ public class MonitoracaoAnaliseDosRiscosFacade {
     }
         
     }
+    
+    public void criarHistorico(Historicorisco historico){
+        HistoricoriscoJpaController historicoJPA = new HistoricoriscoJpaController();
+        try{
+           
+            historicoJPA.create(historico);
+            
+        } catch (Exception e){
+        System.out.println("Erro no metodo criarHistorico da classe monitoracaoanalisefacade");
+        
+    }
+        
+    }
+    
+    public void criarHistoricoAlteracao(Historicoalteracao historico){
+        HistoricoalteracaoJpaController historicoJPA = new HistoricoalteracaoJpaController();
+        try{
+           
+            historicoJPA.create(historico);
+            
+        } catch (Exception e){
+        System.out.println("Erro no metodo criarHistorico da classe monitoracaoanalisefacade");
+        
+    }
+        
+    }
+    
     
 }

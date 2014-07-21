@@ -7,12 +7,16 @@
 package view;
 
 import facade.MonitoracaoAnaliseDosRiscosFacade;
+import facade.RiscosGerenciarRiscosFacade;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import model.Historicoalteracao;
+import model.Historicorisco;
 import model.Risco;
 import model.Subcondicao;
 import view.tabelas.CondicaoTabela;
@@ -32,6 +36,7 @@ public class MonitoracaoAnaliseDosRiscosCheckJFrame extends javax.swing.JFrame {
     List<CondicaoTabela> listaCondicaoTabela;
     List<Subcondicao> listaCondicao;
     
+    Risco riscoSel;
     /**
      * Creates new form MonitoracaoAnaliseDosRiscosCheckJFrame
      */
@@ -152,6 +157,7 @@ public class MonitoracaoAnaliseDosRiscosCheckJFrame extends javax.swing.JFrame {
     }
     
     public void preencherInformacoes(Risco risco){
+        riscoSel  = risco;
         identificacaRiscoJLabel.setText(risco.getIdentificacao());
         descricaoRiscoJTextArea.setText(risco.getDescricao());
     }
@@ -175,7 +181,7 @@ public class MonitoracaoAnaliseDosRiscosCheckJFrame extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         tabelaCondicoesRiscoJScrollPane = new javax.swing.JScrollPane();
-        jButton1 = new javax.swing.JButton();
+        confirmarJButton = new javax.swing.JButton();
         statusRiscoJComboBox = new javax.swing.JComboBox();
         jLabel3 = new javax.swing.JLabel();
 
@@ -203,10 +209,10 @@ public class MonitoracaoAnaliseDosRiscosCheckJFrame extends javax.swing.JFrame {
             .addComponent(tabelaCondicoesRiscoJScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE)
         );
 
-        jButton1.setText("Confirmar Ocorrências");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        confirmarJButton.setText("Confirmar Ocorrências");
+        confirmarJButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                confirmarJButtonActionPerformed(evt);
             }
         });
 
@@ -221,7 +227,7 @@ public class MonitoracaoAnaliseDosRiscosCheckJFrame extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(confirmarJButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -259,7 +265,7 @@ public class MonitoracaoAnaliseDosRiscosCheckJFrame extends javax.swing.JFrame {
                     .addComponent(statusRiscoJComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(confirmarJButton, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -281,8 +287,10 @@ public class MonitoracaoAnaliseDosRiscosCheckJFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void confirmarJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmarJButtonActionPerformed
 
+       
+        
         for(int i = 0; i < listaCondicaoTabela.size(); i++){
             if((Boolean)modeloTabelaCondicoes.getValueAt(i, 0) == true){
                 listaCondicao.get(i).setStatusSubcondicao("Ocorrido");
@@ -296,6 +304,8 @@ public class MonitoracaoAnaliseDosRiscosCheckJFrame extends javax.swing.JFrame {
                 monitoracaoAnaliseDosRiscosFacade.editRisco(listaCondicao.get(i).getIdRisco());
                 monitoracaoAnaliseDosRiscosFacade.editCondicao(listaCondicao.get(i));
                 
+                
+                
             } else {
                 listaCondicao.get(i).setStatusSubcondicao("Não Ocorrido");
                 
@@ -307,14 +317,39 @@ public class MonitoracaoAnaliseDosRiscosCheckJFrame extends javax.swing.JFrame {
                 
                 monitoracaoAnaliseDosRiscosFacade.editRisco(listaCondicao.get(i).getIdRisco());
                 monitoracaoAnaliseDosRiscosFacade.editCondicao(listaCondicao.get(i));
+                
+                
+                
+                
             }
               
         }
         
+        riscoSel = monitoracaoAnaliseDosRiscosFacade.getRisco(riscoSel.getIdRisco());
+        
+        if(riscoSel.getStatusRisco().equals("Contingenciando")){
+                    Historicorisco historico = new Historicorisco();
+                    Calendar c = Calendar.getInstance();
+                    historico.setDataOcorrencia(c.getTime());
+                    historico.setIdRisco(riscoSel);
+                    monitoracaoAnaliseDosRiscosFacade.criarHistorico(historico);
+                    
+                    
+                } else if(riscoSel.getStatusRisco().equals("Novo")){
+                    Historicoalteracao historico = new Historicoalteracao();
+                    Calendar c = Calendar.getInstance();
+                    historico.setDataAlteracao(c.getTime());
+                    historico.setIdRisco(riscoSel);
+                    historico.setDescricaoAlteracao("Status do Risco Alterado para 'Novo'.");
+                    monitoracaoAnaliseDosRiscosFacade.criarHistoricoAlteracao(historico);
+                
+                }
+        
+        
         JOptionPane.showMessageDialog(this, "Risco analisado.");
         this.setVisible(false);
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_confirmarJButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -352,9 +387,9 @@ public class MonitoracaoAnaliseDosRiscosCheckJFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton confirmarJButton;
     private javax.swing.JTextArea descricaoRiscoJTextArea;
     private javax.swing.JLabel identificacaRiscoJLabel;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
