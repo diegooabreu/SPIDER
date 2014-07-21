@@ -44,7 +44,9 @@ public class PrincipalJFrame extends javax.swing.JFrame {
     final OrganizacionalEditarEARJPanel organizacionalEditarEARJPanel = new OrganizacionalEditarEARJPanel();
     final RiscosPriorizarRiscosJPanel riscosPriorizarRiscosJPanel = new RiscosPriorizarRiscosJPanel();
     final RiscosRiscosOcorridosJPanel riscosRiscosOcorridosJPanel = new RiscosRiscosOcorridosJPanel();
-    final MonitoracaoQuadroDeAvisosJPanel monitoracaoQuadroDeAvisoJPanel = new MonitoracaoQuadroDeAvisosJPanel();
+    
+    final MonitoracaoAnaliseDosRiscosJPanel monitoracaoAnaliseDosRiscosJPanel = new MonitoracaoAnaliseDosRiscosJPanel();
+    
     final MonitoracaoTabelaDeAlteracaoJPanel monitoracoaTabelaDeAlteracaoJPanel = new MonitoracaoTabelaDeAlteracaoJPanel();
     final MonitoracaoTarefasTarefasPendentesJPanel monitoracaoTarefasTarefasPendentesJPanel = new MonitoracaoTarefasTarefasPendentesJPanel();
     final MonitoracaoTarefasHistoricoDeTarefasJPanel monitoracaoTarefasHistoricoDeTarefasJPanel = new MonitoracaoTarefasHistoricoDeTarefasJPanel();
@@ -68,7 +70,7 @@ public class PrincipalJFrame extends javax.swing.JFrame {
     private DefaultMutableTreeNode priorizarRiscos;
     private DefaultMutableTreeNode riscosOcorridos;
     private DefaultMutableTreeNode monitoracao;
-    private DefaultMutableTreeNode quadroAvisos;
+    private DefaultMutableTreeNode analiseRiscos;
     private DefaultMutableTreeNode tabelaAlteracoes;
     private DefaultMutableTreeNode tarefas;
     private DefaultMutableTreeNode tarefasPendentes;
@@ -484,8 +486,8 @@ public class PrincipalJFrame extends javax.swing.JFrame {
         riscosRiscosOcorridosJPanel.setBounds(0, 0, 861, 529);
         camadasJDesktopPane.add(riscosRiscosOcorridosJPanel);
 
-        monitoracaoQuadroDeAvisoJPanel.setBounds(0, 0, 861, 529);
-        camadasJDesktopPane.add(monitoracaoQuadroDeAvisoJPanel);
+        monitoracaoAnaliseDosRiscosJPanel.setBounds(0, 0, 861, 529);
+        camadasJDesktopPane.add(monitoracaoAnaliseDosRiscosJPanel);
 
         monitoracoaTabelaDeAlteracaoJPanel.setBounds(0, 0, 861, 529);
         camadasJDesktopPane.add(monitoracoaTabelaDeAlteracaoJPanel);
@@ -521,7 +523,7 @@ public class PrincipalJFrame extends javax.swing.JFrame {
         organizacionalEditarEARJPanel.setVisible(false);
         riscosPriorizarRiscosJPanel.setVisible(false);
         riscosRiscosOcorridosJPanel.setVisible(false);
-        monitoracaoQuadroDeAvisoJPanel.setVisible(false);
+        monitoracaoAnaliseDosRiscosJPanel.setVisible(false);
         monitoracoaTabelaDeAlteracaoJPanel.setVisible(false);
         monitoracaoTarefasTarefasPendentesJPanel.setVisible(false);
         monitoracaoTarefasHistoricoDeTarefasJPanel.setVisible(false);
@@ -573,8 +575,8 @@ public class PrincipalJFrame extends javax.swing.JFrame {
         monitoracao = new DefaultMutableTreeNode("Monitoracao");
         projeto.add(monitoracao);
 
-        quadroAvisos = new DefaultMutableTreeNode("Quadro de Avisos");
-        monitoracao.add(quadroAvisos);
+        analiseRiscos = new DefaultMutableTreeNode("Analisar Riscos");
+        monitoracao.add(analiseRiscos);
 
         tabelaAlteracoes = new DefaultMutableTreeNode("Tabela de Alterações");
         monitoracao.add(tabelaAlteracoes);
@@ -652,8 +654,15 @@ public class PrincipalJFrame extends javax.swing.JFrame {
                         riscosRiscosOcorridosJPanel.criarTabelaRiscosOcorridos();
                         riscosRiscosOcorridosJPanel.getProjeto(projetoSelecionado);
                         riscosRiscosOcorridosJPanel.popularTabelaRiscosOcorridos();
-                    } else if (node == quadroAvisos) {
-                        monitoracaoQuadroDeAvisoJPanel.setVisible(true);
+                    } else if (node == analiseRiscos) {
+                        monitoracaoAnaliseDosRiscosJPanel.setVisible(true);
+                        monitoracaoAnaliseDosRiscosJPanel.criarTabelaAnalisarRiscos();
+                        RiscosGerenciarRiscosFacade rGRfacade = new RiscosGerenciarRiscosFacade();
+                        List<Risco> listaDeRisco = rGRfacade.listarRiscosPOrdemGrauDeEsposicao(projetoSelecionado);
+                        monitoracaoAnaliseDosRiscosJPanel.populaTabelaDeRiscos(listaDeRisco, false);
+                        monitoracaoAnaliseDosRiscosJPanel.definirEventosTabelaDeRiscos();
+                        
+                        
                     } else if (node == tabelaAlteracoes) {
                         monitoracoaTabelaDeAlteracaoJPanel.setVisible(true);
                     } else if (node == tarefasPendentes) {
