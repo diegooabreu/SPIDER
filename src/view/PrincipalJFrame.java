@@ -68,7 +68,7 @@ public class PrincipalJFrame extends javax.swing.JFrame {
     private DefaultMutableTreeNode priorizarRiscos;
     private DefaultMutableTreeNode riscosOcorridos;
     private DefaultMutableTreeNode monitoracao;
-    private DefaultMutableTreeNode quadroAvisos;
+    private DefaultMutableTreeNode analiseRiscos;
     private DefaultMutableTreeNode tabelaAlteracoes;
     private DefaultMutableTreeNode tarefas;
     private DefaultMutableTreeNode tarefasPendentes;
@@ -540,8 +540,8 @@ public class PrincipalJFrame extends javax.swing.JFrame {
         monitoracao = new DefaultMutableTreeNode("Monitoracao");
         projeto.add(monitoracao);
 
-        quadroAvisos = new DefaultMutableTreeNode("Quadro de Avisos");
-        monitoracao.add(quadroAvisos);
+        analiseRiscos = new DefaultMutableTreeNode("Analisar Riscos");
+        monitoracao.add(analiseRiscos);
 
         tabelaAlteracoes = new DefaultMutableTreeNode("Tabela de Alterações");
         monitoracao.add(tabelaAlteracoes);
@@ -619,9 +619,13 @@ public class PrincipalJFrame extends javax.swing.JFrame {
                         riscosRiscosOcorridosJPanel.criarTabelaRiscosOcorridos();
                         riscosRiscosOcorridosJPanel.getProjeto(projetoSelecionado);
                         riscosRiscosOcorridosJPanel.popularTabelaRiscosOcorridos();
-                    } else if (node == quadroAvisos) {
+                    } else if (node == analiseRiscos) {
                         monitoracaoAnaliseDosRiscosJPanel.setVisible(true);
                         monitoracaoAnaliseDosRiscosJPanel.criarTabelaAnalisarRiscos();
+                        RiscosGerenciarRiscosFacade rGRfacade = new RiscosGerenciarRiscosFacade();
+                        List<Risco> listaDeRisco = rGRfacade.listarRiscosPOrdemGrauDeEsposicao(projetoSelecionado);
+                        monitoracaoAnaliseDosRiscosJPanel.populaTabelaDeRiscos(listaDeRisco, false);
+                        monitoracaoAnaliseDosRiscosJPanel.definirEventosTabelaDeRiscos();
                         
                         
                     } else if (node == tabelaAlteracoes) {
