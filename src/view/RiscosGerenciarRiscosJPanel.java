@@ -203,6 +203,7 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
         //desabilitaCheckBoxStatusRisco();
         informacoesGeraisGrauDeSeveridadeJTextField.setText("0");
         tabelaRiscosJTable.clearSelection();
+        
     }
 
     //Define os eventos para quando um item da tabela for selecionado
