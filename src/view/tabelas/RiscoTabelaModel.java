@@ -80,7 +80,7 @@ private static final int GRAUSEVERIDADE = 10;
     case PRIORIDADE:
         return Integer.class;
     case GRAUSEVERIDADE:
-        return Integer.class;
+        return Double.class;
     case IDENTIFICACAO:
         return String.class;
     
@@ -178,7 +178,7 @@ private static final int GRAUSEVERIDADE = 10;
         riscoTabela.setPrioridade((Integer) aValue);
         break;
     case GRAUSEVERIDADE:
-        riscoTabela.setGrauSeveridade((Integer) aValue);
+        riscoTabela.setGrauSeveridade((Double) aValue);
         break;
     case IDENTIFICACAO:
         riscoTabela.setIdentificacao((String) aValue);
