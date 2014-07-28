@@ -165,4 +165,8 @@ public class Subcondicao implements Serializable {
         this.identificacaoSubcondicao = identificacaoSubcondicao;
     }
     
+    public void setidentificacao(String id){
+        this.identificacaoSubcondicao = id;
+    }
+    
 }

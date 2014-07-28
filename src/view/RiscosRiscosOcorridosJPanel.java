@@ -8,6 +8,8 @@ package view;
 
 import facade.RiscosRiscosOcorridosFacade;
 import facade.RiscosSelecionarRiscosParaMonitorarFacade;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.List;
@@ -64,6 +66,26 @@ public class RiscosRiscosOcorridosJPanel extends javax.swing.JPanel {
         }
     }
     
+    public void definirEventosTabelaRiscosOcorridos(){
+        tabelaRiscosOcorridos.addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent e) {
+                if (e.getClickCount() == 2) {
+                    
+                    int selected = tabelaRiscosOcorridos.getSelectedRow();
+
+                    /*
+                    for(int i = 0; i < listaRelacoes.size(); i++){
+                        if(tabelaRelacoes.getValueAt(selected, 0) == listaRelacoes.get(i).getIdGrupo()){
+                            relacaoSelecionada = listaRelacoes.get(i);
+                        }
+                    }
+                */
+                    
+                }
+            }
+        });
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -76,6 +98,7 @@ public class RiscosRiscosOcorridosJPanel extends javax.swing.JPanel {
         RiscosRiscosOcorridosJPanel = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         tabelaRiscosOcorridosJScrollPane = new javax.swing.JScrollPane();
+        jLabel1 = new javax.swing.JLabel();
 
         RiscosRiscosOcorridosJPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Riscos Ocorridos", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP));
 
@@ -90,6 +113,8 @@ public class RiscosRiscosOcorridosJPanel extends javax.swing.JPanel {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
+        jLabel1.setText("* Duplo clique para mais informações");
+
         javax.swing.GroupLayout RiscosRiscosOcorridosJPanelLayout = new javax.swing.GroupLayout(RiscosRiscosOcorridosJPanel);
         RiscosRiscosOcorridosJPanel.setLayout(RiscosRiscosOcorridosJPanelLayout);
         RiscosRiscosOcorridosJPanelLayout.setHorizontalGroup(
@@ -98,6 +123,9 @@ public class RiscosRiscosOcorridosJPanel extends javax.swing.JPanel {
                 .addComponent(tabelaRiscosOcorridosJScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 830, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(RiscosRiscosOcorridosJPanelLayout.createSequentialGroup()
+                .addComponent(jLabel1)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         RiscosRiscosOcorridosJPanelLayout.setVerticalGroup(
             RiscosRiscosOcorridosJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -106,7 +134,9 @@ public class RiscosRiscosOcorridosJPanel extends javax.swing.JPanel {
                 .addGroup(RiscosRiscosOcorridosJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(tabelaRiscosOcorridosJScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 387, Short.MAX_VALUE))
-                .addGap(0, 97, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel1)
+                .addGap(0, 72, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -129,6 +159,7 @@ public class RiscosRiscosOcorridosJPanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel RiscosRiscosOcorridosJPanel;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane tabelaRiscosOcorridosJScrollPane;
     // End of variables declaration//GEN-END:variables

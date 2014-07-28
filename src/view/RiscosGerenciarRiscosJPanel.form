@@ -587,45 +587,47 @@
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jLabel17" min="-2" max="-2" attributes="0"/>
                                       <Group type="102" alignment="0" attributes="0">
                                           <Component id="jLabel16" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="subcondicoesIdentificacaoDaCondicaoJTextField" min="-2" pref="637" max="-2" attributes="0"/>
+                                          <Component id="subcondicoesIdentificacaoDaCondicaoJTextField" max="32767" attributes="0"/>
                                       </Group>
-                                      <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                                          <Component id="jScrollPane11" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="jScrollPane15" alignment="1" min="-2" pref="732" max="-2" attributes="0"/>
-                                          <Component id="tabelaSubcondicoesJScrollPane" alignment="0" max="32767" attributes="0"/>
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                                  <Component id="jButton1" max="32767" attributes="0"/>
-                                                  <Component id="jTextField2" max="32767" attributes="0"/>
-                                                  <Component id="jButton2" max="32767" attributes="0"/>
-                                              </Group>
-                                              <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="subcondicoesTipoDeRelacaoJComboBox" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace max="-2" attributes="0"/>
-                                              <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Component id="jButton3" min="-2" max="-2" attributes="0"/>
-                                                  <Group type="102" alignment="0" attributes="0">
-                                                      <Component id="jTextField1" min="-2" pref="175" max="-2" attributes="0"/>
-                                                      <EmptySpace max="-2" attributes="0"/>
-                                                      <Component id="jButton5" min="-2" max="-2" attributes="0"/>
+                                      <Component id="tabelaRelacoesJScrollPane" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="jScrollPane15" alignment="1" min="-2" pref="732" max="-2" attributes="0"/>
+                                      <Component id="tabelaSubcondicoesJScrollPane" alignment="0" max="32767" attributes="0"/>
+                                      <Group type="102" attributes="0">
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="jLabel17" min="-2" max="-2" attributes="0"/>
+                                              <Group type="102" alignment="0" attributes="0">
+                                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                                      <Component id="inserirCondicaoCampo1JButton" max="32767" attributes="0"/>
+                                                      <Component id="campo1JTextField" max="32767" attributes="0"/>
+                                                      <Component id="inserirRelacaoCampo1JButton" max="32767" attributes="0"/>
                                                   </Group>
-                                                  <Component id="jButton4" alignment="0" min="-2" pref="189" max="-2" attributes="0"/>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="subcondicoesTipoDeRelacaoJComboBox" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Group type="103" groupAlignment="0" attributes="0">
+                                                      <Component id="inserirCondicaoCampo2JButton" min="-2" max="-2" attributes="0"/>
+                                                      <Group type="102" alignment="0" attributes="0">
+                                                          <Component id="campo2JTextField" min="-2" pref="175" max="-2" attributes="0"/>
+                                                          <EmptySpace max="-2" attributes="0"/>
+                                                          <Component id="criarRelacaoJButton" min="-2" max="-2" attributes="0"/>
+                                                      </Group>
+                                                      <Component id="inserirRelacaoCampo2JButton" alignment="0" min="-2" pref="189" max="-2" attributes="0"/>
+                                                  </Group>
+                                                  <EmptySpace min="-2" pref="92" max="-2" attributes="0"/>
+                                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                                      <Component id="subcondicoesSalvarAlteracoesDaCondicaoJButtob" alignment="1" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="subcondicoesCriarCondicaoJButton" alignment="0" max="32767" attributes="0"/>
+                                                      <Component id="limparCamposJButton" pref="192" max="32767" attributes="0"/>
+                                                  </Group>
                                               </Group>
-                                              <EmptySpace min="-2" pref="92" max="-2" attributes="0"/>
-                                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                                  <Component id="subcondicoesSalvarAlteracoesDaCondicaoJButtob" alignment="1" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="subcondicoesCriarCondicaoJButton" alignment="0" max="32767" attributes="0"/>
-                                                  <Component id="jButton6" pref="192" max="32767" attributes="0"/>
-                                              </Group>
-                                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                           </Group>
+                                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
-                                  <EmptySpace max="32767" attributes="0"/>
+                                  <EmptySpace pref="34" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>
@@ -646,26 +648,26 @@
                                   <Component id="tabelaSubcondicoesJScrollPane" min="-2" pref="180" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="inserirCondicaoCampo1JButton" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="subcondicoesCriarCondicaoJButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jButton3" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="inserirCondicaoCampo2JButton" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="jTextField2" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="campo1JTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="subcondicoesSalvarAlteracoesDaCondicaoJButtob" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="subcondicoesTipoDeRelacaoJComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jTextField1" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jButton5" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="campo2JTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="criarRelacaoJButton" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="jButton2" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jButton4" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jButton6" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="inserirRelacaoCampo1JButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="inserirRelacaoCampo2JButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="limparCamposJButton" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jScrollPane11" min="-2" pref="180" max="-2" attributes="0"/>
+                                  <Component id="tabelaRelacoesJScrollPane" min="-2" pref="180" max="-2" attributes="0"/>
                                   <EmptySpace max="32767" attributes="0"/>
                               </Group>
                           </Group>
@@ -676,8 +678,6 @@
                           <Properties>
                             <Property name="text" type="java.lang.String" value="Identifica&#xe7;&#xe3;o da Condi&#xe7;&#xe3;o:"/>
                           </Properties>
-                        </Component>
-                        <Component class="javax.swing.JTextField" name="subcondicoesIdentificacaoDaCondicaoJTextField">
                         </Component>
                         <Component class="javax.swing.JLabel" name="jLabel17">
                           <Properties>
@@ -695,27 +695,39 @@
 
                           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                         </Container>
-                        <Component class="javax.swing.JButton" name="jButton1">
+                        <Component class="javax.swing.JButton" name="inserirCondicaoCampo1JButton">
                           <Properties>
                             <Property name="text" type="java.lang.String" value="Inserir condi&#xe7;&#xe3;o (campo 1) - v"/>
                           </Properties>
+                          <Events>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="inserirCondicaoCampo1JButtonActionPerformed"/>
+                          </Events>
                         </Component>
-                        <Component class="javax.swing.JTextField" name="jTextField2">
+                        <Component class="javax.swing.JTextField" name="campo1JTextField">
                         </Component>
-                        <Component class="javax.swing.JButton" name="jButton2">
+                        <Component class="javax.swing.JButton" name="inserirRelacaoCampo1JButton">
                           <Properties>
                             <Property name="text" type="java.lang.String" value="Inserir rela&#xe7;&#xe3;o (campo 1) - ^"/>
                           </Properties>
+                          <Events>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="inserirRelacaoCampo1JButtonActionPerformed"/>
+                          </Events>
                         </Component>
                         <Component class="javax.swing.JButton" name="subcondicoesCriarCondicaoJButton">
                           <Properties>
                             <Property name="text" type="java.lang.String" value="Criar Condi&#xe7;&#xe3;o"/>
                           </Properties>
+                          <Events>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="subcondicoesCriarCondicaoJButtonActionPerformed"/>
+                          </Events>
                         </Component>
                         <Component class="javax.swing.JButton" name="subcondicoesSalvarAlteracoesDaCondicaoJButtob">
                           <Properties>
                             <Property name="text" type="java.lang.String" value="Salvar Altera&#xe7;&#xf5;es da Condicao"/>
                           </Properties>
+                          <Events>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="subcondicoesSalvarAlteracoesDaCondicaoJButtobActionPerformed"/>
+                          </Events>
                         </Component>
                         <Component class="javax.swing.JComboBox" name="subcondicoesTipoDeRelacaoJComboBox">
                           <Properties>
@@ -734,11 +746,11 @@
 
                           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                           <SubComponents>
-                            <Component class="javax.swing.JTextPane" name="jTextPane1">
+                            <Component class="javax.swing.JTextPane" name="descricaoSubcondicaoJTextArea">
                             </Component>
                           </SubComponents>
                         </Container>
-                        <Container class="javax.swing.JScrollPane" name="jScrollPane11">
+                        <Container class="javax.swing.JScrollPane" name="tabelaRelacoesJScrollPane">
                           <Properties>
                             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                               <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
@@ -749,27 +761,44 @@
 
                           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                         </Container>
-                        <Component class="javax.swing.JButton" name="jButton3">
+                        <Component class="javax.swing.JButton" name="inserirCondicaoCampo2JButton">
                           <Properties>
                             <Property name="text" type="java.lang.String" value="Inserir condi&#xe7;&#xe3;o (campo 2) - v"/>
                           </Properties>
+                          <Events>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="inserirCondicaoCampo2JButtonActionPerformed"/>
+                          </Events>
                         </Component>
-                        <Component class="javax.swing.JButton" name="jButton4">
+                        <Component class="javax.swing.JButton" name="inserirRelacaoCampo2JButton">
                           <Properties>
                             <Property name="text" type="java.lang.String" value="Inserir rela&#xe7;&#xe3;o (campo 2) - ^"/>
                           </Properties>
+                          <Events>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="inserirRelacaoCampo2JButtonActionPerformed"/>
+                          </Events>
                         </Component>
-                        <Component class="javax.swing.JTextField" name="jTextField1">
+                        <Component class="javax.swing.JTextField" name="campo2JTextField">
                         </Component>
-                        <Component class="javax.swing.JButton" name="jButton5">
+                        <Component class="javax.swing.JButton" name="criarRelacaoJButton">
                           <Properties>
                             <Property name="text" type="java.lang.String" value="Criar Rela&#xe7;&#xe3;o"/>
                           </Properties>
+                          <Events>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="criarRelacaoJButtonActionPerformed"/>
+                          </Events>
                         </Component>
-                        <Component class="javax.swing.JButton" name="jButton6">
+                        <Component class="javax.swing.JButton" name="limparCamposJButton">
                           <Properties>
                             <Property name="text" type="java.lang.String" value="Limpar Campos"/>
                           </Properties>
+                          <Events>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="limparCamposJButtonActionPerformed"/>
+                          </Events>
+                        </Component>
+                        <Component class="javax.swing.JTextField" name="subcondicoesIdentificacaoDaCondicaoJTextField">
+                          <Events>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="subcondicoesIdentificacaoDaCondicaoJTextFieldActionPerformed"/>
+                          </Events>
                         </Component>
                       </SubComponents>
                     </Container>

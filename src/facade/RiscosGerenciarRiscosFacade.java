@@ -6,6 +6,7 @@
 
 package facade;
 
+import controller.GruporelacaoJpaController;
 import controller.HistoricoalteracaoJpaController;
 import controller.MarcodoprojetoJpaController;
 import controller.PlanocontingenciaJpaController;
@@ -15,9 +16,11 @@ import controller.RelacaosubcondicaoJpaController;
 import controller.RiscoJpaController;
 import controller.SubcondicaoJpaController;
 import controller.exceptions.NonexistentEntityException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.Gruporelacao;
 import model.Historicoalteracao;
 import model.Marcodoprojeto;
 import model.Planocontingencia;
@@ -194,6 +197,111 @@ public class RiscosGerenciarRiscosFacade {
         }catch(Exception e){
             System.out.println("Erro no método editarSubcondicao em RiscosGerenciarRiscosFacade");
             e.printStackTrace();
+        }
+    }
+    
+    public List<Gruporelacao> getListaGrupoRelacaoByRisco(Risco riscoSelecionado){
+        
+        GruporelacaoJpaController relacaoJPA = new GruporelacaoJpaController();
+        
+        List<Gruporelacao> listaRelacoes = new ArrayList<Gruporelacao>();
+        
+        try {
+            
+            listaRelacoes = relacaoJPA.findByRisco(riscoSelecionado);
+            
+        } catch (Exception e){
+            System.out.println("Erro no método getListaGrupoRelacaoByRisco na classe RiscosGerenciarRiscosFacade");
+                e.printStackTrace();
+        }
+        
+        return listaRelacoes;
+    }
+    
+    public List<Gruporelacao> getListaGrupoRelacaoByListaDeCondicoes(List<Subcondicao> listaCondicoes){
+        GruporelacaoJpaController relacaoJPA = new GruporelacaoJpaController();
+        
+        List<Gruporelacao> listaRelacoes = new ArrayList<Gruporelacao>();
+        
+        List<Gruporelacao> listaRelacoesCondicao1 = new ArrayList<Gruporelacao>();
+        List<Gruporelacao> listaRelacoesCondicao2 = new ArrayList<Gruporelacao>();
+        
+        for(int i=0; i < listaCondicoes.size(); i++){
+            
+            // procurando relações por subCondicao1
+            try{
+                listaRelacoesCondicao1 = relacaoJPA.findByIdSubcondicao1(listaCondicoes.get(i));
+            } catch (Exception e){
+                System.out.println("Erro no método getListaGrupoRelacaoByCondicao na classe RiscosGerenciarRiscosFacade");
+                e.printStackTrace();
+            }
+            
+            for(int j=0; j < listaRelacoesCondicao1.size(); j++){
+                
+                
+                
+                boolean jaExisteNaListaRelacoes = false;
+                if(listaRelacoes != null){
+                    for(int k=0; k < listaRelacoes.size(); k++){
+                    if(listaRelacoes.get(k) == listaRelacoesCondicao1.get(j)){
+                        jaExisteNaListaRelacoes = true;
+                    }
+                }
+                }
+                
+                
+                if(jaExisteNaListaRelacoes == false){
+                    listaRelacoes.add(listaRelacoesCondicao1.get(j));
+                    
+                }
+                
+            }
+            
+            // procurando relações por subCondicao2
+            
+            try{
+                listaRelacoesCondicao2 = relacaoJPA.findByIdSubcondicao2(listaCondicoes.get(i));
+            } catch (Exception e){
+                System.out.println("Erro no método getListaGrupoRelacaoByCondicao na classe RiscosGerenciarRiscosFacade");
+                e.printStackTrace();
+            }
+            
+            for(int j=0; j < listaRelacoesCondicao2.size(); j++){
+                
+                boolean jaExisteNaListaRelacoes = false;
+                if(listaRelacoes != null){
+                for(int k=0; k < listaRelacoes.size(); k++){
+                    if(listaRelacoes.get(k) == listaRelacoesCondicao2.get(j)){
+                        jaExisteNaListaRelacoes = true;
+                    }
+                }
+                }
+                
+                if(jaExisteNaListaRelacoes == false){
+                    listaRelacoes.add(listaRelacoesCondicao2.get(j));
+                }
+                
+            }
+            
+            
+        }
+        
+        
+        
+        return listaRelacoes;
+    }
+    
+    public void criarNovaRelacao(Gruporelacao novaRelacao){
+        
+        GruporelacaoJpaController relacaoJPA = new GruporelacaoJpaController();
+        
+        try{
+            
+            relacaoJPA.create(novaRelacao);
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Erro no método criarNovaRelacao na classe RiscosGerenciarRiscosFacade");
         }
     }
     

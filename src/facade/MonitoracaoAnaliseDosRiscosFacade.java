@@ -21,6 +21,7 @@ import model.Subcondicao;
  *
  * @author Diego
  */
+
 public class MonitoracaoAnaliseDosRiscosFacade {
  
     public Risco getRisco(int id){
