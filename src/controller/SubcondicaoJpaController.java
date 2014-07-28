@@ -316,4 +316,19 @@ public class SubcondicaoJpaController implements Serializable {
         return listaSubcondicao;
     }
     
+//    public List<Subcondicao> findHistoricoRiscoByIdRisco (Risco idRisco){
+//        List<Subcondicao> listaSubcondicao = null;
+//        EntityManager entityManager = getEntityManager();
+//        
+//        try {
+//            listaSubcondicao = entityManager.createNamedQuery("Subcondicao.findHistoricoRiscoByIdRisco")
+//                                                             .setParameter("idRisco", idRisco.getIdRisco())
+//                                                             .getResultList();
+//        } catch (Exception e) {
+//            System.out.println("Erro no metodo findHistoricoRiscoByIdRisco da classe SubcondicaoJpaController");
+//            e.printStackTrace();
+//        }
+//        
+//        return listaSubcondicao;
+//    }
 }

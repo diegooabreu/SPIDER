@@ -5,6 +5,7 @@
 package model;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -21,6 +22,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -33,10 +36,14 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Subcondicao.findAll", query = "SELECT s FROM Subcondicao s"),
+    //@NamedQuery (name = "Subcondicao.findHistoricoRiscoByIdRisco", query = "SELECT s FROM Subcondicao s WHERE s.historicoriscoList.idRisco"),
     @NamedQuery(name = "Subcondicao.findByIdSubcondicao", query = "SELECT s FROM Subcondicao s WHERE s.idSubcondicao = :idSubcondicao"),
     @NamedQuery(name = "Subcondicao.findByStatusSubcondicao", query = "SELECT s FROM Subcondicao s WHERE s.statusSubcondicao = :statusSubcondicao"),
     @NamedQuery(name = "Subcondicao.findSubcondicaoByIdRisco", query = "SELECT s FROM Subcondicao s WHERE s.idRisco = :idRisco")})
 public class Subcondicao implements Serializable {
+    @Column(name = "dataOcorrencia")
+    @Temporal(TemporalType.DATE)
+    private Date dataOcorrencia;
     @Column(name = "identificacaoSubcondicao")
     private String identificacaoSubcondicao;
     private static final long serialVersionUID = 1L;
@@ -163,6 +170,14 @@ public class Subcondicao implements Serializable {
 
     public void setIdentificacaoSubcondicao(String identificacaoSubcondicao) {
         this.identificacaoSubcondicao = identificacaoSubcondicao;
+    }
+
+    public Date getDataOcorrencia() {
+        return dataOcorrencia;
+    }
+
+    public void setDataOcorrencia(Date dataOcorrencia) {
+        this.dataOcorrencia = dataOcorrencia;
     }
     
     public void setidentificacao(String id){

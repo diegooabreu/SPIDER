@@ -54,6 +54,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Risco.findAllPOrdemGrauDeEsposicao", query = "SELECT r FROM Risco r WHERE r.contem.projeto = :idProjeto order by r.prioridade asc, r.grauSeveridade desc")
 
 public class Risco implements Serializable {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idRisco")
+    private List<Subcondicao> subcondicaoList;
     @Basic(optional = false)
     @Column(name = "grauSeveridade")
     private double grauSeveridade;
@@ -309,6 +311,15 @@ public class Risco implements Serializable {
 
     public void setGrauSeveridade(double grauSeveridade) {
         this.grauSeveridade = grauSeveridade;
+    }
+
+    @XmlTransient
+    public List<Subcondicao> getSubcondicaoList() {
+        return subcondicaoList;
+    }
+
+    public void setSubcondicaoList(List<Subcondicao> subcondicaoList) {
+        this.subcondicaoList = subcondicaoList;
     }
     
 }

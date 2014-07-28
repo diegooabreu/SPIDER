@@ -1449,13 +1449,7 @@
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <EmptySpace pref="687" max="32767" attributes="0"/>
-                                  <Component id="historicoDeAlteracoesSalvarAlteracoesDeRiscoJButton" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <Component id="tabelaHistoricoAlteracoesJScrollPane" alignment="0" max="32767" attributes="0"/>
-                          </Group>
+                          <Component id="tabelaHistoricoAlteracoesJScrollPane" pref="842" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -1463,20 +1457,13 @@
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="tabelaHistoricoAlteracoesJScrollPane" pref="291" max="32767" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="historicoDeAlteracoesSalvarAlteracoesDeRiscoJButton" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="tabelaHistoricoAlteracoesJScrollPane" min="-2" pref="304" max="-2" attributes="0"/>
+                          <EmptySpace min="0" pref="27" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
               </Layout>
               <SubComponents>
-                <Component class="javax.swing.JButton" name="historicoDeAlteracoesSalvarAlteracoesDeRiscoJButton">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Salvar altera&#xe7;&#xf5;es de risco"/>
-                  </Properties>
-                </Component>
                 <Container class="javax.swing.JScrollPane" name="tabelaHistoricoAlteracoesJScrollPane">
 
                   <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
