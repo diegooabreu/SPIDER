@@ -191,7 +191,7 @@ public class MonitoracaoAnaliseDosRiscosCheckInternalJFrame extends javax.swing.
                  return getListaRelacoesFinais(listaRR, riscoOcorreu);
              } else {
                  for(int k=0; k < listaR.size(); k++){
-                     if(checarOcorrenciaPorRelacao()){
+                     if(checarOcorrenciaPorRelacao(listaR.get(k))){
                          riscoOcorreu = true;
                      }
                  }
@@ -202,7 +202,7 @@ public class MonitoracaoAnaliseDosRiscosCheckInternalJFrame extends javax.swing.
          return riscoOcorreu;
      }
      
-     private 
+      
      
      private boolean checarOcorrenciaPorRelacao(Gruporelacao relacao){
          
@@ -213,7 +213,32 @@ public class MonitoracaoAnaliseDosRiscosCheckInternalJFrame extends javax.swing.
          int idRelacaoOperando1 = 0;
          int idRelacaoOperando2 = 0;
          
-         
+         if((relacao.getIdSubcondicao1() != null) && (relacao.getIdSubcondicao2() != null) && (relacao.getRelacao().equals("E"))){
+             
+             boolean condicao1 = false;
+             boolean condicao2 = false;
+             
+             for(int u=0; u < listaCondicaoTabela.size(); u++){
+                 if(listaCondicaoTabela.get(u).getIdCondicao() == relacao.getIdSubcondicao1()){
+                     if(listaCondicaoTabela.get(u).isStatusCondicao()){
+                         condicao1 = true;
+                     }
+                 }
+             }
+             
+             for(int u=0; u < listaCondicaoTabela.size(); u++){
+                 if(listaCondicaoTabela.get(u).getIdCondicao() == relacao.getIdSubcondicao2()){
+                     if(listaCondicaoTabela.get(u).isStatusCondicao()){
+                         condicao2 = true;
+                     }
+                 }
+             }
+             
+             if(condicao1 && condicao2){
+                 riscoOcorreu = true;
+             }
+             
+         }
          
          /*
          if(relacao.getIdSubcondicao1() != null){
@@ -233,7 +258,7 @@ public class MonitoracaoAnaliseDosRiscosCheckInternalJFrame extends javax.swing.
          }
          */
          
-         if(relacao.getRelacao().equals("E") && ())
+         
          
          return riscoOcorreu;
      }
