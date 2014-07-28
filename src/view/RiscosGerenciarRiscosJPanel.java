@@ -1251,7 +1251,6 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
         planoDeContingenciaRemoverPlanoJButton = new javax.swing.JButton();
         planoDeContingenciaSalvarAlteracoesJButton = new javax.swing.JButton();
         HistoricoDeAlteracoesJPanel = new javax.swing.JPanel();
-        historicoDeAlteracoesSalvarAlteracoesDeRiscoJButton = new javax.swing.JButton();
         tabelaHistoricoAlteracoesJScrollPane = new javax.swing.JScrollPane();
         TabelaDeRiscosJPanel = new javax.swing.JPanel();
         tabelaRiscosJScrollPane = new javax.swing.JScrollPane();
@@ -2083,27 +2082,19 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
 
         gerenciarRiscosJTabbedPane.addTab("Plano de Contigência", PlanoContigenciaJPanel);
 
-        historicoDeAlteracoesSalvarAlteracoesDeRiscoJButton.setText("Salvar alterações de risco");
-
         javax.swing.GroupLayout HistoricoDeAlteracoesJPanelLayout = new javax.swing.GroupLayout(HistoricoDeAlteracoesJPanel);
         HistoricoDeAlteracoesJPanel.setLayout(HistoricoDeAlteracoesJPanelLayout);
         HistoricoDeAlteracoesJPanelLayout.setHorizontalGroup(
             HistoricoDeAlteracoesJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(HistoricoDeAlteracoesJPanelLayout.createSequentialGroup()
-                .addGroup(HistoricoDeAlteracoesJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(HistoricoDeAlteracoesJPanelLayout.createSequentialGroup()
-                        .addContainerGap(687, Short.MAX_VALUE)
-                        .addComponent(historicoDeAlteracoesSalvarAlteracoesDeRiscoJButton))
-                    .addComponent(tabelaHistoricoAlteracoesJScrollPane))
+                .addComponent(tabelaHistoricoAlteracoesJScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 842, Short.MAX_VALUE)
                 .addContainerGap())
         );
         HistoricoDeAlteracoesJPanelLayout.setVerticalGroup(
             HistoricoDeAlteracoesJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(HistoricoDeAlteracoesJPanelLayout.createSequentialGroup()
-                .addComponent(tabelaHistoricoAlteracoesJScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 291, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(historicoDeAlteracoesSalvarAlteracoesDeRiscoJButton)
-                .addContainerGap())
+                .addComponent(tabelaHistoricoAlteracoesJScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 27, Short.MAX_VALUE))
         );
 
         gerenciarRiscosJTabbedPane.addTab("Histórico de Alterações", HistoricoDeAlteracoesJPanel);
@@ -3003,7 +2994,6 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel estadoAtualRiscoJLabel;
     private javax.swing.JPanel gerenciarRiscosJPanel;
     private javax.swing.JTabbedPane gerenciarRiscosJTabbedPane;
-    private javax.swing.JButton historicoDeAlteracoesSalvarAlteracoesDeRiscoJButton;
     private javax.swing.JButton informacoesGeraisAdicionarNovoRiscoJButton;
     private javax.swing.JComboBox informacoesGeraisCategoriaDeRiscoJComboBox;
     private javax.swing.JLabel informacoesGeraisCategoriaDeRiscoJLabel;

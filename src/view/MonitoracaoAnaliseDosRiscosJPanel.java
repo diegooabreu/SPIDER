@@ -77,6 +77,23 @@ public class MonitoracaoAnaliseDosRiscosJPanel extends javax.swing.JPanel {
                     //impactoJTextField.setText((RiscoSelecionado.getImpacto()));
                     //grauDeSeveridadeJTextField.setText(Integer.toString(RiscoSelecionado.getGrauSeveridade()));
                     
+                } else if (e.getClickCount() == 2) {
+                    int selected = tabelaAnalisarRiscos.getSelectedRow();
+
+                    //arvoreEARJTree.clearSelection();
+                    for (int i = 0; i < listaDeRisco.size(); i++) {
+
+                        if (tabelaAnalisarRiscos.getValueAt(tabelaAnalisarRiscos.getSelectedRow(), 0).equals(listaDeRisco.get(i).getIdentificacao())) {
+                            riscoSelecionado = listaDeRisco.get(i);
+                            
+                            PrincipalJFrame.monitoracaoAnaliseDosRiscosCheckInternalJFrame.preencherInformacoes(riscoSelecionado);
+            
+                            PrincipalJFrame.monitoracaoAnaliseDosRiscosCheckInternalJFrame.criarTabelaCondicoes(riscoSelecionado);
+            
+                            PrincipalJFrame.aparecerInternalFrameMonitoracao(); 
+                            break;
+                        }
+                    }
                 }
                 
             }
@@ -118,7 +135,7 @@ public class MonitoracaoAnaliseDosRiscosJPanel extends javax.swing.JPanel {
 
         jPanel1 = new javax.swing.JPanel();
         tabelaRiscosAnaliseScrollPane = new javax.swing.JScrollPane();
-        checarRiscoJButton = new javax.swing.JButton();
+        checarRiscoInternal = new javax.swing.JButton();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -131,10 +148,10 @@ public class MonitoracaoAnaliseDosRiscosJPanel extends javax.swing.JPanel {
             .addComponent(tabelaRiscosAnaliseScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 448, Short.MAX_VALUE)
         );
 
-        checarRiscoJButton.setText("Checar Risco");
-        checarRiscoJButton.addActionListener(new java.awt.event.ActionListener() {
+        checarRiscoInternal.setText("Checar Risco  ");
+        checarRiscoInternal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                checarRiscoJButtonActionPerformed(evt);
+                checarRiscoInternalActionPerformed(evt);
             }
         });
 
@@ -148,7 +165,7 @@ public class MonitoracaoAnaliseDosRiscosJPanel extends javax.swing.JPanel {
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(checarRiscoJButton)))
+                        .addComponent(checarRiscoInternal)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -156,37 +173,30 @@ public class MonitoracaoAnaliseDosRiscosJPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(checarRiscoJButton)
-                .addContainerGap(36, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(checarRiscoInternal)
+                .addContainerGap(29, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void checarRiscoJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checarRiscoJButtonActionPerformed
+    private void checarRiscoInternalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checarRiscoInternalActionPerformed
+        // TODO add your handling code here:
 
         if(riscoSelecionado == null){
             JOptionPane.showMessageDialog(this, "Selecione um risco para checar.");
         } else {
-            MonitoracaoAnaliseDosRiscosCheckJFrame monitoracaoAnaliseDosRiscosCheckJFrame =  new MonitoracaoAnaliseDosRiscosCheckJFrame();
-    
-            monitoracaoAnaliseDosRiscosCheckJFrame.preencherInformacoes(riscoSelecionado);
             
-            monitoracaoAnaliseDosRiscosCheckJFrame.criarTabelaCondicoes(riscoSelecionado);
+            PrincipalJFrame.monitoracaoAnaliseDosRiscosCheckInternalJFrame.preencherInformacoes(riscoSelecionado);
             
-            monitoracaoAnaliseDosRiscosCheckJFrame.setLocationRelativeTo(this);
-            monitoracaoAnaliseDosRiscosCheckJFrame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-            monitoracaoAnaliseDosRiscosCheckJFrame.setVisible(true);
+            PrincipalJFrame.monitoracaoAnaliseDosRiscosCheckInternalJFrame.criarTabelaCondicoes(riscoSelecionado);
             
-            
+            PrincipalJFrame.aparecerInternalFrameMonitoracao();  
         }
-        
-        
-
-    }//GEN-LAST:event_checarRiscoJButtonActionPerformed
+    }//GEN-LAST:event_checarRiscoInternalActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton checarRiscoJButton;
+    private javax.swing.JButton checarRiscoInternal;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane tabelaRiscosAnaliseScrollPane;
     // End of variables declaration//GEN-END:variables

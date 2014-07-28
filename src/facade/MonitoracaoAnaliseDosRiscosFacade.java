@@ -113,5 +113,8 @@ public class MonitoracaoAnaliseDosRiscosFacade {
         
     }
     
-    
+//    public List<Subcondicao> getHistoricodeRiscoBySubcondicao (Risco risco){
+//        SubcondicaoJpaController subcondicaoJpaController = new SubcondicaoJpaController();
+//        return subcondicaoJpaController.findHistoricoRiscoByIdRisco(risco); 
+//    }
 }

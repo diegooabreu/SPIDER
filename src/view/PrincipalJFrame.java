@@ -54,6 +54,7 @@ public class PrincipalJFrame extends javax.swing.JFrame {
     
    // static TesteInternalFrame testeInternalFrame = new TesteInternalFrame();
     static RiscoSelecioanrRiscoParaMonitorarInternalJFrame riscoSelecioanrRiscoParaMonitorarInternalJFrame = new RiscoSelecioanrRiscoParaMonitorarInternalJFrame();
+    static MonitoracaoAnaliseDosRiscosCheckInternalJFrame monitoracaoAnaliseDosRiscosCheckInternalJFrame = new MonitoracaoAnaliseDosRiscosCheckInternalJFrame();
     
     // Criando Arvore de Funcionalidades - Menu //
     private JTree arvoreFuncionalidadesJTree;
@@ -266,7 +267,11 @@ public class PrincipalJFrame extends javax.swing.JFrame {
 
     static void aparecerInternalFrame() {
         //testeInternalFrame.setVisible(true);
-        riscoSelecioanrRiscoParaMonitorarInternalJFrame.setVisible(true);
+        riscoSelecioanrRiscoParaMonitorarInternalJFrame.setVisible(true);  
+    }
+    
+    static void aparecerInternalFrameMonitoracao(){
+        monitoracaoAnaliseDosRiscosCheckInternalJFrame.setVisible(true);   
     }
     
     private void configuracoesFerramentaJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_configuracoesFerramentaJButtonActionPerformed
@@ -501,6 +506,7 @@ public class PrincipalJFrame extends javax.swing.JFrame {
         
         camadasJDesktopPane.add(riscoSelecioanrRiscoParaMonitorarInternalJFrame);
         
+        camadasJDesktopPane.add(monitoracaoAnaliseDosRiscosCheckInternalJFrame);
         //riscosPriorizarRiscosJPanel.setBounds(0, 0, 861, 529);
         //camadasJDesktopPane.add(riscosPriorizarRiscosJPanel);
 
@@ -531,6 +537,7 @@ public class PrincipalJFrame extends javax.swing.JFrame {
         
         //testeInternalFrame.setVisible(false);
         riscoSelecioanrRiscoParaMonitorarInternalJFrame.setVisible(false);
+        monitoracaoAnaliseDosRiscosCheckInternalJFrame.setVisible(false);
     }
 
     // Criando os nós da arvore e adicionando-os //
