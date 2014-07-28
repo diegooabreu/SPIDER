@@ -49,8 +49,8 @@ public class PrincipalJFrame extends javax.swing.JFrame {
     final MonitoracaoAnaliseDosRiscosJPanel monitoracaoAnaliseDosRiscosJPanel = new MonitoracaoAnaliseDosRiscosJPanel();
     
     final MonitoracaoTabelaDeAlteracaoJPanel monitoracoaTabelaDeAlteracaoJPanel = new MonitoracaoTabelaDeAlteracaoJPanel();
-    final MonitoracaoTarefasTarefasPendentesJPanel monitoracaoTarefasTarefasPendentesJPanel = new MonitoracaoTarefasTarefasPendentesJPanel();
-    final MonitoracaoTarefasHistoricoDeTarefasJPanel monitoracaoTarefasHistoricoDeTarefasJPanel = new MonitoracaoTarefasHistoricoDeTarefasJPanel();
+    final MonitoracaoTarefasPlanosPendentesJPanel monitoracaoTarefasTarefasPendentesJPanel = new MonitoracaoTarefasPlanosPendentesJPanel();
+    final MonitoracaoTarefasPlanosFinalizadosJPanel monitoracaoTarefasHistoricoDeTarefasJPanel = new MonitoracaoTarefasPlanosFinalizadosJPanel();
     
    // static TesteInternalFrame testeInternalFrame = new TesteInternalFrame();
     static RiscoSelecioanrRiscoParaMonitorarInternalJFrame riscoSelecioanrRiscoParaMonitorarInternalJFrame = new RiscoSelecioanrRiscoParaMonitorarInternalJFrame();
@@ -592,10 +592,10 @@ public class PrincipalJFrame extends javax.swing.JFrame {
         tarefas = new DefaultMutableTreeNode("Tarefas");
         monitoracao.add(tarefas);
 
-        tarefasPendentes = new DefaultMutableTreeNode("Tarefas Pendentes");
+        tarefasPendentes = new DefaultMutableTreeNode("Planos Pendentes");
         tarefas.add(tarefasPendentes);
 
-        historicoTarefas = new DefaultMutableTreeNode("Histórico de Tarefas");
+        historicoTarefas = new DefaultMutableTreeNode("Planos Realizados");
         tarefas.add(historicoTarefas);
 
         arvoreFuncionalidadesJTree = new JTree(funcionalidades);
