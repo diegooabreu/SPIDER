@@ -13,12 +13,12 @@ import javax.swing.JOptionPane;
  *
  * @author Victor
  */
-public class MonitoracaoTarefasTarefasPendentesJPanel extends javax.swing.JPanel {
+public class MonitoracaoTarefasPlanosPendentesJPanel extends javax.swing.JPanel {
 
     /**
      * Creates new form MonitoracaoTarefasTarefasPendentesJPanel
      */
-    public MonitoracaoTarefasTarefasPendentesJPanel() {
+    public MonitoracaoTarefasPlanosPendentesJPanel() {
         initComponents();
     }
 
