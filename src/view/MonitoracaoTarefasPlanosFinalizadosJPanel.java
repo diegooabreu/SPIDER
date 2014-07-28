@@ -10,12 +10,12 @@ package view;
  *
  * @author Victor
  */
-public class MonitoracaoTarefasHistoricoDeTarefasJPanel extends javax.swing.JPanel {
+public class MonitoracaoTarefasPlanosFinalizadosJPanel extends javax.swing.JPanel {
 
     /**
      * Creates new form MonitoracaoTarefasHistoricoDeTarefasJPanel
      */
-    public MonitoracaoTarefasHistoricoDeTarefasJPanel() {
+    public MonitoracaoTarefasPlanosFinalizadosJPanel() {
         initComponents();
     }
 
