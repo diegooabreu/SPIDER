@@ -86,6 +86,8 @@ public class MonitoracaoAnaliseDosRiscosJPanel extends javax.swing.JPanel {
                         if (tabelaAnalisarRiscos.getValueAt(tabelaAnalisarRiscos.getSelectedRow(), 0).equals(listaDeRisco.get(i).getIdentificacao())) {
                             riscoSelecionado = listaDeRisco.get(i);
                             
+                            PrincipalJFrame.monitoracaoAnaliseDosRiscosCheckInternalJFrame.getListaGrupoRelacao(riscoSelecionado);
+                            
                             PrincipalJFrame.monitoracaoAnaliseDosRiscosCheckInternalJFrame.preencherInformacoes(riscoSelecionado);
             
                             PrincipalJFrame.monitoracaoAnaliseDosRiscosCheckInternalJFrame.criarTabelaCondicoes(riscoSelecionado);
@@ -187,8 +189,9 @@ public class MonitoracaoAnaliseDosRiscosJPanel extends javax.swing.JPanel {
         } else {
             
             PrincipalJFrame.monitoracaoAnaliseDosRiscosCheckInternalJFrame.preencherInformacoes(riscoSelecionado);
-            
+            PrincipalJFrame.monitoracaoAnaliseDosRiscosCheckInternalJFrame.getListaGrupoRelacao(riscoSelecionado);
             PrincipalJFrame.monitoracaoAnaliseDosRiscosCheckInternalJFrame.criarTabelaCondicoes(riscoSelecionado);
+            
             
             PrincipalJFrame.aparecerInternalFrameMonitoracao();  
         }

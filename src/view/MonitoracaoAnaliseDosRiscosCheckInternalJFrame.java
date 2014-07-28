@@ -6,6 +6,14 @@
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
+ *//*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ *//*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
  */
 
 package view;
@@ -49,6 +57,8 @@ public class MonitoracaoAnaliseDosRiscosCheckInternalJFrame extends javax.swing.
     List<Subcondicao> listaCondicao;
     
     Risco riscoSel;
+    boolean riscoOcorreu = false;
+    List<Gruporelacao> listaGruporelacao = null;
     
     public MonitoracaoAnaliseDosRiscosCheckInternalJFrame() {
         initComponents();
@@ -59,7 +69,7 @@ public class MonitoracaoAnaliseDosRiscosCheckInternalJFrame extends javax.swing.
             public void mousePressed(MouseEvent e) {
                 if (e.getClickCount() >= 1) {
 
-                    
+                    riscoOcorreu = false;
                     
                     int selected = tabelaCondicoes.getSelectedRow();
                     
@@ -78,12 +88,32 @@ public class MonitoracaoAnaliseDosRiscosCheckInternalJFrame extends javax.swing.
                         }
                     }
                     
+                    
+                    
+                    /*
                     if(checagemOcorrenciaRisco(riscoSel, listaDeCondicoesMarcadas)){
                         statusRiscoJComboBox.setSelectedItem("Contingenciando");
                     } else {
                         statusRiscoJComboBox.setSelectedItem("Novo");
                     }
+                    */
                     
+                    if(existeCondicaoIndependenteMarcada(listaDeCondicoesMarcadas)){
+                        
+                        riscoOcorreu = true;
+                    } else {
+                        
+                        if(existeRelacaoFinalTrue()){
+                            
+                            riscoOcorreu = true;
+                        }
+                    }
+                    
+                    if(riscoOcorreu){
+                        statusRiscoJComboBox.setSelectedItem("Contingenciando");
+                    } else {
+                        statusRiscoJComboBox.setSelectedItem("Novo");
+                    }
 
                 }
             }
@@ -137,53 +167,107 @@ public class MonitoracaoAnaliseDosRiscosCheckInternalJFrame extends javax.swing.
         identificacaRiscoJLabel.setText(risco.getIdentificacao());
         descricaoRiscoJTextArea.setText(risco.getDescricao());
     }
-    
-//     public String statusRisco (Risco risco){
-//          List<Subcondicao> listaSubcondicao = monitoracaoAnaliseDosRiscosFacade.getListaSubcondicoes(risco);
-//          String statusCondicao = null;
-//          
-//          for (int i=0; i < listaSubcondicao.size(); i++){
-//              if (Objects.equals(listaSubcondicao.get(i).getIdRisco().getIdRisco(), risco.getIdRisco())){
-//                 statusCondicao = listaSubcondicao.get(i).getStatusSubcondicao();
-//              }
-//          }
-//         return statusCondicao;
-//     }
      
-     List<Gruporelacao> listaGruporelacao = null;
-     public boolean checagemOcorrenciaRisco (Risco riscoSelecionado, List<CondicaoTabela> listaCondicao2){
-         boolean riscoOcorreu = false; 
+     public void getListaGrupoRelacao(Risco risco){
          RiscosGerenciarRiscosFacade riscosGerenciarRiscosFacade = new RiscosGerenciarRiscosFacade();
               
-             this.listaGruporelacao = riscosGerenciarRiscosFacade.getListaGrupoRelacaoByRisco(riscoSelecionado);
+             this.listaGruporelacao = riscosGerenciarRiscosFacade.getListaGrupoRelacaoByRisco(risco);
             
-             // verificando condições independentes (que não possuem nenhuma relação)
+     }
+     
+     private boolean existeRelacaoFinalTrue(){
+         boolean existe = false;
+         
+         List<Gruporelacao> listaRelacoesFinais = getListaGrupoRelacaoFinal();
+         
+         for(int i = 0; i < listaRelacoesFinais.size(); i++){
+             
+             if(checarRelacao(listaRelacoesFinais.get(i))){
+                 existe = true;
+             }
+             
+         }
+         
+         return existe;
+     }
+     private boolean existeCondicaoIndependenteMarcada (List<CondicaoTabela> listaCondicoesMarcadas){
+         boolean existe = false;
          boolean temRelacao = false;
          
-         for (int i=0; i < listaCondicao2.size(); i++){
-            
+         for (int i=0; i < listaCondicoesMarcadas.size(); i++){
+            temRelacao = false;
+            if(listaGruporelacao != null){
             for (int j=0; j < listaGruporelacao.size(); j++){
-                try{
-                if (listaGruporelacao.get(j).getIdSubcondicao1() == listaCondicao2.get(i).getIdCondicao()
-                        || listaGruporelacao.get(j).getIdSubcondicao2() == listaCondicao2.get(i).getIdCondicao()){
-                   temRelacao = true;
-                }
-            }
-                catch (Exception e) {
-                    System.out.println("teste erro");
+                
+                if((listaGruporelacao.get(j).getIdSubcondicao1() != null) &&(listaGruporelacao.get(j).getIdSubcondicao2() != null)){
+                    if (listaGruporelacao.get(j).getIdSubcondicao1() == listaCondicoesMarcadas.get(i).getIdCondicao()
+                        || listaGruporelacao.get(j).getIdSubcondicao2() == listaCondicoesMarcadas.get(i).getIdCondicao()){
+                    temRelacao = true;
+                   
                     }
+                    
+                } else if((listaGruporelacao.get(j).getIdSubcondicao1() == null) &&(listaGruporelacao.get(j).getIdSubcondicao2() != null)){
+                    if(listaGruporelacao.get(j).getIdSubcondicao2() == listaCondicoesMarcadas.get(i).getIdCondicao()){
+                        temRelacao = true;
+                    }
+                } else if((listaGruporelacao.get(j).getIdSubcondicao1() != null) && (listaGruporelacao.get(j).getIdSubcondicao2() == null)){
+                    if(listaGruporelacao.get(j).getIdSubcondicao1() == listaCondicoesMarcadas.get(i).getIdCondicao()){
+                        temRelacao = true;
+                    }
+                
+                    
+                
+            
+            
                 }
+            
+            
+            
+         }
+            
+            if(temRelacao == false){
+                existe = true;
+            }
+            
+         }
          }
          
-         if ((temRelacao == false) && (listaCondicao2.size() > 0)){
+         if(existe){
              return true;
          } else {
-             if(getListaRelacoesFinais(listaGruporelacao, false)){
-                 return true;
-             }
+             return false;
          }
          
-         return riscoOcorreu;
+         /*
+         if(temRelacao){
+             return false;
+         } else if((temRelacao == false) && (listaCondicoesMarcadas.size() > 0)){
+             return true;
+         } else {
+             return false;
+         }
+         */
+        
+     }
+     public List<Gruporelacao> getListaGrupoRelacaoFinal(){
+         List<Gruporelacao> listaRelacoesFinais = new ArrayList<Gruporelacao>();
+         boolean eRelacaoFinal = true;
+         if(listaGruporelacao != null){
+         for(int i = 0; i < listaGruporelacao.size(); i++ ){
+             for(int k = 0; k < listaGruporelacao.size(); k++){
+                 if((listaGruporelacao.get(i).getIdGrupo() == listaGruporelacao.get(k).getIdRelacao1()) 
+                         || (listaGruporelacao.get(i).getIdGrupo() == listaGruporelacao.get(k).getIdRelacao2())){
+                 eRelacaoFinal = false;
+             }
+             }
+             if(eRelacaoFinal){
+                listaRelacoesFinais.add(listaGruporelacao.get(i));
+             } else {
+                 eRelacaoFinal = true;
+             }
+         }
+     }
+         return listaRelacoesFinais;
      }
      
      public boolean getListaRelacoesFinais (List<Gruporelacao> listaR, boolean riscoOcorreu){
@@ -203,7 +287,7 @@ public class MonitoracaoAnaliseDosRiscosCheckInternalJFrame extends javax.swing.
                  return getListaRelacoesFinais(listaRR, riscoOcorreu);
              } else {
                  for(int k=0; k < listaR.size(); k++){
-                     if(checarOcorrenciaPorRelacao(listaR.get(k))){
+                     if(checarRelacao(listaR.get(k))){
                          riscoOcorreu = true;
                      }
                  }
@@ -214,16 +298,10 @@ public class MonitoracaoAnaliseDosRiscosCheckInternalJFrame extends javax.swing.
          return riscoOcorreu;
      }
      
-      
-     
-     private boolean checarOcorrenciaPorRelacao(Gruporelacao relacao){
+         
+     private boolean checarRelacao(Gruporelacao relacao){
          
          boolean riscoOcorreu = false;
-         
-         int idCondicaoOperando1 = 0;
-         int idCondicaoOperando2 = 0;
-         int idRelacaoOperando1 = 0;
-         int idRelacaoOperando2 = 0;
          
          // checar ocorrencia se a relacao for entre condicao1 e condicao 2  e o tipo for "E"
          if((relacao.getIdSubcondicao1() != null) && (relacao.getIdSubcondicao2() != null) && (relacao.getRelacao().equals("E"))){
@@ -299,7 +377,7 @@ public class MonitoracaoAnaliseDosRiscosCheckInternalJFrame extends javax.swing.
              // checando relacao1
              for(int u=0; u < listaGruporelacao.size(); u++){
                  if(listaGruporelacao.get(u).getIdGrupo() == relacao.getIdRelacao1()){
-                     if(checarOcorrenciaPorRelacao(listaGruporelacao.get(u))){
+                     if(checarRelacao(listaGruporelacao.get(u))){
                          relacao1 = true;
                      }
                  }
@@ -311,27 +389,311 @@ public class MonitoracaoAnaliseDosRiscosCheckInternalJFrame extends javax.swing.
              
          }
          
-         
-         /*
-         if(relacao.getIdSubcondicao1() != null){
-             idCondicaoOperando1 = relacao.getIdSubcondicao1();
-         } 
-         
-         if(relacao.getIdSubcondicao2() != null){
-             idCondicaoOperando2 = relacao.getIdSubcondicao2();
+         // checar ocorrencia se a relacao for entre condicao1 e relacao1  e o tipo for "OU"
+         if((relacao.getIdSubcondicao1() != null) && (relacao.getIdRelacao1() != null) && (relacao.getRelacao().equals("OU"))){
+             
+             boolean condicao1 = false;
+             boolean relacao1 = false;
+             
+             // checando condicao1
+             for(int u=0; u < listaCondicaoTabela.size(); u++){
+                 if(listaCondicaoTabela.get(u).getIdCondicao() == relacao.getIdSubcondicao1()){
+                     if(listaCondicaoTabela.get(u).isStatusCondicao()){
+                         condicao1 = true;
+                     }
+                 }
+             }
+             
+             // checando relacao1
+             for(int u=0; u < listaGruporelacao.size(); u++){
+                 if(listaGruporelacao.get(u).getIdGrupo() == relacao.getIdRelacao1()){
+                     if(checarRelacao(listaGruporelacao.get(u))){
+                         relacao1 = true;
+                     }
+                 }
+             }
+             
+             if(condicao1 || relacao1){
+                 riscoOcorreu = true;
+             }
+             
          }
          
-         if(relacao.getIdRelacao1() != null){
-             idRelacaoOperando1 = relacao.getIdRelacao1();
+         // checar ocorrencia se a relacao for entre condicao1 e relacao2  e o tipo for "E"
+         if((relacao.getIdSubcondicao1() != null) && (relacao.getIdRelacao2() != null) && (relacao.getRelacao().equals("E"))){
+             
+             boolean condicao1 = false;
+             boolean relacao2 = false;
+             
+             // checando condicao1
+             for(int u=0; u < listaCondicaoTabela.size(); u++){
+                 if(listaCondicaoTabela.get(u).getIdCondicao() == relacao.getIdSubcondicao1()){
+                     if(listaCondicaoTabela.get(u).isStatusCondicao()){
+                         condicao1 = true;
+                     }
+                 }
+             }
+             
+             // checando relacao2
+             for(int u=0; u < listaGruporelacao.size(); u++){
+                 if(listaGruporelacao.get(u).getIdGrupo() == relacao.getIdRelacao2()){
+                     if(checarRelacao(listaGruporelacao.get(u))){
+                         relacao2 = true;
+                     }
+                 }
+             }
+             
+             if(condicao1 && relacao2){
+                 riscoOcorreu = true;
+             }
+             
          }
          
-         if(relacao.getIdRelacao2() != null){
-             idRelacaoOperando2 = relacao.getIdRelacao2();
+         // checar ocorrencia se a relacao for entre condicao1 e relacao2  e o tipo for "OU"
+         if((relacao.getIdSubcondicao1() != null) && (relacao.getIdRelacao2() != null) && (relacao.getRelacao().equals("OU"))){
+             
+             boolean condicao1 = false;
+             boolean relacao2 = false;
+             
+             // checando condicao1
+             for(int u=0; u < listaCondicaoTabela.size(); u++){
+                 if(listaCondicaoTabela.get(u).getIdCondicao() == relacao.getIdSubcondicao1()){
+                     if(listaCondicaoTabela.get(u).isStatusCondicao()){
+                         condicao1 = true;
+                     }
+                 }
+             }
+             
+             // checando relacao1
+             for(int u=0; u < listaGruporelacao.size(); u++){
+                 if(listaGruporelacao.get(u).getIdGrupo() == relacao.getIdRelacao2()){
+                     if(checarRelacao(listaGruporelacao.get(u))){
+                         relacao2 = true;
+                     }
+                 }
+             }
+             
+             if(condicao1 || relacao2){
+                 riscoOcorreu = true;
+             }
+             
          }
-         */
+         
+         // checar ocorrencia se a relacao for entre condicao2 e relacao1  e o tipo for "E"
+         if((relacao.getIdSubcondicao2() != null) && (relacao.getIdRelacao1() != null) && (relacao.getRelacao().equals("E"))){
+             
+             boolean condicao2 = false;
+             boolean relacao1 = false;
+             
+             // checando condicao1
+             for(int u=0; u < listaCondicaoTabela.size(); u++){
+                 if(listaCondicaoTabela.get(u).getIdCondicao() == relacao.getIdSubcondicao2()){
+                     if(listaCondicaoTabela.get(u).isStatusCondicao()){
+                         condicao2 = true;
+                     }
+                 }
+             }
+             
+             // checando relacao1
+             for(int u=0; u < listaGruporelacao.size(); u++){
+                 if(listaGruporelacao.get(u).getIdGrupo() == relacao.getIdRelacao1()){
+                     if(checarRelacao(listaGruporelacao.get(u))){
+                         relacao1 = true;
+                     }
+                 }
+             }
+             
+             if(condicao2 || relacao1){
+                 riscoOcorreu = true;
+             }
+             
+         }
+         
+         // checar ocorrencia se a relacao for entre condicao2 e relacao1  e o tipo for "E"
+         if((relacao.getIdSubcondicao2() != null) && (relacao.getIdRelacao1() != null) && (relacao.getRelacao().equals("E"))){
+             
+             boolean condicao2 = false;
+             boolean relacao1 = false;
+             
+             // checando condicao1
+             for(int u=0; u < listaCondicaoTabela.size(); u++){
+                 if(listaCondicaoTabela.get(u).getIdCondicao() == relacao.getIdSubcondicao2()){
+                     if(listaCondicaoTabela.get(u).isStatusCondicao()){
+                         condicao2 = true;
+                     }
+                 }
+             }
+             
+             // checando relacao1
+             for(int u=0; u < listaGruporelacao.size(); u++){
+                 if(listaGruporelacao.get(u).getIdGrupo() == relacao.getIdRelacao1()){
+                     if(checarRelacao(listaGruporelacao.get(u))){
+                         relacao1 = true;
+                     }
+                 }
+             }
+             
+             if(condicao2 && relacao1){
+                 riscoOcorreu = true;
+             }
+             
+         }
+         
+         // checar ocorrencia se a relacao for entre condicao2 e relacao1  e o tipo for "OU"
+         if((relacao.getIdSubcondicao2() != null) && (relacao.getIdRelacao1() != null) && (relacao.getRelacao().equals("OU"))){
+             
+             boolean condicao2 = false;
+             boolean relacao1 = false;
+             
+             // checando condicao1
+             for(int u=0; u < listaCondicaoTabela.size(); u++){
+                 if(listaCondicaoTabela.get(u).getIdCondicao() == relacao.getIdSubcondicao2()){
+                     if(listaCondicaoTabela.get(u).isStatusCondicao()){
+                         condicao2 = true;
+                     }
+                 }
+             }
+             
+             // checando relacao1
+             for(int u=0; u < listaGruporelacao.size(); u++){
+                 if(listaGruporelacao.get(u).getIdGrupo() == relacao.getIdRelacao1()){
+                     if(checarRelacao(listaGruporelacao.get(u))){
+                         relacao1 = true;
+                     }
+                 }
+             }
+             
+             if(condicao2 || relacao1){
+                 riscoOcorreu = true;
+             }
+             
+         }
+         
+         // checar ocorrencia se a relacao for entre condicao2 e relacao2  e o tipo for "E"
+         if((relacao.getIdSubcondicao2() != null) && (relacao.getIdRelacao1() != null) && (relacao.getRelacao().equals("E"))){
+             
+             boolean condicao2 = false;
+             boolean relacao2 = false;
+             
+             // checando condicao1
+             for(int u=0; u < listaCondicaoTabela.size(); u++){
+                 if(listaCondicaoTabela.get(u).getIdCondicao() == relacao.getIdSubcondicao2()){
+                     if(listaCondicaoTabela.get(u).isStatusCondicao()){
+                         condicao2 = true;
+                     }
+                 }
+             }
+             
+             // checando relacao1
+             for(int u=0; u < listaGruporelacao.size(); u++){
+                 if(listaGruporelacao.get(u).getIdGrupo() == relacao.getIdRelacao2()){
+                     if(checarRelacao(listaGruporelacao.get(u))){
+                         relacao2 = true;
+                     }
+                 }
+             }
+             
+             if(condicao2 && relacao2){
+                 riscoOcorreu = true;
+             }
+             
+         }
          
          
+         // checar ocorrencia se a relacao for entre condicao2 e relacao2  e o tipo for "OU"
+         if((relacao.getIdSubcondicao2() != null) && (relacao.getIdRelacao1() != null) && (relacao.getRelacao().equals("OU"))){
+             
+             boolean condicao2 = false;
+             boolean relacao2 = false;
+             
+             // checando condicao1
+             for(int u=0; u < listaCondicaoTabela.size(); u++){
+                 if(listaCondicaoTabela.get(u).getIdCondicao() == relacao.getIdSubcondicao2()){
+                     if(listaCondicaoTabela.get(u).isStatusCondicao()){
+                         condicao2 = true;
+                     }
+                 }
+             }
+             
+             // checando relacao1
+             for(int u=0; u < listaGruporelacao.size(); u++){
+                 if(listaGruporelacao.get(u).getIdGrupo() == relacao.getIdRelacao2()){
+                     if(checarRelacao(listaGruporelacao.get(u))){
+                         relacao2 = true;
+                     }
+                 }
+             }
+             
+             if(condicao2 || relacao2){
+                 riscoOcorreu = true;
+             }
+             
+         }
          
+         
+         // checar ocorrencia se a relacao for entre relacao1 e relacao2  e o tipo for "E"
+         if((relacao.getIdRelacao1() != null) && (relacao.getIdRelacao2() != null) && (relacao.getRelacao().equals("E"))){
+             
+             boolean relacao1 = false;
+             boolean relacao2 = false;
+             
+             // checando relacao1
+             for(int u=0; u < listaGruporelacao.size(); u++){
+                 if(listaGruporelacao.get(u).getIdGrupo() == relacao.getIdRelacao1()){
+                     if(checarRelacao(listaGruporelacao.get(u))){
+                         relacao1 = true;
+                     }
+                 }
+             }
+             
+             // checando relacao2
+             for(int u=0; u < listaGruporelacao.size(); u++){
+                 if(listaGruporelacao.get(u).getIdGrupo() == relacao.getIdRelacao2()){
+                     if(checarRelacao(listaGruporelacao.get(u))){
+                         relacao2 = true;
+                     }
+                 }
+             }
+             
+             if(relacao1 && relacao2){
+                 riscoOcorreu = true;
+             }
+             
+         }
+         
+         
+         // checar ocorrencia se a relacao for entre relacao1 e relacao2  e o tipo for "OU"
+         if((relacao.getIdRelacao1() != null) && (relacao.getIdRelacao2() != null) && (relacao.getRelacao().equals("OU"))){
+             
+             boolean relacao1 = false;
+             boolean relacao2 = false;
+             
+             // checando relacao1
+             for(int u=0; u < listaGruporelacao.size(); u++){
+                 if(listaGruporelacao.get(u).getIdGrupo() == relacao.getIdRelacao1()){
+                     if(checarRelacao(listaGruporelacao.get(u))){
+                         relacao1 = true;
+                     }
+                 }
+             }
+             
+             // checando relacao2
+             for(int u=0; u < listaGruporelacao.size(); u++){
+                 if(listaGruporelacao.get(u).getIdGrupo() == relacao.getIdRelacao2()){
+                     if(checarRelacao(listaGruporelacao.get(u))){
+                         relacao2 = true;
+                     }
+                 }
+             }
+             
+             if(relacao1 || relacao2){
+                 riscoOcorreu = true;
+             }
+             
+         }
+         
+         
+              
          return riscoOcorreu;
      }
     /**
