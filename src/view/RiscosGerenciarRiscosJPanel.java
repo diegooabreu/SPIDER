@@ -927,7 +927,7 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
                 modeloTabelaSubcondicoesJTable.addRow(linha);
             }
         } else {
-            desabilitaCamposSubcondicao();
+           // desabilitaCamposSubcondicao();
         }
     }
     

@@ -26,7 +26,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "gruporelacao")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Gruporelacao.findGruporelacaoByRisco", query = "SELECT gr1 FROM Gruporelacao gr1 where gr1.idSubcondicao1 in (select s.idSubcondicao from Subcondicao s where s.idRisco = :idRisco) or gr1.idSubcondicao2 in (select s.idSubcondicao from Subcondicao s where s.idRisco = :idRisco) and gr1.idRelacao1 in (SELECT gr.idGrupo FROM Gruporelacao gr where gr.idSubcondicao1 in (select s.idSubcondicao from Subcondicao s where s.idRisco = :idRisco) or gr.idSubcondicao2 in (select s.idSubcondicao from Subcondicao s where s.idRisco = :idRisco) ) or gr1.idRelacao2 in (SELECT gr.idGrupo FROM Gruporelacao gr where gr.idSubcondicao1 in (select s.idSubcondicao from Subcondicao s where s.idRisco = :idRisco) or gr.idSubcondicao2 in (select s.idSubcondicao from Subcondicao s where s.idRisco = :idRisco) )"),
+    @NamedQuery(name = "Gruporelacao.findGruporelacaoByRisco", query = "SELECT gr1 FROM Gruporelacao gr1 where gr1.idSubcondicao1 in (select s.idSubcondicao from Subcondicao s where s.idRisco = :idRisco)" + 
+            " or gr1.idSubcondicao2 in (select s.idSubcondicao from Subcondicao s where s.idRisco = :idRisco) " +
+            " and gr1.idRelacao1 in (SELECT gr.idGrupo FROM Gruporelacao gr where gr.idSubcondicao1 in (select s.idSubcondicao from Subcondicao s where s.idRisco = :idRisco)" +
+            " or gr.idSubcondicao2 in (select s.idSubcondicao from Subcondicao s where s.idRisco = :idRisco) )" + 
+            " or gr1.idRelacao2 in (SELECT gr.idGrupo FROM Gruporelacao gr where gr.idSubcondicao1 in (select s.idSubcondicao from Subcondicao s where s.idRisco = :idRisco)" + 
+            " or gr.idSubcondicao2 in (select s.idSubcondicao from Subcondicao s where s.idRisco = :idRisco) )"),
     @NamedQuery(name = "Gruporelacao.findAll", query = "SELECT g FROM Gruporelacao g"),
     @NamedQuery(name = "Gruporelacao.findByIdGrupo", query = "SELECT g FROM Gruporelacao g WHERE g.idGrupo = :idGrupo"),
     @NamedQuery(name = "Gruporelacao.findByIdSubcondicao1", query = "SELECT g FROM Gruporelacao g WHERE g.idSubcondicao1 = :idSubcondicao1"),
