@@ -11,14 +11,17 @@
 package view;
 
 import facade.MonitoracaoAnaliseDosRiscosFacade;
+import facade.RiscosGerenciarRiscosFacade;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Objects;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import model.Gruporelacao;
 import model.Historicoalteracao;
 import model.Historicorisco;
 import static model.Relacaosubcondicao_.subcondicao;
@@ -66,6 +69,18 @@ public class MonitoracaoAnaliseDosRiscosCheckInternalJFrame extends javax.swing.
                         } else {
                             modeloTabelaCondicoes.setValueAt(false, selected, 0);
                         }
+                    
+                    List<CondicaoTabela> listaDeCondicoesMarcadas = new ArrayList<CondicaoTabela>();
+                    
+                    for (int i = 0; i < listaCondicaoTabela.size(); i++){
+                        if (listaCondicaoTabela.get(i).isStatusCondicao()){
+                            listaDeCondicoesMarcadas.add(listaCondicaoTabela.get(i));
+                        }
+                    }
+                    
+                    if(checagemOcorrenciaRisco(riscoSel, listaDeCondicoesMarcadas)){
+                        statusRiscoJComboBox.setSelectedItem("Contingenciando");
+                    }
                     
 
                 }
@@ -133,6 +148,95 @@ public class MonitoracaoAnaliseDosRiscosCheckInternalJFrame extends javax.swing.
 //         return statusCondicao;
 //     }
      
+     List<Gruporelacao> listaGruporelacao = null;
+     public boolean checagemOcorrenciaRisco (Risco riscoSelecionado, List<CondicaoTabela> listaCondicao2){
+         boolean riscoOcorreu = false; 
+         RiscosGerenciarRiscosFacade riscosGerenciarRiscosFacade = new RiscosGerenciarRiscosFacade();
+              
+             this.listaGruporelacao = riscosGerenciarRiscosFacade.getListaGrupoRelacaoByRisco(riscoSelecionado);
+            
+             // verificando condições independentes (que não possuem nenhuma relação)
+         boolean temRelacao = false;
+         for (int i=0; i < listaCondicao2.size(); i++){
+            
+            for (int j=0; j < listaGruporelacao.size(); j++){
+                if (listaGruporelacao.get(j).getIdSubcondicao1() == listaCondicao2.get(i).getIdCondicao()
+                        || listaGruporelacao.get(j).getIdSubcondicao2() == listaCondicao2.get(i).getIdCondicao()){
+                   temRelacao = true;
+                }
+            }
+         }
+         
+         if (temRelacao == false){
+             return true;
+         }
+         
+         return riscoOcorreu;
+     }
+     
+     public boolean getListaRelacoesFinais (List<Gruporelacao> listaR, boolean riscoOcorreu){
+         List<Gruporelacao> listaRR = new ArrayList<Gruporelacao>();
+          
+         
+         for(int i = 0; i < listaR.size(); i++){
+             int contadorRelacoes = 0;
+             for(int j = 0; j < listaR.size(); j++){
+                 if((listaR.get(j).getIdRelacao1() == listaR.get(i).getIdGrupo()) || (listaR.get(j).getIdRelacao2() == listaR.get(i).getIdGrupo())){
+                     contadorRelacoes = contadorRelacoes + 1;
+                     listaRR.add(listaR.get(j));
+                 }
+             }
+             
+             if(listaRR.size() > 0){
+                 return getListaRelacoesFinais(listaRR, riscoOcorreu);
+             } else {
+                 for(int k=0; k < listaR.size(); k++){
+                     if(checarOcorrenciaPorRelacao()){
+                         riscoOcorreu = true;
+                     }
+                 }
+             }
+             
+         }
+      
+         return riscoOcorreu;
+     }
+     
+     private 
+     
+     private boolean checarOcorrenciaPorRelacao(Gruporelacao relacao){
+         
+         boolean riscoOcorreu = false;
+         
+         int idCondicaoOperando1 = 0;
+         int idCondicaoOperando2 = 0;
+         int idRelacaoOperando1 = 0;
+         int idRelacaoOperando2 = 0;
+         
+         
+         
+         /*
+         if(relacao.getIdSubcondicao1() != null){
+             idCondicaoOperando1 = relacao.getIdSubcondicao1();
+         } 
+         
+         if(relacao.getIdSubcondicao2() != null){
+             idCondicaoOperando2 = relacao.getIdSubcondicao2();
+         }
+         
+         if(relacao.getIdRelacao1() != null){
+             idRelacaoOperando1 = relacao.getIdRelacao1();
+         }
+         
+         if(relacao.getIdRelacao2() != null){
+             idRelacaoOperando2 = relacao.getIdRelacao2();
+         }
+         */
+         
+         if(relacao.getRelacao().equals("E") && ())
+         
+         return riscoOcorreu;
+     }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
