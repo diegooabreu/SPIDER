@@ -80,6 +80,8 @@ public class MonitoracaoAnaliseDosRiscosCheckInternalJFrame extends javax.swing.
                     
                     if(checagemOcorrenciaRisco(riscoSel, listaDeCondicoesMarcadas)){
                         statusRiscoJComboBox.setSelectedItem("Contingenciando");
+                    } else {
+                        statusRiscoJComboBox.setSelectedItem("Novo");
                     }
                     
 
@@ -157,18 +159,28 @@ public class MonitoracaoAnaliseDosRiscosCheckInternalJFrame extends javax.swing.
             
              // verificando condições independentes (que não possuem nenhuma relação)
          boolean temRelacao = false;
+         
          for (int i=0; i < listaCondicao2.size(); i++){
             
             for (int j=0; j < listaGruporelacao.size(); j++){
+                try{
                 if (listaGruporelacao.get(j).getIdSubcondicao1() == listaCondicao2.get(i).getIdCondicao()
                         || listaGruporelacao.get(j).getIdSubcondicao2() == listaCondicao2.get(i).getIdCondicao()){
                    temRelacao = true;
                 }
             }
+                catch (Exception e) {
+                    System.out.println("teste erro");
+                    }
+                }
          }
          
-         if (temRelacao == false){
+         if ((temRelacao == false) && (listaCondicao2.size() > 0)){
              return true;
+         } else {
+             if(getListaRelacoesFinais(listaGruporelacao, false)){
+                 return true;
+             }
          }
          
          return riscoOcorreu;
@@ -213,6 +225,7 @@ public class MonitoracaoAnaliseDosRiscosCheckInternalJFrame extends javax.swing.
          int idRelacaoOperando1 = 0;
          int idRelacaoOperando2 = 0;
          
+         // checar ocorrencia se a relacao for entre condicao1 e condicao 2  e o tipo for "E"
          if((relacao.getIdSubcondicao1() != null) && (relacao.getIdSubcondicao2() != null) && (relacao.getRelacao().equals("E"))){
              
              boolean condicao1 = false;
@@ -239,6 +252,65 @@ public class MonitoracaoAnaliseDosRiscosCheckInternalJFrame extends javax.swing.
              }
              
          }
+         
+         // checar ocorrencia se a relacao for entre condicao1 e condicao 2  e o tipo for "OU"
+         if((relacao.getIdSubcondicao1() != null) && (relacao.getIdSubcondicao2() != null) && (relacao.getRelacao().equals("OU"))){
+             
+             boolean condicao1 = false;
+             boolean condicao2 = false;
+             
+             for(int u=0; u < listaCondicaoTabela.size(); u++){
+                 if(listaCondicaoTabela.get(u).getIdCondicao() == relacao.getIdSubcondicao1()){
+                     if(listaCondicaoTabela.get(u).isStatusCondicao()){
+                         condicao1 = true;
+                     }
+                 }
+             }
+             
+             for(int u=0; u < listaCondicaoTabela.size(); u++){
+                 if(listaCondicaoTabela.get(u).getIdCondicao() == relacao.getIdSubcondicao2()){
+                     if(listaCondicaoTabela.get(u).isStatusCondicao()){
+                         condicao2 = true;
+                     }
+                 }
+             }
+             
+             if(condicao1 || condicao2){
+                 riscoOcorreu = true;
+             }
+             
+         }
+         
+         // checar ocorrencia se a relacao for entre condicao1 e relacao1  e o tipo for "E"
+         if((relacao.getIdSubcondicao1() != null) && (relacao.getIdRelacao1() != null) && (relacao.getRelacao().equals("E"))){
+             
+             boolean condicao1 = false;
+             boolean relacao1 = false;
+             
+             // checando condicao1
+             for(int u=0; u < listaCondicaoTabela.size(); u++){
+                 if(listaCondicaoTabela.get(u).getIdCondicao() == relacao.getIdSubcondicao1()){
+                     if(listaCondicaoTabela.get(u).isStatusCondicao()){
+                         condicao1 = true;
+                     }
+                 }
+             }
+             
+             // checando relacao1
+             for(int u=0; u < listaGruporelacao.size(); u++){
+                 if(listaGruporelacao.get(u).getIdGrupo() == relacao.getIdRelacao1()){
+                     if(checarOcorrenciaPorRelacao(listaGruporelacao.get(u))){
+                         relacao1 = true;
+                     }
+                 }
+             }
+             
+             if(condicao1 && relacao1){
+                 riscoOcorreu = true;
+             }
+             
+         }
+         
          
          /*
          if(relacao.getIdSubcondicao1() != null){
