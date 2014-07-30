@@ -6,19 +6,84 @@
 
 package view;
 
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.text.DateFormat;
+import java.util.Date;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import model.Historicorisco;
+
 /**
  *
  * @author Diego
  */
 public class RiscosRiscosOcorridosJInternalFrame extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form RiscosRiscosOcorridosJInternalFrame
-     */
+   // private Historicorisco historicoriscoSelecionado;
+    private JTable tabelaSubcondicao;
+    private DefaultTableModel modeloTabelaSubcondicao;
+    
     public RiscosRiscosOcorridosJInternalFrame() {
         initComponents();
+        //jTextField1.setText(historicoriscoSelecionado.getIdRisco().getIdentificacao());
     }
-
+    
+//    public void setHistoricoRisco (Historicorisco hitoricHistoricorisco){
+//        this.historicoriscoSelecionado = hitoricHistoricorisco;
+//    }
+//    
+//    public Historicorisco getHistoricoRisco (){
+//        return historicoriscoSelecionado;
+//    }
+    
+    public void preencherTela (Historicorisco historicoriscoSelecionado){
+        jTextField1.setText(historicoriscoSelecionado.getIdRisco().getIdentificacao());
+        jTextArea1.setText(historicoriscoSelecionado.getIdRisco().getDescricao());
+        DateFormat df = DateFormat.getDateInstance(DateFormat.MEDIUM);
+        Date dataDeOcorrencia = historicoriscoSelecionado.getDataOcorrencia();
+        jTextField2.setText(df.format(dataDeOcorrencia));
+        criarTabelaSubcondicao (historicoriscoSelecionado);
+        popularTabela(historicoriscoSelecionado);
+    }
+    
+    public void criarTabelaSubcondicao (Historicorisco historicoriscoSelecionado){
+        tabelaSubcondicao = new JTable();
+        modeloTabelaSubcondicao = new DefaultTableModel();
+        modeloTabelaSubcondicao.setColumnIdentifiers(new Object[] {"Identificação", "Status", "Data de Ocorrencia"});
+        tabelaSubcondicao.setModel(modeloTabelaSubcondicao);
+        jScrollPane2.setViewportView(tabelaSubcondicao);
+        definirEventoDaTabela(historicoriscoSelecionado);
+    }
+    
+    public void popularTabela(Historicorisco historicoriscoSelecionado){
+        for (int i = 0; i < historicoriscoSelecionado.getSubcondicaoList().size(); i++){
+            DateFormat df = DateFormat.getDateInstance(DateFormat.MEDIUM);
+            Date data = historicoriscoSelecionado.getSubcondicaoList().get(i).getDataOcorrencia();
+            
+            Object[] linha = new Object[] {historicoriscoSelecionado.getSubcondicaoList().get(i).getIdentificacaoSubcondicao(),
+                                           historicoriscoSelecionado.getSubcondicaoList().get(i).getStatusSubcondicao(),
+                                           df.format(data)};
+            modeloTabelaSubcondicao.addRow(linha);
+        }
+    }
+    
+    public void definirEventoDaTabela(final Historicorisco historicoriscoSelecionado){
+        tabelaSubcondicao.addMouseListener(new MouseAdapter(){
+            public void mousePressed(MouseEvent e){
+                if (e.getClickCount() == 1){
+                    int selected = tabelaSubcondicao.getSelectedRow();
+                    for (int j = 0; j < historicoriscoSelecionado.getSubcondicaoList().size(); j++){
+                        if (tabelaSubcondicao.getValueAt(tabelaSubcondicao.getSelectedRow(), 0)
+                                .equals(historicoriscoSelecionado.getSubcondicaoList().get(j).getIdentificacaoSubcondicao())){
+                            jTextArea2.setText(historicoriscoSelecionado.getSubcondicaoList().get(j).getDescricaoSubcondicao());
+                        }
+                    }
+                }
+            }
+        
+        });
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -41,6 +106,7 @@ public class RiscosRiscosOcorridosJInternalFrame extends javax.swing.JInternalFr
         jLabel4 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTextArea2 = new javax.swing.JTextArea();
+        fecharJButton = new javax.swing.JButton();
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Detalhes da Ocorrência"));
 
@@ -53,6 +119,11 @@ public class RiscosRiscosOcorridosJInternalFrame extends javax.swing.JInternalFr
         jScrollPane1.setViewportView(jTextArea1);
 
         jTextField1.setEditable(false);
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("Data da Ocorrência:");
 
@@ -76,7 +147,7 @@ public class RiscosRiscosOcorridosJInternalFrame extends javax.swing.JInternalFr
         jLabel4.setText("Identificação da Condição:");
 
         jTextArea2.setColumns(20);
-        jTextArea2.setRows(5);
+        jTextArea2.setRows(3);
         jTextArea2.setBorder(javax.swing.BorderFactory.createTitledBorder("Descrição da Condição"));
         jScrollPane3.setViewportView(jTextArea2);
 
@@ -101,7 +172,7 @@ public class RiscosRiscosOcorridosJInternalFrame extends javax.swing.JInternalFr
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
                             .addComponent(jLabel4))
-                        .addGap(0, 320, Short.MAX_VALUE))
+                        .addGap(0, 270, Short.MAX_VALUE))
                     .addComponent(jScrollPane3))
                 .addContainerGap())
         );
@@ -125,28 +196,51 @@ public class RiscosRiscosOcorridosJInternalFrame extends javax.swing.JInternalFr
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 89, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        fecharJButton.setText("Fechar");
+        fecharJButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fecharJButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(219, 219, 219)
+                .addComponent(fecharJButton)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 465, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(fecharJButton)
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
+
+    private void fecharJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fecharJButtonActionPerformed
+        // TODO add your handling code here:
+        setVisible(false);
+    }//GEN-LAST:event_fecharJButtonActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton fecharJButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

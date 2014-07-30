@@ -8,9 +8,11 @@ package facade;
 
 import controller.HistoricoriscoJpaController;
 import controller.RiscoJpaController;
+import controller.SubcondicaoJpaController;
 import java.util.List;
 import model.Historicorisco;
 import model.Risco;
+import model.Subcondicao;
 
 /**
  *
@@ -36,5 +38,10 @@ public class RiscosRiscosOcorridosFacade {
         HistoricoriscoJpaController historicoRiscoJPA = new HistoricoriscoJpaController();
         List<Historicorisco> listaHistoricoRiscos = historicoRiscoJPA.findHistoricoRiscoByIdProjeto(idProjeto);
         return listaHistoricoRiscos;
+    }
+    
+    public List<Subcondicao> getListaSubcondicaoByIdHistoricoRisco (Historicorisco historicorisco){
+       SubcondicaoJpaController subcondicaoJpaController = new SubcondicaoJpaController();
+       return subcondicaoJpaController.findHistoricoRiscoByIdHistoricoRisco(historicorisco);   
     }
 }

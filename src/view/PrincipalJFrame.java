@@ -55,7 +55,8 @@ public class PrincipalJFrame extends javax.swing.JFrame {
    // static TesteInternalFrame testeInternalFrame = new TesteInternalFrame();
     static RiscoSelecioanrRiscoParaMonitorarInternalJFrame riscoSelecioanrRiscoParaMonitorarInternalJFrame = new RiscoSelecioanrRiscoParaMonitorarInternalJFrame();
     static MonitoracaoAnaliseDosRiscosCheckInternalJFrame monitoracaoAnaliseDosRiscosCheckInternalJFrame = new MonitoracaoAnaliseDosRiscosCheckInternalJFrame();
-    
+    static RiscosRiscosOcorridosJInternalFrame riscosRiscosOcorridosJInternalFrame = new RiscosRiscosOcorridosJInternalFrame();
+            
     // Criando Arvore de Funcionalidades - Menu //
     private JTree arvoreFuncionalidadesJTree;
     private DefaultMutableTreeNode funcionalidades;
@@ -272,6 +273,10 @@ public class PrincipalJFrame extends javax.swing.JFrame {
     
     static void aparecerInternalFrameMonitoracao(){
         monitoracaoAnaliseDosRiscosCheckInternalJFrame.setVisible(true);   
+    }
+    
+    static void aparecerInternalFrameRiscosOcorridos(){
+        riscosRiscosOcorridosJInternalFrame.setVisible(true);
     }
     
     private void configuracoesFerramentaJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_configuracoesFerramentaJButtonActionPerformed
@@ -507,6 +512,9 @@ public class PrincipalJFrame extends javax.swing.JFrame {
         camadasJDesktopPane.add(riscoSelecioanrRiscoParaMonitorarInternalJFrame);
         
         camadasJDesktopPane.add(monitoracaoAnaliseDosRiscosCheckInternalJFrame);
+        
+        camadasJDesktopPane.add(riscosRiscosOcorridosJInternalFrame);
+        
         //riscosPriorizarRiscosJPanel.setBounds(0, 0, 861, 529);
         //camadasJDesktopPane.add(riscosPriorizarRiscosJPanel);
 
@@ -538,6 +546,7 @@ public class PrincipalJFrame extends javax.swing.JFrame {
         //testeInternalFrame.setVisible(false);
         riscoSelecioanrRiscoParaMonitorarInternalJFrame.setVisible(false);
         monitoracaoAnaliseDosRiscosCheckInternalJFrame.setVisible(false);
+        riscosRiscosOcorridosJInternalFrame.setVisible(false);
     }
 
     // Criando os nós da arvore e adicionando-os //

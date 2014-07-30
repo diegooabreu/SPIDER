@@ -32,6 +32,9 @@ public class RiscosRiscosOcorridosJPanel extends javax.swing.JPanel {
     
     private Projeto projetoSelecionado;
     
+    private List<Historicorisco> listaHistoricoRisco;
+    private Historicorisco historicoriscoSelecionado;
+    
     /**
      * Creates new form RiscosRiscosOcorridosJPanel
      */
@@ -50,11 +53,13 @@ public class RiscosRiscosOcorridosJPanel extends javax.swing.JPanel {
         modeloTabelaRiscosOcorridos.setColumnIdentifiers(new Object[] {"Identificação", "Descrição", "Data de ocorrencia"});
         tabelaRiscosOcorridos.setModel(modeloTabelaRiscosOcorridos);
         tabelaRiscosOcorridosJScrollPane.setViewportView(tabelaRiscosOcorridos);
+        
+        definirEventosTabelaRiscosOcorridos();
     }
     
     public void popularTabelaRiscosOcorridos(){
         
-        List<Historicorisco> listaHistoricoRisco = riscosOcorridosFacade.getListaHistoricoriscosByIdProjeto(projetoSelecionado.getIdProjeto());
+        listaHistoricoRisco = riscosOcorridosFacade.getListaHistoricoriscosByIdProjeto(projetoSelecionado.getIdProjeto());
         for (int i=0; i < listaHistoricoRisco.size(); i++){
             
             DateFormat df = DateFormat.getDateInstance(DateFormat.MEDIUM);
@@ -63,24 +68,35 @@ public class RiscosRiscosOcorridosJPanel extends javax.swing.JPanel {
             
             Object[] linha = new Object[]{listaHistoricoRisco.get(i).getIdRisco().getIdentificacao(), listaHistoricoRisco.get(i).getIdRisco().getDescricao(), df.format(data)};
             modeloTabelaRiscosOcorridos.addRow(linha);
+            
+            //System.err.println("subcondição: ---" + listaHistoricoRisco.get(i).getSubcondicaoList().get(i));
         }
     }
     
-    public void definirEventosTabelaRiscosOcorridos(){
+    public void definirEventosTabelaRiscosOcorridos() {
         tabelaRiscosOcorridos.addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent e) {
-                if (e.getClickCount() == 2) {
-                    
+                if (e.getClickCount() == 1) {
                     int selected = tabelaRiscosOcorridos.getSelectedRow();
-
-                    /*
-                    for(int i = 0; i < listaRelacoes.size(); i++){
-                        if(tabelaRelacoes.getValueAt(selected, 0) == listaRelacoes.get(i).getIdGrupo()){
-                            relacaoSelecionada = listaRelacoes.get(i);
+                    for (int i = 0; i < listaHistoricoRisco.size(); i++) {
+                        if (tabelaRiscosOcorridos.getValueAt(tabelaRiscosOcorridos.getSelectedRow(), 0).equals(listaHistoricoRisco.get(i).getIdRisco().getIdentificacao())) {
+                            historicoriscoSelecionado = listaHistoricoRisco.get(i);
+                            System.err.println("----------->" + listaHistoricoRisco.get(i).getIdHistoricoRisco());
+                            break;
                         }
                     }
-                */
-                    
+                } else if (e.getClickCount() == 2) {
+                    int selected = tabelaRiscosOcorridos.getSelectedRow();
+                    for (int i = 0; i < listaHistoricoRisco.size(); i++) {
+                        if (tabelaRiscosOcorridos.getValueAt(tabelaRiscosOcorridos.getSelectedRow(), 0).equals(listaHistoricoRisco.get(i).getIdRisco().getIdentificacao())) {
+
+                            historicoriscoSelecionado = listaHistoricoRisco.get(i);
+                            System.err.println("----------->" + listaHistoricoRisco.get(i).getIdHistoricoRisco());
+                            PrincipalJFrame.riscosRiscosOcorridosJInternalFrame.preencherTela(historicoriscoSelecionado);
+                            PrincipalJFrame.aparecerInternalFrameRiscosOcorridos();
+                            break;
+                        }
+                    }
                 }
             }
         });
