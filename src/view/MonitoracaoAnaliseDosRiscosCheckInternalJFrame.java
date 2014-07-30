@@ -120,6 +120,26 @@ public class MonitoracaoAnaliseDosRiscosCheckInternalJFrame extends javax.swing.
         });
     }
     
+    private List<Subcondicao> getSubcondicoesMarcadas(){
+        List<Subcondicao> listaSubcondicoesMarcadas = new ArrayList<Subcondicao>();
+        
+        for (int i = 0; i < listaCondicaoTabela.size(); i++){
+                        if (listaCondicaoTabela.get(i).isStatusCondicao()){
+                            for(int k = 0; k < listaCondicao.size(); i++){
+                                if(listaCondicaoTabela.get(i).getIdCondicao() == listaCondicao.get(k).getIdSubcondicao()){
+                                    listaSubcondicoesMarcadas.add(listaCondicao.get(k));
+                                }
+                            }
+                        }
+                    }
+        
+        return listaSubcondicoesMarcadas;
+    }
+    
+    public void setRiscoOcorreuFalse(){
+        riscoOcorreu = false;
+    }
+    
     public void criarTabelaCondicoes(Risco risco){
         
         tabelaCondicoes = new JTable();
@@ -190,6 +210,7 @@ public class MonitoracaoAnaliseDosRiscosCheckInternalJFrame extends javax.swing.
          
          return existe;
      }
+     
      private boolean existeCondicaoIndependenteMarcada (List<CondicaoTabela> listaCondicoesMarcadas){
          boolean existe = false;
          boolean temRelacao = false;
@@ -249,6 +270,7 @@ public class MonitoracaoAnaliseDosRiscosCheckInternalJFrame extends javax.swing.
          */
         
      }
+     
      public List<Gruporelacao> getListaGrupoRelacaoFinal(){
          List<Gruporelacao> listaRelacoesFinais = new ArrayList<Gruporelacao>();
          boolean eRelacaoFinal = true;
@@ -748,7 +770,7 @@ public class MonitoracaoAnaliseDosRiscosCheckInternalJFrame extends javax.swing.
             }
         });
 
-        statusRiscoJComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] {"", "Novo", "Contingenciando" }));
+        statusRiscoJComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] {"Novo", "Contingenciando" }));
         statusRiscoJComboBox.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 statusRiscoJComboBoxItemStateChanged(evt);
@@ -776,26 +798,23 @@ public class MonitoracaoAnaliseDosRiscosCheckInternalJFrame extends javax.swing.
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(confirmarJButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(identificacaRiscoJLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(statusRiscoJComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(confirmarJButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(identificacaRiscoJLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(jScrollPane1)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(statusRiscoJComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addContainerGap())
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel2))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(225, 225, 225)
                 .addComponent(fechar)
@@ -846,45 +865,40 @@ public class MonitoracaoAnaliseDosRiscosCheckInternalJFrame extends javax.swing.
 
     private void confirmarJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmarJButtonActionPerformed
 
+       
+        
+        
         for(int i = 0; i < listaCondicaoTabela.size(); i++){
             if((Boolean)modeloTabelaCondicoes.getValueAt(i, 0) == true){
+                
                 listaCondicao.get(i).setStatusSubcondicao("Ocorrido");
-
-                if (statusRiscoJComboBox.getSelectedItem().equals("Novo")){
-                    listaCondicao.get(i).getIdRisco().setStatusRisco("Novo");
-                } else {
-                    listaCondicao.get(i).getIdRisco().setStatusRisco("Contingenciando");
-                }
-
-                monitoracaoAnaliseDosRiscosFacade.editRisco(listaCondicao.get(i).getIdRisco());
                 monitoracaoAnaliseDosRiscosFacade.editCondicao(listaCondicao.get(i));
 
             } else {
+                
                 listaCondicao.get(i).setStatusSubcondicao("Não Ocorrido");
-
-                if(statusRiscoJComboBox.getSelectedItem().equals("Novo")){
-                    listaCondicao.get(i).getIdRisco().setStatusRisco("Novo");
-                } else {
-                    listaCondicao.get(i).getIdRisco().setStatusRisco("Contingenciando");
-                }
-
-                monitoracaoAnaliseDosRiscosFacade.editRisco(listaCondicao.get(i).getIdRisco());
                 monitoracaoAnaliseDosRiscosFacade.editCondicao(listaCondicao.get(i));
 
             }
 
         }
+        
+        
+        
 
-        riscoSel = monitoracaoAnaliseDosRiscosFacade.getRisco(riscoSel.getIdRisco());
-
-        if(riscoSel.getStatusRisco().equals("Contingenciando")){
+        
+        //if(riscoSel.getStatusRisco().equals("Contingenciando")){
+        if(riscoOcorreu){
             Historicorisco historico = new Historicorisco();
             Calendar c = Calendar.getInstance();
             historico.setDataOcorrencia(c.getTime());
             historico.setIdRisco(riscoSel);
+            historico.setSubcondicaoList(getSubcondicoesMarcadas());
             monitoracaoAnaliseDosRiscosFacade.criarHistorico(historico);
 
-        } else if(riscoSel.getStatusRisco().equals("Novo")){
+        } 
+        
+        if(riscoSel.getStatusRisco().equals("Novo")){
             Historicoalteracao historico = new Historicoalteracao();
             Calendar c = Calendar.getInstance();
             historico.setDataAlteracao(c.getTime());
@@ -892,15 +906,27 @@ public class MonitoracaoAnaliseDosRiscosCheckInternalJFrame extends javax.swing.
             historico.setDescricaoAlteracao("Status do Risco Alterado para 'Novo'.");
             monitoracaoAnaliseDosRiscosFacade.criarHistoricoAlteracao(historico);
 
+        } else if(riscoSel.getStatusRisco().equals("Contingenciando")){
+            Historicoalteracao historico = new Historicoalteracao();
+            Calendar c = Calendar.getInstance();
+            historico.setDataAlteracao(c.getTime());
+            historico.setIdRisco(riscoSel);
+            historico.setDescricaoAlteracao("Status do Risco Alterado para 'Contingenciando'.");
+            monitoracaoAnaliseDosRiscosFacade.criarHistoricoAlteracao(historico);
         }
-
-        if (statusRiscoJComboBox.getSelectedItem().equals("")) {
-            JOptionPane.showMessageDialog(this, "Escolha um Status para o Risco.");
-            this.setVisible(true);
-        } else {
+        
+        
+        if(statusRiscoJComboBox.getSelectedItem().equals("Novo")){
+            riscoSel.setStatusRisco("Novo");
+            monitoracaoAnaliseDosRiscosFacade.editRisco(riscoSel);
+        } else if (statusRiscoJComboBox.getSelectedItem().equals("Contingenciando")){
+            riscoSel.setStatusRisco("Contingenciando");
+            monitoracaoAnaliseDosRiscosFacade.editRisco(riscoSel);
+        }
+        
             JOptionPane.showMessageDialog(this, "Risco analisado.");
             this.setVisible(false);
-        }
+        
           
         // TODO add your handling code here:
     }//GEN-LAST:event_confirmarJButtonActionPerformed

@@ -8,6 +8,8 @@ package view;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import view.tabelas.PlanoTabelaModel;
 
 /**
  *
@@ -15,6 +17,9 @@ import javax.swing.JOptionPane;
  */
 public class MonitoracaoTarefasPlanosPendentesJPanel extends javax.swing.JPanel {
 
+    private JTable tabelaPlanosPendentes;
+    private PlanoTabelaModel modeloTabelaPlanosPendentes;
+    
     /**
      * Creates new form MonitoracaoTarefasTarefasPendentesJPanel
      */
@@ -23,6 +28,15 @@ public class MonitoracaoTarefasPlanosPendentesJPanel extends javax.swing.JPanel 
     }
     
     public void criarTabelaPlanosPendentes(){
+        
+        tabelaPlanosPendentes = new JTable();
+        modeloTabelaPlanosPendentes = new PlanoTabelaModel();
+        
+        tabelaPlanosPendentes.setModel(modeloTabelaPlanosPendentes);
+        
+        tabelaPlanosPendentesJScrollPane.setViewportView(tabelaPlanosPendentes);
+        
+        
         
     }
         
