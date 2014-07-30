@@ -15,6 +15,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import model.Projeto;
 import model.Risco;
+import model.Subcondicao;
 import view.tabelas.RiscoTabela;
 import view.tabelas.RiscoTabelaModel;
 
@@ -263,9 +264,19 @@ public class RiscoSelecioanrRiscoParaMonitorarInternalJFrame extends javax.swing
         for (int i = 0; i < listaRiscosTabela.size(); i++) {
             if ((Boolean) riscoTabelaModel.getValueAt(i, 0) == true) {
 
-                listaRiscosTabela.get(i).setStatusRisco("Mitigando");
-                listaRiscos.get(i).setStatusRisco("Mitigando");
-                riscosSelecionarRiscosParaMonitorarFacade.editRisco(listaRiscos.get(i));
+                if(listaRiscosTabela.get(i).getStatusRisco().equals("Novo")){
+                    listaRiscosTabela.get(i).setStatusRisco("Mitigando");
+                    listaRiscos.get(i).setStatusRisco("Mitigando");
+                    List<Subcondicao> listaDeCondicoes = listaRiscos.get(i).getSubcondicaoList();
+                    for(int k = 0; k < listaDeCondicoes.size(); k++){
+                        listaDeCondicoes.get(k).setStatusSubcondicao("Não Ocorrido");
+                        riscosSelecionarRiscosParaMonitorarFacade.editCondicao(listaDeCondicoes.get(k));
+                    }
+                    
+                    riscosSelecionarRiscosParaMonitorarFacade.editRisco(listaRiscos.get(i));
+                }
+                
+                
 
             } else {
 

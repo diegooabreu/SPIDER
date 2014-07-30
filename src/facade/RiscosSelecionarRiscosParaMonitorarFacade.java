@@ -8,10 +8,12 @@ package facade;
 
 import controller.PlanomitigacaoJpaController;
 import controller.RiscoJpaController;
+import controller.SubcondicaoJpaController;
 import java.util.List;
 import model.Planomitigacao;
 import model.Projeto;
 import model.Risco;
+import model.Subcondicao;
 
 /**
  *
@@ -69,5 +71,16 @@ public class RiscosSelecionarRiscosParaMonitorarFacade {
         
     }
     
+    public void editCondicao(Subcondicao condicao){
+        SubcondicaoJpaController condicaoJPA = new SubcondicaoJpaController();
+        
+        try{
+            
+            condicaoJPA.edit(condicao);
+            
+        } catch (Exception e){
+            System.out.println("Erro no metodo editCondicao da classe RiscosSelecionarRiscosParaMonitorarFacade");
+        }
+    }
     
 }
