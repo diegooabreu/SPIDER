@@ -125,7 +125,7 @@ public class MonitoracaoAnaliseDosRiscosCheckInternalJFrame extends javax.swing.
         
         for (int i = 0; i < listaCondicaoTabela.size(); i++){
                         if (listaCondicaoTabela.get(i).isStatusCondicao()){
-                            for(int k = 0; k < listaCondicao.size(); i++){
+                            for(int k = 0; k < listaCondicao.size(); k++){
                                 if(listaCondicaoTabela.get(i).getIdCondicao() == listaCondicao.get(k).getIdSubcondicao()){
                                     listaSubcondicoesMarcadas.add(listaCondicao.get(k));
                                 }

@@ -50,7 +50,7 @@ public class RiscosRiscosOcorridosJInternalFrame extends javax.swing.JInternalFr
     public void criarTabelaSubcondicao (Historicorisco historicoriscoSelecionado){
         tabelaSubcondicao = new JTable();
         modeloTabelaSubcondicao = new DefaultTableModel();
-        modeloTabelaSubcondicao.setColumnIdentifiers(new Object[] {"Identificação", "Status", "Data de Ocorrencia"});
+        modeloTabelaSubcondicao.setColumnIdentifiers(new Object[] {"Identificação"/*, "Status" , "Data de Ocorrencia" */});
         tabelaSubcondicao.setModel(modeloTabelaSubcondicao);
         jScrollPane2.setViewportView(tabelaSubcondicao);
         definirEventoDaTabela(historicoriscoSelecionado);
@@ -58,12 +58,12 @@ public class RiscosRiscosOcorridosJInternalFrame extends javax.swing.JInternalFr
     
     public void popularTabela(Historicorisco historicoriscoSelecionado){
         for (int i = 0; i < historicoriscoSelecionado.getSubcondicaoList().size(); i++){
-            DateFormat df = DateFormat.getDateInstance(DateFormat.MEDIUM);
-            Date data = historicoriscoSelecionado.getSubcondicaoList().get(i).getDataOcorrencia();
+            //DateFormat df = DateFormat.getDateInstance(DateFormat.MEDIUM);
+            //Date data = historicoriscoSelecionado.getSubcondicaoList().get(i).getDataOcorrencia();
             
-            Object[] linha = new Object[] {historicoriscoSelecionado.getSubcondicaoList().get(i).getIdentificacaoSubcondicao(),
-                                           historicoriscoSelecionado.getSubcondicaoList().get(i).getStatusSubcondicao(),
-                                           df.format(data)};
+            Object[] linha = new Object[] {historicoriscoSelecionado.getSubcondicaoList().get(i).getIdentificacaoSubcondicao()//,
+                                           //historicoriscoSelecionado.getSubcondicaoList().get(i).getStatusSubcondicao(),
+                                           /*df.format(data)*/};
             modeloTabelaSubcondicao.addRow(linha);
         }
     }
@@ -76,6 +76,7 @@ public class RiscosRiscosOcorridosJInternalFrame extends javax.swing.JInternalFr
                     for (int j = 0; j < historicoriscoSelecionado.getSubcondicaoList().size(); j++){
                         if (tabelaSubcondicao.getValueAt(tabelaSubcondicao.getSelectedRow(), 0)
                                 .equals(historicoriscoSelecionado.getSubcondicaoList().get(j).getIdentificacaoSubcondicao())){
+                            identificacaoCondicaoJTextField.setText(historicoriscoSelecionado.getSubcondicaoList().get(j).getIdentificacaoSubcondicao());                           
                             jTextArea2.setText(historicoriscoSelecionado.getSubcondicaoList().get(j).getDescricaoSubcondicao());
                         }
                     }
@@ -106,6 +107,7 @@ public class RiscosRiscosOcorridosJInternalFrame extends javax.swing.JInternalFr
         jLabel4 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTextArea2 = new javax.swing.JTextArea();
+        identificacaoCondicaoJTextField = new javax.swing.JTextField();
         fecharJButton = new javax.swing.JButton();
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Detalhes da Ocorrência"));
@@ -169,11 +171,13 @@ public class RiscosRiscosOcorridosJInternalFrame extends javax.swing.JInternalFr
                         .addComponent(jTextField2))
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4))
+                        .addComponent(jLabel3)
                         .addGap(0, 270, Short.MAX_VALUE))
-                    .addComponent(jScrollPane3))
+                    .addComponent(jScrollPane3)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(identificacaoCondicaoJTextField)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -194,7 +198,9 @@ public class RiscosRiscosOcorridosJInternalFrame extends javax.swing.JInternalFr
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel4)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(identificacaoCondicaoJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -241,6 +247,7 @@ public class RiscosRiscosOcorridosJInternalFrame extends javax.swing.JInternalFr
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton fecharJButton;
+    private javax.swing.JTextField identificacaoCondicaoJTextField;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
