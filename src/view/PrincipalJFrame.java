@@ -514,7 +514,7 @@ public class PrincipalJFrame extends javax.swing.JFrame {
         camadasJDesktopPane.add(monitoracaoAnaliseDosRiscosCheckInternalJFrame);
         
         camadasJDesktopPane.add(riscosRiscosOcorridosJInternalFrame);
-        
+      
         //riscosPriorizarRiscosJPanel.setBounds(0, 0, 861, 529);
         //camadasJDesktopPane.add(riscosPriorizarRiscosJPanel);
 
