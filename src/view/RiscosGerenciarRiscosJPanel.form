@@ -593,12 +593,27 @@
                                           <Component id="subcondicoesIdentificacaoDaCondicaoJTextField" max="32767" attributes="0"/>
                                       </Group>
                                       <Component id="tabelaRelacoesJScrollPane" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="jScrollPane15" alignment="1" min="-2" pref="732" max="-2" attributes="0"/>
                                       <Component id="tabelaSubcondicoesJScrollPane" alignment="0" max="32767" attributes="0"/>
                                       <Group type="102" attributes="0">
+                                          <Component id="jLabel17" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" alignment="1" attributes="0">
+                                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="jLabel17" min="-2" max="-2" attributes="0"/>
-                                              <Group type="102" alignment="0" attributes="0">
+                                              <Group type="103" alignment="1" groupAlignment="0" max="-2" attributes="0">
+                                                  <Component id="jScrollPane15" alignment="1" min="-2" pref="732" max="-2" attributes="0"/>
+                                                  <Group type="102" alignment="1" attributes="0">
+                                                      <Component id="deletarCondicaoJButton" max="32767" attributes="0"/>
+                                                      <EmptySpace max="-2" attributes="0"/>
+                                                      <Component id="limparCamposJButton" min="-2" pref="180" max="-2" attributes="0"/>
+                                                      <EmptySpace max="-2" attributes="0"/>
+                                                      <Component id="subcondicoesSalvarAlteracoesDaCondicaoJButtob" min="-2" max="-2" attributes="0"/>
+                                                      <EmptySpace max="-2" attributes="0"/>
+                                                      <Component id="subcondicoesCriarCondicaoJButton" min="-2" pref="180" max="-2" attributes="0"/>
+                                                  </Group>
+                                              </Group>
+                                              <Group type="102" alignment="1" attributes="0">
                                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                                       <Component id="inserirCondicaoCampo1JButton" max="32767" attributes="0"/>
                                                       <Component id="campo1JTextField" max="32767" attributes="0"/>
@@ -607,24 +622,21 @@
                                                   <EmptySpace max="-2" attributes="0"/>
                                                   <Component id="subcondicoesTipoDeRelacaoJComboBox" min="-2" max="-2" attributes="0"/>
                                                   <EmptySpace max="-2" attributes="0"/>
-                                                  <Group type="103" groupAlignment="0" attributes="0">
-                                                      <Component id="inserirCondicaoCampo2JButton" min="-2" max="-2" attributes="0"/>
-                                                      <Group type="102" alignment="0" attributes="0">
-                                                          <Component id="campo2JTextField" min="-2" pref="175" max="-2" attributes="0"/>
-                                                          <EmptySpace max="-2" attributes="0"/>
-                                                          <Component id="criarRelacaoJButton" min="-2" max="-2" attributes="0"/>
-                                                      </Group>
-                                                      <Component id="inserirRelacaoCampo2JButton" alignment="0" min="-2" pref="189" max="-2" attributes="0"/>
-                                                  </Group>
-                                                  <EmptySpace min="-2" pref="92" max="-2" attributes="0"/>
                                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                                      <Component id="subcondicoesSalvarAlteracoesDaCondicaoJButtob" alignment="1" min="-2" max="-2" attributes="0"/>
-                                                      <Component id="subcondicoesCriarCondicaoJButton" alignment="0" max="32767" attributes="0"/>
-                                                      <Component id="limparCamposJButton" pref="192" max="32767" attributes="0"/>
+                                                      <Component id="inserirCondicaoCampo2JButton" max="32767" attributes="0"/>
+                                                      <Component id="inserirRelacaoCampo2JButton" alignment="0" max="32767" attributes="0"/>
+                                                      <Component id="campo2JTextField" alignment="0" max="32767" attributes="0"/>
+                                                  </Group>
+                                                  <EmptySpace min="-2" pref="93" max="-2" attributes="0"/>
+                                                  <Group type="103" groupAlignment="1" attributes="0">
+                                                      <Group type="102" alignment="1" attributes="0">
+                                                          <Component id="criarRelacaoJButton" min="-2" pref="144" max="-2" attributes="0"/>
+                                                          <EmptySpace min="-2" pref="150" max="-2" attributes="0"/>
+                                                      </Group>
+                                                      <Component id="deletarRelacaoJButton" alignment="0" min="-2" pref="144" max="-2" attributes="0"/>
                                                   </Group>
                                               </Group>
                                           </Group>
-                                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                                   <EmptySpace pref="34" max="32767" attributes="0"/>
@@ -642,29 +654,34 @@
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="jLabel17" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jScrollPane15" min="-2" pref="96" max="-2" attributes="0"/>
+                                      <Component id="jScrollPane15" min="-2" pref="66" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="subcondicoesCriarCondicaoJButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="subcondicoesSalvarAlteracoesDaCondicaoJButtob" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="limparCamposJButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="deletarCondicaoJButton" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="tabelaSubcondicoesJScrollPane" min="-2" pref="180" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="inserirCondicaoCampo1JButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="subcondicoesCriarCondicaoJButton" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="inserirCondicaoCampo2JButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="criarRelacaoJButton" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="campo1JTextField" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="subcondicoesSalvarAlteracoesDaCondicaoJButtob" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="subcondicoesTipoDeRelacaoJComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="campo2JTextField" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="criarRelacaoJButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="deletarRelacaoJButton" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="inserirRelacaoCampo1JButton" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="inserirRelacaoCampo2JButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="limparCamposJButton" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="tabelaRelacoesJScrollPane" min="-2" pref="180" max="-2" attributes="0"/>
@@ -798,6 +815,22 @@
                         <Component class="javax.swing.JTextField" name="subcondicoesIdentificacaoDaCondicaoJTextField">
                           <Events>
                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="subcondicoesIdentificacaoDaCondicaoJTextFieldActionPerformed"/>
+                          </Events>
+                        </Component>
+                        <Component class="javax.swing.JButton" name="deletarCondicaoJButton">
+                          <Properties>
+                            <Property name="text" type="java.lang.String" value="Deletar Condi&#xe7;&#xe3;o"/>
+                          </Properties>
+                          <Events>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="deletarCondicaoJButtonActionPerformed"/>
+                          </Events>
+                        </Component>
+                        <Component class="javax.swing.JButton" name="deletarRelacaoJButton">
+                          <Properties>
+                            <Property name="text" type="java.lang.String" value="Deletar Rela&#xe7;&#xe3;o"/>
+                          </Properties>
+                          <Events>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="deletarRelacaoJButtonActionPerformed"/>
                           </Events>
                         </Component>
                       </SubComponents>

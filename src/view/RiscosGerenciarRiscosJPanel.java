@@ -1198,6 +1198,8 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
         criarRelacaoJButton = new javax.swing.JButton();
         limparCamposJButton = new javax.swing.JButton();
         subcondicoesIdentificacaoDaCondicaoJTextField = new javax.swing.JTextField();
+        deletarCondicaoJButton = new javax.swing.JButton();
+        deletarRelacaoJButton = new javax.swing.JButton();
         PlanoDeMitigacaoJPanel = new javax.swing.JPanel();
         planoDeMitigacaoPlanoDeMitigacaoJLabel = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
@@ -1626,6 +1628,20 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
             }
         });
 
+        deletarCondicaoJButton.setText("Deletar Condição");
+        deletarCondicaoJButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deletarCondicaoJButtonActionPerformed(evt);
+            }
+        });
+
+        deletarRelacaoJButton.setText("Deletar Relação");
+        deletarRelacaoJButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deletarRelacaoJButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
@@ -1638,12 +1654,24 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(subcondicoesIdentificacaoDaCondicaoJTextField))
                     .addComponent(tabelaRelacoesJScrollPane)
-                    .addComponent(jScrollPane15, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 732, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tabelaSubcondicoesJScrollPane)
                     .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addComponent(jLabel17)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel17)
-                            .addGroup(jPanel6Layout.createSequentialGroup()
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jScrollPane15, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 732, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                                    .addComponent(deletarCondicaoJButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(limparCamposJButton, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(subcondicoesSalvarAlteracoesDaCondicaoJButtob)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(subcondicoesCriarCondicaoJButton, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
                                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(inserirCondicaoCampo1JButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(campo1JTextField)
@@ -1651,19 +1679,16 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(subcondicoesTipoDeRelacaoJComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(inserirCondicaoCampo2JButton)
-                                    .addGroup(jPanel6Layout.createSequentialGroup()
-                                        .addComponent(campo2JTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(criarRelacaoJButton))
-                                    .addComponent(inserirRelacaoCampo2JButton, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(92, 92, 92)
                                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(subcondicoesSalvarAlteracoesDaCondicaoJButtob, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(subcondicoesCriarCondicaoJButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(limparCamposJButton, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE))))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                                    .addComponent(inserirCondicaoCampo2JButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(inserirRelacaoCampo2JButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(campo2JTextField))
+                                .addGap(93, 93, 93)
+                                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(jPanel6Layout.createSequentialGroup()
+                                        .addComponent(criarRelacaoJButton, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(150, 150, 150))
+                                    .addComponent(deletarRelacaoJButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                 .addContainerGap(34, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
@@ -1676,26 +1701,30 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel17)
-                    .addComponent(jScrollPane15, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane15, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(7, 7, 7)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(subcondicoesCriarCondicaoJButton)
+                    .addComponent(subcondicoesSalvarAlteracoesDaCondicaoJButtob)
+                    .addComponent(limparCamposJButton)
+                    .addComponent(deletarCondicaoJButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tabelaSubcondicoesJScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(inserirCondicaoCampo1JButton)
-                    .addComponent(subcondicoesCriarCondicaoJButton)
-                    .addComponent(inserirCondicaoCampo2JButton))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(campo1JTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(subcondicoesSalvarAlteracoesDaCondicaoJButtob)
-                    .addComponent(subcondicoesTipoDeRelacaoJComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(campo2JTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(inserirCondicaoCampo2JButton)
                     .addComponent(criarRelacaoJButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(campo1JTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(subcondicoesTipoDeRelacaoJComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(campo2JTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(deletarRelacaoJButton))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(inserirRelacaoCampo1JButton)
-                    .addComponent(inserirRelacaoCampo2JButton)
-                    .addComponent(limparCamposJButton))
+                    .addComponent(inserirRelacaoCampo2JButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tabelaRelacoesJScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -2897,16 +2926,36 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_subcondicoesCriarCondicaoJButtonActionPerformed
 
     private void subcondicoesSalvarAlteracoesDaCondicaoJButtobActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_subcondicoesSalvarAlteracoesDaCondicaoJButtobActionPerformed
-        // TODO add your handling code here:
+
+    if(subcondicaoSelecionada != null){
+        
+        subcondicaoSelecionada.setIdentificacaoSubcondicao(subcondicoesIdentificacaoDaCondicaoJTextField.getText());
+        subcondicaoSelecionada.setDescricaoSubcondicao(descricaoSubcondicaoJTextArea.getText());
+        
+        riscosGerenciarRiscosFacade.alterarSubCondicao(subcondicaoSelecionada);
+        
+        tabelaSubcondicoesJTable.clearSelection();
+        subcondicaoSelecionada = null;
+        subcondicoesIdentificacaoDaCondicaoJTextField.setText("");
+        descricaoSubcondicaoJTextArea.setText("");
+        reiniciarTabelaSubcondicoes();
+        
+        JOptionPane.showMessageDialog(this, "Condição alterada com sucesso.");
+        
+    } else {
+        JOptionPane.showMessageDialog(this, "Por favor selecione uma subcondição.");
+    }   
+
+    // TODO add your handling code here:
     }//GEN-LAST:event_subcondicoesSalvarAlteracoesDaCondicaoJButtobActionPerformed
 
     private void limparCamposJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limparCamposJButtonActionPerformed
         
+        
         tabelaSubcondicoesJTable.clearSelection();
         subcondicaoSelecionada = null;
         
-        tabelaRelacoes.clearSelection();
-        relacaoSelecionada = null;
+        
         
         subcondicoesIdentificacaoDaCondicaoJTextField.setText("");
         descricaoSubcondicaoJTextArea.setText("");
@@ -2978,6 +3027,75 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
         
     }//GEN-LAST:event_criarRelacaoJButtonActionPerformed
 
+    private void deletarCondicaoJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deletarCondicaoJButtonActionPerformed
+        
+        if(subcondicaoSelecionada != null){
+        
+        boolean existeRelacaoComASubcondicaoSelecionada = false;
+        
+        for(int i = 0; i < listaRelacoes.size(); i++){
+            
+            if(subcondicaoSelecionada.getIdSubcondicao() == listaRelacoes.get(i).getIdSubcondicao1() || subcondicaoSelecionada.getIdSubcondicao() == listaRelacoes.get(i).getIdSubcondicao2()){
+                existeRelacaoComASubcondicaoSelecionada = true;
+            }
+            
+        }
+        
+        
+        if(existeRelacaoComASubcondicaoSelecionada){
+            JOptionPane.showMessageDialog(this, "Existem relações com esta condição.");
+        } else {
+            
+            riscosGerenciarRiscosFacade.deletarSubCondicao(subcondicaoSelecionada);
+            
+            reiniciarTabelaSubcondicoes();
+            
+            tabelaSubcondicoesJTable.clearSelection();
+            subcondicaoSelecionada = null;
+        
+            subcondicoesIdentificacaoDaCondicaoJTextField.setText("");
+            descricaoSubcondicaoJTextArea.setText("");
+            
+            JOptionPane.showMessageDialog(this, "Condição deletada com sucesso.");
+        }
+        
+        } else {
+            JOptionPane.showMessageDialog(this, "Por favor selecione uma condição.");
+        }
+        
+        
+        
+    }//GEN-LAST:event_deletarCondicaoJButtonActionPerformed
+
+    private void deletarRelacaoJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deletarRelacaoJButtonActionPerformed
+
+        if(relacaoSelecionada != null){
+                
+        boolean existeRelacaoComARelacaoSelecionada = false;
+        for(int i=0; i < listaRelacoes.size(); i++){
+            if(listaRelacoes.get(i).getIdRelacao1() == relacaoSelecionada.getIdGrupo() || listaRelacoes.get(i).getIdRelacao2() == relacaoSelecionada.getIdGrupo()){
+                existeRelacaoComARelacaoSelecionada = true;
+            }
+        }
+        
+        if(existeRelacaoComARelacaoSelecionada){
+            JOptionPane.showMessageDialog(this, "Existem relações envolvendo esta relação");
+        } else {
+            
+            riscosGerenciarRiscosFacade.deletarRelacao(relacaoSelecionada);
+            
+            reiniciarTabelaRelacoes();
+            relacaoSelecionada = null;
+            
+            JOptionPane.showMessageDialog(this, "Relação deletada com sucesso.");
+            
+        }
+        } else {
+            JOptionPane.showMessageDialog(this, "Por favor selecione uma relação.");
+        }
+        
+    }//GEN-LAST:event_deletarRelacaoJButtonActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel HistoricoDeAlteracoesJPanel;
@@ -2992,6 +3110,8 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
     private javax.swing.JTextField campo2JTextField;
     private javax.swing.JButton criarRelacaoJButton;
     private net.sf.nachocalendar.components.DateField dataIdentificacaoDoRisco;
+    private javax.swing.JButton deletarCondicaoJButton;
+    private javax.swing.JButton deletarRelacaoJButton;
     private javax.swing.JTextPane descricaoSubcondicaoJTextArea;
     private javax.swing.JLabel estadoAtualRiscoJLabel;
     private javax.swing.JPanel gerenciarRiscosJPanel;
