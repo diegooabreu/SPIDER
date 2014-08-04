@@ -270,6 +270,14 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
                     informacoesGeraisProbabilidadeJSpinner.setValue(riscoSelecionado.getProbabilidade());
                     informacoesGeraisGrauDeSeveridadeJTextField.setText(Double.toString(riscoSelecionado.getGrauSeveridade()));
                     estadoAtualRiscoJLabel.setText(riscoSelecionado.getStatusRisco());
+                    
+                    campo1Condicao = null;
+                    campo1Relacao = null;
+                    campo1JTextField.setText("");
+                    campo2Condicao = null;
+                    campo2Relacao = null;
+                    campo2JTextField.setText("");
+                    
                     /*
                      // Determina qual caixa de status do risco será selecionada
                      if (riscoSelecionado.getStatusRisco().equals("Novo")) {
@@ -1567,6 +1575,8 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
             }
         });
 
+        campo1JTextField.setEditable(false);
+
         inserirRelacaoCampo1JButton.setText("Inserir relação (campo 1) - ^");
         inserirRelacaoCampo1JButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1607,6 +1617,8 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
                 inserirRelacaoCampo2JButtonActionPerformed(evt);
             }
         });
+
+        campo2JTextField.setEditable(false);
 
         criarRelacaoJButton.setText("Criar Relação");
         criarRelacaoJButton.addActionListener(new java.awt.event.ActionListener() {
@@ -2896,7 +2908,8 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_informacoesGeraisImpactoJComboBoxActionPerformed
 
     private void subcondicoesCriarCondicaoJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_subcondicoesCriarCondicaoJButtonActionPerformed
-    
+
+        if(riscoSelecionado.getIdRisco() != null){
         Subcondicao novaCondicao = new Subcondicao();
         
         
@@ -2920,8 +2933,12 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
         reiniciarTabelaSubcondicoes();
         JOptionPane.showMessageDialog(this, "Condição criada com sucesso.");
         
+        getListaSubcondicoes(riscoSelecionado);
         reiniciarTabelaSubcondicoes();
         
+        } else {
+            JOptionPane.showMessageDialog(this, "Selecione um risco para criar uma condição.");
+        }
     // TODO add your handling code here:
     }//GEN-LAST:event_subcondicoesCriarCondicaoJButtonActionPerformed
 
@@ -2938,6 +2955,7 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
         subcondicaoSelecionada = null;
         subcondicoesIdentificacaoDaCondicaoJTextField.setText("");
         descricaoSubcondicaoJTextArea.setText("");
+        getListaSubcondicoes(riscoSelecionado);
         reiniciarTabelaSubcondicoes();
         
         JOptionPane.showMessageDialog(this, "Condição alterada com sucesso.");
@@ -2969,40 +2987,49 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_subcondicoesIdentificacaoDaCondicaoJTextFieldActionPerformed
 
     private void inserirCondicaoCampo1JButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inserirCondicaoCampo1JButtonActionPerformed
-
+        if(subcondicaoSelecionada != null){
         campo1JTextField.setText(subcondicaoSelecionada.getIdentificacaoSubcondicao());
         campo1Condicao = subcondicaoSelecionada;
         campo1Relacao = new Gruporelacao();
+        }
         // TODO add your handling code here:
     }//GEN-LAST:event_inserirCondicaoCampo1JButtonActionPerformed
 
     private void inserirCondicaoCampo2JButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inserirCondicaoCampo2JButtonActionPerformed
-
+        if(subcondicaoSelecionada != null){
         campo2JTextField.setText(subcondicaoSelecionada.getIdentificacaoSubcondicao());
         campo2Condicao = subcondicaoSelecionada;
         campo2Relacao = new Gruporelacao();
-
+        }
 // TODO add your handling code here:
     }//GEN-LAST:event_inserirCondicaoCampo2JButtonActionPerformed
 
     private void inserirRelacaoCampo1JButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inserirRelacaoCampo1JButtonActionPerformed
 
+        if(relacaoSelecionada != null){
         campo1JTextField.setText(relacaoSelecionada.getIdGrupo().toString());
         campo1Condicao = new Subcondicao();
         campo1Relacao = relacaoSelecionada;
+        }
         // TODO add your handling code here:
     }//GEN-LAST:event_inserirRelacaoCampo1JButtonActionPerformed
 
     private void inserirRelacaoCampo2JButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inserirRelacaoCampo2JButtonActionPerformed
-
+        
+        if(relacaoSelecionada != null){
         campo2JTextField.setText(relacaoSelecionada.getIdGrupo().toString());
         campo2Condicao = new Subcondicao();
         campo2Relacao = relacaoSelecionada;
+        }
 // TODO add your handling code here:
     }//GEN-LAST:event_inserirRelacaoCampo2JButtonActionPerformed
 
     private void criarRelacaoJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_criarRelacaoJButtonActionPerformed
         
+       if(campo1JTextField.getText().equals(null) || campo2JTextField.getText().equals(null)){
+           JOptionPane.showMessageDialog(this, "Finalize os campos para criação da relação.");
+       } else {
+           
         Gruporelacao novaRelacao = new Gruporelacao();
         if(campo1Condicao.getIdSubcondicao() != null){
         novaRelacao.setIdSubcondicao1(campo1Condicao.getIdSubcondicao());
@@ -3024,6 +3051,9 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
         reiniciarTabelaSubcondicoes();
         
         JOptionPane.showMessageDialog(this, "Nova relação criada com sucesso.");
+        
+        }
+        
         
     }//GEN-LAST:event_criarRelacaoJButtonActionPerformed
 
@@ -3048,6 +3078,7 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
             
             riscosGerenciarRiscosFacade.deletarSubCondicao(subcondicaoSelecionada);
             
+            getListaSubcondicoes(riscoSelecionado);
             reiniciarTabelaSubcondicoes();
             
             tabelaSubcondicoesJTable.clearSelection();

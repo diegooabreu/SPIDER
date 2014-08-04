@@ -721,6 +721,9 @@
                           </Events>
                         </Component>
                         <Component class="javax.swing.JTextField" name="campo1JTextField">
+                          <Properties>
+                            <Property name="editable" type="boolean" value="false"/>
+                          </Properties>
                         </Component>
                         <Component class="javax.swing.JButton" name="inserirRelacaoCampo1JButton">
                           <Properties>
@@ -795,6 +798,9 @@
                           </Events>
                         </Component>
                         <Component class="javax.swing.JTextField" name="campo2JTextField">
+                          <Properties>
+                            <Property name="editable" type="boolean" value="false"/>
+                          </Properties>
                         </Component>
                         <Component class="javax.swing.JButton" name="criarRelacaoJButton">
                           <Properties>
