@@ -2887,6 +2887,8 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
         subcondicoesIdentificacaoDaCondicaoJTextField.setText("");
         descricaoSubcondicaoJTextArea.setText("");
         
+        criarTabelaSubcondicoes();
+        reiniciarTabelaSubcondicoes();
         JOptionPane.showMessageDialog(this, "Condição criada com sucesso.");
         
         reiniciarTabelaSubcondicoes();

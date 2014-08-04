@@ -46,7 +46,7 @@ public class PrincipalJFrame extends javax.swing.JFrame {
     final RiscosPriorizarRiscosJPanel riscosPriorizarRiscosJPanel = new RiscosPriorizarRiscosJPanel();
     final RiscosRiscosOcorridosJPanel riscosRiscosOcorridosJPanel = new RiscosRiscosOcorridosJPanel();
     
-    final MonitoracaoAnaliseDosRiscosJPanel monitoracaoAnaliseDosRiscosJPanel = new MonitoracaoAnaliseDosRiscosJPanel();
+    static MonitoracaoAnaliseDosRiscosJPanel monitoracaoAnaliseDosRiscosJPanel = new MonitoracaoAnaliseDosRiscosJPanel();
     
     final MonitoracaoTabelaDeAlteracaoJPanel monitoracoaTabelaDeAlteracaoJPanel = new MonitoracaoTabelaDeAlteracaoJPanel();
     final MonitoracaoTarefasPlanosPendentesJPanel monitoracaoTarefasTarefasPendentesJPanel = new MonitoracaoTarefasPlanosPendentesJPanel();
@@ -514,7 +514,7 @@ public class PrincipalJFrame extends javax.swing.JFrame {
         camadasJDesktopPane.add(monitoracaoAnaliseDosRiscosCheckInternalJFrame);
         
         camadasJDesktopPane.add(riscosRiscosOcorridosJInternalFrame);
-      
+        
         //riscosPriorizarRiscosJPanel.setBounds(0, 0, 861, 529);
         //camadasJDesktopPane.add(riscosPriorizarRiscosJPanel);
 
