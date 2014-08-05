@@ -404,4 +404,50 @@ public class RiscosGerenciarRiscosFacade {
         return listaMarcos;
     }
     
+    public void deletarSubCondicao(Subcondicao condicao){
+        
+        SubcondicaoJpaController condicaoJPA = new SubcondicaoJpaController();
+        
+        try{
+            
+            condicaoJPA.destroy(condicao.getIdSubcondicao());
+            
+        } catch (Exception e){
+            System.out.println("Erro no método deletarSubcondicao na classe RiscosGerenciarRiscosFacade");
+            e.printStackTrace();
+        }
+        
+    }
+    
+    public void alterarSubCondicao(Subcondicao condicao){
+        SubcondicaoJpaController condicaoJPA = new SubcondicaoJpaController();
+        
+        try{
+            
+            condicaoJPA.edit(condicao);
+            
+        } catch (Exception e){
+            System.out.println("Erro no método alterarSubcondicao na classe RiscosGerenciarRiscosFacade");
+            e.printStackTrace();
+        }
+        
+    }
+    
+    public void deletarRelacao(Gruporelacao relacao){
+        
+        GruporelacaoJpaController relacaoJPA = new GruporelacaoJpaController();
+        
+        try{
+            
+            relacaoJPA.destroy(relacao.getIdGrupo());
+            
+        } catch (Exception e){
+            System.out.println("Erro no método deletarRelacao na classe RiscosGerenciarRiscosFacade");
+            e.printStackTrace();
+        }
+        
+    }
+    
+    
+    
 }

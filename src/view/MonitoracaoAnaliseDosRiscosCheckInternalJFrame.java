@@ -947,6 +947,11 @@ public class MonitoracaoAnaliseDosRiscosCheckInternalJFrame extends javax.swing.
             monitoracaoAnaliseDosRiscosFacade.editRisco(riscoSel);
         }
         
+            PrincipalJFrame.monitoracaoAnaliseDosRiscosJPanel.criarTabelaAnalisarRiscos();
+            MonitoracaoAnaliseDosRiscosFacade analiseFacade = new MonitoracaoAnaliseDosRiscosFacade();
+            List<Risco> listaDeRisco = analiseFacade.listarRiscosPOrdemGrauDeEsposicaoByStatus(riscoSel.getContem().getProjeto(), "Mitigando");
+            PrincipalJFrame.monitoracaoAnaliseDosRiscosJPanel.populaTabelaDeRiscos(listaDeRisco, maximizable);
+            PrincipalJFrame.monitoracaoAnaliseDosRiscosJPanel.definirEventosTabelaDeRiscos();
             JOptionPane.showMessageDialog(this, "Risco analisado.");
             this.setVisible(false);
         
