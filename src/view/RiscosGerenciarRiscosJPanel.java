@@ -394,7 +394,14 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
         planoMitigacaoListModel = new DefaultListModel();
         if (listaMitigacao.size() > 0) {
             for (int i = 0; i < listaMitigacao.size(); i++) {
-                planoMitigacaoListModel.addElement(listaMitigacao.get(i).getIdentificacaoPlanoMitigacao());
+                if (listaMitigacao.get(i).getDataRealizacao() == null){
+                    planoMitigacaoListModel.addElement(listaMitigacao.get(i).getIdentificacaoPlanoMitigacao());
+                    planoDeMitigacaoSalvarAlteracoesJButton.setEnabled(true);
+                } else {
+                    planoMitigacaoListModel.addElement(listaMitigacao.get(i).getIdentificacaoPlanoMitigacao());
+                    planoDeMitigacaoSalvarAlteracoesJButton.setEnabled(false);
+                }
+                
             }
             planoDeMitigacaoListaPlanosJList.setModel(planoMitigacaoListModel);
         }
@@ -438,17 +445,37 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
     public void preencheComboBoxDataLimiteMitigacao() {
         planoMitigacaoDataLimiteJComboBox.removeAllItems();
         List<Pontodecontrole> listaPontoControle = null;
-        List<Marcodoprojeto> listaMarcosProjeto = null;
+        List<Marcodoprojeto> listaMarcosDoProjeto = null;
         listaPontoControle = riscosGerenciarRiscosFacade.listarPontosControleProjetoSelecionado(projetoSelecionado);
-        listaMarcosProjeto = riscosGerenciarRiscosFacade.listarMarcosProjetoProjetoSelecionado(projetoSelecionado);
+        listaMarcosDoProjeto = riscosGerenciarRiscosFacade.listarMarcosProjetoProjetoSelecionado(projetoSelecionado);
+        
+        DateFormat df = DateFormat.getDateInstance(DateFormat.MEDIUM);
+        String dataAtual = df.format(new Date());
         if (listaPontoControle.size() > 0) {
+           
             for (int i = 0; i < listaPontoControle.size(); i++) {
-                planoMitigacaoDataLimiteJComboBox.addItem(listaPontoControle.get(i).getNomePontoDeControle());
+                Calendar dataPontoSelecionado = Calendar.getInstance();
+                
+                dataPontoSelecionado.setTime(listaPontosControle.get(i).getDataPontoControle());
+                String dataPonto = df.format(dataPontoSelecionado.getTime());
+                // se Data do ponto de controle for igual ou maior a data atual
+                if (dataPontoSelecionado.getTime().after(new Date()) || dataPonto.equals(dataAtual)){
+                    planoMitigacaoDataLimiteJComboBox.addItem(listaPontoControle.get(i).getNomePontoDeControle());
+                }
+                
             }
         }
-        if (listaMarcosProjeto.size() > 0) {
-            for (int i = 0; i < listaMarcosProjeto.size(); i++) {
-                planoMitigacaoDataLimiteJComboBox.addItem(listaMarcosProjeto.get(i).getNomeMarcoDoProjeto());
+        if (listaMarcosDoProjeto.size() > 0) {
+            for (int i = 0; i < listaMarcosDoProjeto.size(); i++) {
+                Calendar dataMarcosProjeto = Calendar.getInstance();
+                
+                dataMarcosProjeto.setTime(listaMarcosDoProjeto.get(i).getDataMarcoProjeto());
+                String dataMarco = df.format(dataMarcosProjeto.getTime());
+                // se Data do Marco do projeto for igual ou maior a data atual
+                if (dataMarcosProjeto.getTime().after(new Date()) || dataMarco.equals(dataAtual)){
+                    planoMitigacaoDataLimiteJComboBox.addItem(listaMarcosDoProjeto.get(i).getNomeMarcoDoProjeto());
+                }
+                
             }
         }
     }
@@ -500,7 +527,7 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
                     //planoDeMitigacaoDataLimiteJDateChooser.setCalendar(dataLimite);
                     //Determina qual campo do comboBox de dataLimite será selecionado
                     planoDeMitigacaoRemoverPlanoJButton.setEnabled(true);
-                    planoDeMitigacaoSalvarAlteracoesJButton.setEnabled(true);
+                    //planoDeMitigacaoSalvarAlteracoesJButton.setEnabled(true);
                 }
             }
         });
@@ -534,7 +561,14 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
         planoContingenciaListModel = new DefaultListModel();
         if (listaContingencia.size() > 0) {
             for (int i = 0; i < listaContingencia.size(); i++) {
-                planoContingenciaListModel.addElement(listaContingencia.get(i).getIdentificacaoPlanoContingencia());
+                if (listaContingencia.get(i).getDataRealizacao() == null){
+                    planoContingenciaListModel.addElement(listaContingencia.get(i).getIdentificacaoPlanoContingencia());
+                    planoDeContingenciaSalvarAlteracoesJButton.setEnabled(true);
+                } else {
+                    planoContingenciaListModel.addElement(listaContingencia.get(i).getIdentificacaoPlanoContingencia());
+                    planoDeContingenciaSalvarAlteracoesJButton.setEnabled(false);
+                }
+                
             }
             planoDeContingenciaListaPlanosJList.setModel(planoContingenciaListModel);
         }
@@ -547,14 +581,30 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
         List<Marcodoprojeto> listaMarcosProjeto = null;
         listaPontoControle = riscosGerenciarRiscosFacade.listarPontosControleProjetoSelecionado(projetoSelecionado);
         listaMarcosProjeto = riscosGerenciarRiscosFacade.listarMarcosProjetoProjetoSelecionado(projetoSelecionado);
+        DateFormat df = DateFormat.getDateInstance(DateFormat.MEDIUM);
+        String dataAtual = df.format(new Date());
         if (listaPontoControle.size() > 0) {
             for (int i = 0; i < listaPontoControle.size(); i++) {
-                planoContingenciaDataLimiteJComboBox.addItem(listaPontoControle.get(i).getNomePontoDeControle());
+                Calendar dataPontoSelecionado = Calendar.getInstance();
+                
+                dataPontoSelecionado.setTime(listaPontosControle.get(i).getDataPontoControle());
+                String dataPonto = df.format(dataPontoSelecionado.getTime());
+                // se Data do ponto de controle for igual ou maior a data atual
+                if (dataPontoSelecionado.getTime().after(new Date()) || dataPonto.equals(dataAtual)){
+                    planoContingenciaDataLimiteJComboBox.addItem(listaPontoControle.get(i).getNomePontoDeControle());
+                } 
             }
         }
         if (listaMarcosProjeto.size() > 0) {
             for (int i = 0; i < listaMarcosProjeto.size(); i++) {
-                planoContingenciaDataLimiteJComboBox.addItem(listaMarcosProjeto.get(i).getNomeMarcoDoProjeto());
+                Calendar dataMarcosProjeto = Calendar.getInstance();
+                
+                dataMarcosProjeto.setTime(listaMarcosProjeto.get(i).getDataMarcoProjeto());
+                String dataMarco = df.format(dataMarcosProjeto.getTime());
+                // se Data do Marco do projeto for igual ou maior a data atual
+                if (dataMarcosProjeto.getTime().after(new Date()) || dataMarco.equals(dataAtual)){
+                    planoContingenciaDataLimiteJComboBox.addItem(listaMarcosProjeto.get(i).getNomeMarcoDoProjeto());
+                }
             }
         }
     }
@@ -578,8 +628,8 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
     //Método que inicia a aba Plano de Contingência com os botões deselecionados e a lista vazia de Contingência
     public void iniciaBotoesCinzaPlanoContingencia() {
         planoDeContingenciaAdicionarPlanoJButton.setEnabled(false);
-        planoDeContingenciaSalvarAlteracoesJButton.setEnabled(false);
         planoDeContingenciaRemoverPlanoJButton.setEnabled(false);
+        planoDeContingenciaSalvarAlteracoesJButton.setEnabled(false);
     }
 
     //Método que limpa os campos de Plano de Contingência
@@ -637,7 +687,7 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
 
                     
                     planoDeContingenciaRemoverPlanoJButton.setEnabled(true);
-                    planoDeContingenciaSalvarAlteracoesJButton.setEnabled(true);
+                    //planoDeContingenciaSalvarAlteracoesJButton.setEnabled(true);
                 }
             }
         });
@@ -2698,6 +2748,7 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_relacoesRemoverInfluenciaJButtonActionPerformed
 
     private void planoMitigacaoDataLimiteJComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_planoMitigacaoDataLimiteJComboBoxActionPerformed
+        
         if (planoMitigacaoDataLimiteJComboBox.getSelectedItem() != null) {
             String nomeItem = planoMitigacaoDataLimiteJComboBox.getSelectedItem().toString();
             mitigacaoEhMarco = false;
