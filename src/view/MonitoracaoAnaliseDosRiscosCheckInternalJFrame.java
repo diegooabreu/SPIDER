@@ -90,13 +90,6 @@ public class MonitoracaoAnaliseDosRiscosCheckInternalJFrame extends javax.swing.
                     
                     
                     
-                    /*
-                    if(checagemOcorrenciaRisco(riscoSel, listaDeCondicoesMarcadas)){
-                        statusRiscoJComboBox.setSelectedItem("Contingenciando");
-                    } else {
-                        statusRiscoJComboBox.setSelectedItem("Novo");
-                    }
-                    */
                     
                     if(existeCondicaoIndependenteMarcada(listaDeCondicoesMarcadas)){
                         
@@ -511,37 +504,7 @@ public class MonitoracaoAnaliseDosRiscosCheckInternalJFrame extends javax.swing.
              boolean condicao2 = false;
              boolean relacao1 = false;
              
-             // checando condicao1
-             for(int u=0; u < listaCondicaoTabela.size(); u++){
-                 if(listaCondicaoTabela.get(u).getIdCondicao() == relacao.getIdSubcondicao2()){
-                     if(listaCondicaoTabela.get(u).isStatusCondicao()){
-                         condicao2 = true;
-                     }
-                 }
-             }
-             
-             // checando relacao1
-             for(int u=0; u < listaGruporelacao.size(); u++){
-                 if(listaGruporelacao.get(u).getIdGrupo() == relacao.getIdRelacao1()){
-                     if(checarRelacao(listaGruporelacao.get(u))){
-                         relacao1 = true;
-                     }
-                 }
-             }
-             
-             if(condicao2 || relacao1){
-                 riscoOcorreu = true;
-             }
-             
-         }
-         
-         // checar ocorrencia se a relacao for entre condicao2 e relacao1  e o tipo for "E"
-         if((relacao.getIdSubcondicao2() != null) && (relacao.getIdRelacao1() != null) && (relacao.getRelacao().equals("E"))){
-             
-             boolean condicao2 = false;
-             boolean relacao1 = false;
-             
-             // checando condicao1
+             // checando condicao2
              for(int u=0; u < listaCondicaoTabela.size(); u++){
                  if(listaCondicaoTabela.get(u).getIdCondicao() == relacao.getIdSubcondicao2()){
                      if(listaCondicaoTabela.get(u).isStatusCondicao()){
