@@ -2909,7 +2909,20 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
 
     private void subcondicoesCriarCondicaoJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_subcondicoesCriarCondicaoJButtonActionPerformed
 
+       
         if(riscoSelecionado.getIdRisco() != null){
+            
+        boolean existeCondicaoComEsteNome = false;
+        for(int k=0; k < listaSubcondicoes.size(); k++){
+            if(listaSubcondicoes.get(k).getIdentificacaoSubcondicao().equals(subcondicoesIdentificacaoDaCondicaoJTextField.getText())){
+                existeCondicaoComEsteNome = true;
+            }
+        }
+            
+        if(existeCondicaoComEsteNome){
+            JOptionPane.showMessageDialog(this, "Ja existe uma condição com este nome.");
+        } else {
+            
         Subcondicao novaCondicao = new Subcondicao();
         
         
@@ -2936,6 +2949,7 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
         getListaSubcondicoes(riscoSelecionado);
         reiniciarTabelaSubcondicoes();
         
+        }
         } else {
             JOptionPane.showMessageDialog(this, "Selecione um risco para criar uma condição.");
         }
@@ -3030,6 +3044,8 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
            JOptionPane.showMessageDialog(this, "Finalize os campos para criação da relação.");
        } else {
            
+           
+           
         Gruporelacao novaRelacao = new Gruporelacao();
         if(campo1Condicao.getIdSubcondicao() != null){
         novaRelacao.setIdSubcondicao1(campo1Condicao.getIdSubcondicao());
@@ -3046,11 +3062,29 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
         
         novaRelacao.setRelacao(subcondicoesTipoDeRelacaoJComboBox.getSelectedItem().toString());
         
-        riscosGerenciarRiscosFacade.criarNovaRelacao(novaRelacao);
+        boolean existeRelacaoIgual = false;
+           for(int i=0; i < listaRelacoes.size(); i++){
+               if((listaRelacoes.get(i).getIdRelacao1() == novaRelacao.getIdRelacao1())
+                       && (listaRelacoes.get(i).getIdRelacao2() == novaRelacao.getIdRelacao2())
+                       && (listaRelacoes.get(i).getIdSubcondicao1() == novaRelacao.getIdSubcondicao1())
+                       && (listaRelacoes.get(i).getIdSubcondicao2() == novaRelacao.getIdSubcondicao2())
+                       && (listaRelacoes.get(i).getRelacao().equals(novaRelacao.getRelacao()))){
+                   existeRelacaoIgual = true;
+               }
+           }
         
-        reiniciarTabelaSubcondicoes();
+           
+           if(existeRelacaoIgual){
+               JOptionPane.showMessageDialog(this, "Ja existe uma relação igual a esta.");
+           } else {
+               
+                riscosGerenciarRiscosFacade.criarNovaRelacao(novaRelacao);
         
-        JOptionPane.showMessageDialog(this, "Nova relação criada com sucesso.");
+                reiniciarTabelaSubcondicoes();
+        
+                JOptionPane.showMessageDialog(this, "Nova relação criada com sucesso.");
+        
+           }
         
         }
         
