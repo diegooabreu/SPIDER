@@ -102,7 +102,11 @@ public class OrganizacionalPortfolioJPanel extends javax.swing.JPanel {
 
     private void criarTabelaProjetos() {
         portfolioTabelaJTable = new JTable();
-        modeloPortfoliTabelaJTable = new DefaultTableModel();
+        modeloPortfoliTabelaJTable = new DefaultTableModel(){
+            public boolean isCellEditable(int row, int col) {  
+            return false;  
+            }  
+        };
         modeloPortfoliTabelaJTable.setColumnIdentifiers(new String[]{"Nome do Projeto", "Gerente de Projeto", "Responsável pela Gerência de Riscos", "Status do Projeto", "Status da Avaliação"});
         portfolioTabelaJTable.setModel(modeloPortfoliTabelaJTable);
         tabelaPortfolioJScrollPane.setViewportView(portfolioTabelaJTable);
@@ -110,7 +114,12 @@ public class OrganizacionalPortfolioJPanel extends javax.swing.JPanel {
 
     private void criarTabelaCategoriasAdicionadas() {
         categoriasAdicionadasJTable = new JTable();
-        modeloCategoriasAdicionadasJTable = new DefaultTableModel();
+        modeloCategoriasAdicionadasJTable = new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int row, int col) {  
+            return false;  
+            }  
+        };
         modeloCategoriasAdicionadasJTable.setColumnIdentifiers(new String[]{"Categorias Adicionadas no projeto"});
         categoriasAdicionadasJTable.setModel(modeloCategoriasAdicionadasJTable);
         tabelaCategoriasAdicionadasJScrollPane.setViewportView(categoriasAdicionadasJTable);

@@ -153,15 +153,20 @@ public class ProjetoCalendarioJPanel extends javax.swing.JPanel {
         
         
         tabelaMarcosEPontosDeControle = new JTable();
-        modeloTabelaMarcosEPontosDeControle = new DefaultTableModel();
+        modeloTabelaMarcosEPontosDeControle = new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int row, int col) {  
+            return false;  
+            }  
+        };
         
         modeloTabelaMarcosEPontosDeControle.setColumnIdentifiers(new Object[]{"Tipo" , "Nome" , "Data"});
         
         tabelaMarcosEPontosDeControle.setModel(modeloTabelaMarcosEPontosDeControle);
         
         tabelaMarcoEPontosDeControleJScrollPane.setViewportView(tabelaMarcosEPontosDeControle);
-        
-        
+     
+         
     }
     
     private void getListaMarcosPontosDeControle(){

@@ -74,7 +74,12 @@ public class OrganizacionalEARJPanel extends javax.swing.JPanel {
 
         categoriasTabelaJTable = new JTable(){@Override
         public boolean isCellEditable(int rowIndex, int colIndex) { return false; }};  
-        modeloCategoriasTabelaJTable = new DefaultTableModel();
+        modeloCategoriasTabelaJTable = new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int row, int col) {  
+            return false;  
+            }  
+        };
         modeloCategoriasTabelaJTable.setColumnIdentifiers(new String[]{"Id", "Categoria", "Categoria Pai", "Projeto", "Status da Avaliação"});
         categoriasTabelaJTable.setModel(modeloCategoriasTabelaJTable);
         categoriasTabelaJScrollPane.setViewportView(categoriasTabelaJTable);

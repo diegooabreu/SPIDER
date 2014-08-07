@@ -419,7 +419,12 @@ public class RiscosPriorizarRiscosJPanel extends javax.swing.JPanel {
     public void criaTabela() {
         limparCamposOutrasInformacoes();
         tabelaDeRiscosJTable = new JTable();
-        modeloTabelaDeRiscosJTable = new DefaultTableModel();
+        modeloTabelaDeRiscosJTable = new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int row, int col) {  
+            return false;  
+            }  
+        };
         modeloTabelaDeRiscosJTable.setColumnIdentifiers(new String[]{"Identificação", "Descrição", "Estado"});
         tabelaDeRiscosJTable.setModel(modeloTabelaDeRiscosJTable);
         TabelaDeRiscosJScrollPane.setViewportView(tabelaDeRiscosJTable);

@@ -79,7 +79,7 @@
                                   <Component id="informacoesGeraisEstadoAtualJLabel" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="estadoAtualRiscoJLabel" min="-2" pref="149" max="-2" attributes="0"/>
-                                  <EmptySpace pref="102" max="32767" attributes="0"/>
+                                  <EmptySpace pref="99" max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
                                   <Group type="103" groupAlignment="1" attributes="0">
@@ -102,7 +102,7 @@
                                                           <Component id="informacoesGeraisProbabilidadeJSpinner" min="-2" pref="61" max="-2" attributes="0"/>
                                                           <EmptySpace max="-2" attributes="0"/>
                                                           <Component id="informacoesGeraisProbabilidadePorcentagemJLabel" min="-2" max="-2" attributes="0"/>
-                                                          <EmptySpace pref="97" max="32767" attributes="0"/>
+                                                          <EmptySpace pref="100" max="32767" attributes="0"/>
                                                       </Group>
                                                   </Group>
                                               </Group>
@@ -639,7 +639,7 @@
                                           </Group>
                                       </Group>
                                   </Group>
-                                  <EmptySpace pref="34" max="32767" attributes="0"/>
+                                  <EmptySpace pref="36" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>

@@ -42,7 +42,12 @@ public class MonitoracaoAnaliseDosRiscosJPanel extends javax.swing.JPanel {
     public void criarTabelaAnalisarRiscos(){
         
         tabelaAnalisarRiscos = new JTable();
-        modeloTabelaAnalisarRiscos = new DefaultTableModel();
+        modeloTabelaAnalisarRiscos = new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int row, int col) {  
+            return false;  
+            }  
+        };
         modeloTabelaAnalisarRiscos.setColumnIdentifiers(new String[]{"Identificação", "Descrição", "Estado"});
         tabelaAnalisarRiscos.setModel(modeloTabelaAnalisarRiscos);
         tabelaRiscosAnaliseScrollPane.setViewportView(tabelaAnalisarRiscos);
