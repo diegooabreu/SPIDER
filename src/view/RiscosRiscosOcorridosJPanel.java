@@ -49,7 +49,12 @@ public class RiscosRiscosOcorridosJPanel extends javax.swing.JPanel {
     public void criarTabelaRiscosOcorridos(){
         
         tabelaRiscosOcorridos = new JTable();
-        modeloTabelaRiscosOcorridos = new DefaultTableModel();
+        modeloTabelaRiscosOcorridos = new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int row, int col) {  
+            return false;  
+            }  
+        };
         modeloTabelaRiscosOcorridos.setColumnIdentifiers(new Object[] {"Identificação", "Descrição", "Data de ocorrencia"});
         tabelaRiscosOcorridos.setModel(modeloTabelaRiscosOcorridos);
         tabelaRiscosOcorridosJScrollPane.setViewportView(tabelaRiscosOcorridos);

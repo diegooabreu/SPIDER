@@ -140,7 +140,11 @@ public class MonitoracaoTabelaDeAlteracaoJPanel extends javax.swing.JPanel {
             new String [] {
                 "Alteração", "Data", "Ações"
             }
-        ));
+        ){
+            public boolean isCellEditable(int row, int col) {
+                return false;
+            }
+        });
         MonitoracaoTabelaDeAlteracaoJScrollPane.setViewportView(MonitoracaoTabelaDeAlteracaoJTable);
 
         javax.swing.GroupLayout MonitoracaoTabelaDeAlteracaoJPanelLayout = new javax.swing.GroupLayout(MonitoracaoTabelaDeAlteracaoJPanel);
@@ -153,7 +157,7 @@ public class MonitoracaoTabelaDeAlteracaoJPanel extends javax.swing.JPanel {
             MonitoracaoTabelaDeAlteracaoJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(MonitoracaoTabelaDeAlteracaoJPanelLayout.createSequentialGroup()
                 .addComponent(MonitoracaoTabelaDeAlteracaoJScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 57, Short.MAX_VALUE))
+                .addGap(0, 82, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);

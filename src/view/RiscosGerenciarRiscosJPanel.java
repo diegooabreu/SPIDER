@@ -152,7 +152,12 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
     //Método que constrói a Tabela de Riscos
     void criarTabelaRiscos() {
         tabelaRiscosJTable = new JTable();
-        modeloTabelaRiscosJTable = new DefaultTableModel();
+        modeloTabelaRiscosJTable = new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int row, int col) {  
+            return false;  
+            }  
+        };
         modeloTabelaRiscosJTable.setColumnIdentifiers(new String[]{"Identificação", "Probabilidade", "Impacto", "Grau de Severidade", "Prioridade", "Estado"});
         tabelaRiscosJTable.setModel(modeloTabelaRiscosJTable);
         tabelaRiscosJScrollPane.setViewportView(tabelaRiscosJTable);
@@ -888,7 +893,12 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
     //Metodo que constrói a tabela de Histórico de Alterações
     private void criaTabelaHistoricoAlteracoes() {
         tabelaHistoricoAlteracoes = new JTable();
-        modeloTabelaHistoricoAlteracoes = new DefaultTableModel();
+        modeloTabelaHistoricoAlteracoes = new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int row, int col) {  
+            return false;  
+            }  
+        };
         modeloTabelaHistoricoAlteracoes.setColumnIdentifiers(new String[]{"Alteração", "Data de realização"});
         tabelaHistoricoAlteracoes.setModel(modeloTabelaHistoricoAlteracoes);
         tabelaHistoricoAlteracoesJScrollPane.setViewportView(tabelaHistoricoAlteracoes);
@@ -949,7 +959,12 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
     //Método que constrói a Tabela de Subcondições
     private void criarTabelaSubcondicoes() {
         tabelaSubcondicoesJTable = new JTable();
-        modeloTabelaSubcondicoesJTable = new DefaultTableModel();
+        modeloTabelaSubcondicoesJTable = new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int row, int col) {  
+            return false;  
+            }  
+        };
         modeloTabelaSubcondicoesJTable.setColumnIdentifiers(new String[]{"Identificação da condição", "Grupo de relações", "Ocorreu?"});
         tabelaSubcondicoesJTable.setModel(modeloTabelaSubcondicoesJTable);
         tabelaSubcondicoesJScrollPane.setViewportView(tabelaSubcondicoesJTable);
@@ -958,7 +973,12 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
     //Método que controi a tabela de Relações
     private void criarTabelaRelacoes(){
         tabelaRelacoes = new JTable();
-        modeloTabelaRelacoes = new DefaultTableModel();
+        modeloTabelaRelacoes = new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int row, int col) {  
+            return false;  
+            }  
+        };
         modeloTabelaRelacoes.setColumnIdentifiers(new Object[]{"Relação", "Condição 1", "Condição 2", "Relação 1", "Relação 2", "Tipo da Relação"});
         tabelaRelacoes.setModel(modeloTabelaRelacoes);
         tabelaRelacoesJScrollPane.setViewportView(tabelaRelacoes);
@@ -1437,7 +1457,7 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
                                                 .addComponent(informacoesGeraisProbabilidadeJSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                 .addComponent(informacoesGeraisProbabilidadePorcentagemJLabel)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 97, Short.MAX_VALUE))))))
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 100, Short.MAX_VALUE))))))
                             .addGroup(InformacoesGeraisJPanelLayout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
                                 .addGroup(InformacoesGeraisJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1751,7 +1771,7 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
                                         .addComponent(criarRelacaoJButton, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(150, 150, 150))
                                     .addComponent(deletarRelacaoJButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                .addContainerGap(34, Short.MAX_VALUE))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2168,7 +2188,7 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
                     .addGroup(PlanoContigenciaJPanelLayout.createSequentialGroup()
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(219, Short.MAX_VALUE))
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 300, Short.MAX_VALUE)))
         );
 
         gerenciarRiscosJTabbedPane.addTab("Plano de Contigência", PlanoContigenciaJPanel);
@@ -2232,7 +2252,7 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(gerenciarRiscosJPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 857, Short.MAX_VALUE)
+            .addComponent(gerenciarRiscosJPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 857, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
