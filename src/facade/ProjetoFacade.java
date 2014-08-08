@@ -7,13 +7,18 @@ package facade;
 
 import controller.CategoriaderiscoJpaController;
 import controller.ContemJpaController;
+import controller.PlanocontingenciaJpaController;
+import controller.PlanomitigacaoJpaController;
 import controller.ProjetoJpaController;
 import controller.exceptions.NonexistentEntityException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Categoriaderisco;
 import model.Contem;
+import model.Planocontingencia;
+import model.Planomitigacao;
 import model.Projeto;
 
 /**
@@ -90,6 +95,34 @@ public class ProjetoFacade {
     public void salvarNovoProjeto(Projeto projeto){
         ProjetoJpaController projetoJpa = new ProjetoJpaController();
         projetoJpa.create(projeto);
+    }
+    
+    public List<Planocontingencia> buscaPlanosDeContingencia(Projeto projeto){
+        PlanocontingenciaJpaController planoDeContingenciaJPA = new PlanocontingenciaJpaController();
+        List<Planocontingencia> listaPlanoContingencia = planoDeContingenciaJPA.findPlanocontingenciaEntities();
+        List<Planocontingencia> listaPlanoContingenciaFinal = new ArrayList<Planocontingencia>();
+        
+        for(int i = 0; i < listaPlanoContingencia.size(); i++){
+            if (listaPlanoContingencia.get(i).getIdRisco().getContem().getProjeto().getIdProjeto() == projeto.getIdProjeto()){
+                listaPlanoContingenciaFinal.add(listaPlanoContingencia.get(i));
+            }
+        }
+        
+        return listaPlanoContingenciaFinal;
+    }
+    
+    public List<Planomitigacao> buscaPlanosDeMitigacao(Projeto projeto){
+        PlanomitigacaoJpaController planoDeMitigacaoJPA = new PlanomitigacaoJpaController();
+        List<Planomitigacao> listaPlanoMitigacao = planoDeMitigacaoJPA.findPlanomitigacaoEntities();
+        List<Planomitigacao> listaPlanoMitigacaoFinal = new ArrayList<Planomitigacao>();
+        
+        for(int i = 0; i < listaPlanoMitigacao.size(); i++){
+            if (listaPlanoMitigacao.get(i).getIdRisco().getContem().getProjeto().getIdProjeto() == projeto.getIdProjeto()){
+                listaPlanoMitigacaoFinal.add(listaPlanoMitigacao.get(i));
+            }
+        }
+        
+        return listaPlanoMitigacaoFinal;
     }
 
 }
