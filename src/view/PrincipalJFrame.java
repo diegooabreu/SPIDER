@@ -57,7 +57,8 @@ public class PrincipalJFrame extends javax.swing.JFrame {
     static RiscoSelecioanrRiscoParaMonitorarInternalJFrame riscoSelecioanrRiscoParaMonitorarInternalJFrame = new RiscoSelecioanrRiscoParaMonitorarInternalJFrame();
     static MonitoracaoAnaliseDosRiscosCheckInternalJFrame monitoracaoAnaliseDosRiscosCheckInternalJFrame = new MonitoracaoAnaliseDosRiscosCheckInternalJFrame();
     static RiscosRiscosOcorridosJInternalFrame riscosRiscosOcorridosJInternalFrame = new RiscosRiscosOcorridosJInternalFrame();
-
+    static CalendarioDetalhesMarcoEpontoDoDiaInternalJFrame calendarioDetalhesMarcoEpontoDoDiaInternalJFrame = new CalendarioDetalhesMarcoEpontoDoDiaInternalJFrame();
+    
     // Criando Arvore de Funcionalidades - Menu //
     private JTree arvoreFuncionalidadesJTree;
     private DefaultMutableTreeNode funcionalidades;
@@ -270,6 +271,10 @@ public class PrincipalJFrame extends javax.swing.JFrame {
 
     static void aparecerInternalFrameRiscosOcorridos() {
         riscosRiscosOcorridosJInternalFrame.setVisible(true);
+    }
+    
+    static void aparecerInternalCalendarioDetalhesMarcoEPonto(){
+        calendarioDetalhesMarcoEpontoDoDiaInternalJFrame.setVisible(true);
     }
 
     private void configuracoesFerramentaJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_configuracoesFerramentaJButtonActionPerformed
@@ -507,6 +512,8 @@ public class PrincipalJFrame extends javax.swing.JFrame {
         camadasJDesktopPane.add(monitoracaoAnaliseDosRiscosCheckInternalJFrame);
 
         camadasJDesktopPane.add(riscosRiscosOcorridosJInternalFrame);
+        
+        camadasJDesktopPane.add(calendarioDetalhesMarcoEpontoDoDiaInternalJFrame);
 
         //riscosPriorizarRiscosJPanel.setBounds(0, 0, 861, 529);
         //camadasJDesktopPane.add(riscosPriorizarRiscosJPanel);
@@ -534,10 +541,11 @@ public class PrincipalJFrame extends javax.swing.JFrame {
         monitoracaoTarefasTarefasPendentesJPanel.setVisible(false);
         monitoracaoTarefasHistoricoDeTarefasJPanel.setVisible(false);
 
-        //testeInternalFrame.setVisible(false);
+        //tInternaisFrame
         riscoSelecioanrRiscoParaMonitorarInternalJFrame.setVisible(false);
         monitoracaoAnaliseDosRiscosCheckInternalJFrame.setVisible(false);
         riscosRiscosOcorridosJInternalFrame.setVisible(false);
+        calendarioDetalhesMarcoEpontoDoDiaInternalJFrame.setVisible(false);
     }
 
     // Criando os nós da arvore e adicionando-os //

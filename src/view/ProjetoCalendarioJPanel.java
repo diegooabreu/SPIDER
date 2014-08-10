@@ -308,7 +308,7 @@ public class ProjetoCalendarioJPanel extends javax.swing.JPanel {
         tabelaMarcoEPontosDeControleJScrollPane = new javax.swing.JScrollPane();
         jLabel3 = new javax.swing.JLabel();
         taskRenderer1 = new net.sf.nachocalendar.tasks.TaskRenderer();
-        diaDetalhesJButton = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         jScrollPane2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
@@ -447,10 +447,10 @@ public class ProjetoCalendarioJPanel extends javax.swing.JPanel {
 
         taskRenderer1.setText("taskRenderer1");
 
-        diaDetalhesJButton.setText("Detalhes do Dia");
-        diaDetalhesJButton.addActionListener(new java.awt.event.ActionListener() {
+        jButton1.setText("Detalhes do Dia");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                diaDetalhesJButtonActionPerformed(evt);
+                jButton1ActionPerformed(evt);
             }
         });
 
@@ -462,14 +462,14 @@ public class ProjetoCalendarioJPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(diaDetalhesJButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(datePanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(0, 50, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(novoMarcoPontoJPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addContainerGap(60, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(datePanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addGap(430, 430, 430)
@@ -482,7 +482,7 @@ public class ProjetoCalendarioJPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(datePanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(diaDetalhesJButton)
+                .addComponent(jButton1)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -870,7 +870,7 @@ public class ProjetoCalendarioJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_datePanel1ActionPerformed
 
-    private void diaDetalhesJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_diaDetalhesJButtonActionPerformed
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         Date dataLimite = null;
         Marcodoprojeto diaSelecionadoMarco = null;
         Pontodecontrole diaSelecionadoPonto = null;
@@ -908,43 +908,61 @@ public class ProjetoCalendarioJPanel extends javax.swing.JPanel {
             
         }
             
-        calendarioDetalhesMarcoEpontoDoDiaJFrame.setAllVisibleFalse();
-        calendarioDetalhesMarcoEpontoDoDiaJFrame.limparTela();    
+//        calendarioDetalhesMarcoEpontoDoDiaJFrame.setAllVisibleFalse();
+//        calendarioDetalhesMarcoEpontoDoDiaJFrame.limparTela();    
+          PrincipalJFrame.calendarioDetalhesMarcoEpontoDoDiaInternalJFrame.setAllVisibleFalse();
+          PrincipalJFrame.calendarioDetalhesMarcoEpontoDoDiaInternalJFrame.limparTela();
         
         // se existem marco e ponto de controle para o dia selecionado
         if(diaSelecionadoMarco != null && diaSelecionadoPonto != null){
             
-            calendarioDetalhesMarcoEpontoDoDiaJFrame.criarListaDeTarefas();
-            calendarioDetalhesMarcoEpontoDoDiaJFrame.popularListaDeTarefas(diaSelecionadoMarco, diaSelecionadoPonto);
+//            calendarioDetalhesMarcoEpontoDoDiaJFrame.criarListaDeTarefas();
+//            calendarioDetalhesMarcoEpontoDoDiaJFrame.popularListaDeTarefas(diaSelecionadoMarco, diaSelecionadoPonto);
+              PrincipalJFrame.calendarioDetalhesMarcoEpontoDoDiaInternalJFrame.criarListaDeTarefas();
+              PrincipalJFrame.calendarioDetalhesMarcoEpontoDoDiaInternalJFrame.popularListaDeTarefas(diaSelecionadoMarco, diaSelecionadoPonto);
+              
+//            calendarioDetalhesMarcoEpontoDoDiaJFrame.mostraInformacoesPontoDeControle(diaSelecionadoPonto);
+//            calendarioDetalhesMarcoEpontoDoDiaJFrame.mostraInformacoesMarcoDoProjeto(diaSelecionadoMarco);
+            PrincipalJFrame.calendarioDetalhesMarcoEpontoDoDiaInternalJFrame.mostraInformacoesPontoDeControle(diaSelecionadoPonto);
+            PrincipalJFrame.calendarioDetalhesMarcoEpontoDoDiaInternalJFrame.mostraInformacoesMarcoDoProjeto(diaSelecionadoMarco);
             
-            calendarioDetalhesMarcoEpontoDoDiaJFrame.mostraInformacoesPontoDeControle(diaSelecionadoPonto);
-            calendarioDetalhesMarcoEpontoDoDiaJFrame.mostraInformacoesMarcoDoProjeto(diaSelecionadoMarco);
+//            calendarioDetalhesMarcoEpontoDoDiaJFrame.setVisible(true);
+            PrincipalJFrame.aparecerInternalCalendarioDetalhesMarcoEPonto();
             
-            calendarioDetalhesMarcoEpontoDoDiaJFrame.setVisible(true);
-            
-            calendarioDetalhesMarcoEpontoDoDiaJFrame.setVisibleMarcoEpontoJPanel(true);
+//            calendarioDetalhesMarcoEpontoDoDiaJFrame.setVisibleMarcoEpontoJPanel(true);
+            PrincipalJFrame.calendarioDetalhesMarcoEpontoDoDiaInternalJFrame.setVisibleMarcoEpontoJPanel(true);
            
             
         // se existe somente um marco para o dia selecionado
         } else if(diaSelecionadoMarco != null && diaSelecionadoPonto == null){
-            calendarioDetalhesMarcoEpontoDoDiaJFrame.criarListaDeTarefasMarcoSomenteMarco();
-            calendarioDetalhesMarcoEpontoDoDiaJFrame.popularListaDeTarefasMarcoSomenteMarco(diaSelecionadoMarco);
+//            calendarioDetalhesMarcoEpontoDoDiaJFrame.criarListaDeTarefasMarcoSomenteMarco();
+//            calendarioDetalhesMarcoEpontoDoDiaJFrame.popularListaDeTarefasMarcoSomenteMarco(diaSelecionadoMarco);
+            PrincipalJFrame.calendarioDetalhesMarcoEpontoDoDiaInternalJFrame.criarListaDeTarefasMarcoSomenteMarco();
+            PrincipalJFrame.calendarioDetalhesMarcoEpontoDoDiaInternalJFrame.popularListaDeTarefasMarcoSomenteMarco(diaSelecionadoMarco);
             
-            calendarioDetalhesMarcoEpontoDoDiaJFrame.mostraInformacoesMarcoSomenteMarco(diaSelecionadoMarco);
+//          calendarioDetalhesMarcoEpontoDoDiaJFrame.mostraInformacoesMarcoSomenteMarco(diaSelecionadoMarco);
+            PrincipalJFrame.calendarioDetalhesMarcoEpontoDoDiaInternalJFrame.mostraInformacoesMarcoSomenteMarco(diaSelecionadoMarco);
           
-            calendarioDetalhesMarcoEpontoDoDiaJFrame.setVisible(true);
-            calendarioDetalhesMarcoEpontoDoDiaJFrame.setVisibleSomenteMarcoJPanel(true);
+//            calendarioDetalhesMarcoEpontoDoDiaJFrame.setVisible(true);
+//            calendarioDetalhesMarcoEpontoDoDiaJFrame.setVisibleSomenteMarcoJPanel(true);
+            PrincipalJFrame.aparecerInternalCalendarioDetalhesMarcoEPonto();
+            PrincipalJFrame.calendarioDetalhesMarcoEpontoDoDiaInternalJFrame.setVisibleSomenteMarcoJPanel(true);
             
         // se existe somente um ponto de controle para o dia selecionado   
         } else if(diaSelecionadoPonto != null && diaSelecionadoMarco == null){
+//            
+//            calendarioDetalhesMarcoEpontoDoDiaJFrame.criarListaDeTarefasPontoSomentePonto();
+//            calendarioDetalhesMarcoEpontoDoDiaJFrame.popularListaDeTarefasPontoSomentePonto(diaSelecionadoPonto);
+            PrincipalJFrame.calendarioDetalhesMarcoEpontoDoDiaInternalJFrame.criarListaDeTarefasPontoSomentePonto();
+            PrincipalJFrame.calendarioDetalhesMarcoEpontoDoDiaInternalJFrame.popularListaDeTarefasPontoSomentePonto(diaSelecionadoPonto);
             
-            calendarioDetalhesMarcoEpontoDoDiaJFrame.criarListaDeTarefasPontoSomentePonto();
-            calendarioDetalhesMarcoEpontoDoDiaJFrame.popularListaDeTarefasPontoSomentePonto(diaSelecionadoPonto);
+//            calendarioDetalhesMarcoEpontoDoDiaJFrame.mostraInformacoesPontoSomentePonto(diaSelecionadoPonto);
+            PrincipalJFrame.calendarioDetalhesMarcoEpontoDoDiaInternalJFrame.mostraInformacoesPontoSomentePonto(diaSelecionadoPonto);
             
-            calendarioDetalhesMarcoEpontoDoDiaJFrame.mostraInformacoesPontoSomentePonto(diaSelecionadoPonto);
-            
-            calendarioDetalhesMarcoEpontoDoDiaJFrame.setVisible(true);
-            calendarioDetalhesMarcoEpontoDoDiaJFrame.setVisibleSomentePonto(true);
+//            calendarioDetalhesMarcoEpontoDoDiaJFrame.setVisible(true);
+//            calendarioDetalhesMarcoEpontoDoDiaJFrame.setVisibleSomentePonto(true);
+            PrincipalJFrame.aparecerInternalCalendarioDetalhesMarcoEPonto();
+            PrincipalJFrame.calendarioDetalhesMarcoEpontoDoDiaInternalJFrame.setVisibleSomentePonto(true);
             
         }
 
@@ -953,9 +971,7 @@ public class ProjetoCalendarioJPanel extends javax.swing.JPanel {
         } else {
             JOptionPane.showMessageDialog(this, "Nenhum ponto de controle ou marco do projeto para este dia.");
         }
-        
-        
-    }//GEN-LAST:event_diaDetalhesJButtonActionPerformed
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -965,8 +981,8 @@ public class ProjetoCalendarioJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel dataMarcosPontosDeControleJLabel;
     private net.sf.nachocalendar.components.DatePanel datePanel1;
     private javax.swing.JTextArea descricaoMarcoPontoDeControleJTextArea;
-    private javax.swing.JButton diaDetalhesJButton;
     private javax.swing.JButton excluirMarcoPontoDeControleJButton;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
