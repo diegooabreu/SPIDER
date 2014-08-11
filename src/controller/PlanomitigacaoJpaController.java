@@ -19,6 +19,7 @@ import javax.persistence.Persistence;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import model.Marcodoprojeto;
+import model.Planocontingencia;
 import model.Planomitigacao;
 import model.Pontodecontrole;
 import model.Projeto;
@@ -181,6 +182,25 @@ public class PlanomitigacaoJpaController implements Serializable {
         }
         return listaMitigacao;
     }
+    
+    public List<Planomitigacao> getListaPMPendentes(){
+        EntityManager em = getEntityManager();
+        
+        List<Planomitigacao> listaPM = null;
+        
+        try{
+            
+            listaPM = em.createNamedQuery("Planomitigacao.findPlanosMitigacaoPendentes")
+                    //.setParameter("dataRealizacao", dataRealizacao)
+                    .getResultList();
+            
+        } catch (Exception e){
+            System.out.println("diego erro");
+        }
+        
+        return listaPM;
+    }
+    
     
      public List<Planomitigacao> getListPlanoMitigacaoByIdPontoDeControleEStatusRisco(Pontodecontrole ponto, String statusRisco){
         List<Planomitigacao> listaMitigacao = null;

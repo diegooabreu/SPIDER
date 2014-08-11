@@ -6,6 +6,7 @@ package view;
 
 import facade.MonitoracaoAnaliseDosRiscosFacade;
 import facade.PrincipalFacade;
+import facade.ProjetoFacade;
 import facade.RiscosGerenciarRiscosFacade;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -45,18 +46,18 @@ public class PrincipalJFrame extends javax.swing.JFrame {
     final OrganizacionalEditarEARJPanel organizacionalEditarEARJPanel = new OrganizacionalEditarEARJPanel();
     final RiscosPriorizarRiscosJPanel riscosPriorizarRiscosJPanel = new RiscosPriorizarRiscosJPanel();
     final RiscosRiscosOcorridosJPanel riscosRiscosOcorridosJPanel = new RiscosRiscosOcorridosJPanel();
-    
+
     static MonitoracaoAnaliseDosRiscosJPanel monitoracaoAnaliseDosRiscosJPanel = new MonitoracaoAnaliseDosRiscosJPanel();
-    
+
     final MonitoracaoTabelaDeAlteracaoJPanel monitoracoaTabelaDeAlteracaoJPanel = new MonitoracaoTabelaDeAlteracaoJPanel();
     final MonitoracaoTarefasPlanosPendentesJPanel monitoracaoTarefasTarefasPendentesJPanel = new MonitoracaoTarefasPlanosPendentesJPanel();
     final MonitoracaoTarefasPlanosFinalizadosJPanel monitoracaoTarefasHistoricoDeTarefasJPanel = new MonitoracaoTarefasPlanosFinalizadosJPanel();
-    
-   // static TesteInternalFrame testeInternalFrame = new TesteInternalFrame();
+
+    // static TesteInternalFrame testeInternalFrame = new TesteInternalFrame();
     static RiscoSelecioanrRiscoParaMonitorarInternalJFrame riscoSelecioanrRiscoParaMonitorarInternalJFrame = new RiscoSelecioanrRiscoParaMonitorarInternalJFrame();
     static MonitoracaoAnaliseDosRiscosCheckInternalJFrame monitoracaoAnaliseDosRiscosCheckInternalJFrame = new MonitoracaoAnaliseDosRiscosCheckInternalJFrame();
     static RiscosRiscosOcorridosJInternalFrame riscosRiscosOcorridosJInternalFrame = new RiscosRiscosOcorridosJInternalFrame();
-            
+
     // Criando Arvore de Funcionalidades - Menu //
     private JTree arvoreFuncionalidadesJTree;
     private DefaultMutableTreeNode funcionalidades;
@@ -90,9 +91,13 @@ public class PrincipalJFrame extends javax.swing.JFrame {
         esconderFrames();
         criarArvore();
         definirEventosArvore();
+
         definirEventoRedimensionamento();
         //teste.setVisible(true);
 
+
+
+        //teste.setVisible(true);
     }
 
     public void definirEventoRedimensionamento(){
@@ -347,17 +352,17 @@ public class PrincipalJFrame extends javax.swing.JFrame {
 
     static void aparecerInternalFrame() {
         //testeInternalFrame.setVisible(true);
-        riscoSelecioanrRiscoParaMonitorarInternalJFrame.setVisible(true);  
+        riscoSelecioanrRiscoParaMonitorarInternalJFrame.setVisible(true);
     }
-    
-    static void aparecerInternalFrameMonitoracao(){
-        monitoracaoAnaliseDosRiscosCheckInternalJFrame.setVisible(true);   
+
+    static void aparecerInternalFrameMonitoracao() {
+        monitoracaoAnaliseDosRiscosCheckInternalJFrame.setVisible(true);
     }
-    
-    static void aparecerInternalFrameRiscosOcorridos(){
+
+    static void aparecerInternalFrameRiscosOcorridos() {
         riscosRiscosOcorridosJInternalFrame.setVisible(true);
     }
-    
+
     private void configuracoesFerramentaJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_configuracoesFerramentaJButtonActionPerformed
         esconderFrames();
         configuracoesFerramentaJPanel.setVisible(true);
@@ -381,7 +386,7 @@ public class PrincipalJFrame extends javax.swing.JFrame {
                         configuracoesFerramentaJPanel.setProjetoSelecionado(projetoSelecionado.getIdProjeto());
                         configuracoesFerramentaJPanel.preencherCaminhoPlanoRisco(projetoSelecionado.getIdProjeto());
 
-                // Na tela Gerenciar Riscos
+                        // Na tela Gerenciar Riscos
                         //Na aba Informações Gerais
                         riscosGerenciarRiscosJPanel.setProjetoSelecionado(projetoSelecionado);
                         riscosGerenciarRiscosJPanel.limparCampos();
@@ -413,7 +418,7 @@ public class PrincipalJFrame extends javax.swing.JFrame {
                         List<Risco> listaDeRisco = rGRfacade.listarRiscosPOrdemGrauDeEsposicao(projetoSelecionado);
                         riscosPriorizarRiscosJPanel.populaTabelaDeRiscos(listaDeRisco, false);
                         riscosPriorizarRiscosJPanel.definirEventosTabelaPriorizarRiscos();
-                        
+
                         // Na tela Riscos Ocorridos
                         riscosRiscosOcorridosJPanel.criarTabelaRiscosOcorridos();
                         riscosRiscosOcorridosJPanel.getProjeto(projetoSelecionado);
@@ -589,18 +594,16 @@ public class PrincipalJFrame extends javax.swing.JFrame {
 
         monitoracaoTarefasHistoricoDeTarefasJPanel.setBounds(camadasJDesktopPane.getBounds());
         camadasJDesktopPane.add(monitoracaoTarefasHistoricoDeTarefasJPanel);
-        
+
         camadasJDesktopPane.add(riscoSelecioanrRiscoParaMonitorarInternalJFrame);
-        
+
         camadasJDesktopPane.add(monitoracaoAnaliseDosRiscosCheckInternalJFrame);
-        
+
         camadasJDesktopPane.add(riscosRiscosOcorridosJInternalFrame);
-        
+
         //riscosPriorizarRiscosJPanel.setBounds(0, 0, 861, 529);
         //camadasJDesktopPane.add(riscosPriorizarRiscosJPanel);
-
         //camadasJDesktopPane.add(riscosSelecionarRiscosParaMonitorarInternalJFrame);
-
     }
     //**************************************************************//
 
@@ -623,7 +626,7 @@ public class PrincipalJFrame extends javax.swing.JFrame {
         monitoracoaTabelaDeAlteracaoJPanel.setVisible(false);
         monitoracaoTarefasTarefasPendentesJPanel.setVisible(false);
         monitoracaoTarefasHistoricoDeTarefasJPanel.setVisible(false);
-        
+
         //testeInternalFrame.setVisible(false);
         riscoSelecioanrRiscoParaMonitorarInternalJFrame.setVisible(false);
         monitoracaoAnaliseDosRiscosCheckInternalJFrame.setVisible(false);
@@ -759,12 +762,14 @@ public class PrincipalJFrame extends javax.swing.JFrame {
                         List<Risco> listaDeRisco = analiseFacade.listarRiscosPOrdemGrauDeEsposicaoByStatus(projetoSelecionado, "Mitigando");
                         monitoracaoAnaliseDosRiscosJPanel.populaTabelaDeRiscos(listaDeRisco, false);
                         monitoracaoAnaliseDosRiscosJPanel.definirEventosTabelaDeRiscos();
-                        
-                        
+
                     } else if (node == tabelaAlteracoes) {
                         monitoracoaTabelaDeAlteracaoJPanel.setVisible(true);
                     } else if (node == tarefasPendentes) {
                         monitoracaoTarefasTarefasPendentesJPanel.setVisible(true);
+                        monitoracaoTarefasTarefasPendentesJPanel.setVisible(true);
+                        ProjetoFacade projetofacade = new ProjetoFacade();
+                        monitoracaoTarefasTarefasPendentesJPanel.criarTabelaPlanosPendentes(projetofacade.buscaPlanosDeContingencia(projetoSelecionado), projetofacade.buscaPlanosDeMitigacao(projetoSelecionado));
                     } else if (node == historicoTarefas) {
                         monitoracaoTarefasHistoricoDeTarefasJPanel.setVisible(true);
                     }

@@ -248,4 +248,22 @@ public class PlanocontingenciaJpaController implements Serializable {
         return listaPC;
         
     }
+    
+    public List<Planocontingencia> getListaPCPendentes(){
+        EntityManager em = getEntityManager();
+        
+        List<Planocontingencia> listaPC = null;
+        
+        try{
+            
+            listaPC = em.createNamedQuery("Planomitigacao.findPlanosContingenciaPendentes")
+                    //.setParameter("dataRealizacao", dataRealizacao)
+                    .getResultList();
+            
+        } catch (Exception e){
+            System.out.println("diego erro");
+        }
+        
+        return listaPC;
+    }
 }

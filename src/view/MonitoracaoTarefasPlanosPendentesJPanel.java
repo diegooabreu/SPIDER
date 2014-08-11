@@ -3,12 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package view;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import model.Planocontingencia;
+import model.Planomitigacao;
+import view.tabelas.PlanoTabela;
 import view.tabelas.PlanoTabelaModel;
 
 /**
@@ -19,27 +23,106 @@ public class MonitoracaoTarefasPlanosPendentesJPanel extends javax.swing.JPanel 
 
     private JTable tabelaPlanosPendentes;
     private PlanoTabelaModel modeloTabelaPlanosPendentes;
-    
+    private JTable tabelaPlanosPendentesJTable;
+    private PlanoTabelaModel planoTabelaModel;
+    private List<Planocontingencia> listaPlaContigencia;
+    private List<Planomitigacao> listaPlaMitigacao;
+    private List<PlanoTabela> listaplanoTabela;
+
     /**
      * Creates new form MonitoracaoTarefasTarefasPendentesJPanel
      */
     public MonitoracaoTarefasPlanosPendentesJPanel() {
         initComponents();
     }
-    
-    public void criarTabelaPlanosPendentes(){
-        
-        tabelaPlanosPendentes = new JTable();
+
+    public void criarTabelaPlanosPendentes(List<Planocontingencia> listaPlanoContigencia, List<Planomitigacao> listaPlanoMitigacao) {
+
+        tabelaPlanosPendentesJTable = new JTable();
+        planoTabelaModel = new PlanoTabelaModel();
+
+        tabelaPlanosPendentesJTable.setModel(planoTabelaModel);
+
+        tabelaPlanosPendentesJScrollPane.setViewportView(tabelaPlanosPendentesJTable);
+
+        listaPlaContigencia = listaPlanoContigencia;
+        listaPlaMitigacao = listaPlanoMitigacao;
+
+        planoTabelaModel.addListaDePlanos(criaListaDePlanosTabela(listaPlaContigencia, listaPlaMitigacao));
+
+        tabelaPlanosPendentesJTable.getColumnModel().getColumn(1).setMaxWidth(0);
+        tabelaPlanosPendentesJTable.getColumnModel().getColumn(1).setMinWidth(0);
+        tabelaPlanosPendentesJTable.getTableHeader().getColumnModel().getColumn(1).setMaxWidth(0);
+        tabelaPlanosPendentesJTable.getTableHeader().getColumnModel().getColumn(1).setMinWidth(0);
+
+       //tabelaSelecionarRiscosMonitorarJTable.getColumnModel().getColumn(2).setMaxWidth(0);
+        //tabelaSelecionarRiscosMonitorarJTable.getColumnModel().getColumn(2).setMinWidth(0);
+        //tabelaSelecionarRiscosMonitorarJTable.getTableHeader().getColumnModel().getColumn(2).setMaxWidth(0);
+        //tabelaSelecionarRiscosMonitorarJTable.getTableHeader().getColumnModel().getColumn(2).setMinWidth(0);
         modeloTabelaPlanosPendentes = new PlanoTabelaModel();
-        
-        tabelaPlanosPendentes.setModel(modeloTabelaPlanosPendentes);
-        
-        tabelaPlanosPendentesJScrollPane.setViewportView(tabelaPlanosPendentes);
-        
-        
-        
+        modeloTabelaPlanosPendentes = planoTabelaModel;
+
+        tabelaPlanosPendentesJTable.setModel(modeloTabelaPlanosPendentes);
+
+        tabelaPlanosPendentesJScrollPane.setViewportView(tabelaPlanosPendentesJTable);
+
     }
-        
+    
+    public List<PlanoTabela> criaListaDePlanosTabela(List<Planocontingencia> listaPlanoContigencia, List<Planomitigacao> listaPlanoMitigacao) {
+       listaplanoTabela = new ArrayList<PlanoTabela>();
+       
+       
+       for (int i = 0; i < listaPlanoContigencia.size(); i++) {
+           PlanoTabela planoTabela = new PlanoTabela();
+           
+           planoTabela.setIdPlano(listaPlanoContigencia.get(i).getIdPlanoContingencia());
+           planoTabela.setIdentificacaoRisco(listaPlanoContigencia.get(i).getIdRisco().toString());
+           planoTabela.setDescricaoPlano(listaPlanoContigencia.get(i).getDescricaoPlanoContingencia());
+           planoTabela.setResponsavel(listaPlanoContigencia.get(i).getResponsavel());
+           if(listaPlanoContigencia.get(i).getIdMarcoDoProjeto() == null){
+               planoTabela.setDataLimite(listaPlanoContigencia.get(i).getIdPontoDeControle().getDataPontoControle());
+           }
+           else{
+               planoTabela.setDataLimite(listaPlanoContigencia.get(i).getIdMarcoDoProjeto().getDataMarcoProjeto());
+           }
+           planoTabela.setIdentificacaoRisco(listaPlanoContigencia.get(i).getIdRisco().getIdentificacao());
+           planoTabela.setTipo("Contingencia");
+           if(listaPlanoContigencia.get(i).getDataRealizacao() == null){
+               planoTabela.setRealizado(false);
+           }
+
+           listaplanoTabela.add(planoTabela);
+
+       }
+       
+       for (int i = 0; i < listaPlanoMitigacao.size(); i++) {
+           PlanoTabela planoTabela = new PlanoTabela();
+           
+           planoTabela.setIdPlano(listaPlanoMitigacao.get(i).getIdPlanoMitigacao());
+           planoTabela.setIdentificacaoRisco(listaPlanoMitigacao.get(i).getIdRisco().toString());
+           planoTabela.setDescricaoPlano(listaPlanoMitigacao.get(i).getDescricaoPlanoMitigacao());
+           planoTabela.setResponsavel(listaPlanoMitigacao.get(i).getResponsavel());
+           if(listaPlanoMitigacao.get(i).getIdMarcoDoProjeto() == null){
+               planoTabela.setDataLimite(listaPlanoMitigacao.get(i).getIdPontoDeControle().getDataPontoControle());
+           }
+           else{
+               planoTabela.setDataLimite(listaPlanoMitigacao.get(i).getIdMarcoDoProjeto().getDataMarcoProjeto());
+           }
+           planoTabela.setIdentificacaoRisco(listaPlanoMitigacao.get(i).getIdRisco().getIdentificacao());
+           planoTabela.setTipo("Mitigação");
+           if(listaPlanoMitigacao.get(i).getDataRealizacao() == null){
+               planoTabela.setRealizado(false);
+           }
+
+           listaplanoTabela.add(planoTabela);
+
+       }
+       
+       
+
+       return listaplanoTabela;
+
+   }
 
     /**
      * This method is called from within the constructor to initialize the form.

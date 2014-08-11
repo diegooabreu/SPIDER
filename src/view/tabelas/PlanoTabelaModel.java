@@ -200,6 +200,18 @@ public class PlanoTabelaModel extends AbstractTableModel{
         fireTableRowsDeleted(indiceLinha, indiceLinha);
     }
     
+    public void addListaDePlanos(List<PlanoTabela> listaPlanoTabela) {
+       // Pega o tamanho antigo da tabela, que servirá
+       // como índice para o primeiro dos novos registros
+       int indice = getRowCount();
+
+       // Adiciona os registros.
+       linhas.addAll(listaPlanoTabela);
+
+       // Notifica a mudança.
+       fireTableRowsInserted(indice, indice + listaPlanoTabela.size());
+   }
+    
     // Adiciona uma lista de sócios no final da lista.
     public void addListaDeCondicao(List<PlanoTabela> listaPlanoTabela) {
         // Pega o tamanho antigo da tabela, que servirá
