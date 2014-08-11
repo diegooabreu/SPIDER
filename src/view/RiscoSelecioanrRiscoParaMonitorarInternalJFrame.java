@@ -274,6 +274,7 @@ public class RiscoSelecioanrRiscoParaMonitorarInternalJFrame extends javax.swing
                     }
                     
                     riscosSelecionarRiscosParaMonitorarFacade.editRisco(listaRiscos.get(i));
+                    
                 }
                 
                 

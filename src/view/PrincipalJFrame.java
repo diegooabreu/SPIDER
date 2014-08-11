@@ -46,19 +46,21 @@ public class PrincipalJFrame extends javax.swing.JFrame {
     final OrganizacionalEditarEARJPanel organizacionalEditarEARJPanel = new OrganizacionalEditarEARJPanel();
     final RiscosPriorizarRiscosJPanel riscosPriorizarRiscosJPanel = new RiscosPriorizarRiscosJPanel();
     final RiscosRiscosOcorridosJPanel riscosRiscosOcorridosJPanel = new RiscosRiscosOcorridosJPanel();
+    final MonitoracaoTarefasPlanosPendentesJPanel monitoracaoTarefasTarefasPendentesJPanel = new MonitoracaoTarefasPlanosPendentesJPanel();
+    final MonitoracaoTarefasPlanosRealizadosJPanel monitoracaoTarefasPlanosRealizadosJPanel =  new MonitoracaoTarefasPlanosRealizadosJPanel();
+    
 
     static MonitoracaoAnaliseDosRiscosJPanel monitoracaoAnaliseDosRiscosJPanel = new MonitoracaoAnaliseDosRiscosJPanel();
 
     final MonitoracaoTabelaDeAlteracaoJPanel monitoracoaTabelaDeAlteracaoJPanel = new MonitoracaoTabelaDeAlteracaoJPanel();
-    final MonitoracaoTarefasPlanosPendentesJPanel monitoracaoTarefasPlanosPendentesJPanel = new MonitoracaoTarefasPlanosPendentesJPanel();
-    final MonitoracaoTarefasPlanosRealizadosJPanel monitoracaoTarefasTarefasRealizadasJPanel = new MonitoracaoTarefasPlanosRealizadosJPanel();
 
     // static TesteInternalFrame testeInternalFrame = new TesteInternalFrame();
     static RiscoSelecioanrRiscoParaMonitorarInternalJFrame riscoSelecioanrRiscoParaMonitorarInternalJFrame = new RiscoSelecioanrRiscoParaMonitorarInternalJFrame();
     static MonitoracaoAnaliseDosRiscosCheckInternalJFrame monitoracaoAnaliseDosRiscosCheckInternalJFrame = new MonitoracaoAnaliseDosRiscosCheckInternalJFrame();
     static RiscosRiscosOcorridosJInternalFrame riscosRiscosOcorridosJInternalFrame = new RiscosRiscosOcorridosJInternalFrame();
+    static CalendarioDetalhesMarcoEpontoDoDiaInternalJFrame calendarioDetalhesMarcoEpontoDoDiaInternalJFrame = new CalendarioDetalhesMarcoEpontoDoDiaInternalJFrame();
     static MonitorarPlanosPendentesMaisInformaçõesInternalFrame monitorarPlanosPendentesMaisInformaçõesInternalFrame = new MonitorarPlanosPendentesMaisInformaçõesInternalFrame();
-
+    
     // Criando Arvore de Funcionalidades - Menu //
     private JTree arvoreFuncionalidadesJTree;
     private DefaultMutableTreeNode funcionalidades;
@@ -92,10 +94,78 @@ public class PrincipalJFrame extends javax.swing.JFrame {
         esconderFrames();
         criarArvore();
         definirEventosArvore();
-
+        definirEventoRedimensionamento();
         //teste.setVisible(true);
+
     }
 
+    public void definirEventoRedimensionamento(){
+        this.addComponentListener(new java.awt.event.ComponentListener() {  
+            public void componentResized(java.awt.event.ComponentEvent e) {
+                
+                organizacionalDetalhesJPanel.setBounds(camadasJDesktopPane.getBounds());
+                
+                organizacionalEARJPanel.setBounds(camadasJDesktopPane.getBounds());
+        
+            organizacionalPoliticaOrganizacionalJPanel.setBounds(camadasJDesktopPane.getBounds());
+        
+            organizacionalPortfolioJPanel.setBounds(camadasJDesktopPane.getBounds());
+        
+            projetoDetalhesJPanel.setBounds(camadasJDesktopPane.getBounds());
+       
+            projetoPlanoRiscoJpanel.setBounds(camadasJDesktopPane.getBounds());
+        
+            projetoEstruturaAnaliticaRiscosJpanel.setBounds(camadasJDesktopPane.getBounds());
+        
+            projetoCalendarioJPanel.setBounds(camadasJDesktopPane.getBounds());
+        
+            configuracoesFerramentaJPanel.setBounds(camadasJDesktopPane.getBounds());
+        
+            riscosGerenciarRiscosJPanel.setBounds(camadasJDesktopPane.getBounds());
+        
+            novoProjetoJPanel.setBounds(camadasJDesktopPane.getBounds());
+        
+            organizacionalEditarEARJPanel.setBounds(camadasJDesktopPane.getBounds());
+        
+            riscosPriorizarRiscosJPanel.setBounds(camadasJDesktopPane.getBounds());
+        
+            riscosRiscosOcorridosJPanel.setBounds(camadasJDesktopPane.getBounds());
+        
+            monitoracaoAnaliseDosRiscosJPanel.setBounds(camadasJDesktopPane.getBounds());
+        
+            monitoracoaTabelaDeAlteracaoJPanel.setBounds(camadasJDesktopPane.getBounds());
+        
+            monitoracaoTarefasTarefasPendentesJPanel.setBounds(camadasJDesktopPane.getBounds());
+        
+            monitoracaoTarefasPlanosRealizadosJPanel.setBounds(camadasJDesktopPane.getBounds());
+        
+        
+                
+                System.out.println("componentResized()"); // TODO Auto-generated Event stub componentResized()  
+            }  
+            public void componentMoved(java.awt.event.ComponentEvent e) {  
+            }  
+            public void componentShown(java.awt.event.ComponentEvent e) {  
+            }  
+            public void componentHidden(java.awt.event.ComponentEvent e) {  
+            }  
+        });  
+    }
+    /*
+    this.addComponentListener(new java.awt.event.ComponentListener() {  
+            public void componentResized(java.awt.event.ComponentEvent e) {  
+                System.out.println("componentResized()"); // TODO Auto-generated Event stub componentResized()  
+            }  
+            public void componentMoved(java.awt.event.ComponentEvent e) {  
+            }  
+            public void componentShown(java.awt.event.ComponentEvent e) {  
+            }  
+            public void componentHidden(java.awt.event.ComponentEvent e) {  
+            }  
+        });  
+    */
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -113,6 +183,7 @@ public class PrincipalJFrame extends javax.swing.JFrame {
         editarEARJButton = new javax.swing.JButton();
         menuJPanel = new javax.swing.JPanel();
         arvoreFuncionalidadesJScrollPane = new javax.swing.JScrollPane();
+        jPanel2 = new javax.swing.JPanel();
         camadasJDesktopPane = new javax.swing.JDesktopPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -188,7 +259,7 @@ public class PrincipalJFrame extends javax.swing.JFrame {
                 .addComponent(configuracoesFerramentaJButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(editarEARJButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 316, Short.MAX_VALUE)
                 .addComponent(projetoSelecionadoJLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(projetoSelecionadoJComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -220,15 +291,31 @@ public class PrincipalJFrame extends javax.swing.JFrame {
             .addComponent(arvoreFuncionalidadesJScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 509, Short.MAX_VALUE)
         );
 
+        jPanel2.setAutoscrolls(true);
+        jPanel2.setPreferredSize(new java.awt.Dimension(861, 513));
+
+        camadasJDesktopPane.setRequestFocusEnabled(false);
+
         javax.swing.GroupLayout camadasJDesktopPaneLayout = new javax.swing.GroupLayout(camadasJDesktopPane);
         camadasJDesktopPane.setLayout(camadasJDesktopPaneLayout);
         camadasJDesktopPaneLayout.setHorizontalGroup(
             camadasJDesktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 861, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
         camadasJDesktopPaneLayout.setVerticalGroup(
             camadasJDesktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 513, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(camadasJDesktopPane)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(camadasJDesktopPane)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -240,7 +327,7 @@ public class PrincipalJFrame extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(menuJPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(camadasJDesktopPane))
+                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
@@ -252,8 +339,10 @@ public class PrincipalJFrame extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(camadasJDesktopPane)
-                    .addComponent(menuJPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(menuJPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(1, 1, 1)))
                 .addContainerGap())
         );
 
@@ -265,12 +354,16 @@ public class PrincipalJFrame extends javax.swing.JFrame {
         riscoSelecioanrRiscoParaMonitorarInternalJFrame.setVisible(true);
     }
 
-    static void aparecerInternalFrameMonitoracao() {
+    static void aparecerInternalFrameMonitoracao(){
         monitoracaoAnaliseDosRiscosCheckInternalJFrame.setVisible(true);
     }
 
-    static void aparecerInternalFrameRiscosOcorridos() {
+    static void aparecerInternalFrameRiscosOcorridos(){
         riscosRiscosOcorridosJInternalFrame.setVisible(true);
+    }
+    
+    static void aparecerInternalCalendarioDetalhesMarcoEPonto(){
+        calendarioDetalhesMarcoEpontoDoDiaInternalJFrame.setVisible(true);
     }
     
     static void aparecerInternalFramePlanosPendentes(){
@@ -453,59 +546,61 @@ public class PrincipalJFrame extends javax.swing.JFrame {
 
     // Adicionando Frames no Painel em Camadas - camadasJLayeredPane //
     private void adicionarFrames() {
-        organizacionalDetalhesJPanel.setBounds(0, 0, 861, 529);
+        
+        //organizacionalDetalhesJPanel.setBounds(0, 0, 861, 529);
+        organizacionalDetalhesJPanel.setBounds(camadasJDesktopPane.getBounds());
         camadasJDesktopPane.add(organizacionalDetalhesJPanel);
 
-        organizacionalEARJPanel.setBounds(0, 0, 861, 529);
+        organizacionalEARJPanel.setBounds(camadasJDesktopPane.getBounds());
         camadasJDesktopPane.add(organizacionalEARJPanel);
 
-        organizacionalPoliticaOrganizacionalJPanel.setBounds(0, 0, 861, 529);
+        organizacionalPoliticaOrganizacionalJPanel.setBounds(camadasJDesktopPane.getBounds());
         camadasJDesktopPane.add(organizacionalPoliticaOrganizacionalJPanel);
 
-        organizacionalPortfolioJPanel.setBounds(0, 0, 861, 529);
+        organizacionalPortfolioJPanel.setBounds(camadasJDesktopPane.getBounds());
         camadasJDesktopPane.add(organizacionalPortfolioJPanel);
 
-        projetoDetalhesJPanel.setBounds(0, 0, 861, 529);
+        projetoDetalhesJPanel.setBounds(camadasJDesktopPane.getBounds());
         camadasJDesktopPane.add(projetoDetalhesJPanel);
 
-        projetoPlanoRiscoJpanel.setBounds(0, 0, 861, 529);
+        projetoPlanoRiscoJpanel.setBounds(camadasJDesktopPane.getBounds());
         camadasJDesktopPane.add(projetoPlanoRiscoJpanel);
 
-        projetoEstruturaAnaliticaRiscosJpanel.setBounds(0, 0, 861, 529);
+        projetoEstruturaAnaliticaRiscosJpanel.setBounds(camadasJDesktopPane.getBounds());
         camadasJDesktopPane.add(projetoEstruturaAnaliticaRiscosJpanel);
 
-        projetoCalendarioJPanel.setBounds(0, 0, 861, 529);
+        projetoCalendarioJPanel.setBounds(camadasJDesktopPane.getBounds());
         camadasJDesktopPane.add(projetoCalendarioJPanel);
 
-        configuracoesFerramentaJPanel.setBounds(0, 0, 861, 529);
+        configuracoesFerramentaJPanel.setBounds(camadasJDesktopPane.getBounds());
         camadasJDesktopPane.add(configuracoesFerramentaJPanel);
 
-        riscosGerenciarRiscosJPanel.setBounds(0, 0, 861, 529);
+        riscosGerenciarRiscosJPanel.setBounds(camadasJDesktopPane.getBounds());
         camadasJDesktopPane.add(riscosGerenciarRiscosJPanel);
 
-        novoProjetoJPanel.setBounds(0, 0, 861, 529);
+        novoProjetoJPanel.setBounds(camadasJDesktopPane.getBounds());
         camadasJDesktopPane.add(novoProjetoJPanel);
 
-        organizacionalEditarEARJPanel.setBounds(0, 0, 861, 529);
+        organizacionalEditarEARJPanel.setBounds(camadasJDesktopPane.getBounds());
         camadasJDesktopPane.add(organizacionalEditarEARJPanel);
 
-        riscosPriorizarRiscosJPanel.setBounds(0, 0, 861, 529);
+        riscosPriorizarRiscosJPanel.setBounds(camadasJDesktopPane.getBounds());
         camadasJDesktopPane.add(riscosPriorizarRiscosJPanel);
 
-        riscosRiscosOcorridosJPanel.setBounds(0, 0, 861, 529);
+        riscosRiscosOcorridosJPanel.setBounds(camadasJDesktopPane.getBounds());
         camadasJDesktopPane.add(riscosRiscosOcorridosJPanel);
 
-        monitoracaoAnaliseDosRiscosJPanel.setBounds(0, 0, 861, 529);
+        monitoracaoAnaliseDosRiscosJPanel.setBounds(camadasJDesktopPane.getBounds());
         camadasJDesktopPane.add(monitoracaoAnaliseDosRiscosJPanel);
 
-        monitoracoaTabelaDeAlteracaoJPanel.setBounds(0, 0, 861, 529);
+        monitoracoaTabelaDeAlteracaoJPanel.setBounds(camadasJDesktopPane.getBounds());
         camadasJDesktopPane.add(monitoracoaTabelaDeAlteracaoJPanel);
 
-        monitoracaoTarefasPlanosPendentesJPanel.setBounds(0, 0, 861, 529);
-        camadasJDesktopPane.add(monitoracaoTarefasPlanosPendentesJPanel);
+        monitoracaoTarefasTarefasPendentesJPanel.setBounds(camadasJDesktopPane.getBounds());
+        camadasJDesktopPane.add(monitoracaoTarefasTarefasPendentesJPanel);
 
-        monitoracaoTarefasTarefasRealizadasJPanel.setBounds(0, 0, 861, 529);
-        camadasJDesktopPane.add(monitoracaoTarefasTarefasRealizadasJPanel);
+        monitoracaoTarefasPlanosRealizadosJPanel.setBounds(camadasJDesktopPane.getBounds());
+        camadasJDesktopPane.add(monitoracaoTarefasPlanosRealizadosJPanel);
 
         camadasJDesktopPane.add(riscoSelecioanrRiscoParaMonitorarInternalJFrame);
 
@@ -513,11 +608,15 @@ public class PrincipalJFrame extends javax.swing.JFrame {
 
         camadasJDesktopPane.add(riscosRiscosOcorridosJInternalFrame);
         
+        camadasJDesktopPane.add(calendarioDetalhesMarcoEpontoDoDiaInternalJFrame);
+        
         camadasJDesktopPane.add(monitorarPlanosPendentesMaisInformaçõesInternalFrame);
 
         //riscosPriorizarRiscosJPanel.setBounds(0, 0, 861, 529);
         //camadasJDesktopPane.add(riscosPriorizarRiscosJPanel);
+
         //camadasJDesktopPane.add(riscosSelecionarRiscosParaMonitorarInternalJFrame);
+
     }
     //**************************************************************//
 
@@ -538,13 +637,14 @@ public class PrincipalJFrame extends javax.swing.JFrame {
         riscosRiscosOcorridosJPanel.setVisible(false);
         monitoracaoAnaliseDosRiscosJPanel.setVisible(false);
         monitoracoaTabelaDeAlteracaoJPanel.setVisible(false);
-        monitoracaoTarefasPlanosPendentesJPanel.setVisible(false);
-        monitoracaoTarefasTarefasRealizadasJPanel.setVisible(false);
+        monitoracaoTarefasTarefasPendentesJPanel.setVisible(false);
+        monitoracaoTarefasPlanosRealizadosJPanel.setVisible(false);
 
-        //testeInternalFrame.setVisible(false);
+        //tInternaisFrame
         riscoSelecioanrRiscoParaMonitorarInternalJFrame.setVisible(false);
         monitoracaoAnaliseDosRiscosCheckInternalJFrame.setVisible(false);
         riscosRiscosOcorridosJInternalFrame.setVisible(false);
+        calendarioDetalhesMarcoEpontoDoDiaInternalJFrame.setVisible(false);
         monitorarPlanosPendentesMaisInformaçõesInternalFrame.setVisible(false);
     }
 
@@ -675,16 +775,17 @@ public class PrincipalJFrame extends javax.swing.JFrame {
                         monitoracaoAnaliseDosRiscosJPanel.populaTabelaDeRiscos(listaDeRisco, false);
                         monitoracaoAnaliseDosRiscosJPanel.definirEventosTabelaDeRiscos();
 
+                        
                     } else if (node == tabelaAlteracoes) {
                         monitoracoaTabelaDeAlteracaoJPanel.setVisible(true);
                     } else if (node == planosPendentes) {
-                        monitoracaoTarefasPlanosPendentesJPanel.setVisible(true);
+                        monitoracaoTarefasTarefasPendentesJPanel.setVisible(true);
                         ProjetoFacade projetofacade = new ProjetoFacade();
-                        monitoracaoTarefasPlanosPendentesJPanel.criarTabelaPlanosPendentes(projetofacade.buscaPlanosDeContingenciaPendentes(projetoSelecionado), projetofacade.buscaPlanosDeMitigacaoPendentes(projetoSelecionado));
+                        monitoracaoTarefasTarefasPendentesJPanel.criarTabelaPlanosPendentes(projetofacade.buscaPlanosDeContingenciaPendentes(projetoSelecionado), projetofacade.buscaPlanosDeMitigacaoPendentes(projetoSelecionado));
                     } else if (node == planosRealizados) {
-                        monitoracaoTarefasTarefasRealizadasJPanel.setVisible(true);
+                        monitoracaoTarefasPlanosRealizadosJPanel.setVisible(true);
                         ProjetoFacade projetoFacade = new ProjetoFacade();
-                        monitoracaoTarefasTarefasRealizadasJPanel.criarTabelaPlanosRealizados(projetoFacade.buscaPlanosDeContingenciaRealizados(projetoSelecionado), projetoFacade.buscaPlanosDeMitigacaoRealizados(projetoSelecionado));
+                        monitoracaoTarefasPlanosRealizadosJPanel.criarTabelaPlanosRealizados(projetoFacade.buscaPlanosDeContingenciaRealizados(projetoSelecionado), projetoFacade.buscaPlanosDeMitigacaoRealizados(projetoSelecionado));
                     }
                 }
             }
@@ -711,6 +812,7 @@ public class PrincipalJFrame extends javax.swing.JFrame {
     private javax.swing.JButton editarEARJButton;
     private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel menuJPanel;
     private javax.swing.JComboBox projetoSelecionadoJComboBox;
     private javax.swing.JLabel projetoSelecionadoJLabel;

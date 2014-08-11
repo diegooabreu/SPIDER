@@ -532,12 +532,13 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
                     //dataLimite.setTime(planoMitigacaoSelecionado.getDataLimite());
                     //planoDeMitigacaoDataLimiteJDateChooser.setCalendar(dataLimite);
                     //Determina qual campo do comboBox de dataLimite será selecionado
-                    planoDeMitigacaoRemoverPlanoJButton.setEnabled(true);
                     
                     if (listaMitigacao.get(indexSelecionado).getDataRealizacao() == null) {
                         planoDeMitigacaoSalvarAlteracoesJButton.setEnabled(true);
+                        planoDeMitigacaoRemoverPlanoJButton.setEnabled(true);
                     } else {
                         planoDeMitigacaoSalvarAlteracoesJButton.setEnabled(false);
+                        planoDeMitigacaoRemoverPlanoJButton.setEnabled(false);
                     }
                 }
             }
@@ -689,14 +690,13 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
                     planoDeContingenciaDescricaoJTextArea.setText(planoContingenciaSelecionado.getDescricaoPlanoContingencia());
                     planoDeContingenciaComoSeraFeitoJTextArea.setText(planoContingenciaSelecionado.getComoRealizar());
                     planoDeContingenciaInfAdicionaisJTextArea.setText(planoContingenciaSelecionado.getInformacoesAdicionais());
-
-                    
-                    planoDeContingenciaRemoverPlanoJButton.setEnabled(true);
                     
                     if (listaContingencia.get(indexSelecionado).getDataRealizacao() == null) {
                         planoDeContingenciaSalvarAlteracoesJButton.setEnabled(true);
+                        planoDeContingenciaRemoverPlanoJButton.setEnabled(true);
                     } else {
                         planoDeContingenciaSalvarAlteracoesJButton.setEnabled(false);
+                        planoDeContingenciaRemoverPlanoJButton.setEnabled(false);
                     }
                 }
             }
@@ -3149,8 +3149,17 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
         
                 reiniciarTabelaSubcondicoes();
         
+                campo1Condicao = null;
+                campo1Relacao = null;
+                campo1JTextField.setText("");
+                campo2Condicao = null;
+                campo2Relacao = null;
+                campo2JTextField.setText("");
+            
+                
                 JOptionPane.showMessageDialog(this, "Nova relação criada com sucesso.");
-        
+                
+                
            }
         
         }
@@ -3218,9 +3227,18 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
             
             reiniciarTabelaRelacoes();
             relacaoSelecionada = null;
+
+                        
+                campo1Condicao = null;
+                campo1Relacao = null;
+                campo1JTextField.setText("");
+                campo2Condicao = null;
+                campo2Relacao = null;
+                campo2JTextField.setText("");
+
             
             JOptionPane.showMessageDialog(this, "Relação deletada com sucesso.");
-            
+                
         }
         } else {
             JOptionPane.showMessageDialog(this, "Por favor selecione uma relação.");

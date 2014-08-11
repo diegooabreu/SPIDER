@@ -32,6 +32,7 @@ import javax.swing.JTable;
 import model.Gruporelacao;
 import model.Historicoalteracao;
 import model.Historicorisco;
+import model.Planocontingencia;
 import static model.Relacaosubcondicao_.subcondicao;
 import model.Risco;
 import model.Subcondicao;
@@ -851,7 +852,14 @@ public class MonitoracaoAnaliseDosRiscosCheckInternalJFrame extends javax.swing.
 
     private void confirmarJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmarJButtonActionPerformed
 
-       
+        
+        List<Planocontingencia> listaPC = monitoracaoAnaliseDosRiscosFacade.getListaPlanosContingenciaByRisco(riscoSel);
+        
+        if((listaPC.size() < 1) && (statusRiscoJComboBox.getSelectedItem().equals("Contingenciando"))){
+             JOptionPane.showMessageDialog(this, "O risco não possui planos de contingencia.");
+        } else {
+            
+        
         
         
         for(int i = 0; i < listaCondicaoTabela.size(); i++){
@@ -918,7 +926,8 @@ public class MonitoracaoAnaliseDosRiscosCheckInternalJFrame extends javax.swing.
             JOptionPane.showMessageDialog(this, "Risco analisado.");
             this.setVisible(false);
         
-          
+       
+        }
         // TODO add your handling code here:
     }//GEN-LAST:event_confirmarJButtonActionPerformed
 

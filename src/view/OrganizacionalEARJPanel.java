@@ -532,7 +532,7 @@ public class OrganizacionalEARJPanel extends javax.swing.JPanel {
             if (CatSelecionada.getEarOrganizacional() == true) {
                 JOptionPane.showMessageDialog(this, "A categoria selecionada já pertence à Estrutura Analítica de Riscos Organizacional");
 
-            }
+            } else {
             
             for (int i = 0; i < listaCategoria.size(); i++) {
                 if ((listaCategoria.get(i).getEarOrganizacional() == true) && ( listaCategoria.get(i).getNomeCategoria().equals(CatSelecionada.getNomeCategoria())) ) {
@@ -650,6 +650,7 @@ public class OrganizacionalEARJPanel extends javax.swing.JPanel {
                 }
             }
 
+            }
         } catch (NullPointerException e) {
             JOptionPane.showMessageDialog(this, "Selecione uma categoria válida.");
         }
