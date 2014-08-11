@@ -20,6 +20,8 @@ public class PlanoTabela {
     private String identificacaoPlano;
     private String descricaoPlano;
     private String responsavel;
+    private String comoSeraFeito;
+    private String informacoesAdicionais;
     
     private Date dataLimite;
     private String identificacaoRisco;
@@ -101,6 +103,34 @@ public class PlanoTabela {
 
     public void setDataRealizacao(Date dataRealizacao) {
         this.dataRealizacao = dataRealizacao;
+    }
+
+    /**
+     * @return the comoSeraFeito
+     */
+    public String getComoSeraFeito() {
+        return comoSeraFeito;
+    }
+
+    /**
+     * @param comoSeraFeito the comoSeraFeito to set
+     */
+    public void setComoSeraFeito(String comoSeraFeito) {
+        this.comoSeraFeito = comoSeraFeito;
+    }
+
+    /**
+     * @return the informacoesAdicionais
+     */
+    public String getInformacoesAdicionais() {
+        return informacoesAdicionais;
+    }
+
+    /**
+     * @param informacoesAdicionais the informacoesAdicionais to set
+     */
+    public void setInformacoesAdicionais(String informacoesAdicionais) {
+        this.informacoesAdicionais = informacoesAdicionais;
     }
     
     

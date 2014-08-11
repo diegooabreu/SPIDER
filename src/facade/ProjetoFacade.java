@@ -86,7 +86,7 @@ public class ProjetoFacade {
         projetoJpa.create(projeto);
     }
 
-    public List<Planocontingencia> buscaPlanosDeContingencia(Projeto projeto) {
+    public List<Planocontingencia> buscaPlanosDeContingenciaPendentes(Projeto projeto) {
         PlanocontingenciaJpaController planoDeContingenciaJPA = new PlanocontingenciaJpaController();
         List<Planocontingencia> listaPlanoContingencia = planoDeContingenciaJPA.findPlanocontingenciaEntities();
         List<Planocontingencia> listaPlanoContingenciaFinal = new ArrayList<Planocontingencia>();
@@ -102,21 +102,8 @@ public class ProjetoFacade {
         }
         return listaPlanoContingenciaFinal;
     }
-
-    public List<Planomitigacao> getListaPlanosMitigacaoEmAcao() {
-        PlanomitigacaoJpaController pmJPA = new PlanomitigacaoJpaController();
-        List<Planomitigacao> listaPM = null;
-
-        try {
-
-        } catch (Exception e) {
-
-        }
-
-        return listaPM;
-    }
-
-    public List<Planomitigacao> buscaPlanosDeMitigacao(Projeto projeto) {
+    
+    public List<Planomitigacao> buscaPlanosDeMitigacaoPendentes(Projeto projeto) {
         PlanomitigacaoJpaController planoDeMitigacaoJPA = new PlanomitigacaoJpaController();
         List<Planomitigacao> listaPlanoMitigacao = planoDeMitigacaoJPA.findPlanomitigacaoEntities();
         List<Planomitigacao> listaPlanoMitigacaoFinal = new ArrayList<Planomitigacao>();
@@ -131,6 +118,49 @@ public class ProjetoFacade {
             }
         }
         return listaPlanoMitigacaoFinal;
+    }
+    
+    public List<Planocontingencia> buscaPlanosDeContingenciaRealizados(Projeto projeto) {
+        PlanocontingenciaJpaController planoDeContingenciaJPA = new PlanocontingenciaJpaController();
+        List<Planocontingencia> listaPlanoContingencia = planoDeContingenciaJPA.findPlanocontingenciaEntities();
+        List<Planocontingencia> listaPlanoContingenciaFinal = new ArrayList<Planocontingencia>();
+
+        listaPlanoContingencia = planoDeContingenciaJPA.getListaPCRealizados();
+
+        for (int k = 0; k < listaPlanoContingencia.size(); k++) {
+                if (listaPlanoContingencia.get(k).getIdRisco().getContem().getProjeto().getIdProjeto() == projeto.getIdProjeto()) {
+                    listaPlanoContingenciaFinal.add(listaPlanoContingencia.get(k));
+                }
+        }
+        return listaPlanoContingenciaFinal;
+    }
+    
+    public List<Planomitigacao> buscaPlanosDeMitigacaoRealizados(Projeto projeto) {
+        PlanomitigacaoJpaController planoDeMitigacaoJPA = new PlanomitigacaoJpaController();
+        List<Planomitigacao> listaPlanoMitigacao = planoDeMitigacaoJPA.findPlanomitigacaoEntities();
+        List<Planomitigacao> listaPlanoMitigacaoFinal = new ArrayList<Planomitigacao>();
+
+        listaPlanoMitigacao = planoDeMitigacaoJPA.getListaPMRealizados();
+
+        for (int k = 0; k < listaPlanoMitigacao.size(); k++) {
+                if (listaPlanoMitigacao.get(k).getIdRisco().getContem().getProjeto().getIdProjeto() == projeto.getIdProjeto()) {
+                    listaPlanoMitigacaoFinal.add(listaPlanoMitigacao.get(k));
+                }
+        }
+        return listaPlanoMitigacaoFinal;
+    }
+
+    public List<Planomitigacao> getListaPlanosMitigacaoEmAcao() {
+        PlanomitigacaoJpaController pmJPA = new PlanomitigacaoJpaController();
+        List<Planomitigacao> listaPM = null;
+
+        try {
+
+        } catch (Exception e) {
+
+        }
+
+        return listaPM;
     }
 
 }

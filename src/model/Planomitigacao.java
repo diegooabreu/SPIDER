@@ -31,6 +31,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Planomitigacao.findPlanosMitigacaoPendentes", query = "SELECT p FROM Planomitigacao p WHERE p.dataRealizacao is null"),
+    @NamedQuery(name = "Planomitigacao.findPlanosMitigacaoRealizados", query = "SELECT p FROM Planomitigacao p WHERE p.dataRealizacao is not null"),
     @NamedQuery(name = "Planomitigacao.findPlanoMitigacaoByIdPontodecontroleEStatusRisco", query = "SELECT p FROM Planomitigacao p WHERE p.idPontoDeControle = :idPontodecontrole and p.idRisco.statusRisco = :statusRisco"),
     @NamedQuery(name = "Planomitigacao.findPlanoMitigacaoByIdMarcoDoProjetoEStatusRisco", query = "SELECT p FROM Planomitigacao p WHERE p.idMarcoDoProjeto = :idMarcoDoProjeto and p.idRisco.statusRisco = :statusRisco"),
     @NamedQuery(name = "Planomitigacao.findPlanoMitigacaoByIdMarcoDoProjeto", query = "SELECT p FROM Planomitigacao p WHERE p.idMarcoDoProjeto = :idMarcoDoProjeto"),

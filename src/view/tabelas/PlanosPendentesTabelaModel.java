@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package view.tabelas;
 
 import java.util.ArrayList;
@@ -12,166 +13,228 @@ import javax.swing.table.AbstractTableModel;
 
 /**
  *
- * @author Diogo
+ * @author Diego
  */
-public class PlanosPendentesTabelaModel extends AbstractTableModel {
+public class PlanosPendentesTabelaModel extends AbstractTableModel{
+    
+    private static final int REALIZADO = 0;
+    private static final int IDPLANO = 1;
+    private static final int IDENTIFICACAOPLANO = 2;
+    private static final int DESCRICAOPLANO = 3;
+    private static final int RESPONSAVEL = 4;
+    private static final int DATALIMITE = 5;
+    private static final int IDENTIFICACAORISCO = 6;
+    private static final int TIPO = 7;
+    private static final int DATAREALIZACAO = 8;
 
-    public static final int identificacaoPlano = 0;
-    public static final int idPlanoDeMitigacao = 1;
-    public static final int datalimite = 2;
-    public static final int realizado = 3;
+    
+    // Array com os nomes das colunas.
+    private String[] colunas = new String[] {"Realizar", "Id", "Identificacao", "Descrição", "Responsável","Data Limite","Risco", "Tipo de Plano" };
 
-    private String[] colunas = new String[]{"Identificação do Plano", "Risco", "Data Limite", "Realizado"};
-
-    private List<PlanosPendentesTabela> linhas;
-
+    // Lista de Sócios a serem exibidos na tabela
+    private List<PlanoTabela> linhas;
+    
+    
+    // Cria um PlanosPendentesTabelaModel sem nenhuma linha
     public PlanosPendentesTabelaModel() {
-        linhas = new ArrayList<PlanosPendentesTabela>();
+        linhas = new ArrayList<PlanoTabela>();
     }
-
-    public PlanosPendentesTabelaModel(List<PlanosPendentesTabela> planosPendentesTabela) {
-        linhas = new ArrayList<PlanosPendentesTabela>(planosPendentesTabela);
+    
+    // Cria um PlanoTableModel contendo a lista recebida por parâmetro
+    public PlanosPendentesTabelaModel(List<PlanoTabela> listaDePlanoTabela) {
+        linhas = new ArrayList<PlanoTabela>(listaDePlanoTabela);
     }
-
+    
     public int getRowCount() {
-        return linhas.size();
+    return linhas.size();
     }
-
+    
     public int getColumnCount() {
-        return colunas.length;
+    return colunas.length;
     }
-
+    
     public String getColumnName(int columnIndex) {
-        return colunas[columnIndex];
-    }
-
+    return colunas[columnIndex];
+    };
+    
+    
     public Class<?> getColumnClass(int columnIndex) {
-        switch (columnIndex) {
-            case identificacaoPlano:
-                return Boolean.class;
-            case idPlanoDeMitigacao:
-                return Integer.class;
-            case datalimite:
-                return Date.class;
-            case realizado:
-                return String.class;
-            //case ATIVO:
-            //    return Boolean.class;
-
-            default:
-                // Não deve ocorrer, pois só existem 2 colunas
-                throw new IndexOutOfBoundsException("columnIndex out of bounds");
+    switch (columnIndex) {
+    case REALIZADO:
+        return Boolean.class;
+    case IDPLANO:
+        return Integer.class;
+    case IDENTIFICACAOPLANO:
+        return String.class;
+    case DESCRICAOPLANO:
+        return String.class;
+    case RESPONSAVEL:
+        return String.class;
+    case DATALIMITE:
+        return Date.class;
+    case IDENTIFICACAORISCO:
+        return String.class;
+    case DATAREALIZACAO:
+        return Date.class;
+    case TIPO:
+        return String.class;
+   
+    
+    default:
+        // Não deve ocorrer, pois só existem 2 colunas
+        throw new IndexOutOfBoundsException("columnIndex out of bounds");
         }
     }
-
+    
     public boolean isCellEditable(int rowIndex, int columnIndex) {
-        // apenas o campo "MONITORAR" será editável
-        //return columnIndex == MONITORAR;
-
-        return false;
-
+                
+         return false;
+    
     }
-
+    
     public Object getValueAt(int rowIndex, int columnIndex) {
-        // Pega o sócio referente a linha especificada.
-        PlanosPendentesTabela planosPendentes = linhas.get(rowIndex);
-
-        // Socio socio = linhas.get(rowIndex);
-        switch (columnIndex) {
-            case identificacaoPlano:
-                return planosPendentes.getIdentificacaoPlano();
-            case idPlanoDeMitigacao:
-                return planosPendentes.getIdPlanoDeMitigacao();
-            case datalimite:
-                return planosPendentes.getDataLimite();
-            case realizado:
-                return planosPendentes.isRealizado();
+    // Pega o plano referente a linha especificada.
+        PlanoTabela planoTabela = linhas.get(rowIndex);
+        
+       
+ 
+    switch (columnIndex) {
+        case REALIZADO:
+            return planoTabela.isRealizado();
+        case IDPLANO:
+            return planoTabela.getIdPlano();
+        case IDENTIFICACAOPLANO:
+            return planoTabela.getIdentificacaoPlano();
+        case DESCRICAOPLANO:
+            return planoTabela.getDescricaoPlano();
+        case RESPONSAVEL:
+            return planoTabela.getResponsavel();
+        case DATALIMITE:
+            return planoTabela.getDataLimite();
+        case IDENTIFICACAORISCO:
+            return planoTabela.getIdentificacaoRisco();
+        case DATAREALIZACAO:
+            return planoTabela.getDataRealizacao();
+        case TIPO:
+            return planoTabela.getTipo();
+        //case DATAOCORRENCIACONDICAO:
+          //  return condicaoTabela.getDataOcorrenciaCondicao();
+        
+                
+    //case ATIVO:
+     //       return socio.isAtivo();
             
-            //case ATIVO:
-            //       return socio.isAtivo();
-            default:
-                // Não deve ocorrer, pois só existem 2 colunas
-                throw new IndexOutOfBoundsException("columnIndex out of bounds");
-        }
-    }
-
-    public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
-        // Pega o sócio referente a linha especificada.
-        PlanosPendentesTabela planosPendentes = linhas.get(rowIndex);
-        //Socio socio = linhas.get(rowIndex);
-
-        switch (columnIndex) {
-            case realizado:
-                planosPendentes.setRealizado((Boolean) aValue);
-                break;
-            case idPlanoDeMitigacao:
-                planosPendentes.setIdentificacaoPlano((String) aValue);
-                break;
-            case datalimite:
-                planosPendentes.setDataLimite((Date) aValue);
-                break;
-            case identificacaoPlano:
-                planosPendentes.setIdentificacaoPlano((String) aValue);
-                break;
             
-            // case ATIVO:
-            //      socio.setAtivo((Boolean) aValue);
-            //    break;
-            default:
-                // Não deve ocorrer, pois só existem 2 colunas
-                throw new IndexOutOfBoundsException("columnIndex out of bounds");
-        }
-
-        fireTableCellUpdated(rowIndex, columnIndex); // Notifica a atualização da célula
+    default:
+        // Não deve ocorrer, pois só existem 2 colunas
+        throw new IndexOutOfBoundsException("columnIndex out of bounds");
     }
-
-    // Retorna o sócio referente a linha especificada
-    public PlanosPendentesTabela getPlanosTabela(int indiceLinha) {
+}
+    
+     public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
+    // Pega o plano referente a linha especificada.
+        PlanoTabela planoTabela = linhas.get(rowIndex);
+        
+ 
+    switch (columnIndex) {
+    case REALIZADO:
+        planoTabela.setRealizado((Boolean) aValue);
+        break;
+    case IDPLANO:
+        planoTabela.setIdPlano((Integer) aValue);
+        break;
+    case IDENTIFICACAOPLANO:
+        planoTabela.setIdentificacaoPlano((String) aValue);
+        break;
+    case DESCRICAOPLANO:
+        planoTabela.setDescricaoPlano((String) aValue);
+        break;
+    case RESPONSAVEL:
+        planoTabela.setResponsavel((String) aValue);
+        break;
+    case DATALIMITE:
+        planoTabela.setDataLimite((Date) aValue);
+        break;
+    case IDENTIFICACAORISCO:
+        planoTabela.setIdentificacaoRisco((String) aValue);
+        break;
+    case DATAREALIZACAO:
+        planoTabela.setDataRealizacao((Date) aValue);
+        break;
+    case TIPO:
+        planoTabela.setTipo((String) aValue);
+        break;
+    
+    default:
+        // Não deve ocorrer, pois só existem 2 colunas
+        throw new IndexOutOfBoundsException("columnIndex out of bounds");
+    }
+     
+    fireTableCellUpdated(rowIndex, columnIndex); // Notifica a atualização da célula
+    }
+    
+    // Retorna a planoTabela referente a linha especificada
+    public PlanoTabela getPlanoTabela(int indiceLinha) {
         return linhas.get(indiceLinha);
-    }
-
-// Adiciona o sócio especificado ao modelo
-    public void addPlanoTabela(PlanosPendentesTabela planosPendentes) {
-        // Adiciona o registro.
-        linhas.add(planosPendentes);
-
-        // Pega a quantidade de registros e subtrai 1 para
-        // achar o último índice. A subtração é necessária
-        // porque os índices começam em zero.
-        int ultimoIndice = getRowCount() - 1;
-
-        // Notifica a mudança.
-        fireTableRowsInserted(ultimoIndice, ultimoIndice);
-    }
-
-// Remove o sócio da linha especificada.
-    public void removePlanosPendentesTabela(int indiceLinha) {
+}
+    
+    // Adiciona o plano especificado ao modelo
+    public void addPlanoTabela(PlanoTabela planoTabela) {
+    // Adiciona o registro.
+    linhas.add(planoTabela);
+ 
+    // Pega a quantidade de registros e subtrai 1 para
+    // achar o último índice. A subtração é necessária
+    // porque os índices começam em zero.
+    int ultimoIndice = getRowCount() - 1;
+ 
+    // Notifica a mudança.
+    fireTableRowsInserted(ultimoIndice, ultimoIndice);
+}
+    
+    // Remove o sócio da linha especificada.
+    public void removeCondicaoTabela(int indiceLinha) {
         // Remove o registro.
         linhas.remove(indiceLinha);
-
+ 
         // Notifica a mudança.
         fireTableRowsDeleted(indiceLinha, indiceLinha);
     }
+    
+    public void addListaDePlanos(List<PlanoTabela> listaPlanoTabela) {
+       // Pega o tamanho antigo da tabela, que servirá
+       // como índice para o primeiro dos novos registros
+       int indice = getRowCount();
 
-// Adiciona uma lista de sócios no final da lista.
-    public void addListaDePlanos(List<PlanosPendentesTabela> planos) {
+       // Adiciona os registros.
+       linhas.addAll(listaPlanoTabela);
+
+       // Notifica a mudança.
+       fireTableRowsInserted(indice, indice + listaPlanoTabela.size());
+   }
+    
+    // Adiciona uma lista de sócios no final da lista.
+    public void addListaDeCondicao(List<PlanoTabela> listaPlanoTabela) {
         // Pega o tamanho antigo da tabela, que servirá
         // como índice para o primeiro dos novos registros
         int indice = getRowCount();
-
+ 
         // Adiciona os registros.
-        linhas.addAll(planos);
-
+        linhas.addAll(listaPlanoTabela);
+ 
         // Notifica a mudança.
-        fireTableRowsInserted(indice, indice + planos.size());
+        fireTableRowsInserted(indice, indice + listaPlanoTabela.size());
     }
-
-// Remove todos os registros.
+    
+    // Remove todos os registros.
     public void limpar() {
         // Remove todos os elementos da lista de sócios.
         linhas.clear();
-
+ 
         // Notifica a mudança.
         fireTableDataChanged();
-    }
+}
+    
+    
+    
 }

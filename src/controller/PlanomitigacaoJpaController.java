@@ -195,7 +195,24 @@ public class PlanomitigacaoJpaController implements Serializable {
                     .getResultList();
             
         } catch (Exception e){
-            System.out.println("diego erro");
+            System.out.println("Erro ao obter lista de Planos de Mitigação Pendentes");
+        }
+        
+        return listaPM;
+    }
+    
+    public List<Planomitigacao> getListaPMRealizados(){
+        EntityManager em = getEntityManager();
+        
+        List<Planomitigacao> listaPM = null;
+        
+        try{
+            
+            listaPM = em.createNamedQuery("Planomitigacao.findPlanosMitigacaoRealizados")
+                    .getResultList();
+            
+        } catch (Exception e){
+            System.out.println("Erro ao obter lista de Planos de Mitigação Realizados");
         }
         
         return listaPM;

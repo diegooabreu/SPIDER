@@ -261,7 +261,25 @@ public class PlanocontingenciaJpaController implements Serializable {
                     .getResultList();
             
         } catch (Exception e){
-            System.out.println("diego erro");
+            System.out.println("Erro ao obter lista de Planos de Contingencia Pendentes");
+        }
+        
+        return listaPC;
+    }
+    
+    public List<Planocontingencia> getListaPCRealizados(){
+        EntityManager em = getEntityManager();
+        
+        List<Planocontingencia> listaPC = null;
+        
+        try{
+            
+            listaPC = em.createNamedQuery("Planomitigacao.findPlanosContingenciaRealizados")
+                    //.setParameter("dataRealizacao", dataRealizacao)
+                    .getResultList();
+            
+        } catch (Exception e){
+            System.out.println("Erro ao obter lista de Planos de Contingencia realizados");
         }
         
         return listaPC;
