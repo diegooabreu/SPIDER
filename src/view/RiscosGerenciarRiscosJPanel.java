@@ -3149,8 +3149,17 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
         
                 reiniciarTabelaSubcondicoes();
         
+                campo1Condicao = null;
+                campo1Relacao = null;
+                campo1JTextField.setText("");
+                campo2Condicao = null;
+                campo2Relacao = null;
+                campo2JTextField.setText("");
+            
+                
                 JOptionPane.showMessageDialog(this, "Nova relação criada com sucesso.");
-        
+                
+                
            }
         
         }
@@ -3218,9 +3227,18 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
             
             reiniciarTabelaRelacoes();
             relacaoSelecionada = null;
+
+                        
+                campo1Condicao = null;
+                campo1Relacao = null;
+                campo1JTextField.setText("");
+                campo2Condicao = null;
+                campo2Relacao = null;
+                campo2JTextField.setText("");
+
             
             JOptionPane.showMessageDialog(this, "Relação deletada com sucesso.");
-            
+                
         }
         } else {
             JOptionPane.showMessageDialog(this, "Por favor selecione uma relação.");

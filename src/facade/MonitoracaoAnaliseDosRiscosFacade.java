@@ -8,11 +8,13 @@ package facade;
 
 import controller.HistoricoalteracaoJpaController;
 import controller.HistoricoriscoJpaController;
+import controller.PlanocontingenciaJpaController;
 import controller.RiscoJpaController;
 import controller.SubcondicaoJpaController;
 import java.util.List;
 import model.Historicoalteracao;
 import model.Historicorisco;
+import model.Planocontingencia;
 import model.Projeto;
 import model.Risco;
 import model.Subcondicao;
@@ -24,6 +26,21 @@ import model.Subcondicao;
 
 public class MonitoracaoAnaliseDosRiscosFacade {
  
+    public List<Planocontingencia> getListaPlanosContingenciaByRisco(Risco risco){
+        PlanocontingenciaJpaController pcJPA = new PlanocontingenciaJpaController();
+        List<Planocontingencia> listaPC = null;
+        
+        try{
+            
+            listaPC = pcJPA.getListPlanoContingenciaByIdRisco(risco);
+            
+        } catch (Exception e){
+            System.out.println("Erro no metodo getListaPlanosContingenciaByRisco da classe monitoracaoanalisefacade");
+        }
+        
+        return listaPC;
+    }
+    
     public Risco getRisco(int id){
         
         RiscoJpaController riscoJPA = new RiscoJpaController();

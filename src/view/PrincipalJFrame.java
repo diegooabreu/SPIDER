@@ -6,7 +6,6 @@ package view;
 
 import facade.MonitoracaoAnaliseDosRiscosFacade;
 import facade.PrincipalFacade;
-import facade.ProjetoFacade;
 import facade.RiscosGerenciarRiscosFacade;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -91,13 +90,9 @@ public class PrincipalJFrame extends javax.swing.JFrame {
         esconderFrames();
         criarArvore();
         definirEventosArvore();
-
         definirEventoRedimensionamento();
         //teste.setVisible(true);
 
-
-
-        //teste.setVisible(true);
     }
 
     public void definirEventoRedimensionamento(){
@@ -355,11 +350,11 @@ public class PrincipalJFrame extends javax.swing.JFrame {
         riscoSelecioanrRiscoParaMonitorarInternalJFrame.setVisible(true);
     }
 
-    static void aparecerInternalFrameMonitoracao() {
+    static void aparecerInternalFrameMonitoracao(){
         monitoracaoAnaliseDosRiscosCheckInternalJFrame.setVisible(true);
     }
 
-    static void aparecerInternalFrameRiscosOcorridos() {
+    static void aparecerInternalFrameRiscosOcorridos(){
         riscosRiscosOcorridosJInternalFrame.setVisible(true);
     }
 
@@ -603,7 +598,9 @@ public class PrincipalJFrame extends javax.swing.JFrame {
 
         //riscosPriorizarRiscosJPanel.setBounds(0, 0, 861, 529);
         //camadasJDesktopPane.add(riscosPriorizarRiscosJPanel);
+
         //camadasJDesktopPane.add(riscosSelecionarRiscosParaMonitorarInternalJFrame);
+
     }
     //**************************************************************//
 
@@ -763,13 +760,11 @@ public class PrincipalJFrame extends javax.swing.JFrame {
                         monitoracaoAnaliseDosRiscosJPanel.populaTabelaDeRiscos(listaDeRisco, false);
                         monitoracaoAnaliseDosRiscosJPanel.definirEventosTabelaDeRiscos();
 
+                        
                     } else if (node == tabelaAlteracoes) {
                         monitoracoaTabelaDeAlteracaoJPanel.setVisible(true);
                     } else if (node == tarefasPendentes) {
                         monitoracaoTarefasTarefasPendentesJPanel.setVisible(true);
-                        monitoracaoTarefasTarefasPendentesJPanel.setVisible(true);
-                        ProjetoFacade projetofacade = new ProjetoFacade();
-                        monitoracaoTarefasTarefasPendentesJPanel.criarTabelaPlanosPendentes(projetofacade.buscaPlanosDeContingencia(projetoSelecionado), projetofacade.buscaPlanosDeMitigacao(projetoSelecionado));
                     } else if (node == historicoTarefas) {
                         monitoracaoTarefasHistoricoDeTarefasJPanel.setVisible(true);
                     }
