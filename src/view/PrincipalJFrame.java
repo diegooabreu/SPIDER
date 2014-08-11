@@ -6,7 +6,6 @@ package view;
 
 import facade.MonitoracaoAnaliseDosRiscosFacade;
 import facade.PrincipalFacade;
-import facade.ProjetoFacade;
 import facade.RiscosGerenciarRiscosFacade;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -46,20 +45,18 @@ public class PrincipalJFrame extends javax.swing.JFrame {
     final OrganizacionalEditarEARJPanel organizacionalEditarEARJPanel = new OrganizacionalEditarEARJPanel();
     final RiscosPriorizarRiscosJPanel riscosPriorizarRiscosJPanel = new RiscosPriorizarRiscosJPanel();
     final RiscosRiscosOcorridosJPanel riscosRiscosOcorridosJPanel = new RiscosRiscosOcorridosJPanel();
-    final MonitoracaoTarefasPlanosPendentesJPanel monitoracaoTarefasTarefasPendentesJPanel = new MonitoracaoTarefasPlanosPendentesJPanel();
-    final MonitoracaoTarefasPlanosRealizadosJPanel monitoracaoTarefasPlanosRealizadosJPanel =  new MonitoracaoTarefasPlanosRealizadosJPanel();
-    
 
     static MonitoracaoAnaliseDosRiscosJPanel monitoracaoAnaliseDosRiscosJPanel = new MonitoracaoAnaliseDosRiscosJPanel();
 
     final MonitoracaoTabelaDeAlteracaoJPanel monitoracoaTabelaDeAlteracaoJPanel = new MonitoracaoTabelaDeAlteracaoJPanel();
+    final MonitoracaoTarefasPlanosPendentesJPanel monitoracaoTarefasTarefasPendentesJPanel = new MonitoracaoTarefasPlanosPendentesJPanel();
+    final MonitoracaoTarefasPlanosFinalizadosJPanel monitoracaoTarefasHistoricoDeTarefasJPanel = new MonitoracaoTarefasPlanosFinalizadosJPanel();
 
     // static TesteInternalFrame testeInternalFrame = new TesteInternalFrame();
     static RiscoSelecioanrRiscoParaMonitorarInternalJFrame riscoSelecioanrRiscoParaMonitorarInternalJFrame = new RiscoSelecioanrRiscoParaMonitorarInternalJFrame();
     static MonitoracaoAnaliseDosRiscosCheckInternalJFrame monitoracaoAnaliseDosRiscosCheckInternalJFrame = new MonitoracaoAnaliseDosRiscosCheckInternalJFrame();
     static RiscosRiscosOcorridosJInternalFrame riscosRiscosOcorridosJInternalFrame = new RiscosRiscosOcorridosJInternalFrame();
     static CalendarioDetalhesMarcoEpontoDoDiaInternalJFrame calendarioDetalhesMarcoEpontoDoDiaInternalJFrame = new CalendarioDetalhesMarcoEpontoDoDiaInternalJFrame();
-    static MonitorarPlanosPendentesMaisInformaçõesInternalFrame monitorarPlanosPendentesMaisInformaçõesInternalFrame = new MonitorarPlanosPendentesMaisInformaçõesInternalFrame();
     
     // Criando Arvore de Funcionalidades - Menu //
     private JTree arvoreFuncionalidadesJTree;
@@ -80,8 +77,8 @@ public class PrincipalJFrame extends javax.swing.JFrame {
     private DefaultMutableTreeNode analiseRiscos;
     private DefaultMutableTreeNode tabelaAlteracoes;
     private DefaultMutableTreeNode tarefas;
-    private DefaultMutableTreeNode planosPendentes;
-    private DefaultMutableTreeNode planosRealizados;
+    private DefaultMutableTreeNode tarefasPendentes;
+    private DefaultMutableTreeNode historicoTarefas;
 
     //*****************************************//
     /**
@@ -137,7 +134,7 @@ public class PrincipalJFrame extends javax.swing.JFrame {
         
             monitoracaoTarefasTarefasPendentesJPanel.setBounds(camadasJDesktopPane.getBounds());
         
-            monitoracaoTarefasPlanosRealizadosJPanel.setBounds(camadasJDesktopPane.getBounds());
+            monitoracaoTarefasHistoricoDeTarefasJPanel.setBounds(camadasJDesktopPane.getBounds());
         
         
                 
@@ -364,10 +361,6 @@ public class PrincipalJFrame extends javax.swing.JFrame {
     
     static void aparecerInternalCalendarioDetalhesMarcoEPonto(){
         calendarioDetalhesMarcoEpontoDoDiaInternalJFrame.setVisible(true);
-    }
-    
-    static void aparecerInternalFramePlanosPendentes(){
-        monitorarPlanosPendentesMaisInformaçõesInternalFrame.setVisible(true);
     }
 
     private void configuracoesFerramentaJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_configuracoesFerramentaJButtonActionPerformed
@@ -599,8 +592,8 @@ public class PrincipalJFrame extends javax.swing.JFrame {
         monitoracaoTarefasTarefasPendentesJPanel.setBounds(camadasJDesktopPane.getBounds());
         camadasJDesktopPane.add(monitoracaoTarefasTarefasPendentesJPanel);
 
-        monitoracaoTarefasPlanosRealizadosJPanel.setBounds(camadasJDesktopPane.getBounds());
-        camadasJDesktopPane.add(monitoracaoTarefasPlanosRealizadosJPanel);
+        monitoracaoTarefasHistoricoDeTarefasJPanel.setBounds(camadasJDesktopPane.getBounds());
+        camadasJDesktopPane.add(monitoracaoTarefasHistoricoDeTarefasJPanel);
 
         camadasJDesktopPane.add(riscoSelecioanrRiscoParaMonitorarInternalJFrame);
 
@@ -609,8 +602,6 @@ public class PrincipalJFrame extends javax.swing.JFrame {
         camadasJDesktopPane.add(riscosRiscosOcorridosJInternalFrame);
         
         camadasJDesktopPane.add(calendarioDetalhesMarcoEpontoDoDiaInternalJFrame);
-        
-        camadasJDesktopPane.add(monitorarPlanosPendentesMaisInformaçõesInternalFrame);
 
         //riscosPriorizarRiscosJPanel.setBounds(0, 0, 861, 529);
         //camadasJDesktopPane.add(riscosPriorizarRiscosJPanel);
@@ -638,14 +629,13 @@ public class PrincipalJFrame extends javax.swing.JFrame {
         monitoracaoAnaliseDosRiscosJPanel.setVisible(false);
         monitoracoaTabelaDeAlteracaoJPanel.setVisible(false);
         monitoracaoTarefasTarefasPendentesJPanel.setVisible(false);
-        monitoracaoTarefasPlanosRealizadosJPanel.setVisible(false);
+        monitoracaoTarefasHistoricoDeTarefasJPanel.setVisible(false);
 
         //tInternaisFrame
         riscoSelecioanrRiscoParaMonitorarInternalJFrame.setVisible(false);
         monitoracaoAnaliseDosRiscosCheckInternalJFrame.setVisible(false);
         riscosRiscosOcorridosJInternalFrame.setVisible(false);
         calendarioDetalhesMarcoEpontoDoDiaInternalJFrame.setVisible(false);
-        monitorarPlanosPendentesMaisInformaçõesInternalFrame.setVisible(false);
     }
 
     // Criando os nós da arvore e adicionando-os //
@@ -697,11 +687,14 @@ public class PrincipalJFrame extends javax.swing.JFrame {
         tabelaAlteracoes = new DefaultMutableTreeNode("Tabela de Alterações");
         monitoracao.add(tabelaAlteracoes);
 
-        planosPendentes = new DefaultMutableTreeNode("Planos Pendentes");
-        monitoracao.add(planosPendentes);
+        tarefas = new DefaultMutableTreeNode("Tarefas");
+        monitoracao.add(tarefas);
 
-        planosRealizados = new DefaultMutableTreeNode("Planos Realizados");
-        monitoracao.add(planosRealizados);
+        tarefasPendentes = new DefaultMutableTreeNode("Planos Pendentes");
+        tarefas.add(tarefasPendentes);
+
+        historicoTarefas = new DefaultMutableTreeNode("Planos Realizados");
+        tarefas.add(historicoTarefas);
 
         arvoreFuncionalidadesJTree = new JTree(funcionalidades);
         arvoreFuncionalidadesJScrollPane.setViewportView(arvoreFuncionalidadesJTree);
@@ -778,14 +771,10 @@ public class PrincipalJFrame extends javax.swing.JFrame {
                         
                     } else if (node == tabelaAlteracoes) {
                         monitoracoaTabelaDeAlteracaoJPanel.setVisible(true);
-                    } else if (node == planosPendentes) {
+                    } else if (node == tarefasPendentes) {
                         monitoracaoTarefasTarefasPendentesJPanel.setVisible(true);
-                        ProjetoFacade projetofacade = new ProjetoFacade();
-                        monitoracaoTarefasTarefasPendentesJPanel.criarTabelaPlanosPendentes(projetofacade.buscaPlanosDeContingenciaPendentes(projetoSelecionado), projetofacade.buscaPlanosDeMitigacaoPendentes(projetoSelecionado));
-                    } else if (node == planosRealizados) {
-                        monitoracaoTarefasPlanosRealizadosJPanel.setVisible(true);
-                        ProjetoFacade projetoFacade = new ProjetoFacade();
-                        monitoracaoTarefasPlanosRealizadosJPanel.criarTabelaPlanosRealizados(projetoFacade.buscaPlanosDeContingenciaRealizados(projetoSelecionado), projetoFacade.buscaPlanosDeMitigacaoRealizados(projetoSelecionado));
+                    } else if (node == historicoTarefas) {
+                        monitoracaoTarefasHistoricoDeTarefasJPanel.setVisible(true);
                     }
                 }
             }
