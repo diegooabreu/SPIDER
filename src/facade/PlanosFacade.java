@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package facade;
 
 import controller.PlanocontingenciaJpaController;
@@ -18,8 +17,8 @@ import model.Planomitigacao;
  * @author Diogo
  */
 public class PlanosFacade {
-    
-    public void editarPlanodeMitigacao(Planomitigacao planoMitigacao){
+
+    public void editarPlanodeMitigacao(Planomitigacao planoMitigacao) {
         PlanomitigacaoJpaController planoMitigacaoJpaController = new PlanomitigacaoJpaController();
         try {
             planoMitigacaoJpaController.edit(planoMitigacao);
@@ -28,8 +27,8 @@ public class PlanosFacade {
             System.out.print("Erro ao editar plano de mitigação");
         }
     }
-    
-    public void editarPlanodeContingencia(Planocontingencia planoContingencia){
+
+    public void editarPlanodeContingencia(Planocontingencia planoContingencia) {
         PlanocontingenciaJpaController planoContingenciaJpaController = new PlanocontingenciaJpaController();
         try {
             planoContingenciaJpaController.edit(planoContingencia);
@@ -38,4 +37,15 @@ public class PlanosFacade {
             System.out.print("Erro ao editar plano de contingencia");
         }
     }
+
+    public Planomitigacao buscaPlanoMitigacaoById(int id){
+        PlanomitigacaoJpaController planomitigacaoJpaController = new PlanomitigacaoJpaController();
+        return planomitigacaoJpaController.findPlanomitigacao(id);
+    }
+    
+    public Planocontingencia buscaPlanoContingenciaById(int id){
+        PlanocontingenciaJpaController planocontingenciaJpaController = new PlanocontingenciaJpaController();
+        return planocontingenciaJpaController.findPlanocontingencia(id);
+    }
+        
 }

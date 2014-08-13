@@ -32,54 +32,44 @@ public class MonitorarPlanosPendentesMaisInformaçõesInternalFrame extends java
     
     
     
-    void preencheTelaParaPlanoDeMitigacao(List<Planomitigacao> listaPlaMitigacao, int idPlano) {
+    void preencheTelaParaPlanoDeMitigacao(Planomitigacao planoMitigacao) {
         DateFormat dataFormatada = DateFormat.getDateInstance(DateFormat.MEDIUM);
         String dataStr;
         
-        identificacaoDoPlanoJTextField.setText(listaPlaMitigacao.get(idPlano).getIdentificacaoPlanoMitigacao());
-        responsavelPeloPlanoJTextField.setText(listaPlaMitigacao.get(idPlano).getResponsavel());
-        if(listaPlaMitigacao.get(idPlano).getIdMarcoDoProjeto() ==  null){
-            dataStr = dataFormatada.format(listaPlaMitigacao.get(idPlano).getIdPontoDeControle().getDataPontoControle());
+        identificacaoDoPlanoJTextField.setText(planoMitigacao.getIdentificacaoPlanoMitigacao());
+        responsavelPeloPlanoJTextField.setText(planoMitigacao.getResponsavel());
+        if(planoMitigacao.getIdMarcoDoProjeto() ==  null){
+            dataStr = dataFormatada.format(planoMitigacao.getIdPontoDeControle().getDataPontoControle());
             dataLimiteJTextField.setText(dataStr);
         }
-        else if(listaPlaMitigacao.get(idPlano).getIdPontoDeControle() == null){
-            dataStr = dataFormatada.format(listaPlaMitigacao.get(idPlano).getIdMarcoDoProjeto().getDataMarcoProjeto());
+        else if(planoMitigacao.getIdPontoDeControle() == null){
+            dataStr = dataFormatada.format(planoMitigacao.getIdMarcoDoProjeto().getDataMarcoProjeto());
             dataLimiteJTextField.setText(dataStr);
         }
-        descricaoJTextArea.setText(listaPlaMitigacao.get(idPlano).getDescricaoPlanoMitigacao());
-        comoSeraFeitoJTextArea.setText(listaPlaMitigacao.get(idPlano).getComoRealizar());
-        informacoesAdicionaisJTextArea.setText(listaPlaMitigacao.get(idPlano).getInformacoesAdicionais());
-        
-        listaPlanoMitigacaoAtualizar = listaPlaMitigacao;
-        idPlanoAtualizaMitigacao = idPlano;
+        descricaoJTextArea.setText(planoMitigacao.getDescricaoPlanoMitigacao());
+        comoSeraFeitoJTextArea.setText(planoMitigacao.getComoRealizar());
+        informacoesAdicionaisJTextArea.setText(planoMitigacao.getInformacoesAdicionais());
     }
         
 
-    void preencheTelaParaPlanoDeContingencia(List<Planocontingencia> listaPlaContigencia, int idPlano) {
+    void preencheTelaParaPlanoDeContingencia(Planocontingencia planoContigencia) {
         DateFormat dataFormatada = DateFormat.getDateInstance(DateFormat.MEDIUM);
         String dataStr;
         
-        identificacaoDoPlanoJTextField.setText(listaPlaContigencia.get(idPlano).getIdentificacaoPlanoContingencia());
-        responsavelPeloPlanoJTextField.setText(listaPlaContigencia.get(idPlano).getResponsavel());
-        if(listaPlaContigencia.get(idPlano).getIdMarcoDoProjeto() ==  null){
-            dataStr = dataFormatada.format(listaPlaContigencia.get(idPlano).getIdPontoDeControle().getDataPontoControle());
+        identificacaoDoPlanoJTextField.setText(planoContigencia.getIdentificacaoPlanoContingencia());
+        responsavelPeloPlanoJTextField.setText(planoContigencia.getResponsavel());
+        if(planoContigencia.getIdMarcoDoProjeto() ==  null){
+            dataStr = dataFormatada.format(planoContigencia.getIdPontoDeControle().getDataPontoControle());
             dataLimiteJTextField.setText(dataStr);
         }
-        else if(listaPlaContigencia.get(idPlano).getIdPontoDeControle() == null){
-            dataStr = dataFormatada.format(listaPlaContigencia.get(idPlano).getIdMarcoDoProjeto().getDataMarcoProjeto());
+        else if(planoContigencia.getIdPontoDeControle() == null){
+            dataStr = dataFormatada.format(planoContigencia.getIdMarcoDoProjeto().getDataMarcoProjeto());
             dataLimiteJTextField.setText(dataStr);
         }
-        descricaoJTextArea.setText(listaPlaContigencia.get(idPlano).getDescricaoPlanoContingencia());
-        comoSeraFeitoJTextArea.setText(listaPlaContigencia.get(idPlano).getComoRealizar());
-        informacoesAdicionaisJTextArea.setText(listaPlaContigencia.get(idPlano).getInformacoesAdicionais());
-        
-        listaPlanoContingenciaAtualizar = listaPlaContigencia;
-        idPlanoAtualizaContingencia = idPlano;
-    }
-    
-    public void atualizaInternalFrame (){
-        preencheTelaParaPlanoDeContingencia(listaPlanoContingenciaAtualizar, idPlanoAtualizaContingencia);
-        preencheTelaParaPlanoDeMitigacao(listaPlanoMitigacaoAtualizar, idPlanoAtualizaMitigacao);
+        descricaoJTextArea.setText(planoContigencia.getDescricaoPlanoContingencia());
+        comoSeraFeitoJTextArea.setText(planoContigencia.getComoRealizar());
+        informacoesAdicionaisJTextArea.setText(planoContigencia.getInformacoesAdicionais());
+
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -102,7 +92,7 @@ public class MonitorarPlanosPendentesMaisInformaçõesInternalFrame extends java
         comoSeraFeitoJTextArea = new javax.swing.JTextArea();
         jScrollPane3 = new javax.swing.JScrollPane();
         informacoesAdicionaisJTextArea = new javax.swing.JTextArea();
-        jButton1 = new javax.swing.JButton();
+        fecharInternalFrameJButton = new javax.swing.JButton();
 
         identificacaoDoPlanoJLabel.setText("Identificação do Plano");
 
@@ -140,10 +130,10 @@ public class MonitorarPlanosPendentesMaisInformaçõesInternalFrame extends java
         informacoesAdicionaisJTextArea.setBorder(javax.swing.BorderFactory.createTitledBorder("Informações Adicionais"));
         jScrollPane3.setViewportView(informacoesAdicionaisJTextArea);
 
-        jButton1.setText("Fechar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        fecharInternalFrameJButton.setText("Fechar");
+        fecharInternalFrameJButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                fecharInternalFrameJButtonActionPerformed(evt);
             }
         });
 
@@ -171,7 +161,7 @@ public class MonitorarPlanosPendentesMaisInformaçõesInternalFrame extends java
                                     .addComponent(dataLimiteJTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(150, 150, 150)
-                                .addComponent(jButton1)))
+                                .addComponent(fecharInternalFrameJButton)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -197,14 +187,14 @@ public class MonitorarPlanosPendentesMaisInformaçõesInternalFrame extends java
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
+                .addComponent(fecharInternalFrameJButton)
                 .addContainerGap(64, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void fecharInternalFrameJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fecharInternalFrameJButtonActionPerformed
         this.setVisible(false);
         
         identificacaoDoPlanoJTextField.setText("");
@@ -214,7 +204,7 @@ public class MonitorarPlanosPendentesMaisInformaçõesInternalFrame extends java
         comoSeraFeitoJTextArea.setText("");
         informacoesAdicionaisJTextArea.setText("");
 
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_fecharInternalFrameJButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -222,10 +212,10 @@ public class MonitorarPlanosPendentesMaisInformaçõesInternalFrame extends java
     private javax.swing.JTextArea comoSeraFeitoJTextArea;
     private javax.swing.JTextField dataLimiteJTextField;
     private javax.swing.JTextArea descricaoJTextArea;
+    private javax.swing.JButton fecharInternalFrameJButton;
     private javax.swing.JLabel identificacaoDoPlanoJLabel;
     private javax.swing.JTextField identificacaoDoPlanoJTextField;
     private javax.swing.JTextArea informacoesAdicionaisJTextArea;
-    private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;

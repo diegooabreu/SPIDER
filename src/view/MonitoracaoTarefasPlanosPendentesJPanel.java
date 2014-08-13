@@ -29,7 +29,7 @@ import view.tabelas.PlanosPendentesTabelaModel;
  * @author Victor
  */
 public class MonitoracaoTarefasPlanosPendentesJPanel extends javax.swing.JPanel {
-    
+
     private PlanosPendentesTabelaModel modeloTabelaPlanosPendentes;
     private JTable tabelaPlanosPendentesJTable;
     private PlanosPendentesTabelaModel planoTabelaModel;
@@ -38,7 +38,8 @@ public class MonitoracaoTarefasPlanosPendentesJPanel extends javax.swing.JPanel 
     private List<PlanoTabela> listaplanosTabela;
     private List<Risco> todosOsRiscos;
     private Projeto projetoSelecionado;
-    
+    private PlanosFacade planosFacade;
+
     PlanoTabela planoTabela = new PlanoTabela();
 
     /**
@@ -46,42 +47,44 @@ public class MonitoracaoTarefasPlanosPendentesJPanel extends javax.swing.JPanel 
      */
     public MonitoracaoTarefasPlanosPendentesJPanel() {
         initComponents();
+        planosFacade = new PlanosFacade();
     }
-    
+
     public void criarTabelaPlanosPendentes(List<Planocontingencia> listaPlanoContigencia, List<Planomitigacao> listaPlanoMitigacao) {
         tabelaPlanosPendentesJTable = new JTable();
         planoTabelaModel = new PlanosPendentesTabelaModel();
-        
+
         tabelaPlanosPendentesJTable.setModel(planoTabelaModel);
-        
+
         tabelaPlanosPendentesJScrollPane.setViewportView(tabelaPlanosPendentesJTable);
-        
+
         listaPlaContigencia = listaPlanoContigencia;
         listaPlaMitigacao = listaPlanoMitigacao;
-        
+
         planoTabelaModel.addListaDePlanos(criaListaDePlanosTabela(listaPlaContigencia, listaPlaMitigacao));
-        
+
         tabelaPlanosPendentesJTable.getColumnModel().getColumn(1).setMaxWidth(0);
         tabelaPlanosPendentesJTable.getColumnModel().getColumn(1).setMinWidth(0);
         tabelaPlanosPendentesJTable.getTableHeader().getColumnModel().getColumn(1).setMaxWidth(0);
         tabelaPlanosPendentesJTable.getTableHeader().getColumnModel().getColumn(1).setMinWidth(0);
-        
+
         modeloTabelaPlanosPendentes = new PlanosPendentesTabelaModel();
         modeloTabelaPlanosPendentes = planoTabelaModel;
-        
+
         tabelaPlanosPendentesJTable.setModel(modeloTabelaPlanosPendentes);
-        
+
         tabelaPlanosPendentesJScrollPane.setViewportView(tabelaPlanosPendentesJTable);
-        
+
         definirEventosTabela();
     }
-    
+
     public List<PlanoTabela> criaListaDePlanosTabela(List<Planocontingencia> listaPlanoContigencia, List<Planomitigacao> listaPlanoMitigacao) {
         listaplanosTabela = new ArrayList<PlanoTabela>();
-        
+
         for (int i = 0; i < listaPlanoContigencia.size(); i++) {
             planoTabela = new PlanoTabela();
-            
+
+            planoTabela.setIdPlano(listaPlanoContigencia.get(i).getIdPlanoContingencia());
             planoTabela.setIdentificacaoPlano(listaPlanoContigencia.get(i).getIdentificacaoPlanoContingencia());
             planoTabela.setIdentificacaoRisco(listaPlanoContigencia.get(i).getIdRisco().toString());
             planoTabela.setDescricaoPlano(listaPlanoContigencia.get(i).getDescricaoPlanoContingencia());
@@ -96,13 +99,14 @@ public class MonitoracaoTarefasPlanosPendentesJPanel extends javax.swing.JPanel 
             if (listaPlanoContigencia.get(i).getDataRealizacao() == null) {
                 planoTabela.setRealizado(false);
             }
-            
+
             listaplanosTabela.add(planoTabela);
         }
-        
+
         for (int i = 0; i < listaPlanoMitigacao.size(); i++) {
             planoTabela = new PlanoTabela();
-            
+
+            planoTabela.setIdPlano(listaPlanoMitigacao.get(i).getIdPlanoMitigacao());
             planoTabela.setIdentificacaoPlano(listaPlanoMitigacao.get(i).getIdentificacaoPlanoMitigacao());
             planoTabela.setIdentificacaoRisco(listaPlanoMitigacao.get(i).getIdRisco().toString());
             planoTabela.setDescricaoPlano(listaPlanoMitigacao.get(i).getDescricaoPlanoMitigacao());
@@ -117,56 +121,55 @@ public class MonitoracaoTarefasPlanosPendentesJPanel extends javax.swing.JPanel 
             if (listaPlanoMitigacao.get(i).getDataRealizacao() == null) {
                 planoTabela.setRealizado(false);
             }
-            
+
             listaplanosTabela.add(planoTabela);
         }
-        
+
         return listaplanosTabela;
-        
+
     }
-    
+
     int selected;
-    
+
     public void definirEventosTabela() {
         tabelaPlanosPendentesJTable.addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent e) {
                 if (e.getClickCount() >= 1) {
-                    
+
                     selected = tabelaPlanosPendentesJTable.getSelectedRow();
                     planoTabelaModel.isCellEditable(selected, 0);
-                    
+
                     if ((boolean) planoTabelaModel.getValueAt(selected, 0) == false) {
                         planoTabelaModel.setValueAt(true, selected, 0);
                         // se monitorar estiver marcado entao desmarca
                     } else {
                         planoTabelaModel.setValueAt(false, selected, 0);
                     }
-                    
+
                 }
-                
+
                 if (e.getClickCount() == 2) {
                     int selected = tabelaPlanosPendentesJTable.getSelectedRow();
                     int idPlano;
-                    
+
                     for (int i = 0; i < listaplanosTabela.size(); i++) {
                         if (i == selected) {
-                            
+
                             if (listaplanosTabela.get(selected).getTipo().equals("Mitigação")) {
-                                if (listaplanosTabela.get(i).getIdPlano() == listaplanosTabela.get(selected).getIdPlano()) {
-                                    idPlano = listaplanosTabela.get(i).getIdPlano();
-                                    PrincipalJFrame.monitorarPlanosPendentesMaisInformaçõesInternalFrame.preencheTelaParaPlanoDeMitigacao(listaPlaMitigacao, idPlano);
-                                    PrincipalJFrame.aparecerInternalFramePlanosPendentes();
-                                    break;
-                                }
+                                Planomitigacao planoMitigacao = planosFacade.buscaPlanoMitigacaoById(listaplanosTabela.get(i).getIdPlano());
+
+                                PrincipalJFrame.monitorarPlanosPendentesMaisInformaçõesInternalFrame.preencheTelaParaPlanoDeMitigacao(planoMitigacao);
+                                PrincipalJFrame.aparecerInternalFramePlanosPendentes();
+                                break;
+
                             }
                             if (listaplanosTabela.get(selected).getTipo().equals("Contingencia")) {
-                                if (listaplanosTabela.get(i).getIdPlano() == listaplanosTabela.get(selected).getIdPlano()) {
-                                    idPlano = listaplanosTabela.get(i).getIdPlano();
-                                    PrincipalJFrame.monitorarPlanosPendentesMaisInformaçõesInternalFrame.preencheTelaParaPlanoDeContingencia(listaPlaContigencia, idPlano);
-                                    PrincipalJFrame.aparecerInternalFramePlanosPendentes();
-                                    break;
-                                    
-                                }
+                                Planocontingencia planoContingencia = planosFacade.buscaPlanoContingenciaById(listaplanosTabela.get(i).getIdPlano());
+
+                                PrincipalJFrame.monitorarPlanosPendentesMaisInformaçõesInternalFrame.preencheTelaParaPlanoDeContingencia(planoContingencia);
+                                PrincipalJFrame.aparecerInternalFramePlanosPendentes();
+                                break;
+
                             }
                         }
                     }
@@ -190,6 +193,7 @@ public class MonitoracaoTarefasPlanosPendentesJPanel extends javax.swing.JPanel 
         tabelaPlanosPendentesJScrollPane = new javax.swing.JScrollPane();
         jPanel2 = new javax.swing.JPanel();
         SalvarRealizaçãoDePlanosJButton = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         MonitoracaoTarefasTarefasPendentesJPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Planos Pendentes", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP));
 
@@ -226,6 +230,8 @@ public class MonitoracaoTarefasPlanosPendentesJPanel extends javax.swing.JPanel 
                 .addGap(0, 31, Short.MAX_VALUE))
         );
 
+        jLabel1.setText("* Duplo clique para mais infomações");
+
         javax.swing.GroupLayout MonitoracaoTarefasTarefasPendentesJPanelLayout = new javax.swing.GroupLayout(MonitoracaoTarefasTarefasPendentesJPanel);
         MonitoracaoTarefasTarefasPendentesJPanel.setLayout(MonitoracaoTarefasTarefasPendentesJPanelLayout);
         MonitoracaoTarefasTarefasPendentesJPanelLayout.setHorizontalGroup(
@@ -234,7 +240,10 @@ public class MonitoracaoTarefasPlanosPendentesJPanel extends javax.swing.JPanel 
                 .addContainerGap()
                 .addGroup(MonitoracaoTarefasTarefasPendentesJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(MonitoracaoTarefasTarefasPendentesJPanelLayout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         MonitoracaoTarefasTarefasPendentesJPanelLayout.setVerticalGroup(
@@ -243,7 +252,9 @@ public class MonitoracaoTarefasPlanosPendentesJPanel extends javax.swing.JPanel 
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(MonitoracaoTarefasTarefasPendentesJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
                 .addContainerGap())
         );
 
@@ -265,7 +276,7 @@ public class MonitoracaoTarefasPlanosPendentesJPanel extends javax.swing.JPanel 
         PlanosFacade planosFacade = new PlanosFacade();
         for (int i = 0; i < listaplanosTabela.size(); i++) {
             if ((Boolean) planoTabelaModel.getValueAt(i, 0) == true) {
-                
+
                 if (listaplanosTabela.get(i).getTipo().equals("Mitigação")) {
                     for (int j = 0; j < listaPlaMitigacao.size(); j++) {
                         if (listaPlaMitigacao.get(j).getIdentificacaoPlanoMitigacao().equals(listaplanosTabela.get(i).getIdentificacaoPlano())) {
@@ -290,45 +301,45 @@ public class MonitoracaoTarefasPlanosPendentesJPanel extends javax.swing.JPanel 
         reiniciaTabaladePlanosPendentes();
         JOptionPane.showMessageDialog(this, "O(s) Plano(s) selecionados foram marcados como realizados");
     }//GEN-LAST:event_SalvarRealizaçãoDePlanosJButtonActionPerformed
-    
+
     public void mudaStatusDeRisco(int indice, String tipo) {
         ProjetoJpaController projeto = new ProjetoJpaController();
         RiscosGerenciarRiscosFacade riscosDoProjetoFacade = new RiscosGerenciarRiscosFacade();
         Risco risco = new Risco();
-        
+
         todosOsRiscos = riscosDoProjetoFacade.listarRiscosByProjeto(projetoSelecionado);
-        
+
         for (int i = 0; i < todosOsRiscos.size(); i++) {
             if (tipo.equals("Mitigacao")) {
                 if (listaPlaMitigacao.get(indice).getIdRisco().getIdentificacao().equals(todosOsRiscos.get(i).getIdentificacao())) {
                     risco = todosOsRiscos.get(i);
-                    if(verificarRealizacaoDePlanos(risco, "Mitigacao") == false){
+                    if (verificarRealizacaoDePlanos(risco, "Mitigacao") == false) {
                         todosOsRiscos.get(i).setStatusRisco("Novo");
                         riscosDoProjetoFacade.editarRisco(risco);
                         break;
                     }
                 }
             }
-            
+
             if (tipo.equals("Contingencia")) {
                 if (listaPlaContigencia.get(indice).getIdRisco().getIdentificacao().equals(todosOsRiscos.get(i).getIdentificacao())) {
                     risco = todosOsRiscos.get(i);
-                    if(verificarRealizacaoDePlanos(risco, "Contingencia") == false){
+                    if (verificarRealizacaoDePlanos(risco, "Contingencia") == false) {
                         todosOsRiscos.get(i).setStatusRisco("Novo");
                         riscosDoProjetoFacade.editarRisco(risco);
                         break;
                     }
                 }
             }
-            
+
         }
     }
-    
-    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel MonitoracaoTarefasTarefasPendentesJPanel;
     private javax.swing.JButton SalvarRealizaçãoDePlanosJButton;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane tabelaPlanosPendentesJScrollPane;
@@ -350,26 +361,26 @@ public class MonitoracaoTarefasPlanosPendentesJPanel extends javax.swing.JPanel 
 
     private boolean verificarRealizacaoDePlanos(Risco risco, String tipo) {
         boolean existemPlanosPendentes = false;
-        if(tipo.equals("Mitigacao")){
-            for(int i = 0; i < risco.getPlanomitigacaoList().size(); i++){
-                if(risco.getPlanomitigacaoList().get(i).getDataRealizacao() == null){
+        if (tipo.equals("Mitigacao")) {
+            for (int i = 0; i < risco.getPlanomitigacaoList().size(); i++) {
+                if (risco.getPlanomitigacaoList().get(i).getDataRealizacao() == null) {
                     existemPlanosPendentes = true;
                 }
             }
         }
-        
-        if(tipo.equals("Contingencia")){
-            for(int i = 0; i < risco.getPlanocontingenciaList().size(); i++){
-                if(risco.getPlanocontingenciaList().get(i).getDataRealizacao() == null){
+
+        if (tipo.equals("Contingencia")) {
+            for (int i = 0; i < risco.getPlanocontingenciaList().size(); i++) {
+                if (risco.getPlanocontingenciaList().get(i).getDataRealizacao() == null) {
                     existemPlanosPendentes = true;
                 }
             }
         }
         return existemPlanosPendentes;
     }
-    
-    public void reiniciaTabaladePlanosPendentes(){
-        ProjetoFacade projetoFacade= new ProjetoFacade();
+
+    public void reiniciaTabaladePlanosPendentes() {
+        ProjetoFacade projetoFacade = new ProjetoFacade();
         criarTabelaPlanosPendentes(projetoFacade.buscaPlanosDeContingenciaPendentes(projetoSelecionado), projetoFacade.buscaPlanosDeMitigacaoPendentes(projetoSelecionado));
     }
 }
