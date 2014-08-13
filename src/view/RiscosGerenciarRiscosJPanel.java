@@ -8,11 +8,9 @@ package view;
 import facade.ContemFacade;
 import facade.OrganizacionalPortfolioFacade;
 import facade.RiscosGerenciarRiscosFacade;
-import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.DateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -21,8 +19,6 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JSpinner;
 import javax.swing.JTable;
-import javax.swing.ListSelectionModel;
-import javax.swing.SpinnerNumberModel;
 import javax.swing.table.DefaultTableModel;
 import model.Categoriaderisco;
 import model.Contem;
@@ -35,7 +31,6 @@ import model.Planomitigacao;
 import model.Pontodecontrole;
 import model.Projeto;
 import model.Relacaosubcondicao;
-import model.RelacaosubcondicaoPK;
 import model.Risco;
 import model.Subcondicao;
 
@@ -85,6 +80,9 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
     private boolean contingenciaEhMarco;
     //Variável que verifica se o plano de contigência possui marco ou ponto de controle
     private boolean ContingenciaPossuiMarco;
+    
+    List<Risco> listaRiscosDoProjeto;
+    private Object[] listaVazia = {};
 
     public RiscosGerenciarRiscosJPanel() {
         initComponents();
@@ -100,6 +98,7 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
         iniciaBotosRiscoCinza();
         criaTabelaHistoricoAlteracoes();
         criarTabelaSubcondicoes();
+
         informacoesGeraisProbabilidadeJSpinner.setEditor(new JSpinner.NumberEditor(informacoesGeraisProbabilidadeJSpinner, "#"));
     }
 
@@ -132,6 +131,10 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
     //Método que atualiza a lista de riscos do projeto selecionado
     private void getListaRiscos() {
         listaRiscos = riscosGerenciarRiscosFacade.listarRiscos();
+    }
+    
+    private void getListaderiscosDoprojeto(){
+     listaRiscosDoProjeto = riscosGerenciarRiscosFacade.findListaRiscoByIdProjeto(projetoSelecionado);
     }
 
     //Método que atualiza a lista de categorias de risco
@@ -213,6 +216,7 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
         //desabilitaCheckBoxStatusRisco();
         informacoesGeraisGrauDeSeveridadeJTextField.setText("0");
         tabelaRiscosJTable.clearSelection();
+        relacoesListaRiscosJList.setListData(listaVazia);
         
     }
 
@@ -454,6 +458,7 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
         List<Marcodoprojeto> listaMarcosDoProjeto = null;
         listaPontoControle = riscosGerenciarRiscosFacade.listarPontosControleProjetoSelecionado(projetoSelecionado);
         listaMarcosDoProjeto = riscosGerenciarRiscosFacade.listarMarcosProjetoProjetoSelecionado(projetoSelecionado);
+        planoMitigacaoDataLimiteJComboBox.addItem("--Selecione--");
         
         DateFormat df = DateFormat.getDateInstance(DateFormat.MEDIUM);
         String dataAtual = df.format(new Date());
@@ -587,6 +592,7 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
         List<Marcodoprojeto> listaMarcosProjeto = null;
         listaPontoControle = riscosGerenciarRiscosFacade.listarPontosControleProjetoSelecionado(projetoSelecionado);
         listaMarcosProjeto = riscosGerenciarRiscosFacade.listarMarcosProjetoProjetoSelecionado(projetoSelecionado);
+        planoContingenciaDataLimiteJComboBox.addItem("--Selecione--");
         DateFormat df = DateFormat.getDateInstance(DateFormat.MEDIUM);
         String dataAtual = df.format(new Date());
         if (listaPontoControle.size() > 0) {
@@ -828,12 +834,13 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
         modelListaRiscosApresentados = null;
         modelListaRiscosApresentados = new DefaultListModel();
         String proprioRisco = riscoSelecionado.getIdentificacao().toString();
-        if (listaRiscos.size() > 0) {
-            for (int i = 0; i < listaRiscos.size(); i++) {
-                if (listaRiscos.get(i).getIdentificacao().toString().equals(proprioRisco)) {
+        getListaderiscosDoprojeto();
+        if (listaRiscosDoProjeto.size() > 0) {
+            for (int i = 0; i < listaRiscosDoProjeto.size(); i++) {
+                if (listaRiscosDoProjeto.get(i).getIdentificacao().toString().equals(proprioRisco)) {
 
                 } else {
-                    modelListaRiscosApresentados.addElement(listaRiscos.get(i).getIdentificacao().toString());
+                    modelListaRiscosApresentados.addElement(listaRiscosDoProjeto.get(i).getIdentificacao().toString());
                 }
 
             }
@@ -1434,7 +1441,7 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
                         .addComponent(informacoesGeraisEstadoAtualJLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(estadoAtualRiscoJLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 102, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 99, Short.MAX_VALUE))
                     .addGroup(InformacoesGeraisJPanelLayout.createSequentialGroup()
                         .addGroup(InformacoesGeraisJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(InformacoesGeraisJPanelLayout.createSequentialGroup()
@@ -2262,7 +2269,7 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
         Risco novoRisco = new Risco();
         boolean valorNulo = false;
         novoRisco.setEmissor(informacoesGeraisEmissorJTextField.getText());
-        if (novoRisco.getEmissor() == null) {
+        if ("".equals(novoRisco.getEmissor())) {
             valorNulo = true;
         }
         novoRisco.setDataIdentificacao((Date) dataIdentificacaoDoRisco.getValue());
@@ -2270,11 +2277,11 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
             valorNulo = true;
         }
         novoRisco.setDescricao(InformacoesGeraisDescricaoDeRiscoJTextArea.getText());
-        if (novoRisco.getDescricao() == null) {
+        if ("".equals(novoRisco.getDescricao())) {
             valorNulo = true;
         }
         novoRisco.setIdentificacao(informacoesGeraisIdentificacaoDeRiscoJTextField.getText());
-        if (novoRisco.getIdentificacao() == null) {
+        if ("".equals(novoRisco.getIdentificacao())) {
             valorNulo = true;
         }
         
@@ -2311,12 +2318,13 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
                     JOptionPane.showMessageDialog(null, "Valor de Probabilidade Inválido");
                 } else {
                     boolean identificacaoRepetido = false;
-                    for (int i = 0; i < listaRiscos.size(); i++) {
-                        if (novoRisco.getIdentificacao().equals(listaRiscos.get(i).getIdentificacao())) {
-                            identificacaoRepetido = true;
-                        }
-                    }
-
+                    getListaderiscosDoprojeto();
+                        for (int i = 0; i < listaRiscosDoProjeto.size(); i++) {
+                            if (novoRisco.getIdentificacao().equals(listaRiscosDoProjeto.get(i).getIdentificacao())) {
+                                identificacaoRepetido = true;
+                            }
+                        } 
+                    
                     if (identificacaoRepetido == false) {
 
                         String categoriaSelecionada = informacoesGeraisCategoriaDeRiscoJComboBox.getSelectedItem().toString();
@@ -2382,6 +2390,8 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
                         getListaHistoricoAlteracoes(novoRisco);
                         limparTabelaHistoricoAlteracoes();
                         preencheTabelaHistoricoAlteracoes();
+                        
+                        limparCampos();
                     } else {
                         JOptionPane.showMessageDialog(null, "Um risco com a mesma identificação já foi previamente adicionado!\n"
                                 + "Mude o nome da Identificação");
@@ -2405,13 +2415,45 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
     private void informacoesGeraisSalvarAlteracoesDoRiscoJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_informacoesGeraisSalvarAlteracoesDoRiscoJButtonActionPerformed
         //Pertence a aba Informacoes Gerais
         getListaCategorias();
-        if (riscoSelecionado.getIdRisco() > 0) {
+        Risco novoRisco = new Risco();
+        boolean valorNulo = false;
+        novoRisco.setEmissor(informacoesGeraisEmissorJTextField.getText());
+        if ("".equals(novoRisco.getEmissor())) {
+            valorNulo = true;
+        }
+        novoRisco.setDataIdentificacao((Date) dataIdentificacaoDoRisco.getValue());
+        if (novoRisco.getDataIdentificacao() == null) {
+            valorNulo = true;
+        }
+        novoRisco.setDescricao(InformacoesGeraisDescricaoDeRiscoJTextArea.getText());
+        if ("".equals(novoRisco.getDescricao())) {
+            valorNulo = true;
+        }
+        novoRisco.setIdentificacao(informacoesGeraisIdentificacaoDeRiscoJTextField.getText());
+        if ("".equals(novoRisco.getIdentificacao())) {
+            valorNulo = true;
+        }
+        
+        novoRisco.setProbabilidade(Integer.parseInt(informacoesGeraisProbabilidadeJSpinner.getValue().toString()));
+        if (!(novoRisco.getProbabilidade() >= 0) && (novoRisco.getProbabilidade() <= 100)){
+            valorNulo = true;
+        }
+        
+        novoRisco.setImpacto(informacoesGeraisImpactoJComboBox.getSelectedItem().toString());
+        if (novoRisco.getImpacto().equals("--Selecione--")){
+            valorNulo = true;
+        }
+
+        if (valorNulo == true) {
+            JOptionPane.showMessageDialog(null, "Um ou mais campos apresentam valores invalidos. Preencha-os corretamente antes de adicionar um novo risco");
+            
+        }else if (riscoSelecionado.getIdRisco() > 0) {
             int linhaSelecionada = tabelaRiscosJTable.getSelectedRow();
             riscoSelecionado.setEmissor(informacoesGeraisEmissorJTextField.getText());
             riscoSelecionado.setDataIdentificacao((Date) dataIdentificacaoDoRisco.getValue());
             riscoSelecionado.setDescricao(InformacoesGeraisDescricaoDeRiscoJTextArea.getText());
             riscoSelecionado.setIdentificacao(informacoesGeraisIdentificacaoDeRiscoJTextField.getText());
-            riscoSelecionado.setGrauSeveridade(Integer.parseInt(informacoesGeraisGrauDeSeveridadeJTextField.getText()));
+            riscoSelecionado.setGrauSeveridade(Double.parseDouble(informacoesGeraisGrauDeSeveridadeJTextField.getText()));
             riscoSelecionado.setProbabilidade(Integer.parseInt(informacoesGeraisProbabilidadeJSpinner.getValue().toString()));
 
             String categoriaSelecionada = informacoesGeraisCategoriaDeRiscoJComboBox.getSelectedItem().toString();
@@ -2444,6 +2486,8 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
             getListaHistoricoAlteracoes(riscoSelecionado);
             limparTabelaHistoricoAlteracoes();
             preencheTabelaHistoricoAlteracoes();
+            
+            limparCampos();
         }
     }//GEN-LAST:event_informacoesGeraisSalvarAlteracoesDoRiscoJButtonActionPerformed
 
@@ -2482,20 +2526,22 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
 
     private void planoDeMitigacaoSalvarAlteracoesJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_planoDeMitigacaoSalvarAlteracoesJButtonActionPerformed
         //Pertence a aba Plano de Mitigação
-        if (planoMitigacaoSelecionado.getIdPlanoMitigacao() > 0) {
+        if (planoMitigacaoSelecionado.getIdPlanoMitigacao() > 0 && planoMitigacaoDataLimiteJComboBox.getSelectedItem() != "--Selecione--") {
             int indexSelecionado = planoDeMitigacaoListaPlanosJList.getSelectedIndex();
 
             planoMitigacaoSelecionado.setIdentificacaoPlanoMitigacao(planoDeMitigacaoIdentificacaoJTextField.getText());
             planoMitigacaoSelecionado.setResponsavel(planoDeMitigacaoResponsavelJTextField.getText());
-            if (mitigacaoEhMarco == true) {
-               
-                planoMitigacaoSelecionado.setIdMarcoDoProjeto(marcoSelecionado);
-                planoMitigacaoSelecionado.setIdPontoDeControle(null);
-            } else {
-                
-                planoMitigacaoSelecionado.setIdPontoDeControle(pontoControleSelecionado);
-                planoMitigacaoSelecionado.setIdMarcoDoProjeto(null);
-            }
+            
+                if (mitigacaoEhMarco == true) {
+
+                    planoMitigacaoSelecionado.setIdMarcoDoProjeto(marcoSelecionado);
+                    planoMitigacaoSelecionado.setIdPontoDeControle(null);
+                } else {
+
+                    planoMitigacaoSelecionado.setIdPontoDeControle(pontoControleSelecionado);
+                    planoMitigacaoSelecionado.setIdMarcoDoProjeto(null);
+                }
+            
             planoMitigacaoSelecionado.setDescricaoPlanoMitigacao(planoDeMitigacaoDescricaoJTextArea.getText());
             planoMitigacaoSelecionado.setComoRealizar(planoDeMitigacaoComoSeraFeitoJTextArea.getText());
             planoMitigacaoSelecionado.setInformacoesAdicionais(planoDeMitigacaoInfAdicionaisJTextArea.getText());
@@ -2513,7 +2559,9 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
             getListaHistoricoAlteracoes(riscoSelecionado);
             limparTabelaHistoricoAlteracoes();
             preencheTabelaHistoricoAlteracoes();
-        }
+        }  else {
+                JOptionPane.showMessageDialog(null, "Você precisa escolher uma data limite.");
+            }
     }//GEN-LAST:event_planoDeMitigacaoSalvarAlteracoesJButtonActionPerformed
 
     private void planoDeMitigacaoAdicionarPlanoJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_planoDeMitigacaoAdicionarPlanoJButtonActionPerformed
@@ -2538,16 +2586,16 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
         boolean nulo = false;
 
         
-        if (novoPlanoMitigacao.getResponsavel() == null) {
+        if ("".equals(novoPlanoMitigacao.getResponsavel())) {
             nulo = true;
         }
-        if (novoPlanoMitigacao.getComoRealizar() == null) {
+        if ("".equals(novoPlanoMitigacao.getComoRealizar())) {
             nulo = true;
         }
-        if (novoPlanoMitigacao.getIdentificacaoPlanoMitigacao() == null) {
+        if ("".equals(novoPlanoMitigacao.getIdentificacaoPlanoMitigacao())) {
             nulo = true;
         }
-        if (novoPlanoMitigacao.getDescricaoPlanoMitigacao() == null) {
+        if ("".equals(novoPlanoMitigacao.getDescricaoPlanoMitigacao())) {
             nulo = true;
         }
 
@@ -2564,6 +2612,7 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
             if (repetido == true) {
                 JOptionPane.showMessageDialog(null, "Já existe um identificador para tal Plano de Mitigação. Escolha outro nome.");
             } else {
+                if(planoMitigacaoDataLimiteJComboBox.getSelectedItem() != "--Selecione--"){
                 riscosGerenciarRiscosFacade.adicionarPlanoMitigacao(novoPlanoMitigacao);
                 iniciaBotoesCinzaPlanoMitigacao();
                 planoDeMitigacaoAdicionarPlanoJButton.setEnabled(true);
@@ -2580,7 +2629,10 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
                 getListaHistoricoAlteracoes(riscoSelecionado);
                 limparTabelaHistoricoAlteracoes();
                 preencheTabelaHistoricoAlteracoes();
-            }
+                }else {
+                    JOptionPane.showMessageDialog(null, "Você precisa escolher uma data limite.");
+                }
+            } 
 
         }
 
@@ -2610,16 +2662,16 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
         boolean nulo = false;
 
         
-        if (novoPlanoContingencia.getResponsavel() == null) {
+        if ("".equals(novoPlanoContingencia.getResponsavel())) {
             nulo = true;
         }
-        if (novoPlanoContingencia.getComoRealizar() == null) {
+        if ("".equals(novoPlanoContingencia.getComoRealizar())) {
             nulo = true;
         }
-        if (novoPlanoContingencia.getIdentificacaoPlanoContingencia() == null) {
+        if ("".equals(novoPlanoContingencia.getIdentificacaoPlanoContingencia())) {
             nulo = true;
         }
-        if (novoPlanoContingencia.getDescricaoPlanoContingencia() == null) {
+        if ("".equals(novoPlanoContingencia.getDescricaoPlanoContingencia())) {
             nulo = true;
         }
 
@@ -2636,6 +2688,7 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
             if (repetido == true) {
                 JOptionPane.showMessageDialog(null, "Já existe um identificador para tal Plano de Contingência. Escolha outro nome.");
             } else {
+                if (planoContingenciaDataLimiteJComboBox.getSelectedItem() != "--Selecione--"){
                 riscosGerenciarRiscosFacade.adicionarPlanoContingencia(novoPlanoContingencia);
                 iniciaBotoesCinzaPlanoContingencia();
                 atualizaPreencheEventosListaPlanoContingencia();
@@ -2650,7 +2703,9 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
                 getListaHistoricoAlteracoes(riscoSelecionado);
                 limparTabelaHistoricoAlteracoes();
                 preencheTabelaHistoricoAlteracoes();
-                
+                } else {
+                    JOptionPane.showMessageDialog(null, "Você precisa escolher uma data limite.");
+                }
             }
         }
     }//GEN-LAST:event_planoDeContingenciaAdicionarPlanoJButtonActionPerformed
@@ -2680,7 +2735,7 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
 
     private void planoDeContingenciaSalvarAlteracoesJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_planoDeContingenciaSalvarAlteracoesJButtonActionPerformed
         //Pertence a aba Plano de Contingencia
-        if (planoContingenciaSelecionado.getIdPlanoContingencia() > 0) {
+        if (planoContingenciaSelecionado.getIdPlanoContingencia() > 0 && planoContingenciaDataLimiteJComboBox.getSelectedItem() != "--Selecione--") {
             int indexSelecionado = planoDeContingenciaListaPlanosJList.getSelectedIndex();
 
             planoContingenciaSelecionado.setResponsavel(planoDeContingenciaResponsavelJTextField.getText());
@@ -2711,7 +2766,9 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
             getListaHistoricoAlteracoes(riscoSelecionado);
             limparTabelaHistoricoAlteracoes();
             preencheTabelaHistoricoAlteracoes();
-        }
+        } else {
+                JOptionPane.showMessageDialog(null, "Você precisa escolher uma data limite.");
+            }
     }//GEN-LAST:event_planoDeContingenciaSalvarAlteracoesJButtonActionPerformed
 
     private void relacoesInfluenciarRiscoJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_relacoesInfluenciarRiscoJButtonActionPerformed
@@ -2805,7 +2862,7 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_relacoesRemoverInfluenciaJButtonActionPerformed
 
     private void planoMitigacaoDataLimiteJComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_planoMitigacaoDataLimiteJComboBoxActionPerformed
-        
+ 
         if (planoMitigacaoDataLimiteJComboBox.getSelectedItem() != null) {
             String nomeItem = planoMitigacaoDataLimiteJComboBox.getSelectedItem().toString();
             mitigacaoEhMarco = false;

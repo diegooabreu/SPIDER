@@ -97,13 +97,13 @@ public class Risco implements Serializable {
     @Basic(optional = false)
     @Column(name = "identificacao")
     private String identificacao;
-    @JoinTable(name = "relacaorisco", joinColumns = {
-        @JoinColumn(name = "idRisco1", referencedColumnName = "idRisco")}, inverseJoinColumns = {
-        @JoinColumn(name = "idRisco2", referencedColumnName = "idRisco")})
-    @ManyToMany
-    private List<Risco> riscoList;
-    @ManyToMany(mappedBy = "riscoList")
-    private List<Risco> riscoList1;
+//    @JoinTable(name = "relacaorisco", joinColumns = {
+//        @JoinColumn(name = "idRisco1", referencedColumnName = "idRisco")}, inverseJoinColumns = {
+//        @JoinColumn(name = "idRisco2", referencedColumnName = "idRisco")})
+//    @ManyToMany
+//    private List<Risco> riscoList;
+//    @ManyToMany(mappedBy = "riscoList")
+//    private List<Risco> riscoList1;
     @JoinTable(name = "relacaoentreriscos", joinColumns = {
         @JoinColumn(name = "idRiscoInfluenciador", referencedColumnName = "idRisco")}, inverseJoinColumns = {
         @JoinColumn(name = "idRiscoInfluenciado", referencedColumnName = "idRisco")})
@@ -209,23 +209,23 @@ public class Risco implements Serializable {
         this.identificacao = identificacao;
     }
 
-    @XmlTransient
-    public List<Risco> getRiscoList() {
-        return riscoList;
-    }
+//    @XmlTransient
+//    public List<Risco> getRiscoList() {
+//        return riscoList;
+//    }
+//
+//    public void setRiscoList(List<Risco> riscoList) {
+//        this.riscoList = riscoList;
+//    }
 
-    public void setRiscoList(List<Risco> riscoList) {
-        this.riscoList = riscoList;
-    }
-
-    @XmlTransient
-    public List<Risco> getRiscoList1() {
-        return riscoList1;
-    }
-
-    public void setRiscoList1(List<Risco> riscoList1) {
-        this.riscoList1 = riscoList1;
-    }
+//    @XmlTransient
+//    public List<Risco> getRiscoList1() {
+//        return riscoList1;
+//    }
+//
+//    public void setRiscoList1(List<Risco> riscoList1) {
+//        this.riscoList1 = riscoList1;
+//    }
 
     @XmlTransient
     public List<Risco> getRiscoList2() {

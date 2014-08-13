@@ -60,6 +60,7 @@ public class RiscosGerenciarRiscosFacade {
         } catch (Exception ex) {
             Logger.getLogger(ProjetoFacade.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("Erro no método editar risco em RiscosGerenciarRiscosFacade");
+            
         }
     }
     
@@ -448,6 +449,16 @@ public class RiscosGerenciarRiscosFacade {
         
     }
     
-    
+    public List<Risco> findListaRiscoByIdProjeto(Projeto projetoSelecioando){
+        RiscoJpaController riscoJpaController = new RiscoJpaController();
+        List<Risco> listaRiscoDoProjeto = null;
+        try {
+            listaRiscoDoProjeto = riscoJpaController.findRiscosByIdProjeto(projetoSelecioando);
+        } catch (Exception e){
+             System.out.println("Erro no método findListaRiscoByIdProjeto na classe RiscosGerenciarRiscosFacade");
+            e.printStackTrace();
+        }
+        return listaRiscoDoProjeto;
+    }
     
 }

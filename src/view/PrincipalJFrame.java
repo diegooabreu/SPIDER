@@ -609,6 +609,7 @@ public class PrincipalJFrame extends javax.swing.JFrame {
 
         camadasJDesktopPane.add(riscosRiscosOcorridosJInternalFrame);
         
+        calendarioDetalhesMarcoEpontoDoDiaInternalJFrame.setBounds(0, 0, 615, 420);
         camadasJDesktopPane.add(calendarioDetalhesMarcoEpontoDoDiaInternalJFrame);
         
         camadasJDesktopPane.add(monitorarPlanosPendentesMaisInformaçõesInternalFrame);
