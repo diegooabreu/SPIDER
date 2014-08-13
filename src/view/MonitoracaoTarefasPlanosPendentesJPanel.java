@@ -5,7 +5,10 @@
  */
 package view;
 
+import controller.ProjetoJpaController;
+import controller.RiscoJpaController;
 import facade.PlanosFacade;
+import facade.RiscosGerenciarRiscosFacade;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -15,6 +18,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import model.Planocontingencia;
 import model.Planomitigacao;
+import model.Projeto;
+import model.Risco;
 import view.tabelas.PlanoTabela;
 import view.tabelas.PlanosPendentesTabelaModel;
 
@@ -30,6 +35,8 @@ public class MonitoracaoTarefasPlanosPendentesJPanel extends javax.swing.JPanel 
     private List<Planocontingencia> listaPlaContigencia;
     private List<Planomitigacao> listaPlaMitigacao;
     private List<PlanoTabela> listaplanosTabela;
+    private List<Risco> todosOsRiscos;
+    private Projeto projetoSelecionado;
 
     PlanoTabela planoTabela = new PlanoTabela();
 
@@ -275,12 +282,31 @@ public class MonitoracaoTarefasPlanosPendentesJPanel extends javax.swing.JPanel 
                     }
                 }
             }
+            if (listaplanosTabela.get(i).getDataRealizacao() != null) {
+                RiscosGerenciarRiscosFacade riscosFacade = new RiscosGerenciarRiscosFacade();
+                List<Risco> listaDeRiscos = riscosFacade.listarRiscos();
+                for (int l = 0; l < listaplanosTabela.size(); l++) {
+                    String identificaDoRisco = listaplanosTabela.get(l).getIdentificacaoRisco();
+                    for (int k = 0; k < listaplanosTabela.size(); k++) {
+                        if (identificaDoRisco.equals(listaDeRiscos.get(k).getIdentificacao())) {
+                            listaDeRiscos.get(k).setStatusRisco("Novo");
+                        }
+                    }
+                }
+            }
         }
         criarTabelaPlanosPendentes(listaPlaContigencia, listaPlaMitigacao);
         JOptionPane.showMessageDialog(this, "O(s) Plano(s) selecionados foram marcados como realizados");
     }//GEN-LAST:event_SalvarRealizaçãoDePlanosJButtonActionPerformed
 
-
+    public void mudaStatusDeRisco(){
+        ProjetoJpaController projeto = new ProjetoJpaController();
+        RiscoJpaController Riscos = new RiscoJpaController();
+        todosOsRiscos = Riscos.findRiscosByIdProjeto(projetoSelecionado);
+        
+        
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel MonitoracaoTarefasTarefasPendentesJPanel;
     private javax.swing.JButton SalvarRealizaçãoDePlanosJButton;
@@ -288,4 +314,18 @@ public class MonitoracaoTarefasPlanosPendentesJPanel extends javax.swing.JPanel 
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane tabelaPlanosPendentesJScrollPane;
     // End of variables declaration//GEN-END:variables
+
+    /**
+     * @return the projetoSelecionado
+     */
+    public Projeto getProjetoSelecionado() {
+        return projetoSelecionado;
+    }
+
+    /**
+     * @param projetoSelecionado the projetoSelecionado to set
+     */
+    public void setProjetoSelecionado(Projeto projetoSelecionado) {
+        this.projetoSelecionado = projetoSelecionado;
+    }
 }
