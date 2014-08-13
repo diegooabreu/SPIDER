@@ -233,4 +233,24 @@ public class MonitorarPlanosPendentesMaisInformaçõesInternalFrame extends java
     private javax.swing.JTextField responsavelPeloPlanoJTextField;
     // End of variables declaration//GEN-END:variables
 
+    void preencheTelaParaPlanoDeMitigacao2(Planomitigacao planoMitigacao) {
+        DateFormat dataFormatada = DateFormat.getDateInstance(DateFormat.MEDIUM);
+        String dataStr;
+        
+        identificacaoDoPlanoJTextField.setText(planoMitigacao.getIdentificacaoPlanoMitigacao());
+        responsavelPeloPlanoJTextField.setText(planoMitigacao.getResponsavel());
+        if(planoMitigacao.getIdMarcoDoProjeto() ==  null){
+            dataStr = dataFormatada.format(planoMitigacao.getIdPontoDeControle().getDataPontoControle());
+            dataLimiteJTextField.setText(dataStr);
+        }
+        else if(planoMitigacao.getIdPontoDeControle() == null){
+            dataStr = dataFormatada.format(planoMitigacao.getIdMarcoDoProjeto().getDataMarcoProjeto());
+            dataLimiteJTextField.setText(dataStr);
+        }
+        descricaoJTextArea.setText(planoMitigacao.getDescricaoPlanoMitigacao());
+        comoSeraFeitoJTextArea.setText(planoMitigacao.getComoRealizar());
+        informacoesAdicionaisJTextArea.setText(planoMitigacao.getInformacoesAdicionais());
+        
+    }
+    
 }

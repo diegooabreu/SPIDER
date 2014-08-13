@@ -779,6 +779,7 @@ public class PrincipalJFrame extends javax.swing.JFrame {
                     } else if (node == planosPendentes) {
                         ProjetoFacade projetoFacade = new ProjetoFacade();
                         monitoracaoPlanosPendentesJPanel.criarTabelaPlanosPendentes(projetoFacade.buscaPlanosDeContingenciaPendentes(projetoSelecionado), projetoFacade.buscaPlanosDeMitigacaoPendentes(projetoSelecionado));
+                        monitoracaoPlanosPendentesJPanel.setProjetoSelecionado(projetoSelecionado);
                         monitoracaoPlanosPendentesJPanel.setVisible(true);
                     } else if (node == planosRealizados) {
                         ProjetoFacade projetoFacade = new ProjetoFacade();
