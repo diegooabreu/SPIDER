@@ -38,7 +38,7 @@ import javax.xml.bind.annotation.XmlTransient;
 public class Organizacao implements Serializable {
     @Basic(optional = false)
     @Column(name = "cnpj")
-    private long cnpj;
+    private String cnpj;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -66,7 +66,7 @@ public class Organizacao implements Serializable {
         this.idOrganizacao = idOrganizacao;
     }
 
-    public Organizacao(Integer idOrganizacao, String nomeOrganizacao, int cnpj) {
+    public Organizacao(Integer idOrganizacao, String nomeOrganizacao, String cnpj) {
         this.idOrganizacao = idOrganizacao;
         this.nomeOrganizacao = nomeOrganizacao;
         this.cnpj = cnpj;
@@ -147,11 +147,11 @@ public class Organizacao implements Serializable {
         return "model.Organizacao[ idOrganizacao=" + idOrganizacao + " ]";
     }
 
-    public long getCnpj() {
+    public String getCnpj() {
         return cnpj;
     }
 
-    public void setCnpj(long cnpj) {
+    public void setCnpj(String cnpj) {
         this.cnpj = cnpj;
     }
     

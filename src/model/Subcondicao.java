@@ -63,10 +63,10 @@ public class Subcondicao implements Serializable {
     @JoinColumn(name = "idRisco", referencedColumnName = "idRisco")
     @ManyToOne(optional = false)
     private Risco idRisco;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "subcondicao")
-    private List<Relacaosubcondicao> relacaosubcondicaoList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "subcondicao1")
-    private List<Relacaosubcondicao> relacaosubcondicaoList1;
+//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "subcondicao")
+//    private List<Relacaosubcondicao> relacaosubcondicaoList;
+//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "subcondicao1")
+//    private List<Relacaosubcondicao> relacaosubcondicaoList1;
 
     public Subcondicao() {
     }
@@ -121,23 +121,23 @@ public class Subcondicao implements Serializable {
         this.idRisco = idRisco;
     }
 
-    @XmlTransient
-    public List<Relacaosubcondicao> getRelacaosubcondicaoList() {
-        return relacaosubcondicaoList;
-    }
-
-    public void setRelacaosubcondicaoList(List<Relacaosubcondicao> relacaosubcondicaoList) {
-        this.relacaosubcondicaoList = relacaosubcondicaoList;
-    }
-
-    @XmlTransient
-    public List<Relacaosubcondicao> getRelacaosubcondicaoList1() {
-        return relacaosubcondicaoList1;
-    }
-
-    public void setRelacaosubcondicaoList1(List<Relacaosubcondicao> relacaosubcondicaoList1) {
-        this.relacaosubcondicaoList1 = relacaosubcondicaoList1;
-    }
+//    @XmlTransient
+//    public List<Relacaosubcondicao> getRelacaosubcondicaoList() {
+//        return relacaosubcondicaoList;
+//    }
+//
+//    public void setRelacaosubcondicaoList(List<Relacaosubcondicao> relacaosubcondicaoList) {
+//        this.relacaosubcondicaoList = relacaosubcondicaoList;
+//    }
+//
+//    @XmlTransient
+//    public List<Relacaosubcondicao> getRelacaosubcondicaoList1() {
+//        return relacaosubcondicaoList1;
+//    }
+//
+//    public void setRelacaosubcondicaoList1(List<Relacaosubcondicao> relacaosubcondicaoList1) {
+//        this.relacaosubcondicaoList1 = relacaosubcondicaoList1;
+//    }
 
     @Override
     public int hashCode() {

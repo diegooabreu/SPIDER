@@ -123,7 +123,7 @@ public class OrganizacionalDetalhesJPanel extends javax.swing.JPanel {
     private void salvarAlteracoesJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvarAlteracoesJButtonActionPerformed
         Organizacao org1 = organizacaoDetalhesFacade.getDetalhes();
         org1.setNomeOrganizacao(empresaJTextField.getText());
-        org1.setCnpj(Integer.parseInt(cnpjJTextField.getText()));
+        org1.setCnpj(cnpjJTextField.getText());
         org1.setEndereco(enderecoJTextArea.getText());
         organizacaoDetalhesFacade.alterarDetalhes(org1);
         repaint();
@@ -133,7 +133,7 @@ public class OrganizacionalDetalhesJPanel extends javax.swing.JPanel {
     public void preencheForm() {
         Organizacao org = organizacaoDetalhesFacade.getDetalhes();
         empresaJTextField.setText(org.getNomeOrganizacao());
-        cnpjJTextField.setText(Integer.toString( (int) org.getCnpj()));
+        cnpjJTextField.setText(org.getCnpj());
         enderecoJTextArea.setText(org.getEndereco());
         
         System.out.println(org.getNomeOrganizacao()+"\n");

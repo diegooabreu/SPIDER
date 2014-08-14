@@ -47,12 +47,12 @@ public class SubcondicaoJpaController implements Serializable {
         if (subcondicao.getHistoricoriscoList() == null) {
             subcondicao.setHistoricoriscoList(new ArrayList<Historicorisco>());
         }
-        if (subcondicao.getRelacaosubcondicaoList() == null) {
-            subcondicao.setRelacaosubcondicaoList(new ArrayList<Relacaosubcondicao>());
-        }
-        if (subcondicao.getRelacaosubcondicaoList1() == null) {
-            subcondicao.setRelacaosubcondicaoList1(new ArrayList<Relacaosubcondicao>());
-        }
+//        if (subcondicao.getRelacaosubcondicaoList() == null) {
+//            subcondicao.setRelacaosubcondicaoList(new ArrayList<Relacaosubcondicao>());
+//        }
+//        if (subcondicao.getRelacaosubcondicaoList1() == null) {
+//            subcondicao.setRelacaosubcondicaoList1(new ArrayList<Relacaosubcondicao>());
+//        }
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -63,41 +63,41 @@ public class SubcondicaoJpaController implements Serializable {
                 attachedHistoricoriscoList.add(historicoriscoListHistoricoriscoToAttach);
             }
             subcondicao.setHistoricoriscoList(attachedHistoricoriscoList);
-            List<Relacaosubcondicao> attachedRelacaosubcondicaoList = new ArrayList<Relacaosubcondicao>();
-            for (Relacaosubcondicao relacaosubcondicaoListRelacaosubcondicaoToAttach : subcondicao.getRelacaosubcondicaoList()) {
-                relacaosubcondicaoListRelacaosubcondicaoToAttach = em.getReference(relacaosubcondicaoListRelacaosubcondicaoToAttach.getClass(), relacaosubcondicaoListRelacaosubcondicaoToAttach.getRelacaosubcondicaoPK());
-                attachedRelacaosubcondicaoList.add(relacaosubcondicaoListRelacaosubcondicaoToAttach);
-            }
-            subcondicao.setRelacaosubcondicaoList(attachedRelacaosubcondicaoList);
-            List<Relacaosubcondicao> attachedRelacaosubcondicaoList1 = new ArrayList<Relacaosubcondicao>();
-            for (Relacaosubcondicao relacaosubcondicaoList1RelacaosubcondicaoToAttach : subcondicao.getRelacaosubcondicaoList1()) {
-                relacaosubcondicaoList1RelacaosubcondicaoToAttach = em.getReference(relacaosubcondicaoList1RelacaosubcondicaoToAttach.getClass(), relacaosubcondicaoList1RelacaosubcondicaoToAttach.getRelacaosubcondicaoPK());
-                attachedRelacaosubcondicaoList1.add(relacaosubcondicaoList1RelacaosubcondicaoToAttach);
-            }
-            subcondicao.setRelacaosubcondicaoList1(attachedRelacaosubcondicaoList1);
-            em.persist(subcondicao);
+//            List<Relacaosubcondicao> attachedRelacaosubcondicaoList = new ArrayList<Relacaosubcondicao>();
+//            for (Relacaosubcondicao relacaosubcondicaoListRelacaosubcondicaoToAttach : subcondicao.getRelacaosubcondicaoList()) {
+//                relacaosubcondicaoListRelacaosubcondicaoToAttach = em.getReference(relacaosubcondicaoListRelacaosubcondicaoToAttach.getClass(), relacaosubcondicaoListRelacaosubcondicaoToAttach.getRelacaosubcondicaoPK());
+//                attachedRelacaosubcondicaoList.add(relacaosubcondicaoListRelacaosubcondicaoToAttach);
+//            }
+//            subcondicao.setRelacaosubcondicaoList(attachedRelacaosubcondicaoList);
+//            List<Relacaosubcondicao> attachedRelacaosubcondicaoList1 = new ArrayList<Relacaosubcondicao>();
+//            for (Relacaosubcondicao relacaosubcondicaoList1RelacaosubcondicaoToAttach : subcondicao.getRelacaosubcondicaoList1()) {
+//                relacaosubcondicaoList1RelacaosubcondicaoToAttach = em.getReference(relacaosubcondicaoList1RelacaosubcondicaoToAttach.getClass(), relacaosubcondicaoList1RelacaosubcondicaoToAttach.getRelacaosubcondicaoPK());
+//                attachedRelacaosubcondicaoList1.add(relacaosubcondicaoList1RelacaosubcondicaoToAttach);
+//            }
+//            subcondicao.setRelacaosubcondicaoList1(attachedRelacaosubcondicaoList1);
+              em.persist(subcondicao);
             for (Historicorisco historicoriscoListHistoricorisco : subcondicao.getHistoricoriscoList()) {
                 historicoriscoListHistoricorisco.getSubcondicaoList().add(subcondicao);
                 historicoriscoListHistoricorisco = em.merge(historicoriscoListHistoricorisco);
             }
-            for (Relacaosubcondicao relacaosubcondicaoListRelacaosubcondicao : subcondicao.getRelacaosubcondicaoList()) {
-                Subcondicao oldSubcondicaoOfRelacaosubcondicaoListRelacaosubcondicao = relacaosubcondicaoListRelacaosubcondicao.getSubcondicao();
-                relacaosubcondicaoListRelacaosubcondicao.setSubcondicao(subcondicao);
-                relacaosubcondicaoListRelacaosubcondicao = em.merge(relacaosubcondicaoListRelacaosubcondicao);
-                if (oldSubcondicaoOfRelacaosubcondicaoListRelacaosubcondicao != null) {
-                    oldSubcondicaoOfRelacaosubcondicaoListRelacaosubcondicao.getRelacaosubcondicaoList().remove(relacaosubcondicaoListRelacaosubcondicao);
-                    oldSubcondicaoOfRelacaosubcondicaoListRelacaosubcondicao = em.merge(oldSubcondicaoOfRelacaosubcondicaoListRelacaosubcondicao);
-                }
-            }
-            for (Relacaosubcondicao relacaosubcondicaoList1Relacaosubcondicao : subcondicao.getRelacaosubcondicaoList1()) {
-                Subcondicao oldSubcondicao1OfRelacaosubcondicaoList1Relacaosubcondicao = relacaosubcondicaoList1Relacaosubcondicao.getSubcondicao1();
-                relacaosubcondicaoList1Relacaosubcondicao.setSubcondicao1(subcondicao);
-                relacaosubcondicaoList1Relacaosubcondicao = em.merge(relacaosubcondicaoList1Relacaosubcondicao);
-                if (oldSubcondicao1OfRelacaosubcondicaoList1Relacaosubcondicao != null) {
-                    oldSubcondicao1OfRelacaosubcondicaoList1Relacaosubcondicao.getRelacaosubcondicaoList1().remove(relacaosubcondicaoList1Relacaosubcondicao);
-                    oldSubcondicao1OfRelacaosubcondicaoList1Relacaosubcondicao = em.merge(oldSubcondicao1OfRelacaosubcondicaoList1Relacaosubcondicao);
-                }
-            }
+//            for (Relacaosubcondicao relacaosubcondicaoListRelacaosubcondicao : subcondicao.getRelacaosubcondicaoList()) {
+//                Subcondicao oldSubcondicaoOfRelacaosubcondicaoListRelacaosubcondicao = relacaosubcondicaoListRelacaosubcondicao.getSubcondicao();
+//                relacaosubcondicaoListRelacaosubcondicao.setSubcondicao(subcondicao);
+//                relacaosubcondicaoListRelacaosubcondicao = em.merge(relacaosubcondicaoListRelacaosubcondicao);
+//                if (oldSubcondicaoOfRelacaosubcondicaoListRelacaosubcondicao != null) {
+//                    oldSubcondicaoOfRelacaosubcondicaoListRelacaosubcondicao.getRelacaosubcondicaoList().remove(relacaosubcondicaoListRelacaosubcondicao);
+//                    oldSubcondicaoOfRelacaosubcondicaoListRelacaosubcondicao = em.merge(oldSubcondicaoOfRelacaosubcondicaoListRelacaosubcondicao);
+//                }
+//            }
+//            for (Relacaosubcondicao relacaosubcondicaoList1Relacaosubcondicao : subcondicao.getRelacaosubcondicaoList1()) {
+//                Subcondicao oldSubcondicao1OfRelacaosubcondicaoList1Relacaosubcondicao = relacaosubcondicaoList1Relacaosubcondicao.getSubcondicao1();
+//                relacaosubcondicaoList1Relacaosubcondicao.setSubcondicao1(subcondicao);
+//                relacaosubcondicaoList1Relacaosubcondicao = em.merge(relacaosubcondicaoList1Relacaosubcondicao);
+//                if (oldSubcondicao1OfRelacaosubcondicaoList1Relacaosubcondicao != null) {
+//                    oldSubcondicao1OfRelacaosubcondicaoList1Relacaosubcondicao.getRelacaosubcondicaoList1().remove(relacaosubcondicaoList1Relacaosubcondicao);
+//                    oldSubcondicao1OfRelacaosubcondicaoList1Relacaosubcondicao = em.merge(oldSubcondicao1OfRelacaosubcondicaoList1Relacaosubcondicao);
+//                }
+//            }
             em.getTransaction().commit();
         } finally {
             if (em != null) {
@@ -114,27 +114,27 @@ public class SubcondicaoJpaController implements Serializable {
             Subcondicao persistentSubcondicao = em.find(Subcondicao.class, subcondicao.getIdSubcondicao());
             List<Historicorisco> historicoriscoListOld = persistentSubcondicao.getHistoricoriscoList();
             List<Historicorisco> historicoriscoListNew = subcondicao.getHistoricoriscoList();
-            List<Relacaosubcondicao> relacaosubcondicaoListOld = persistentSubcondicao.getRelacaosubcondicaoList();
-            List<Relacaosubcondicao> relacaosubcondicaoListNew = subcondicao.getRelacaosubcondicaoList();
-            List<Relacaosubcondicao> relacaosubcondicaoList1Old = persistentSubcondicao.getRelacaosubcondicaoList1();
-            List<Relacaosubcondicao> relacaosubcondicaoList1New = subcondicao.getRelacaosubcondicaoList1();
+//            List<Relacaosubcondicao> relacaosubcondicaoListOld = persistentSubcondicao.getRelacaosubcondicaoList();
+//            List<Relacaosubcondicao> relacaosubcondicaoListNew = subcondicao.getRelacaosubcondicaoList();
+//            List<Relacaosubcondicao> relacaosubcondicaoList1Old = persistentSubcondicao.getRelacaosubcondicaoList1();
+//            List<Relacaosubcondicao> relacaosubcondicaoList1New = subcondicao.getRelacaosubcondicaoList1();
             List<String> illegalOrphanMessages = null;
-            for (Relacaosubcondicao relacaosubcondicaoListOldRelacaosubcondicao : relacaosubcondicaoListOld) {
-                if (!relacaosubcondicaoListNew.contains(relacaosubcondicaoListOldRelacaosubcondicao)) {
-                    if (illegalOrphanMessages == null) {
-                        illegalOrphanMessages = new ArrayList<String>();
-                    }
-                    illegalOrphanMessages.add("You must retain Relacaosubcondicao " + relacaosubcondicaoListOldRelacaosubcondicao + " since its subcondicao field is not nullable.");
-                }
-            }
-            for (Relacaosubcondicao relacaosubcondicaoList1OldRelacaosubcondicao : relacaosubcondicaoList1Old) {
-                if (!relacaosubcondicaoList1New.contains(relacaosubcondicaoList1OldRelacaosubcondicao)) {
-                    if (illegalOrphanMessages == null) {
-                        illegalOrphanMessages = new ArrayList<String>();
-                    }
-                    illegalOrphanMessages.add("You must retain Relacaosubcondicao " + relacaosubcondicaoList1OldRelacaosubcondicao + " since its subcondicao1 field is not nullable.");
-                }
-            }
+//            for (Relacaosubcondicao relacaosubcondicaoListOldRelacaosubcondicao : relacaosubcondicaoListOld) {
+//                if (!relacaosubcondicaoListNew.contains(relacaosubcondicaoListOldRelacaosubcondicao)) {
+//                    if (illegalOrphanMessages == null) {
+//                        illegalOrphanMessages = new ArrayList<String>();
+//                    }
+//                    illegalOrphanMessages.add("You must retain Relacaosubcondicao " + relacaosubcondicaoListOldRelacaosubcondicao + " since its subcondicao field is not nullable.");
+//                }
+//            }
+//            for (Relacaosubcondicao relacaosubcondicaoList1OldRelacaosubcondicao : relacaosubcondicaoList1Old) {
+//                if (!relacaosubcondicaoList1New.contains(relacaosubcondicaoList1OldRelacaosubcondicao)) {
+//                    if (illegalOrphanMessages == null) {
+//                        illegalOrphanMessages = new ArrayList<String>();
+//                    }
+//                    illegalOrphanMessages.add("You must retain Relacaosubcondicao " + relacaosubcondicaoList1OldRelacaosubcondicao + " since its subcondicao1 field is not nullable.");
+//                }
+//            }
             if (illegalOrphanMessages != null) {
                 throw new IllegalOrphanException(illegalOrphanMessages);
             }
@@ -145,20 +145,20 @@ public class SubcondicaoJpaController implements Serializable {
             }
             historicoriscoListNew = attachedHistoricoriscoListNew;
             subcondicao.setHistoricoriscoList(historicoriscoListNew);
-            List<Relacaosubcondicao> attachedRelacaosubcondicaoListNew = new ArrayList<Relacaosubcondicao>();
-            for (Relacaosubcondicao relacaosubcondicaoListNewRelacaosubcondicaoToAttach : relacaosubcondicaoListNew) {
-                relacaosubcondicaoListNewRelacaosubcondicaoToAttach = em.getReference(relacaosubcondicaoListNewRelacaosubcondicaoToAttach.getClass(), relacaosubcondicaoListNewRelacaosubcondicaoToAttach.getRelacaosubcondicaoPK());
-                attachedRelacaosubcondicaoListNew.add(relacaosubcondicaoListNewRelacaosubcondicaoToAttach);
-            }
-            relacaosubcondicaoListNew = attachedRelacaosubcondicaoListNew;
-            subcondicao.setRelacaosubcondicaoList(relacaosubcondicaoListNew);
-            List<Relacaosubcondicao> attachedRelacaosubcondicaoList1New = new ArrayList<Relacaosubcondicao>();
-            for (Relacaosubcondicao relacaosubcondicaoList1NewRelacaosubcondicaoToAttach : relacaosubcondicaoList1New) {
-                relacaosubcondicaoList1NewRelacaosubcondicaoToAttach = em.getReference(relacaosubcondicaoList1NewRelacaosubcondicaoToAttach.getClass(), relacaosubcondicaoList1NewRelacaosubcondicaoToAttach.getRelacaosubcondicaoPK());
-                attachedRelacaosubcondicaoList1New.add(relacaosubcondicaoList1NewRelacaosubcondicaoToAttach);
-            }
-            relacaosubcondicaoList1New = attachedRelacaosubcondicaoList1New;
-            subcondicao.setRelacaosubcondicaoList1(relacaosubcondicaoList1New);
+//            List<Relacaosubcondicao> attachedRelacaosubcondicaoListNew = new ArrayList<Relacaosubcondicao>();
+//            for (Relacaosubcondicao relacaosubcondicaoListNewRelacaosubcondicaoToAttach : relacaosubcondicaoListNew) {
+//                relacaosubcondicaoListNewRelacaosubcondicaoToAttach = em.getReference(relacaosubcondicaoListNewRelacaosubcondicaoToAttach.getClass(), relacaosubcondicaoListNewRelacaosubcondicaoToAttach.getRelacaosubcondicaoPK());
+//                attachedRelacaosubcondicaoListNew.add(relacaosubcondicaoListNewRelacaosubcondicaoToAttach);
+//            }
+//            relacaosubcondicaoListNew = attachedRelacaosubcondicaoListNew;
+//            subcondicao.setRelacaosubcondicaoList(relacaosubcondicaoListNew);
+//            List<Relacaosubcondicao> attachedRelacaosubcondicaoList1New = new ArrayList<Relacaosubcondicao>();
+//            for (Relacaosubcondicao relacaosubcondicaoList1NewRelacaosubcondicaoToAttach : relacaosubcondicaoList1New) {
+//                relacaosubcondicaoList1NewRelacaosubcondicaoToAttach = em.getReference(relacaosubcondicaoList1NewRelacaosubcondicaoToAttach.getClass(), relacaosubcondicaoList1NewRelacaosubcondicaoToAttach.getRelacaosubcondicaoPK());
+//                attachedRelacaosubcondicaoList1New.add(relacaosubcondicaoList1NewRelacaosubcondicaoToAttach);
+//            }
+//            relacaosubcondicaoList1New = attachedRelacaosubcondicaoList1New;
+//            subcondicao.setRelacaosubcondicaoList1(relacaosubcondicaoList1New);
             subcondicao = em.merge(subcondicao);
             for (Historicorisco historicoriscoListOldHistoricorisco : historicoriscoListOld) {
                 if (!historicoriscoListNew.contains(historicoriscoListOldHistoricorisco)) {
@@ -172,28 +172,28 @@ public class SubcondicaoJpaController implements Serializable {
                     historicoriscoListNewHistoricorisco = em.merge(historicoriscoListNewHistoricorisco);
                 }
             }
-            for (Relacaosubcondicao relacaosubcondicaoListNewRelacaosubcondicao : relacaosubcondicaoListNew) {
-                if (!relacaosubcondicaoListOld.contains(relacaosubcondicaoListNewRelacaosubcondicao)) {
-                    Subcondicao oldSubcondicaoOfRelacaosubcondicaoListNewRelacaosubcondicao = relacaosubcondicaoListNewRelacaosubcondicao.getSubcondicao();
-                    relacaosubcondicaoListNewRelacaosubcondicao.setSubcondicao(subcondicao);
-                    relacaosubcondicaoListNewRelacaosubcondicao = em.merge(relacaosubcondicaoListNewRelacaosubcondicao);
-                    if (oldSubcondicaoOfRelacaosubcondicaoListNewRelacaosubcondicao != null && !oldSubcondicaoOfRelacaosubcondicaoListNewRelacaosubcondicao.equals(subcondicao)) {
-                        oldSubcondicaoOfRelacaosubcondicaoListNewRelacaosubcondicao.getRelacaosubcondicaoList().remove(relacaosubcondicaoListNewRelacaosubcondicao);
-                        oldSubcondicaoOfRelacaosubcondicaoListNewRelacaosubcondicao = em.merge(oldSubcondicaoOfRelacaosubcondicaoListNewRelacaosubcondicao);
-                    }
-                }
-            }
-            for (Relacaosubcondicao relacaosubcondicaoList1NewRelacaosubcondicao : relacaosubcondicaoList1New) {
-                if (!relacaosubcondicaoList1Old.contains(relacaosubcondicaoList1NewRelacaosubcondicao)) {
-                    Subcondicao oldSubcondicao1OfRelacaosubcondicaoList1NewRelacaosubcondicao = relacaosubcondicaoList1NewRelacaosubcondicao.getSubcondicao1();
-                    relacaosubcondicaoList1NewRelacaosubcondicao.setSubcondicao1(subcondicao);
-                    relacaosubcondicaoList1NewRelacaosubcondicao = em.merge(relacaosubcondicaoList1NewRelacaosubcondicao);
-                    if (oldSubcondicao1OfRelacaosubcondicaoList1NewRelacaosubcondicao != null && !oldSubcondicao1OfRelacaosubcondicaoList1NewRelacaosubcondicao.equals(subcondicao)) {
-                        oldSubcondicao1OfRelacaosubcondicaoList1NewRelacaosubcondicao.getRelacaosubcondicaoList1().remove(relacaosubcondicaoList1NewRelacaosubcondicao);
-                        oldSubcondicao1OfRelacaosubcondicaoList1NewRelacaosubcondicao = em.merge(oldSubcondicao1OfRelacaosubcondicaoList1NewRelacaosubcondicao);
-                    }
-                }
-            }
+//            for (Relacaosubcondicao relacaosubcondicaoListNewRelacaosubcondicao : relacaosubcondicaoListNew) {
+//                if (!relacaosubcondicaoListOld.contains(relacaosubcondicaoListNewRelacaosubcondicao)) {
+//                    Subcondicao oldSubcondicaoOfRelacaosubcondicaoListNewRelacaosubcondicao = relacaosubcondicaoListNewRelacaosubcondicao.getSubcondicao();
+//                    relacaosubcondicaoListNewRelacaosubcondicao.setSubcondicao(subcondicao);
+//                    relacaosubcondicaoListNewRelacaosubcondicao = em.merge(relacaosubcondicaoListNewRelacaosubcondicao);
+//                    if (oldSubcondicaoOfRelacaosubcondicaoListNewRelacaosubcondicao != null && !oldSubcondicaoOfRelacaosubcondicaoListNewRelacaosubcondicao.equals(subcondicao)) {
+//                        oldSubcondicaoOfRelacaosubcondicaoListNewRelacaosubcondicao.getRelacaosubcondicaoList().remove(relacaosubcondicaoListNewRelacaosubcondicao);
+//                        oldSubcondicaoOfRelacaosubcondicaoListNewRelacaosubcondicao = em.merge(oldSubcondicaoOfRelacaosubcondicaoListNewRelacaosubcondicao);
+//                    }
+//                }
+//            }
+//            for (Relacaosubcondicao relacaosubcondicaoList1NewRelacaosubcondicao : relacaosubcondicaoList1New) {
+//                if (!relacaosubcondicaoList1Old.contains(relacaosubcondicaoList1NewRelacaosubcondicao)) {
+//                    Subcondicao oldSubcondicao1OfRelacaosubcondicaoList1NewRelacaosubcondicao = relacaosubcondicaoList1NewRelacaosubcondicao.getSubcondicao1();
+//                    relacaosubcondicaoList1NewRelacaosubcondicao.setSubcondicao1(subcondicao);
+//                    relacaosubcondicaoList1NewRelacaosubcondicao = em.merge(relacaosubcondicaoList1NewRelacaosubcondicao);
+//                    if (oldSubcondicao1OfRelacaosubcondicaoList1NewRelacaosubcondicao != null && !oldSubcondicao1OfRelacaosubcondicaoList1NewRelacaosubcondicao.equals(subcondicao)) {
+//                        oldSubcondicao1OfRelacaosubcondicaoList1NewRelacaosubcondicao.getRelacaosubcondicaoList1().remove(relacaosubcondicaoList1NewRelacaosubcondicao);
+//                        oldSubcondicao1OfRelacaosubcondicaoList1NewRelacaosubcondicao = em.merge(oldSubcondicao1OfRelacaosubcondicaoList1NewRelacaosubcondicao);
+//                    }
+//                }
+//            }
             em.getTransaction().commit();
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
@@ -224,20 +224,20 @@ public class SubcondicaoJpaController implements Serializable {
                 throw new NonexistentEntityException("The subcondicao with id " + id + " no longer exists.", enfe);
             }
             List<String> illegalOrphanMessages = null;
-            List<Relacaosubcondicao> relacaosubcondicaoListOrphanCheck = subcondicao.getRelacaosubcondicaoList();
-            for (Relacaosubcondicao relacaosubcondicaoListOrphanCheckRelacaosubcondicao : relacaosubcondicaoListOrphanCheck) {
-                if (illegalOrphanMessages == null) {
-                    illegalOrphanMessages = new ArrayList<String>();
-                }
-                illegalOrphanMessages.add("This Subcondicao (" + subcondicao + ") cannot be destroyed since the Relacaosubcondicao " + relacaosubcondicaoListOrphanCheckRelacaosubcondicao + " in its relacaosubcondicaoList field has a non-nullable subcondicao field.");
-            }
-            List<Relacaosubcondicao> relacaosubcondicaoList1OrphanCheck = subcondicao.getRelacaosubcondicaoList1();
-            for (Relacaosubcondicao relacaosubcondicaoList1OrphanCheckRelacaosubcondicao : relacaosubcondicaoList1OrphanCheck) {
-                if (illegalOrphanMessages == null) {
-                    illegalOrphanMessages = new ArrayList<String>();
-                }
-                illegalOrphanMessages.add("This Subcondicao (" + subcondicao + ") cannot be destroyed since the Relacaosubcondicao " + relacaosubcondicaoList1OrphanCheckRelacaosubcondicao + " in its relacaosubcondicaoList1 field has a non-nullable subcondicao1 field.");
-            }
+//            List<Relacaosubcondicao> relacaosubcondicaoListOrphanCheck = subcondicao.getRelacaosubcondicaoList();
+//            for (Relacaosubcondicao relacaosubcondicaoListOrphanCheckRelacaosubcondicao : relacaosubcondicaoListOrphanCheck) {
+//                if (illegalOrphanMessages == null) {
+//                    illegalOrphanMessages = new ArrayList<String>();
+//                }
+//                illegalOrphanMessages.add("This Subcondicao (" + subcondicao + ") cannot be destroyed since the Relacaosubcondicao " + relacaosubcondicaoListOrphanCheckRelacaosubcondicao + " in its relacaosubcondicaoList field has a non-nullable subcondicao field.");
+//            }
+//            List<Relacaosubcondicao> relacaosubcondicaoList1OrphanCheck = subcondicao.getRelacaosubcondicaoList1();
+//            for (Relacaosubcondicao relacaosubcondicaoList1OrphanCheckRelacaosubcondicao : relacaosubcondicaoList1OrphanCheck) {
+//                if (illegalOrphanMessages == null) {
+//                    illegalOrphanMessages = new ArrayList<String>();
+//                }
+//                illegalOrphanMessages.add("This Subcondicao (" + subcondicao + ") cannot be destroyed since the Relacaosubcondicao " + relacaosubcondicaoList1OrphanCheckRelacaosubcondicao + " in its relacaosubcondicaoList1 field has a non-nullable subcondicao1 field.");
+//            }
             if (illegalOrphanMessages != null) {
                 throw new IllegalOrphanException(illegalOrphanMessages);
             }

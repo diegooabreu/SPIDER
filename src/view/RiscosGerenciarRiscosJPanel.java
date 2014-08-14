@@ -846,7 +846,7 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
             }
             relacoesListaRiscosJList.setModel(modelListaRiscosApresentados);
         }
-        filtraListaRiscosApresentados();
+        //filtraListaRiscosApresentados();
     }
 
     //Metódo que filtra a lista de riscos apresentados
@@ -1110,8 +1110,6 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
                     preencheListaRelacoesSubcondicoes();
 
                     //Verifica se possui relação entre subcondições
-                    getRelacaoSubcondicao(subcondicaoSelecionada);
-                    getTabelasRelacaoSubcondicao();
                     marcaSubcondicao();
                 }
             }
@@ -1174,16 +1172,6 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
     //Método que limpa a lista de relações de subcondições
     private void limparListaRelacoesSubcondicoes() {
         modeloListaSubcondicoes.clear();
-    }
-
-    //Método que busca as relações da subcondição selecionada
-    private void getRelacaoSubcondicao(Subcondicao subcondicao) {
-        listaRelacaoSubcondicao = riscosGerenciarRiscosFacade.listarRelacaoSubcondicaoByIdSubcondicao1(subcondicao.getIdSubcondicao());
-    }
-
-    //Método que busca todas as tabelas de relações
-    private void getTabelasRelacaoSubcondicao() {
-        listaTabelasSubcondicao = riscosGerenciarRiscosFacade.listarTabelasSubcondicao();
     }
 
     //Método que marca as subcondições que possui relação com a subcondição selecionada

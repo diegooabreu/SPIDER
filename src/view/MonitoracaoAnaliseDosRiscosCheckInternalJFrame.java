@@ -871,7 +871,7 @@ public class MonitoracaoAnaliseDosRiscosCheckInternalJFrame extends javax.swing.
             } else {
                 dataSelecionada.setTime(listaPC.get(i).getIdMarcoDoProjeto().getDataMarcoProjeto());
                 String dataMarco = df.format(dataSelecionada.getTime());
-                if (dataSelecionada.after(new Date()) || dataMarco.equals(dataAtual)){
+                if (dataSelecionada.getTime().after(new Date()) || dataMarco.equals(dataAtual)){
                    temDataLimiteFutura = true;
                 }
             }

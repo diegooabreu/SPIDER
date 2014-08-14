@@ -12,8 +12,8 @@ import controller.MarcodoprojetoJpaController;
 import controller.PlanocontingenciaJpaController;
 import controller.PlanomitigacaoJpaController;
 import controller.PontodecontroleJpaController;
-import controller.RelacaosubcondicaoJpaController;
 import controller.RiscoJpaController;
+import controller.RiscoModificadoJpaController;
 import controller.SubcondicaoJpaController;
 import controller.exceptions.NonexistentEntityException;
 import java.util.ArrayList;
@@ -71,10 +71,10 @@ public class RiscosGerenciarRiscosFacade {
     }
     
     public void removerRisco(Risco risco){
-        RiscoJpaController riscoJPA = new RiscoJpaController();
+        RiscoModificadoJpaController riscoModificadoJPA = new RiscoModificadoJpaController();
         
         try{
-            riscoJPA.destroy(risco.getIdRisco());
+            riscoModificadoJPA.destroy(risco);
         } catch(Exception e){
             System.out.println("Erro no método remover risco em RiscosGerenciarRiscosFacade");
             e.printStackTrace();
@@ -181,20 +181,6 @@ public class RiscosGerenciarRiscosFacade {
             e.printStackTrace();
         }   
         return listaSubcondicao;
-    }
-    
-    public List<Relacaosubcondicao> listarRelacaoSubcondicaoByIdSubcondicao1(int idSubcondicao1){
-        RelacaosubcondicaoJpaController relacaoJPA = new RelacaosubcondicaoJpaController();
-        List<Relacaosubcondicao> listaRelacaoSubcondicao = null;
-        
-        try{
-            listaRelacaoSubcondicao = relacaoJPA.findRelacaoSubcondicaoByIdSubcondicao1(idSubcondicao1);
-        }catch(Exception e){
-            System.out.println("Erro no método listarRelacaoSubcondicoesByIdSubcondicao1 na classe RiscosGerenciarRiscosFacade");
-            e.printStackTrace();
-        }
-        
-        return listaRelacaoSubcondicao;
     }
     
     public void editarSubcondicao(Subcondicao subcondicao){
@@ -313,40 +299,7 @@ public class RiscosGerenciarRiscosFacade {
         }
     }
     
-    public List<Relacaosubcondicao> listarTabelasSubcondicao(){
-        RelacaosubcondicaoJpaController relacaoJPA = new RelacaosubcondicaoJpaController();
-        List<Relacaosubcondicao> lista = null;
-        
-        try{
-            relacaoJPA.findRelacaosubcondicaoEntities();
-        }catch(Exception e){
-            System.out.println("Erro no método listarTabelasSubcondicao na classe RiscosGerenciarRiscosFacade");
-            e.printStackTrace();
-        }
-        
-        return lista;
-    }
-    
-    public void buscarRelacaoSubcondicao(Relacaosubcondicao relacaoSubcondicao){
-        RelacaosubcondicaoJpaController relacaoJPA = new RelacaosubcondicaoJpaController();
-        
-        try{
-            
-        }catch(Exception e){
-            
-        }
-    }
-    
-    public void criarRelacaoSubcondicao(Relacaosubcondicao relacaoSubcondicao){
-        RelacaosubcondicaoJpaController relacaoJPA = new RelacaosubcondicaoJpaController();
-        
-        try{
-            relacaoJPA.create(relacaoSubcondicao);
-        }catch(Exception e){
-            System.out.println("Erro no método criarRelacaoSubcondicao na classe RiscosGerenciarRiscosFacade");
-            e.printStackTrace();
-        }
-    }
+
     
     public Subcondicao buscaSubcondicao(int idSubcondicao){
         SubcondicaoJpaController subcondicaoJPA = new SubcondicaoJpaController();
