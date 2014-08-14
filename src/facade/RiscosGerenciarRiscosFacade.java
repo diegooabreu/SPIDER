@@ -77,6 +77,7 @@ public class RiscosGerenciarRiscosFacade {
             riscoJPA.destroy(risco.getIdRisco());
         } catch(Exception e){
             System.out.println("Erro no método remover risco em RiscosGerenciarRiscosFacade");
+            e.printStackTrace();
         }
     }
     

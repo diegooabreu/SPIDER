@@ -425,7 +425,7 @@
                                           </Group>
                                           <Component id="jScrollPane1" alignment="0" max="32767" attributes="0"/>
                                       </Group>
-                                      <EmptySpace pref="174" max="32767" attributes="0"/>
+                                      <EmptySpace pref="175" max="32767" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Group type="102" alignment="1" attributes="0">
                                               <Component id="jLabel14" min="-2" max="-2" attributes="0"/>
@@ -862,7 +862,7 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
                                   <Component id="planoDeMitigacaoPlanoDeMitigacaoJLabel" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace pref="749" max="32767" attributes="0"/>
+                                  <EmptySpace pref="750" max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" attributes="0">
                                   <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
@@ -1176,7 +1176,7 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
                                   <Component id="planoContigenciaPlanoDeContigenciaJLabel" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace pref="738" max="32767" attributes="0"/>
+                                  <EmptySpace pref="739" max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" attributes="0">
                                   <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
@@ -1488,7 +1488,7 @@
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
-                          <Component id="tabelaHistoricoAlteracoesJScrollPane" pref="842" max="32767" attributes="0"/>
+                          <Component id="tabelaHistoricoAlteracoesJScrollPane" pref="843" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>

@@ -5,14 +5,21 @@
  */
 package view;
 
+import facade.OrganizacionalPortfolioFacade;
+import facade.RiscosGerenciarRiscosFacade;
 import facade.RiscosRiscosOcorridosFacade;
 import facade.RiscosSelecionarRiscosParaMonitorarFacade;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import model.Historicoalteracao;
 import model.Projeto;
 import model.Risco;
 import model.Subcondicao;
@@ -25,6 +32,9 @@ import view.tabelas.RiscoTabelaModel;
  */
 public class RiscoSelecioanrRiscoParaMonitorarInternalJFrame extends javax.swing.JInternalFrame {
 
+    // Instanciando classe Facade de Riscos
+    RiscosGerenciarRiscosFacade riscosGerenciarRiscosFacade = new RiscosGerenciarRiscosFacade();
+    
     RiscosSelecionarRiscosParaMonitorarFacade riscosSelecionarRiscosParaMonitorarFacade = new RiscosSelecionarRiscosParaMonitorarFacade();
     RiscosRiscosOcorridosFacade riscosRiscosOcorridosFacade = new RiscosRiscosOcorridosFacade();
 
@@ -167,7 +177,25 @@ public class RiscoSelecioanrRiscoParaMonitorarInternalJFrame extends javax.swing
         }
 
     }
+    // Instanciando variável que armazena a lista de histórico de alterações do risco selecionado
+    private List<Historicoalteracao> listaHistoricoAlteracao;
+    //Instanciando classe Facade de OrganizacionalPortfolio para obter lista de categorias
+    OrganizacionalPortfolioFacade organizacionalPortfolioFacade = new OrganizacionalPortfolioFacade();
+    //Método que atualiza a lista de Histórico de Alterações do risco selecionado
+    void getListaHistoricoAlteracoes(Risco idRisco) {
+        listaHistoricoAlteracao = organizacionalPortfolioFacade.listarHistoricoAlteracoesByIdRisco(idRisco);
+    }
 
+    public void registraHistoricoAlteracoes(Risco riscoSelecionado) {
+        riscosSelecionarRiscosParaMonitorarFacade.editRisco(riscoSelecionado);
+        Historicoalteracao historicoalteracao = new Historicoalteracao();
+        historicoalteracao.setDescricaoAlteracao("Risco " + riscoSelecionado.getIdentificacao() + " entra em Monitoração");
+        Calendar c = Calendar.getInstance();
+        historicoalteracao.setDataAlteracao(c.getTime());
+        historicoalteracao.setIdRisco(riscoSelecionado);
+        riscosGerenciarRiscosFacade.criaHistorioAlteracao(historicoalteracao);
+        getListaHistoricoAlteracoes(riscoSelecionado);
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -261,6 +289,7 @@ public class RiscoSelecioanrRiscoParaMonitorarInternalJFrame extends javax.swing
 
     private void monitorarJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_monitorarJButtonActionPerformed
 
+        Risco RiscoSelecionado;
         for (int i = 0; i < listaRiscosTabela.size(); i++) {
             if ((Boolean) riscoTabelaModel.getValueAt(i, 0) == true) {
 
@@ -268,17 +297,15 @@ public class RiscoSelecioanrRiscoParaMonitorarInternalJFrame extends javax.swing
                     listaRiscosTabela.get(i).setStatusRisco("Mitigando");
                     listaRiscos.get(i).setStatusRisco("Mitigando");
                     List<Subcondicao> listaDeCondicoes = listaRiscos.get(i).getSubcondicaoList();
+                    
                     for(int k = 0; k < listaDeCondicoes.size(); k++){
                         listaDeCondicoes.get(k).setStatusSubcondicao("Não Ocorrido");
                         riscosSelecionarRiscosParaMonitorarFacade.editCondicao(listaDeCondicoes.get(k));
                     }
                     
-                    riscosSelecionarRiscosParaMonitorarFacade.editRisco(listaRiscos.get(i));
-                    
+                    registraHistoricoAlteracoes(listaRiscos.get(i)); 
                 }
-                
-                
-
+            
             } else {
 
                 listaRiscosTabela.get(i).setStatusRisco("Novo");
@@ -295,7 +322,7 @@ public class RiscoSelecioanrRiscoParaMonitorarInternalJFrame extends javax.swing
 
         // TODO add your handling code here:
     }//GEN-LAST:event_monitorarJButtonActionPerformed
-
+      
      public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

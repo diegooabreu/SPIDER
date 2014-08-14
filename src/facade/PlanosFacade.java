@@ -7,10 +7,12 @@ package facade;
 
 import controller.PlanocontingenciaJpaController;
 import controller.PlanomitigacaoJpaController;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Planocontingencia;
 import model.Planomitigacao;
+import model.Risco;
 
 /**
  *
@@ -46,6 +48,18 @@ public class PlanosFacade {
     public Planocontingencia buscaPlanoContingenciaById(int id){
         PlanocontingenciaJpaController planocontingenciaJpaController = new PlanocontingenciaJpaController();
         return planocontingenciaJpaController.findPlanocontingencia(id);
+    }
+    
+    public List<Planocontingencia> buscarPlanoContingenciaByIdRisco (Risco idRisco){
+        List<Planocontingencia> listaPlanoContingencia = null;
+        PlanocontingenciaJpaController planocontingenciaJpaController = new PlanocontingenciaJpaController();
+        
+        try {
+            listaPlanoContingencia = planocontingenciaJpaController.getListPlanoContingenciaByIdRisco(idRisco);
+        } catch (Exception e) {
+            System.err.println("Erro no metodo buscarPlanoContingenciaByIdRisco em PlanosFacede");
+        }
+        return listaPlanoContingencia ;
     }
         
 }

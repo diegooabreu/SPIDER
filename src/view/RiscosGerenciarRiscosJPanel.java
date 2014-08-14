@@ -143,7 +143,7 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
     }
 
     //Método que atualiza a lista de Histórico de Alterações do risco selecionado
-    private void getListaHistoricoAlteracoes(Risco idRisco) {
+    void getListaHistoricoAlteracoes(Risco idRisco) {
         listaHistoricoAlteracao = organizacionalPortfolioFacade.listarHistoricoAlteracoesByIdRisco(idRisco);
     }
 
