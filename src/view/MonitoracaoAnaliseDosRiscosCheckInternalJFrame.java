@@ -37,7 +37,7 @@ import model.Gruporelacao;
 import model.Historicoalteracao;
 import model.Historicorisco;
 import model.Planocontingencia;
-import static model.Relacaosubcondicao_.subcondicao;
+//import static model.Relacaosubcondicao.subcondicao;
 import model.Risco;
 import model.Subcondicao;
 import view.tabelas.CondicaoTabela;
@@ -874,6 +874,14 @@ public class MonitoracaoAnaliseDosRiscosCheckInternalJFrame extends javax.swing.
 
             }
 
+            if (statusRiscoJComboBox.getSelectedItem().equals("Novo")) {
+                riscoSel.setStatusRisco("Novo");
+                monitoracaoAnaliseDosRiscosFacade.editRisco(riscoSel);
+            } else if (statusRiscoJComboBox.getSelectedItem().equals("Contingenciando")) {
+                riscoSel.setStatusRisco("Contingenciando");
+                monitoracaoAnaliseDosRiscosFacade.editRisco(riscoSel);
+            }
+            
             //if(riscoSel.getStatusRisco().equals("Contingenciando")){
             if (riscoOcorreu) {
                 Historicorisco historico = new Historicorisco();
@@ -886,31 +894,12 @@ public class MonitoracaoAnaliseDosRiscosCheckInternalJFrame extends javax.swing.
             }
 
             if (riscoSel.getStatusRisco().equals("Novo")) {
-//            Historicoalteracao historico = new Historicoalteracao();
-//            Calendar c = Calendar.getInstance();
-//            historico.setDataAlteracao(c.getTime());
-//            historico.setIdRisco(riscoSel);
-//            historico.setDescricaoAlteracao("Status do Risco Alterado para 'Novo'.");
-//            monitoracaoAnaliseDosRiscosFacade.criarHistoricoAlteracao(historico);
                 registraHistoricoAlteracoes(riscoSel, "Status do Risco Alterado para 'Novo'.");
 
             } else if (riscoSel.getStatusRisco().equals("Contingenciando")) {
-//            Historicoalteracao historico = new Historicoalteracao();
-//            Calendar c = Calendar.getInstance();
-//            historico.setDataAlteracao(c.getTime());
-//            historico.setIdRisco(riscoSel);
-//            historico.setDescricaoAlteracao("Status do Risco Alterado para 'Contingenciando'.");
-//            monitoracaoAnaliseDosRiscosFacade.criarHistoricoAlteracao(historico);
-                registraHistoricoAlteracoes(riscoSel, "Status do Risco Alterado para 'Contingenciando'.");
+                registraHistoricoAlteracoes(riscoSel, "Risco ocorrido, status do Risco Alterado para 'Contingenciando'.");
             }
 
-            if (statusRiscoJComboBox.getSelectedItem().equals("Novo")) {
-                riscoSel.setStatusRisco("Novo");
-                monitoracaoAnaliseDosRiscosFacade.editRisco(riscoSel);
-            } else if (statusRiscoJComboBox.getSelectedItem().equals("Contingenciando")) {
-                riscoSel.setStatusRisco("Contingenciando");
-                monitoracaoAnaliseDosRiscosFacade.editRisco(riscoSel);
-            }
 
             PrincipalJFrame.monitoracaoAnaliseDosRiscosJPanel.criarTabelaAnalisarRiscos();
             MonitoracaoAnaliseDosRiscosFacade analiseFacade = new MonitoracaoAnaliseDosRiscosFacade();
