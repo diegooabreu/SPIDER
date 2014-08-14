@@ -189,6 +189,7 @@ public class RiscoSelecioanrRiscoParaMonitorarInternalJFrame extends javax.swing
 
     }
 
+   
     public void registraHistoricoAlteracoes(Risco riscoSelecionado, String mensagem) {
         riscosSelecionarRiscosParaMonitorarFacade.editRisco(riscoSelecionado);
         Historicoalteracao historicoalteracao = new Historicoalteracao();

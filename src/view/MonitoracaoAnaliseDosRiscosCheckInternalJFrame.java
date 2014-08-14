@@ -26,9 +26,11 @@ import facade.RiscosGerenciarRiscosFacade;
 import facade.RiscosSelecionarRiscosParaMonitorarFacade;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.DateFormat;
 import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import javax.swing.JOptionPane;
@@ -855,9 +857,31 @@ public class MonitoracaoAnaliseDosRiscosCheckInternalJFrame extends javax.swing.
 
         List<Planocontingencia> listaPC = monitoracaoAnaliseDosRiscosFacade.getListaPlanosContingenciaByRisco(riscoSel);
 
+        DateFormat df = DateFormat.getDateInstance(DateFormat.MEDIUM);
+        String dataAtual = df.format(new Date());
+        boolean temDataLimiteFutura = false;
+        for (int i=0;  i < listaPC.size();i++){
+            Calendar dataSelecionada = Calendar.getInstance();
+            if (listaPC.get(i).getIdMarcoDoProjeto().getIdMarcoDoProjeto() == null){
+                dataSelecionada.setTime(listaPC.get(i).getIdPontoDeControle().getDataPontoControle()); 
+                String dataPonto = df.format(dataSelecionada.getTime()) ;
+                if(dataSelecionada.after(new Date()) || dataPonto.equals(dataAtual)){
+                    temDataLimiteFutura = true;
+                }
+            } else {
+                dataSelecionada.setTime(listaPC.get(i).getIdMarcoDoProjeto().getDataMarcoProjeto());
+                String dataMarco = df.format(dataSelecionada.getTime());
+                if (dataSelecionada.after(new Date()) || dataMarco.equals(dataAtual)){
+                   temDataLimiteFutura = true;
+                }
+            }
+            }
+//            Calendar dataSelecionada = Calendar.getInstance();
+//            dataSelecionada.setTime(listaPC.get(i).getIdMarcoDoProjeto().);
+        
         if ((listaPC.size() < 1) && (statusRiscoJComboBox.getSelectedItem().equals("Contingenciando"))) {
             JOptionPane.showMessageDialog(this, "O risco não possui planos de contingencia.");
-        } else {
+        } else if (temDataLimiteFutura != false) {
 
             for (int i = 0; i < listaCondicaoTabela.size(); i++) {
                 if ((Boolean) modeloTabelaCondicoes.getValueAt(i, 0) == true) {
@@ -909,6 +933,8 @@ public class MonitoracaoAnaliseDosRiscosCheckInternalJFrame extends javax.swing.
             JOptionPane.showMessageDialog(this, "Risco analisado.");
             this.setVisible(false);
 
+        } else {
+            JOptionPane.showMessageDialog(this, "O risco não possui planos de contingencia com datas Futuras.");
         }
         // TODO add your handling code here:
     }//GEN-LAST:event_confirmarJButtonActionPerformed
