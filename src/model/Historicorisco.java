@@ -51,13 +51,13 @@ public class Historicorisco implements Serializable {
     @Column(name = "dataOcorrencia")
     @Temporal(TemporalType.DATE)
     private Date dataOcorrencia;
-    @JoinTable(name = "historicorisco2", joinColumns = {
-        @JoinColumn(name = "idHistoricoRisco", referencedColumnName = "idHistoricoRisco")}, inverseJoinColumns = {
-        @JoinColumn(name = "idSubcondicao1", referencedColumnName = "idSubcondicao1"),
-        @JoinColumn(name = "idSubcondicao2", referencedColumnName = "idSubcondicao2"),
-        @JoinColumn(name = "relacao", referencedColumnName = "relacao")})
-    @ManyToMany
-    private List<Relacaosubcondicao> relacaosubcondicaoList;
+//    @JoinTable(name = "historicorisco2", joinColumns = {
+//        @JoinColumn(name = "idHistoricoRisco", referencedColumnName = "idHistoricoRisco")}, inverseJoinColumns = {
+//        @JoinColumn(name = "idSubcondicao1", referencedColumnName = "idSubcondicao1"),
+//        @JoinColumn(name = "idSubcondicao2", referencedColumnName = "idSubcondicao2"),
+//        @JoinColumn(name = "relacao", referencedColumnName = "relacao")})
+//    @ManyToMany
+//    private List<Relacaosubcondicao> relacaosubcondicaoList;
     @JoinTable(name = "ocorrenciasubcondicao", joinColumns = {
         @JoinColumn(name = "idHistoricoRisco", referencedColumnName = "idHistoricoRisco")}, inverseJoinColumns = {
         @JoinColumn(name = "idSubcondicao", referencedColumnName = "idSubcondicao")})
@@ -95,14 +95,14 @@ public class Historicorisco implements Serializable {
         this.dataOcorrencia = dataOcorrencia;
     }
 
-    @XmlTransient
-    public List<Relacaosubcondicao> getRelacaosubcondicaoList() {
-        return relacaosubcondicaoList;
-    }
-
-    public void setRelacaosubcondicaoList(List<Relacaosubcondicao> relacaosubcondicaoList) {
-        this.relacaosubcondicaoList = relacaosubcondicaoList;
-    }
+//    @XmlTransient
+//    public List<Relacaosubcondicao> getRelacaosubcondicaoList() {
+//        return relacaosubcondicaoList;
+//    }
+//
+//    public void setRelacaosubcondicaoList(List<Relacaosubcondicao> relacaosubcondicaoList) {
+//        this.relacaosubcondicaoList = relacaosubcondicaoList;
+//    }
 
     @XmlTransient
     public List<Subcondicao> getSubcondicaoList() {

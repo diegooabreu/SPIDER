@@ -30,7 +30,6 @@ import model.Planocontingencia;
 import model.Planomitigacao;
 import model.Pontodecontrole;
 import model.Projeto;
-import model.Relacaosubcondicao;
 import model.Risco;
 import model.Subcondicao;
 
@@ -944,10 +943,6 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
     private DefaultTableModel modeloTabelaRelacoes;
     //Instanciando variavel que armazena a lista de relacoes das subcondições do risco
     private List<Gruporelacao> listaRelacoes;
-    //Instanciando variável que armazena a lista de relações da subcondição selecionada
-    private List<Relacaosubcondicao> listaRelacaoSubcondicao;
-    //Instanciando variável que armazena todas as tabelas de relação de subcondição
-    private List<Relacaosubcondicao> listaTabelasSubcondicao;
     //Instanciando variável que armazena a condição que está no campo1JTextField
     Subcondicao campo1Condicao = new Subcondicao();
     //Instanciando variável que armazena a relação entre condições que está no campo1JTextField
@@ -1110,7 +1105,7 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
                     preencheListaRelacoesSubcondicoes();
 
                     //Verifica se possui relação entre subcondições
-                    marcaSubcondicao();
+                    //marcaSubcondicao();
                 }
             }
         });
@@ -1176,15 +1171,7 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
 
     //Método que marca as subcondições que possui relação com a subcondição selecionada
     private void marcaSubcondicao() {
-        if (listaRelacaoSubcondicao.size() > 0) {
-            for (int i = 0; i < listaRelacaoSubcondicao.size(); i++) {
-                for (int j = 0; j < listaSubcondicoes.size(); j++) {
-                    if (listaRelacaoSubcondicao.get(i).getSubcondicao().getIdentificacaoSubcondicao().equals(listaSubcondicoes.get(j).getIdentificacaoSubcondicao())) {
-                        //subcondicoesListaRelacoesJList.addSelectionInterval(j, j);
-                    }
-                }
-            }
-        }
+
     }
 
     //Método que atualiza e preenche as informaçoes de subcondição

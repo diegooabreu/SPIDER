@@ -12,7 +12,6 @@ import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import model.Relacaosubcondicao;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -41,9 +40,9 @@ public class HistoricoriscoJpaController implements Serializable {
     }
 
     public void create(Historicorisco historicorisco) {
-        if (historicorisco.getRelacaosubcondicaoList() == null) {
-            historicorisco.setRelacaosubcondicaoList(new ArrayList<Relacaosubcondicao>());
-        }
+//        if (historicorisco.getRelacaosubcondicaoList() == null) {
+//            historicorisco.setRelacaosubcondicaoList(new ArrayList<Relacaosubcondicao>());
+//        }
         if (historicorisco.getSubcondicaoList() == null) {
             historicorisco.setSubcondicaoList(new ArrayList<Subcondicao>());
         }
@@ -51,12 +50,12 @@ public class HistoricoriscoJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            List<Relacaosubcondicao> attachedRelacaosubcondicaoList = new ArrayList<Relacaosubcondicao>();
-            for (Relacaosubcondicao relacaosubcondicaoListRelacaosubcondicaoToAttach : historicorisco.getRelacaosubcondicaoList()) {
-                relacaosubcondicaoListRelacaosubcondicaoToAttach = em.getReference(relacaosubcondicaoListRelacaosubcondicaoToAttach.getClass(), relacaosubcondicaoListRelacaosubcondicaoToAttach.getRelacaosubcondicaoPK());
-                attachedRelacaosubcondicaoList.add(relacaosubcondicaoListRelacaosubcondicaoToAttach);
-            }
-            historicorisco.setRelacaosubcondicaoList(attachedRelacaosubcondicaoList);
+//            List<Relacaosubcondicao> attachedRelacaosubcondicaoList = new ArrayList<Relacaosubcondicao>();
+//            for (Relacaosubcondicao relacaosubcondicaoListRelacaosubcondicaoToAttach : historicorisco.getRelacaosubcondicaoList()) {
+//                relacaosubcondicaoListRelacaosubcondicaoToAttach = em.getReference(relacaosubcondicaoListRelacaosubcondicaoToAttach.getClass(), relacaosubcondicaoListRelacaosubcondicaoToAttach.getRelacaosubcondicaoPK());
+//                attachedRelacaosubcondicaoList.add(relacaosubcondicaoListRelacaosubcondicaoToAttach);
+//            }
+//            historicorisco.setRelacaosubcondicaoList(attachedRelacaosubcondicaoList);
             List<Subcondicao> attachedSubcondicaoList = new ArrayList<Subcondicao>();
             for (Subcondicao subcondicaoListSubcondicaoToAttach : historicorisco.getSubcondicaoList()) {
                 subcondicaoListSubcondicaoToAttach = em.getReference(subcondicaoListSubcondicaoToAttach.getClass(), subcondicaoListSubcondicaoToAttach.getIdSubcondicao());
@@ -64,10 +63,10 @@ public class HistoricoriscoJpaController implements Serializable {
             }
             historicorisco.setSubcondicaoList(attachedSubcondicaoList);
             em.persist(historicorisco);
-            for (Relacaosubcondicao relacaosubcondicaoListRelacaosubcondicao : historicorisco.getRelacaosubcondicaoList()) {
-                relacaosubcondicaoListRelacaosubcondicao.getHistoricoriscoList().add(historicorisco);
-                relacaosubcondicaoListRelacaosubcondicao = em.merge(relacaosubcondicaoListRelacaosubcondicao);
-            }
+//            for (Relacaosubcondicao relacaosubcondicaoListRelacaosubcondicao : historicorisco.getRelacaosubcondicaoList()) {
+//                relacaosubcondicaoListRelacaosubcondicao.getHistoricoriscoList().add(historicorisco);
+//                relacaosubcondicaoListRelacaosubcondicao = em.merge(relacaosubcondicaoListRelacaosubcondicao);
+//            }
             for (Subcondicao subcondicaoListSubcondicao : historicorisco.getSubcondicaoList()) {
                 subcondicaoListSubcondicao.getHistoricoriscoList().add(historicorisco);
                 subcondicaoListSubcondicao = em.merge(subcondicaoListSubcondicao);
@@ -86,49 +85,49 @@ public class HistoricoriscoJpaController implements Serializable {
             em = getEntityManager();
             em.getTransaction().begin();
             Historicorisco persistentHistoricorisco = em.find(Historicorisco.class, historicorisco.getIdHistoricoRisco());
-            List<Relacaosubcondicao> relacaosubcondicaoListOld = persistentHistoricorisco.getRelacaosubcondicaoList();
-            List<Relacaosubcondicao> relacaosubcondicaoListNew = historicorisco.getRelacaosubcondicaoList();
-            List<Subcondicao> subcondicaoListOld = persistentHistoricorisco.getSubcondicaoList();
-            List<Subcondicao> subcondicaoListNew = historicorisco.getSubcondicaoList();
-            List<Relacaosubcondicao> attachedRelacaosubcondicaoListNew = new ArrayList<Relacaosubcondicao>();
-            for (Relacaosubcondicao relacaosubcondicaoListNewRelacaosubcondicaoToAttach : relacaosubcondicaoListNew) {
-                relacaosubcondicaoListNewRelacaosubcondicaoToAttach = em.getReference(relacaosubcondicaoListNewRelacaosubcondicaoToAttach.getClass(), relacaosubcondicaoListNewRelacaosubcondicaoToAttach.getRelacaosubcondicaoPK());
-                attachedRelacaosubcondicaoListNew.add(relacaosubcondicaoListNewRelacaosubcondicaoToAttach);
-            }
-            relacaosubcondicaoListNew = attachedRelacaosubcondicaoListNew;
-            historicorisco.setRelacaosubcondicaoList(relacaosubcondicaoListNew);
+//            List<Relacaosubcondicao> relacaosubcondicaoListOld = persistentHistoricorisco.getRelacaosubcondicaoList();
+//            List<Relacaosubcondicao> relacaosubcondicaoListNew = historicorisco.getRelacaosubcondicaoList();
+//            List<Subcondicao> subcondicaoListOld = persistentHistoricorisco.getSubcondicaoList();
+//            List<Subcondicao> subcondicaoListNew = historicorisco.getSubcondicaoList();
+//            List<Relacaosubcondicao> attachedRelacaosubcondicaoListNew = new ArrayList<Relacaosubcondicao>();
+//            for (Relacaosubcondicao relacaosubcondicaoListNewRelacaosubcondicaoToAttach : relacaosubcondicaoListNew) {
+//                relacaosubcondicaoListNewRelacaosubcondicaoToAttach = em.getReference(relacaosubcondicaoListNewRelacaosubcondicaoToAttach.getClass(), relacaosubcondicaoListNewRelacaosubcondicaoToAttach.getRelacaosubcondicaoPK());
+//                attachedRelacaosubcondicaoListNew.add(relacaosubcondicaoListNewRelacaosubcondicaoToAttach);
+//            }
+//            relacaosubcondicaoListNew = attachedRelacaosubcondicaoListNew;
+//            historicorisco.setRelacaosubcondicaoList(relacaosubcondicaoListNew);
             List<Subcondicao> attachedSubcondicaoListNew = new ArrayList<Subcondicao>();
-            for (Subcondicao subcondicaoListNewSubcondicaoToAttach : subcondicaoListNew) {
-                subcondicaoListNewSubcondicaoToAttach = em.getReference(subcondicaoListNewSubcondicaoToAttach.getClass(), subcondicaoListNewSubcondicaoToAttach.getIdSubcondicao());
-                attachedSubcondicaoListNew.add(subcondicaoListNewSubcondicaoToAttach);
-            }
-            subcondicaoListNew = attachedSubcondicaoListNew;
-            historicorisco.setSubcondicaoList(subcondicaoListNew);
-            historicorisco = em.merge(historicorisco);
-            for (Relacaosubcondicao relacaosubcondicaoListOldRelacaosubcondicao : relacaosubcondicaoListOld) {
-                if (!relacaosubcondicaoListNew.contains(relacaosubcondicaoListOldRelacaosubcondicao)) {
-                    relacaosubcondicaoListOldRelacaosubcondicao.getHistoricoriscoList().remove(historicorisco);
-                    relacaosubcondicaoListOldRelacaosubcondicao = em.merge(relacaosubcondicaoListOldRelacaosubcondicao);
-                }
-            }
-            for (Relacaosubcondicao relacaosubcondicaoListNewRelacaosubcondicao : relacaosubcondicaoListNew) {
-                if (!relacaosubcondicaoListOld.contains(relacaosubcondicaoListNewRelacaosubcondicao)) {
-                    relacaosubcondicaoListNewRelacaosubcondicao.getHistoricoriscoList().add(historicorisco);
-                    relacaosubcondicaoListNewRelacaosubcondicao = em.merge(relacaosubcondicaoListNewRelacaosubcondicao);
-                }
-            }
-            for (Subcondicao subcondicaoListOldSubcondicao : subcondicaoListOld) {
-                if (!subcondicaoListNew.contains(subcondicaoListOldSubcondicao)) {
-                    subcondicaoListOldSubcondicao.getHistoricoriscoList().remove(historicorisco);
-                    subcondicaoListOldSubcondicao = em.merge(subcondicaoListOldSubcondicao);
-                }
-            }
-            for (Subcondicao subcondicaoListNewSubcondicao : subcondicaoListNew) {
-                if (!subcondicaoListOld.contains(subcondicaoListNewSubcondicao)) {
-                    subcondicaoListNewSubcondicao.getHistoricoriscoList().add(historicorisco);
-                    subcondicaoListNewSubcondicao = em.merge(subcondicaoListNewSubcondicao);
-                }
-            }
+//            for (Subcondicao subcondicaoListNewSubcondicaoToAttach : subcondicaoListNew) {
+//                subcondicaoListNewSubcondicaoToAttach = em.getReference(subcondicaoListNewSubcondicaoToAttach.getClass(), subcondicaoListNewSubcondicaoToAttach.getIdSubcondicao());
+////                attachedSubcondicaoListNew.add(subcondicaoListNewSubcondicaoToAttach);
+////            }
+//            subcondicaoListNew = attachedSubcondicaoListNew;
+//            historicorisco.setSubcondicaoList(subcondicaoListNew);
+//            historicorisco = em.merge(historicorisco);
+//            for (Relacaosubcondicao relacaosubcondicaoListOldRelacaosubcondicao : relacaosubcondicaoListOld) {
+//                if (!relacaosubcondicaoListNew.contains(relacaosubcondicaoListOldRelacaosubcondicao)) {
+//                    relacaosubcondicaoListOldRelacaosubcondicao.getHistoricoriscoList().remove(historicorisco);
+//                    relacaosubcondicaoListOldRelacaosubcondicao = em.merge(relacaosubcondicaoListOldRelacaosubcondicao);
+//                }
+//            }
+//            for (Relacaosubcondicao relacaosubcondicaoListNewRelacaosubcondicao : relacaosubcondicaoListNew) {
+//                if (!relacaosubcondicaoListOld.contains(relacaosubcondicaoListNewRelacaosubcondicao)) {
+//                    relacaosubcondicaoListNewRelacaosubcondicao.getHistoricoriscoList().add(historicorisco);
+//                    relacaosubcondicaoListNewRelacaosubcondicao = em.merge(relacaosubcondicaoListNewRelacaosubcondicao);
+//                }
+//            }
+//            for (Subcondicao subcondicaoListOldSubcondicao : subcondicaoListOld) {
+//                if (!subcondicaoListNew.contains(subcondicaoListOldSubcondicao)) {
+//                    subcondicaoListOldSubcondicao.getHistoricoriscoList().remove(historicorisco);
+//                    subcondicaoListOldSubcondicao = em.merge(subcondicaoListOldSubcondicao);
+//                }
+//            }
+//            for (Subcondicao subcondicaoListNewSubcondicao : subcondicaoListNew) {
+//                if (!subcondicaoListOld.contains(subcondicaoListNewSubcondicao)) {
+//                    subcondicaoListNewSubcondicao.getHistoricoriscoList().add(historicorisco);
+//                    subcondicaoListNewSubcondicao = em.merge(subcondicaoListNewSubcondicao);
+//                }
+//            }
             em.getTransaction().commit();
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
@@ -158,11 +157,11 @@ public class HistoricoriscoJpaController implements Serializable {
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The historicorisco with id " + id + " no longer exists.", enfe);
             }
-            List<Relacaosubcondicao> relacaosubcondicaoList = historicorisco.getRelacaosubcondicaoList();
-            for (Relacaosubcondicao relacaosubcondicaoListRelacaosubcondicao : relacaosubcondicaoList) {
-                relacaosubcondicaoListRelacaosubcondicao.getHistoricoriscoList().remove(historicorisco);
-                relacaosubcondicaoListRelacaosubcondicao = em.merge(relacaosubcondicaoListRelacaosubcondicao);
-            }
+//            List<Relacaosubcondicao> relacaosubcondicaoList = historicorisco.getRelacaosubcondicaoList();
+//            for (Relacaosubcondicao relacaosubcondicaoListRelacaosubcondicao : relacaosubcondicaoList) {
+//                relacaosubcondicaoListRelacaosubcondicao.getHistoricoriscoList().remove(historicorisco);
+//                relacaosubcondicaoListRelacaosubcondicao = em.merge(relacaosubcondicaoListRelacaosubcondicao);
+//            }
             List<Subcondicao> subcondicaoList = historicorisco.getSubcondicaoList();
             for (Subcondicao subcondicaoListSubcondicao : subcondicaoList) {
                 subcondicaoListSubcondicao.getHistoricoriscoList().remove(historicorisco);

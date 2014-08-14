@@ -10,6 +10,7 @@ import controller.exceptions.NonexistentEntityException;
 import java.util.List;
 import model.Gruporelacao;
 import model.Historicoalteracao;
+import model.Historicorisco;
 import model.Planocontingencia;
 import model.Planomitigacao;
 import model.Risco;
@@ -26,6 +27,7 @@ public class RiscoModificadoJpaController extends RiscoJpaController {
     PlanomitigacaoJpaController planomitigacaoJpaController = new PlanomitigacaoJpaController();
     SubcondicaoJpaController subcondicaoJpaController = new SubcondicaoJpaController();
     GruporelacaoJpaController gruporelacaoJpaController = new GruporelacaoJpaController();
+    HistoricoriscoJpaController historicoriscoJpaController = new HistoricoriscoJpaController();
     
     public void destroy(Risco risco) throws IllegalOrphanException, NonexistentEntityException {
 
@@ -53,8 +55,13 @@ public class RiscoModificadoJpaController extends RiscoJpaController {
                 risco.getRiscoList2().remove(i);
             }
             super.edit(risco);
+            // Remoção do Historicorisco relacionado ao Risco.
+            List<Historicorisco> listaHistoricorisco = historicoriscoJpaController.findHistoricoRiscoByIdRisco(risco.getIdRisco());
+            for (int i=0; i < listaHistoricorisco.size(); i++){
+                historicoriscoJpaController.destroy(listaHistoricorisco.get(i).getIdHistoricoRisco());
+            }
             
-            // Removendo Subcondiçôes e Historico risco do risco.
+            // Removendo das Subcondiçôes e Historico risco do risco.
             List<Subcondicao> listaSubcondicao = subcondicaoJpaController.findSubcondicaoByIdRisco(risco);
             List<Gruporelacao> listaGruporelacaos = gruporelacaoJpaController.findByRisco(risco);
             for (int i=0; i < listaGruporelacaos.size(); i++){

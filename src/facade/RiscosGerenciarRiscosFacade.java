@@ -27,7 +27,6 @@ import model.Planocontingencia;
 import model.Planomitigacao;
 import model.Pontodecontrole;
 import model.Projeto;
-import model.Relacaosubcondicao;
 import model.Risco;
 import model.Subcondicao;
 
