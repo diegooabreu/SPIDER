@@ -20,6 +20,7 @@ import model.Contem;
 import model.Planocontingencia;
 import model.Planomitigacao;
 import model.Projeto;
+import model.Risco;
 
 /**
  *
