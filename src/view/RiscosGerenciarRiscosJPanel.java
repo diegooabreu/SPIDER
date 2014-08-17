@@ -1566,7 +1566,7 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
                                 .addGap(55, 55, 55)
                                 .addComponent(relacoesRemoverInfluenciaJButton))
                             .addComponent(jScrollPane1))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 174, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 175, Short.MAX_VALUE)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                                 .addComponent(jLabel14)
@@ -1967,7 +1967,7 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
                 .addGroup(PlanoDeMitigacaoJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(PlanoDeMitigacaoJPanelLayout.createSequentialGroup()
                         .addComponent(planoDeMitigacaoPlanoDeMitigacaoJLabel)
-                        .addContainerGap(749, Short.MAX_VALUE))
+                        .addContainerGap(750, Short.MAX_VALUE))
                     .addGroup(PlanoDeMitigacaoJPanelLayout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -2151,7 +2151,7 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
                 .addGroup(PlanoContigenciaJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(PlanoContigenciaJPanelLayout.createSequentialGroup()
                         .addComponent(planoContigenciaPlanoDeContigenciaJLabel)
-                        .addContainerGap(738, Short.MAX_VALUE))
+                        .addContainerGap(739, Short.MAX_VALUE))
                     .addGroup(PlanoContigenciaJPanelLayout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -2177,7 +2177,7 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
         HistoricoDeAlteracoesJPanelLayout.setHorizontalGroup(
             HistoricoDeAlteracoesJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(HistoricoDeAlteracoesJPanelLayout.createSequentialGroup()
-                .addComponent(tabelaHistoricoAlteracoesJScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 842, Short.MAX_VALUE)
+                .addComponent(tabelaHistoricoAlteracoesJScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 843, Short.MAX_VALUE)
                 .addContainerGap())
         );
         HistoricoDeAlteracoesJPanelLayout.setVerticalGroup(

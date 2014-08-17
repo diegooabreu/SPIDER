@@ -47,6 +47,7 @@ public class PrincipalJFrame extends javax.swing.JFrame {
     final OrganizacionalEditarEARJPanel organizacionalEditarEARJPanel = new OrganizacionalEditarEARJPanel();
     final RiscosPriorizarRiscosJPanel riscosPriorizarRiscosJPanel = new RiscosPriorizarRiscosJPanel();
     final RiscosRiscosOcorridosJPanel riscosRiscosOcorridosJPanel = new RiscosRiscosOcorridosJPanel();
+    final RiscosResumoDeRiscosJPanel riscosResumoDeRiscosJPanel = new RiscosResumoDeRiscosJPanel();
 
     static MonitoracaoAnaliseDosRiscosJPanel monitoracaoAnaliseDosRiscosJPanel = new MonitoracaoAnaliseDosRiscosJPanel();
 
@@ -83,6 +84,7 @@ public class PrincipalJFrame extends javax.swing.JFrame {
     private DefaultMutableTreeNode tarefas;
     private DefaultMutableTreeNode planosPendentes;
     private DefaultMutableTreeNode planosRealizados;
+    private DefaultMutableTreeNode resumoDeRiscos;
 
     //*****************************************//
     /**
@@ -121,6 +123,8 @@ public class PrincipalJFrame extends javax.swing.JFrame {
             projetoCalendarioJPanel.setBounds(camadasJDesktopPane.getBounds());
         
             configuracoesFerramentaJPanel.setBounds(camadasJDesktopPane.getBounds());
+            
+            riscosResumoDeRiscosJPanel.setBounds(camadasJDesktopPane.getBounds());
         
             riscosGerenciarRiscosJPanel.setBounds(camadasJDesktopPane.getBounds());
         
@@ -393,6 +397,12 @@ public class PrincipalJFrame extends javax.swing.JFrame {
 
                         configuracoesFerramentaJPanel.setProjetoSelecionado(projetoSelecionado.getIdProjeto());
                         configuracoesFerramentaJPanel.preencherCaminhoPlanoRisco(projetoSelecionado.getIdProjeto());
+                        
+                        //Na tela Resumo de Riscos
+                        RiscosGerenciarRiscosFacade riscosGerenciarRiscosFacade = new RiscosGerenciarRiscosFacade();
+                        List<Risco> listaDeRiscoPorProjeto = riscosGerenciarRiscosFacade.listarRiscosByProjeto(projetoSelecionado);
+                        riscosResumoDeRiscosJPanel.criaTabelResumoDeRiscos();
+                        riscosResumoDeRiscosJPanel.preencherDadosTabelaResumoDeRiscos(listaDeRiscoPorProjeto);
 
                         // Na tela Gerenciar Riscos
                         //Na aba Informações Gerais
@@ -584,6 +594,9 @@ public class PrincipalJFrame extends javax.swing.JFrame {
 
         organizacionalEditarEARJPanel.setBounds(camadasJDesktopPane.getBounds());
         camadasJDesktopPane.add(organizacionalEditarEARJPanel);
+        
+        riscosResumoDeRiscosJPanel.setBounds(camadasJDesktopPane.getBounds());
+        camadasJDesktopPane.add(riscosResumoDeRiscosJPanel);
 
         riscosPriorizarRiscosJPanel.setBounds(camadasJDesktopPane.getBounds());
         camadasJDesktopPane.add(riscosPriorizarRiscosJPanel);
@@ -633,6 +646,7 @@ public class PrincipalJFrame extends javax.swing.JFrame {
         projetoCalendarioJPanel.setVisible(false);
         configuracoesFerramentaJPanel.setVisible(false);
         riscosGerenciarRiscosJPanel.setVisible(false);
+        riscosResumoDeRiscosJPanel.setVisible(false);
         novoProjetoJPanel.setVisible(false);
         organizacionalEditarEARJPanel.setVisible(false);
         riscosPriorizarRiscosJPanel.setVisible(false);
@@ -680,9 +694,13 @@ public class PrincipalJFrame extends javax.swing.JFrame {
 
         riscos = new DefaultMutableTreeNode("Riscos");
         projeto.add(riscos);
+        
+        resumoDeRiscos = new DefaultMutableTreeNode("Resumo de Riscos");
+        riscos.add(resumoDeRiscos);
 
         gerenciarRiscos = new DefaultMutableTreeNode("Gerenciar Riscos");
         riscos.add(gerenciarRiscos);
+        
 
         priorizarRiscos = new DefaultMutableTreeNode("Priorizar Riscos");
         riscos.add(priorizarRiscos);
@@ -785,6 +803,13 @@ public class PrincipalJFrame extends javax.swing.JFrame {
                         ProjetoFacade projetoFacade = new ProjetoFacade();
                         monitoracaoPlanosRealizadosJPanel.criarTabelaPlanosRealizados(projetoFacade.buscaPlanosDeContingenciaRealizados(projetoSelecionado), projetoFacade.buscaPlanosDeMitigacaoRealizados(projetoSelecionado));
                         monitoracaoPlanosRealizadosJPanel.setVisible(true);
+                    }
+                    else if (node == resumoDeRiscos) {
+                        RiscosGerenciarRiscosFacade riscosGerenciarRiscosFacade = new RiscosGerenciarRiscosFacade();
+                        List<Risco> listaDeRiscoPorProjeto = riscosGerenciarRiscosFacade.listarRiscosByProjeto(projetoSelecionado);
+                        riscosResumoDeRiscosJPanel.criaTabelResumoDeRiscos();
+                        riscosResumoDeRiscosJPanel.preencherDadosTabelaResumoDeRiscos(listaDeRiscoPorProjeto);
+                        riscosResumoDeRiscosJPanel.setVisible(true);
                     }
                 }
             }
