@@ -363,7 +363,8 @@ public class RiscoSelecioanrRiscoParaMonitorarInternalJFrame extends javax.swing
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         setVisible(false);
-        //setDefaultCloseOperation(EXIT_ON_CLOSE);
+        RiscosPriorizarRiscosJPanel riscosPriorizarRiscosJPanel = new RiscosPriorizarRiscosJPanel();
+        riscosPriorizarRiscosJPanel.atualizaTabelaPriorizarRiscos(listaRiscos);
     }//GEN-LAST:event_jButton1ActionPerformed
 
 

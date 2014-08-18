@@ -42,7 +42,7 @@ public class PrincipalJFrame extends javax.swing.JFrame {
     final ProjetoEstruturaAnaliticaRiscosJpanel projetoEstruturaAnaliticaRiscosJpanel = new ProjetoEstruturaAnaliticaRiscosJpanel();
     final ProjetoCalendarioJPanel projetoCalendarioJPanel = new ProjetoCalendarioJPanel();
     final ConfiguracoesFerramentaJPanel configuracoesFerramentaJPanel = new ConfiguracoesFerramentaJPanel();
-    final RiscosGerenciarRiscosJPanel riscosGerenciarRiscosJPanel = new RiscosGerenciarRiscosJPanel();
+    RiscosGerenciarRiscosJPanel riscosGerenciarRiscosJPanel = new RiscosGerenciarRiscosJPanel();
     final NovoProjetoJPanel novoProjetoJPanel = new NovoProjetoJPanel();
     final OrganizacionalEditarEARJPanel organizacionalEditarEARJPanel = new OrganizacionalEditarEARJPanel();
     final RiscosPriorizarRiscosJPanel riscosPriorizarRiscosJPanel = new RiscosPriorizarRiscosJPanel();
@@ -642,7 +642,7 @@ public class PrincipalJFrame extends javax.swing.JFrame {
         monitoracaoPlanosPendentesJPanel.setVisible(false);
         monitoracaoPlanosRealizadosJPanel.setVisible(false);
 
-        //tInternaisFrame
+        //InternaisFrame
         riscoSelecioanrRiscoParaMonitorarInternalJFrame.setVisible(false);
         monitoracaoAnaliseDosRiscosCheckInternalJFrame.setVisible(false);
         riscosRiscosOcorridosJInternalFrame.setVisible(false);
@@ -752,6 +752,7 @@ public class PrincipalJFrame extends javax.swing.JFrame {
                         projetoPlanoRiscoJpanel.preenchePlanoRisco(projetoSelecionado);
                     } else if (node == gerenciarRiscos) {
                         riscosGerenciarRiscosJPanel.setVisible(true);
+                        riscosGerenciarRiscosJPanel.limpaCamposGerenciarRisco();
                         riscosGerenciarRiscosJPanel.reiniciarTabelaRiscos();
                     } else if (node == earProjeto) {
                         projetoEstruturaAnaliticaRiscosJpanel.setVisible(true);
