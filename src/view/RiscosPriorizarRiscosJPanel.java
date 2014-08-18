@@ -444,8 +444,8 @@ public class RiscosPriorizarRiscosJPanel extends javax.swing.JPanel {
         List<Risco> listaTemp = new ArrayList<Risco>();
         for (int i = 0; i < novaListaDeRisco.size(); i++) {
             if (novaListaDeRisco.get(i).getPrioridade() > 0) {
-                String[] linha = new String[]{novaListaDeRisco.get(i).getIdentificacao().toString(),
-                    novaListaDeRisco.get(i).getDescricao().toString(),
+                String[] linha = new String[]{novaListaDeRisco.get(i).getIdentificacao(),
+                    novaListaDeRisco.get(i).getDescricao(),
                     novaListaDeRisco.get(i).getStatusRisco()};
                 modeloTabelaDeRiscosJTable.addRow(linha);
             } else {
@@ -455,13 +455,17 @@ public class RiscosPriorizarRiscosJPanel extends javax.swing.JPanel {
         }
 
         for (int i = 0; i < listaTemp.size(); i++) {
-            String[] linha = new String[]{novaListaDeRisco.get(i).getIdentificacao().toString(),
-                novaListaDeRisco.get(i).getDescricao().toString(),
+            String[] linha = new String[]{novaListaDeRisco.get(i).getIdentificacao(),
+                novaListaDeRisco.get(i).getDescricao(),
                 novaListaDeRisco.get(i).getStatusRisco()};
             modeloTabelaDeRiscosJTable.addRow(linha);
         }
     }
-
+    
+    public void atualizaTabelaPriorizarRiscos (List<Risco> outraListaDeRisco){
+        criaTabela();
+        populaTabelaDeRiscos(outraListaDeRisco, true);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton MonitorarRisco;
