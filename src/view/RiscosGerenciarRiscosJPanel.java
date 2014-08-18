@@ -292,7 +292,7 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
         dataIdentificacaoDoRisco.setValue(null);
         informacoesGeraisEmissorJTextField.setText("");
         InformacoesGeraisDescricaoDeRiscoJTextArea.setText("");
-        informacoesGeraisCategoriaDeRiscoJComboBox.removeAllItems();
+        //informacoesGeraisCategoriaDeRiscoJComboBox.removeAllItems();
         informacoesGeraisProbabilidadeJSpinner.setValue(0);
         informacoesGeraisImpactoJComboBox.setSelectedIndex(0);
         estadoAtualRiscoJLabel.setText("");
