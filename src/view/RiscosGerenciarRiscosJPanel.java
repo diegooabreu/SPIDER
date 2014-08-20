@@ -349,6 +349,7 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
                     atualizaPreencheListaRiscosInfluencia();
                     preencheListaRiscosInfluenciados();
                     atualizaPreencheListaRiscosApresentados();
+                    filtraListaRiscosApresentados();
 
                     //Preenche tabela de subcondições do risco selecionado
                     getListaSubcondicoes(riscoSelecionado);
@@ -939,11 +940,14 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
     //Metódo que filtra a lista de riscos apresentados
     private void filtraListaRiscosApresentados() {
         //System.out.println("Linhas: " + modelListaRiscosApresentados.getSize());
-        if (modelListaRiscosApresentados.getSize() > 0) {
+        if (!(modelListaRiscosApresentados == null) || (modelListaRiscosApresentados.getSize() > 0) ) {
             for (int i = 0; i < modelListaRiscosApresentados.getSize(); i++) {
                 for (int j = 0; j < riscosNaoAdd.size(); j++) {
                     if (modelListaRiscosApresentados.get(i).toString().equals(riscosNaoAdd.get(j).getIdentificacao())) {
                         modelListaRiscosApresentados.remove(i);
+                        if (modelListaRiscosApresentados.size() == 0){
+                            break;
+                        }
                         i = 0;
                     }
                 }
@@ -2858,7 +2862,9 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
                 listaInfluneciaTemp.add(riscoSelecionadoRelacoes);
                 riscoSelecionado.setRiscoList2(listaInfluneciaTemp);
                 try {
-                    riscosGerenciarRiscosFacade.editarRisco(riscoSelecionado);
+                    //riscosGerenciarRiscosFacade.editarRisco(riscoSelecionado);
+                    riscosGerenciarRiscosFacade.inserirRelacoesEntreRiscos(riscoSelecionadoRelacoes, riscoSelecionado);
+                    
                 } catch (Exception e) {
                     JOptionPane.showMessageDialog(null, "Erro ao adicionar influência. Tabela desatualizada.");
                 }

@@ -54,6 +54,10 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Risco.findAllPOrdemGrauDeEsposicao", query = "SELECT r FROM Risco r WHERE r.contem.projeto = :idProjeto order by r.prioridade asc, r.grauSeveridade desc")
 
 public class Risco implements Serializable {
+//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "riscoidRisco1")
+//    private List<Influencia> influenciaList;
+//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "riscoidRisco")
+//    private List<Influencia> influenciaList1;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idRisco")
     private List<Subcondicao> subcondicaoList;
     @Basic(optional = false)
@@ -321,5 +325,23 @@ public class Risco implements Serializable {
     public void setSubcondicaoList(List<Subcondicao> subcondicaoList) {
         this.subcondicaoList = subcondicaoList;
     }
+
+//    @XmlTransient
+//    public List<Influencia> getInfluenciaList() {
+//        return influenciaList;
+//    }
+//
+//    public void setInfluenciaList(List<Influencia> influenciaList) {
+//        this.influenciaList = influenciaList;
+//    }
+//
+//    @XmlTransient
+//    public List<Influencia> getInfluenciaList1() {
+//        return influenciaList1;
+//    }
+//
+//    public void setInfluenciaList1(List<Influencia> influenciaList1) {
+//        this.influenciaList1 = influenciaList1;
+//    }
     
 }

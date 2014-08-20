@@ -12,6 +12,7 @@ import controller.MarcodoprojetoJpaController;
 import controller.PlanocontingenciaJpaController;
 import controller.PlanomitigacaoJpaController;
 import controller.PontodecontroleJpaController;
+import controller.RelacaoentreriscosJpaController;
 import controller.RiscoJpaController;
 import controller.RiscoModificadoJpaController;
 import controller.SubcondicaoJpaController;
@@ -27,6 +28,7 @@ import model.Planocontingencia;
 import model.Planomitigacao;
 import model.Pontodecontrole;
 import model.Projeto;
+import model.Relacaoentreriscos;
 import model.Risco;
 import model.Subcondicao;
 
@@ -420,4 +422,12 @@ public class RiscosGerenciarRiscosFacade {
         return listaRiscoDoProjeto;
     }
     
+    public void inserirRelacoesEntreRiscos (Risco riscoInfluenciado, Risco riscoInfluenciador){
+        RelacaoentreriscosJpaController relacaoentreriscosJpaController = new RelacaoentreriscosJpaController();
+        Relacaoentreriscos relacaoentreriscos = new Relacaoentreriscos();
+        relacaoentreriscos.setIdRiscoInfluenciado(riscoInfluenciado.getIdRisco());
+        relacaoentreriscos.setIdRiscoInfluenciador(riscoInfluenciador.getIdRisco());
+        relacaoentreriscosJpaController.create(relacaoentreriscos);
+    
+    }
 }
