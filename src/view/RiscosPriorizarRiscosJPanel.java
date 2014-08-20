@@ -441,6 +441,11 @@ public class RiscosPriorizarRiscosJPanel extends javax.swing.JPanel {
         if (atualizacao == false) {
             listaDeRisco = novaListaDeRisco;
         }
+        
+        while(modeloTabelaDeRiscosJTable.getRowCount()>0){
+              modeloTabelaDeRiscosJTable.removeRow(0);
+        }
+        
         List<Risco> listaTemp = new ArrayList<Risco>();
         for (int i = 0; i < novaListaDeRisco.size(); i++) {
             if (novaListaDeRisco.get(i).getPrioridade() > 0) {
@@ -462,9 +467,21 @@ public class RiscosPriorizarRiscosJPanel extends javax.swing.JPanel {
         }
     }
     
+    public void atualizarTabela (List<Risco> outraListaDeRisco){
+        while(modeloTabelaDeRiscosJTable.getRowCount()>0){
+              modeloTabelaDeRiscosJTable.removeRow(0);
+        }
+        for (int i = 0; i < outraListaDeRisco.size(); i++) {
+            String[] linha = new String[]{outraListaDeRisco.get(i).getIdentificacao(),
+                outraListaDeRisco.get(i).getDescricao(),
+                outraListaDeRisco.get(i).getStatusRisco()};
+            modeloTabelaDeRiscosJTable.addRow(linha);
+        }
+    }
+    
     public void atualizaTabelaPriorizarRiscos (List<Risco> outraListaDeRisco){
         criaTabela();
-        populaTabelaDeRiscos(outraListaDeRisco, true);
+        atualizarTabela(outraListaDeRisco);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
