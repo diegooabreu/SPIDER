@@ -45,7 +45,7 @@ public class PrincipalJFrame extends javax.swing.JFrame {
     RiscosGerenciarRiscosJPanel riscosGerenciarRiscosJPanel = new RiscosGerenciarRiscosJPanel();
     final NovoProjetoJPanel novoProjetoJPanel = new NovoProjetoJPanel();
     final OrganizacionalEditarEARJPanel organizacionalEditarEARJPanel = new OrganizacionalEditarEARJPanel();
-    final RiscosPriorizarRiscosJPanel riscosPriorizarRiscosJPanel = new RiscosPriorizarRiscosJPanel();
+    static RiscosPriorizarRiscosJPanel riscosPriorizarRiscosJPanel = new RiscosPriorizarRiscosJPanel();
     final RiscosRiscosOcorridosJPanel riscosRiscosOcorridosJPanel = new RiscosRiscosOcorridosJPanel();
     final RiscosResumoDeRiscosJPanel riscosResumoDeRiscosJPanel = new RiscosResumoDeRiscosJPanel();
 
@@ -61,8 +61,7 @@ public class PrincipalJFrame extends javax.swing.JFrame {
     static RiscosRiscosOcorridosJInternalFrame riscosRiscosOcorridosJInternalFrame = new RiscosRiscosOcorridosJInternalFrame();
     static CalendarioDetalhesMarcoEpontoDoDiaInternalJFrame calendarioDetalhesMarcoEpontoDoDiaInternalJFrame = new CalendarioDetalhesMarcoEpontoDoDiaInternalJFrame();
     static MonitorarPlanosPendentesMaisInformaçõesInternalFrame monitorarPlanosPendentesMaisInformaçõesInternalFrame = new MonitorarPlanosPendentesMaisInformaçõesInternalFrame();
-    
-    
+
     // Criando Arvore de Funcionalidades - Menu //
     private JTree arvoreFuncionalidadesJTree;
     private DefaultMutableTreeNode funcionalidades;
@@ -102,75 +101,75 @@ public class PrincipalJFrame extends javax.swing.JFrame {
 
     }
 
-    public void definirEventoRedimensionamento(){
-        this.addComponentListener(new java.awt.event.ComponentListener() {  
+    public void definirEventoRedimensionamento() {
+        this.addComponentListener(new java.awt.event.ComponentListener() {
             public void componentResized(java.awt.event.ComponentEvent e) {
-                
+
                 organizacionalDetalhesJPanel.setBounds(camadasJDesktopPane.getBounds());
-                
+
                 organizacionalEARJPanel.setBounds(camadasJDesktopPane.getBounds());
-        
-            organizacionalPoliticaOrganizacionalJPanel.setBounds(camadasJDesktopPane.getBounds());
-        
-            organizacionalPortfolioJPanel.setBounds(camadasJDesktopPane.getBounds());
-        
-            projetoDetalhesJPanel.setBounds(camadasJDesktopPane.getBounds());
-       
-            projetoPlanoRiscoJpanel.setBounds(camadasJDesktopPane.getBounds());
-        
-            projetoEstruturaAnaliticaRiscosJpanel.setBounds(camadasJDesktopPane.getBounds());
-        
-            projetoCalendarioJPanel.setBounds(camadasJDesktopPane.getBounds());
-        
-            configuracoesFerramentaJPanel.setBounds(camadasJDesktopPane.getBounds());
-            
-            riscosResumoDeRiscosJPanel.setBounds(camadasJDesktopPane.getBounds());
-        
-            riscosGerenciarRiscosJPanel.setBounds(camadasJDesktopPane.getBounds());
-        
-            novoProjetoJPanel.setBounds(camadasJDesktopPane.getBounds());
-        
-            organizacionalEditarEARJPanel.setBounds(camadasJDesktopPane.getBounds());
-        
-            riscosPriorizarRiscosJPanel.setBounds(camadasJDesktopPane.getBounds());
-        
-            riscosRiscosOcorridosJPanel.setBounds(camadasJDesktopPane.getBounds());
-        
-            monitoracaoAnaliseDosRiscosJPanel.setBounds(camadasJDesktopPane.getBounds());
-        
-            monitoracoaTabelaDeAlteracaoJPanel.setBounds(camadasJDesktopPane.getBounds());
-        
-            monitoracaoPlanosPendentesJPanel.setBounds(camadasJDesktopPane.getBounds());
-        
-            monitoracaoPlanosRealizadosJPanel.setBounds(camadasJDesktopPane.getBounds());
-        
-        
-                
+
+                organizacionalPoliticaOrganizacionalJPanel.setBounds(camadasJDesktopPane.getBounds());
+
+                organizacionalPortfolioJPanel.setBounds(camadasJDesktopPane.getBounds());
+
+                projetoDetalhesJPanel.setBounds(camadasJDesktopPane.getBounds());
+
+                projetoPlanoRiscoJpanel.setBounds(camadasJDesktopPane.getBounds());
+
+                projetoEstruturaAnaliticaRiscosJpanel.setBounds(camadasJDesktopPane.getBounds());
+
+                projetoCalendarioJPanel.setBounds(camadasJDesktopPane.getBounds());
+
+                configuracoesFerramentaJPanel.setBounds(camadasJDesktopPane.getBounds());
+
+                riscosResumoDeRiscosJPanel.setBounds(camadasJDesktopPane.getBounds());
+
+                riscosGerenciarRiscosJPanel.setBounds(camadasJDesktopPane.getBounds());
+
+                novoProjetoJPanel.setBounds(camadasJDesktopPane.getBounds());
+
+                organizacionalEditarEARJPanel.setBounds(camadasJDesktopPane.getBounds());
+
+                riscosPriorizarRiscosJPanel.setBounds(camadasJDesktopPane.getBounds());
+
+                riscosRiscosOcorridosJPanel.setBounds(camadasJDesktopPane.getBounds());
+
+                monitoracaoAnaliseDosRiscosJPanel.setBounds(camadasJDesktopPane.getBounds());
+
+                monitoracoaTabelaDeAlteracaoJPanel.setBounds(camadasJDesktopPane.getBounds());
+
+                monitoracaoPlanosPendentesJPanel.setBounds(camadasJDesktopPane.getBounds());
+
+                monitoracaoPlanosRealizadosJPanel.setBounds(camadasJDesktopPane.getBounds());
+
                 System.out.println("componentResized()"); // TODO Auto-generated Event stub componentResized()  
-            }  
-            public void componentMoved(java.awt.event.ComponentEvent e) {  
-            }  
-            public void componentShown(java.awt.event.ComponentEvent e) {  
-            }  
-            public void componentHidden(java.awt.event.ComponentEvent e) {  
-            }  
-        });  
+            }
+
+            public void componentMoved(java.awt.event.ComponentEvent e) {
+            }
+
+            public void componentShown(java.awt.event.ComponentEvent e) {
+            }
+
+            public void componentHidden(java.awt.event.ComponentEvent e) {
+            }
+        });
     }
     /*
-    this.addComponentListener(new java.awt.event.ComponentListener() {  
-            public void componentResized(java.awt.event.ComponentEvent e) {  
-                System.out.println("componentResized()"); // TODO Auto-generated Event stub componentResized()  
-            }  
-            public void componentMoved(java.awt.event.ComponentEvent e) {  
-            }  
-            public void componentShown(java.awt.event.ComponentEvent e) {  
-            }  
-            public void componentHidden(java.awt.event.ComponentEvent e) {  
-            }  
-        });  
-    */
-    
-    
+     this.addComponentListener(new java.awt.event.ComponentListener() {  
+     public void componentResized(java.awt.event.ComponentEvent e) {  
+     System.out.println("componentResized()"); // TODO Auto-generated Event stub componentResized()  
+     }  
+     public void componentMoved(java.awt.event.ComponentEvent e) {  
+     }  
+     public void componentShown(java.awt.event.ComponentEvent e) {  
+     }  
+     public void componentHidden(java.awt.event.ComponentEvent e) {  
+     }  
+     });  
+     */
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -359,19 +358,19 @@ public class PrincipalJFrame extends javax.swing.JFrame {
         riscoSelecioanrRiscoParaMonitorarInternalJFrame.setVisible(true);
     }
 
-    static void aparecerInternalFrameMonitoracao(){
+    static void aparecerInternalFrameMonitoracao() {
         monitoracaoAnaliseDosRiscosCheckInternalJFrame.setVisible(true);
     }
 
-    static void aparecerInternalFrameRiscosOcorridos(){
+    static void aparecerInternalFrameRiscosOcorridos() {
         riscosRiscosOcorridosJInternalFrame.setVisible(true);
     }
-    
-    static void aparecerInternalCalendarioDetalhesMarcoEPonto(){
+
+    static void aparecerInternalCalendarioDetalhesMarcoEPonto() {
         calendarioDetalhesMarcoEpontoDoDiaInternalJFrame.setVisible(true);
     }
-    
-    static void aparecerInternalFramePlanosPendentes(){
+
+    static void aparecerInternalFramePlanosPendentes() {
         monitorarPlanosPendentesMaisInformaçõesInternalFrame.setVisible(true);
     }
 
@@ -397,7 +396,7 @@ public class PrincipalJFrame extends javax.swing.JFrame {
 
                         configuracoesFerramentaJPanel.setProjetoSelecionado(projetoSelecionado.getIdProjeto());
                         configuracoesFerramentaJPanel.preencherCaminhoPlanoRisco(projetoSelecionado.getIdProjeto());
-                        
+
                         //Na tela Resumo de Riscos
                         RiscosGerenciarRiscosFacade riscosGerenciarRiscosFacade = new RiscosGerenciarRiscosFacade();
                         List<Risco> listaDeRiscoPorProjeto = riscosGerenciarRiscosFacade.listarRiscosByProjeto(projetoSelecionado);
@@ -557,7 +556,7 @@ public class PrincipalJFrame extends javax.swing.JFrame {
 
     // Adicionando Frames no Painel em Camadas - camadasJLayeredPane //
     private void adicionarFrames() {
-        
+
         //organizacionalDetalhesJPanel.setBounds(0, 0, 861, 529);
         organizacionalDetalhesJPanel.setBounds(camadasJDesktopPane.getBounds());
         camadasJDesktopPane.add(organizacionalDetalhesJPanel);
@@ -594,7 +593,7 @@ public class PrincipalJFrame extends javax.swing.JFrame {
 
         organizacionalEditarEARJPanel.setBounds(camadasJDesktopPane.getBounds());
         camadasJDesktopPane.add(organizacionalEditarEARJPanel);
-        
+
         riscosResumoDeRiscosJPanel.setBounds(camadasJDesktopPane.getBounds());
         camadasJDesktopPane.add(riscosResumoDeRiscosJPanel);
 
@@ -621,17 +620,15 @@ public class PrincipalJFrame extends javax.swing.JFrame {
         camadasJDesktopPane.add(monitoracaoAnaliseDosRiscosCheckInternalJFrame);
 
         camadasJDesktopPane.add(riscosRiscosOcorridosJInternalFrame);
-        
+
         calendarioDetalhesMarcoEpontoDoDiaInternalJFrame.setBounds(0, 0, 615, 420);
         camadasJDesktopPane.add(calendarioDetalhesMarcoEpontoDoDiaInternalJFrame);
-        
+
         camadasJDesktopPane.add(monitorarPlanosPendentesMaisInformaçõesInternalFrame);
 
         //riscosPriorizarRiscosJPanel.setBounds(0, 0, 861, 529);
         //camadasJDesktopPane.add(riscosPriorizarRiscosJPanel);
-
         //camadasJDesktopPane.add(riscosSelecionarRiscosParaMonitorarInternalJFrame);
-
     }
     //**************************************************************//
 
@@ -697,7 +694,6 @@ public class PrincipalJFrame extends javax.swing.JFrame {
 
         gerenciarRiscos = new DefaultMutableTreeNode("Gerenciar Riscos");
         riscos.add(gerenciarRiscos);
-        
 
         priorizarRiscos = new DefaultMutableTreeNode("Priorizar Riscos");
         riscos.add(priorizarRiscos);
@@ -798,8 +794,7 @@ public class PrincipalJFrame extends javax.swing.JFrame {
                         ProjetoFacade projetoFacade = new ProjetoFacade();
                         monitoracaoPlanosRealizadosJPanel.criarTabelaPlanosRealizados(projetoFacade.buscaPlanosDeContingenciaRealizados(projetoSelecionado), projetoFacade.buscaPlanosDeMitigacaoRealizados(projetoSelecionado));
                         monitoracaoPlanosRealizadosJPanel.setVisible(true);
-                    }
-                    else if (node == riscos) {
+                    } else if (node == riscos) {
                         RiscosGerenciarRiscosFacade riscosGerenciarRiscosFacade = new RiscosGerenciarRiscosFacade();
                         List<Risco> listaDeRiscoPorProjeto = riscosGerenciarRiscosFacade.listarRiscosByProjeto(projetoSelecionado);
                         riscosResumoDeRiscosJPanel.criaTabelResumoDeRiscos();

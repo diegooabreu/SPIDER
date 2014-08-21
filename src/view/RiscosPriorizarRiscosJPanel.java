@@ -41,7 +41,7 @@ public class RiscosPriorizarRiscosJPanel extends javax.swing.JPanel {
     private Risco RiscoSelecionado;
     private List<Risco> listaDeRiscoModificada;
     public int riscoSelecionado;
-    public Projeto projetoSelecionado;
+    public static Projeto projetoSelecionado;
     RiscosGerenciarRiscosFacade riscosGerenciarRiscosFacade = new RiscosGerenciarRiscosFacade();
 
     /**
@@ -419,11 +419,11 @@ public class RiscosPriorizarRiscosJPanel extends javax.swing.JPanel {
     public void criaTabela() {
         limparCamposOutrasInformacoes();
         tabelaDeRiscosJTable = new JTable();
-        modeloTabelaDeRiscosJTable = new DefaultTableModel(){
+        modeloTabelaDeRiscosJTable = new DefaultTableModel() {
             @Override
-            public boolean isCellEditable(int row, int col) {  
-            return false;  
-            }  
+            public boolean isCellEditable(int row, int col) {
+                return false;
+            }
         };
         modeloTabelaDeRiscosJTable.setColumnIdentifiers(new String[]{"Identificação", "Descrição", "Estado"});
         tabelaDeRiscosJTable.setModel(modeloTabelaDeRiscosJTable);
@@ -441,11 +441,11 @@ public class RiscosPriorizarRiscosJPanel extends javax.swing.JPanel {
         if (atualizacao == false) {
             listaDeRisco = novaListaDeRisco;
         }
-        
-        while(modeloTabelaDeRiscosJTable.getRowCount()>0){
-              modeloTabelaDeRiscosJTable.removeRow(0);
+
+        while (modeloTabelaDeRiscosJTable.getRowCount() > 0) {
+            modeloTabelaDeRiscosJTable.removeRow(0);
         }
-        
+
         List<Risco> listaTemp = new ArrayList<Risco>();
         for (int i = 0; i < novaListaDeRisco.size(); i++) {
             if (novaListaDeRisco.get(i).getPrioridade() > 0) {
@@ -466,10 +466,10 @@ public class RiscosPriorizarRiscosJPanel extends javax.swing.JPanel {
             modeloTabelaDeRiscosJTable.addRow(linha);
         }
     }
-    
-    public void atualizarTabela (List<Risco> outraListaDeRisco){
-        while(modeloTabelaDeRiscosJTable.getRowCount()>0){
-              modeloTabelaDeRiscosJTable.removeRow(0);
+
+    public void atualizarTabela(List<Risco> outraListaDeRisco) {
+        while (modeloTabelaDeRiscosJTable.getRowCount() > 0) {
+            modeloTabelaDeRiscosJTable.removeRow(0);
         }
         for (int i = 0; i < outraListaDeRisco.size(); i++) {
             String[] linha = new String[]{outraListaDeRisco.get(i).getIdentificacao(),
@@ -478,10 +478,20 @@ public class RiscosPriorizarRiscosJPanel extends javax.swing.JPanel {
             modeloTabelaDeRiscosJTable.addRow(linha);
         }
     }
-    
-    public void atualizaTabelaPriorizarRiscos (List<Risco> outraListaDeRisco){
+
+    public void atualizaTabelaPriorizarRiscos(List<Risco> outraListaDeRisco) {
         criaTabela();
         atualizarTabela(outraListaDeRisco);
+    }
+
+    public static void atualizarPriorizarRisco() {
+        PrincipalJFrame.riscosPriorizarRiscosJPanel.setVisible(true);
+        PrincipalJFrame.riscosPriorizarRiscosJPanel.criaTabela();
+        RiscosGerenciarRiscosFacade rGRfacade = new RiscosGerenciarRiscosFacade();
+        List<Risco> listaDeRisco = rGRfacade.listarRiscosPOrdemGrauDeEsposicao(projetoSelecionado);
+        PrincipalJFrame.riscosPriorizarRiscosJPanel.populaTabelaDeRiscos(listaDeRisco, false);
+        PrincipalJFrame.riscosPriorizarRiscosJPanel.definirEventosTabelaPriorizarRiscos();
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

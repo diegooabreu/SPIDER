@@ -189,7 +189,6 @@ public class RiscoSelecioanrRiscoParaMonitorarInternalJFrame extends javax.swing
 
     }
 
-   
     public void registraHistoricoAlteracoes(Risco riscoSelecionado, String mensagem) {
         riscosSelecionarRiscosParaMonitorarFacade.editRisco(riscoSelecionado);
         Historicoalteracao historicoalteracao = new Historicoalteracao();
@@ -200,7 +199,7 @@ public class RiscoSelecioanrRiscoParaMonitorarInternalJFrame extends javax.swing
         riscosGerenciarRiscosFacade.criaHistorioAlteracao(historicoalteracao);
         getListaHistoricoAlteracoes(riscoSelecionado);
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -363,8 +362,7 @@ public class RiscoSelecioanrRiscoParaMonitorarInternalJFrame extends javax.swing
     }
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        RiscosPriorizarRiscosJPanel riscosPriorizarRiscosJPanel = new RiscosPriorizarRiscosJPanel();
-        riscosPriorizarRiscosJPanel.atualizaTabelaPriorizarRiscos(listaRiscos);
+        RiscosPriorizarRiscosJPanel.atualizarPriorizarRisco();
         PrincipalJFrame.riscoSelecioanrRiscoParaMonitorarInternalJFrame.setVisible(false);
         //setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
