@@ -23,6 +23,7 @@ public class ProjetoPlanoRiscoJPanel extends javax.swing.JPanel {
     ProjetoPlanoRiscoFacade projetoPlanoRiscoFacade = new ProjetoPlanoRiscoFacade();
     ProjetoFacade projfacade = new ProjetoFacade();
     Projeto projetoSelecionado;
+    Projeto projeto;
 
     /**
      * Creates new form ProjetoPlanoRiscoJPanel
@@ -291,7 +292,7 @@ public class ProjetoPlanoRiscoJPanel extends javax.swing.JPanel {
 
     private void importarDocumentoJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_importarDocumentoJButtonActionPerformed
         JFileChooser fileChooser = new JFileChooser();
-        Projeto projeto;
+        //Projeto projeto;
 
         int idProjeto = projetoSelecionado.getIdProjeto();
         projeto = projfacade.getProjeto(idProjeto);
@@ -403,12 +404,13 @@ public class ProjetoPlanoRiscoJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_importarDocumentoJButtonActionPerformed
 
     private void abrirDocumentoJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_abrirDocumentoJButtonActionPerformed
-        Projeto projeto = new Projeto();
-        
+
         //int idProjeto;
         //idProjeto = listaProjetos.get(idProjetoSelecionado).getIdProjeto();
         //projeto = projetoPlanoRiscoFacade.getProjetoWhereId(idProjeto);
 
+        ProjetoFacade projFacade = new ProjetoFacade();
+        projetoSelecionado = projFacade.getProjeto(projetoSelecionado.getIdProjeto());
         projeto = projetoSelecionado;
         
         if (projeto.getCaminhoPlanoDeRisco() == null) {
@@ -416,8 +418,9 @@ public class ProjetoPlanoRiscoJPanel extends javax.swing.JPanel {
         } else {
             String separador = java.io.File.separator;
             String nomeArquivo = projeto.getNomeArquivoPlanoRisco();
-
-            File file = new File(projeto.getCaminhoPlanoDeRisco() + separador + nomeArquivo);
+            String diretorioArquivo = projeto.getCaminhoPlanoDeRisco();
+            
+            File file = new File(diretorioArquivo + separador + nomeArquivo);
 
             try {
                 java.awt.Desktop.getDesktop().open(file);
