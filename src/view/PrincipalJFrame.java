@@ -694,9 +694,6 @@ public class PrincipalJFrame extends javax.swing.JFrame {
 
         riscos = new DefaultMutableTreeNode("Riscos");
         projeto.add(riscos);
-        
-        resumoDeRiscos = new DefaultMutableTreeNode("Resumo de Riscos");
-        riscos.add(resumoDeRiscos);
 
         gerenciarRiscos = new DefaultMutableTreeNode("Gerenciar Riscos");
         riscos.add(gerenciarRiscos);
@@ -713,9 +710,6 @@ public class PrincipalJFrame extends javax.swing.JFrame {
 
         analiseRiscos = new DefaultMutableTreeNode("Analisar Riscos");
         monitoracao.add(analiseRiscos);
-
-        tabelaAlteracoes = new DefaultMutableTreeNode("Tabela de Alterações");
-        monitoracao.add(tabelaAlteracoes);
 
         planosPendentes = new DefaultMutableTreeNode("Planos Pendentes");
         monitoracao.add(planosPendentes);
@@ -805,7 +799,7 @@ public class PrincipalJFrame extends javax.swing.JFrame {
                         monitoracaoPlanosRealizadosJPanel.criarTabelaPlanosRealizados(projetoFacade.buscaPlanosDeContingenciaRealizados(projetoSelecionado), projetoFacade.buscaPlanosDeMitigacaoRealizados(projetoSelecionado));
                         monitoracaoPlanosRealizadosJPanel.setVisible(true);
                     }
-                    else if (node == resumoDeRiscos) {
+                    else if (node == riscos) {
                         RiscosGerenciarRiscosFacade riscosGerenciarRiscosFacade = new RiscosGerenciarRiscosFacade();
                         List<Risco> listaDeRiscoPorProjeto = riscosGerenciarRiscosFacade.listarRiscosByProjeto(projetoSelecionado);
                         riscosResumoDeRiscosJPanel.criaTabelResumoDeRiscos();
