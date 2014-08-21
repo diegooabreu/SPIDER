@@ -20,6 +20,7 @@
     <class>model.Categoriaderisco</class>
     <class>model.Risco</class>
     <class>model.Gruporelacao</class>
+    <class>model.Relacaoentreriscos</class>
     <shared-cache-mode>NONE</shared-cache-mode>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/spider_rm?zeroDateTimeBehavior=convertToNull"/>
