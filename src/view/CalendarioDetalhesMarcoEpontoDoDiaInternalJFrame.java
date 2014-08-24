@@ -542,7 +542,7 @@ public class CalendarioDetalhesMarcoEpontoDoDiaInternalJFrame extends javax.swin
                                 .addGroup(marcoPainelJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(nomeMarcoDoProjetoJLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(dataMarcoDoProjetoJLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(0, 117, Short.MAX_VALUE))
+                        .addGap(0, 127, Short.MAX_VALUE))
                     .addComponent(jScrollPane1))
                 .addContainerGap())
         );
@@ -585,7 +585,7 @@ public class CalendarioDetalhesMarcoEpontoDoDiaInternalJFrame extends javax.swin
             .addGroup(marcoEpontoDetalhesJPanelLayout.createSequentialGroup()
                 .addGap(252, 252, 252)
                 .addComponent(fecharJButton)
-                .addContainerGap(262, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         marcoEpontoDetalhesJPanelLayout.setVerticalGroup(
             marcoEpontoDetalhesJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -747,7 +747,7 @@ public class CalendarioDetalhesMarcoEpontoDoDiaInternalJFrame extends javax.swin
         jDesktopPane1.setLayout(jDesktopPane1Layout);
         jDesktopPane1Layout.setHorizontalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 579, Short.MAX_VALUE)
+            .addGap(0, 589, Short.MAX_VALUE)
             .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(marcoEpontoDetalhesJPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

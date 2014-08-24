@@ -22,12 +22,11 @@ public class ProjetoDetalhesJPanel extends javax.swing.JPanel {
      */
     ProjetoFacade projetoFacade = new ProjetoFacade();
 
-    private Projeto projetoSelecionado;
+    private static Projeto projetoSelecionado;
 
     public ProjetoDetalhesJPanel() {
         initComponents();
     }
-
 
     public void preencheDetalhes(Projeto projeto) {
 
@@ -37,31 +36,34 @@ public class ProjetoDetalhesJPanel extends javax.swing.JPanel {
         responsavelGerenciaRiscosJTextField.setText(projeto.getResponsavelGerenciaRiscos());
         descricaoProjetoJTextArea.setText(projeto.getDescricaoProjeto());
         statusProjetoJLabel.setText("Em andamento");
-        if (projeto.getConcluido()){
+        if (projeto.getConcluido()) {
             statusProjetoJLabel.setText("Concluído");
         }
 
     }
-    
-    public void habilitarProjetoDetalhesJPanel(){
+
+    public static void atualizaDetalhesDoProjeto() {
+        PrincipalJFrame.projetoDetalhesJPanel.setVisible(true);
+        PrincipalJFrame.projetoDetalhesJPanel.preencheDetalhes(projetoSelecionado);
+    }
+
+    public void habilitarProjetoDetalhesJPanel() {
         //nomeProjetoJTextField.setEnabled(true);
         responsavelProjetoJTextField.setEnabled(true);
         responsavelGerenciaRiscosJTextField.setEnabled(true);
         descricaoProjetoJTextArea.setEnabled(true);
-        
-        
+
         salvarAlteracoesJButton.setEnabled(true);
     }
-    
-    public void desabilitarProjetoDetalhesJPanel(){
-       // nomeProjetoJTextField.setEnabled(false);
+
+    public void desabilitarProjetoDetalhesJPanel() {
+        // nomeProjetoJTextField.setEnabled(false);
         responsavelProjetoJTextField.setEnabled(false);
         responsavelGerenciaRiscosJTextField.setEnabled(false);
         descricaoProjetoJTextArea.setEnabled(false);
-        
-        
+
         salvarAlteracoesJButton.setEnabled(false);
-        
+
     }
 
     /**
@@ -84,10 +86,10 @@ public class ProjetoDetalhesJPanel extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         descricaoProjetoJTextArea = new javax.swing.JTextArea();
         salvarAlteracoesJButton = new javax.swing.JButton();
-        resumoProjetoJButton = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel3 = new javax.swing.JLabel();
         statusProjetoJLabel = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         jTextField1.setText("jTextField1");
 
@@ -120,16 +122,16 @@ public class ProjetoDetalhesJPanel extends javax.swing.JPanel {
             }
         });
 
-        resumoProjetoJButton.setText("Resumo do Projeto");
-        resumoProjetoJButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                resumoProjetoJButtonActionPerformed(evt);
-            }
-        });
-
         jLabel3.setText("Status do Projeto:");
 
         statusProjetoJLabel.setText("status");
+
+        jButton1.setText("Resumo do Projeto");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -143,10 +145,6 @@ public class ProjetoDetalhesJPanel extends javax.swing.JPanel {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(salvarAlteracoesJButton))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(344, 344, 344)
-                        .addComponent(resumoProjetoJButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 387, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -167,8 +165,12 @@ public class ProjetoDetalhesJPanel extends javax.swing.JPanel {
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(statusProjetoJLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 300, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(369, 369, 369)
+                .addComponent(jButton1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -198,7 +200,7 @@ public class ProjetoDetalhesJPanel extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(resumoProjetoJButton)
+                .addComponent(jButton1)
                 .addContainerGap(79, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -208,45 +210,38 @@ public class ProjetoDetalhesJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_responsavelProjetoJTextFieldActionPerformed
 
     private void salvarAlteracoesJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvarAlteracoesJButtonActionPerformed
-        
-        if (projetoSelecionado.getConcluido()){
+
+        if (projetoSelecionado.getConcluido()) {
             JOptionPane.showMessageDialog(this, "O projeto selecionado está concluiro e não pode mais ter suas informações alteradas.");
             desabilitarProjetoDetalhesJPanel();
         } else {
 
-        //seto as alterações
-        projetoSelecionado.setNomeProjeto(nomeProjetoJTextField.getText());
-        projetoSelecionado.setResponsavelProjeto(responsavelProjetoJTextField.getText());
-        projetoSelecionado.setResponsavelGerenciaRiscos(responsavelGerenciaRiscosJTextField.getText());
-        projetoSelecionado.setDescricaoProjeto(descricaoProjetoJTextArea.getText());
-        //salvo as alterações no banco de dados
-        projetoFacade.setProjeto(projetoSelecionado);
+            //seto as alterações
+            projetoSelecionado.setNomeProjeto(nomeProjetoJTextField.getText());
+            projetoSelecionado.setResponsavelProjeto(responsavelProjetoJTextField.getText());
+            projetoSelecionado.setResponsavelGerenciaRiscos(responsavelGerenciaRiscosJTextField.getText());
+            projetoSelecionado.setDescricaoProjeto(descricaoProjetoJTextArea.getText());
+            //salvo as alterações no banco de dados
+            projetoFacade.setProjeto(projetoSelecionado);
 
-        repaint();
-        JOptionPane.showMessageDialog(this, "Dados alterados com sucesso.");
+            repaint();
+            JOptionPane.showMessageDialog(this, "Dados alterados com sucesso.");
         }
-        
-        
-        
+
+
     }//GEN-LAST:event_salvarAlteracoesJButtonActionPerformed
 
-    private void resumoProjetoJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resumoProjetoJButtonActionPerformed
-        
-        ProjetoConcluirProjetoJFrame projetoConcluirProjetoJFrame = new ProjetoConcluirProjetoJFrame();
-        projetoConcluirProjetoJFrame.preencherRelatorio(projetoSelecionado);
-        projetoConcluirProjetoJFrame.setLocationRelativeTo(this);
-        projetoConcluirProjetoJFrame.setVisible(true);
-        
-        projetoConcluirProjetoJFrame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-       
-        
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_resumoProjetoJButtonActionPerformed
+        PrincipalJFrame.projetoConcluirProjetoInternalJFrame.preencherRelatorio(projetoSelecionado);
+        PrincipalJFrame.aparecerInternalFrameProjetoConcluirProjeto();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel descricaoProjetoJLabel;
     private javax.swing.JTextArea descricaoProjetoJTextArea;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
@@ -257,7 +252,6 @@ public class ProjetoDetalhesJPanel extends javax.swing.JPanel {
     private javax.swing.JTextField responsavelGerenciaRiscosJTextField;
     private javax.swing.JLabel responsavelProjetoJLabel;
     private javax.swing.JTextField responsavelProjetoJTextField;
-    private javax.swing.JButton resumoProjetoJButton;
     private javax.swing.JButton salvarAlteracoesJButton;
     private javax.swing.JLabel statusProjetoJLabel;
     // End of variables declaration//GEN-END:variables

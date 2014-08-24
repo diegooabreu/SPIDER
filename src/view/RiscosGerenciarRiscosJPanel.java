@@ -62,7 +62,7 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
     private Risco riscoSelecionado = new Risco();
 
     // Instanciando variável que armazena a lista de Riscos do projeto selecionado
-    private List<Risco> listaRiscos;
+//    private List<Risco> listaRiscos;
     // Instanciando variável que armazena a lista de Categorias de Risco pertencentes ao projeto selecionado
     private List<Categoriaderisco> listaCategorias;
     // Instanciando variável que armazena a lista da tabela Contém
@@ -81,7 +81,7 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
     private boolean contingenciaEhMarco;
     //Variável que verifica se o plano de contigência possui marco ou ponto de controle
     private boolean ContingenciaPossuiMarco;
-    
+
     List<Risco> listaRiscosDoProjeto;
     private Object[] listaVazia = {};
 
@@ -90,7 +90,7 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
         criarTabelaRiscos();
         //criarListaPlanoMitigacao();
         //criarListaPlanoContingencia();
-        getListaRiscos();
+        getListaderiscosDoprojeto();
         getListaCategorias();
         preencherDadosTabelaRiscos();
         definirEventosTabelaRiscos();
@@ -127,16 +127,16 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
     //Método que seleciona o projeto selecionado
     public void setProjetoSelecionado(Projeto projeto) {
         projetoSelecionado = projeto;
-        getListaRiscos();
+        getListaderiscosDoprojeto();
     }
 
     //Método que atualiza a lista de riscos do projeto selecionado
-    private void getListaRiscos() {
-        listaRiscos = riscosGerenciarRiscosFacade.listarRiscos();
-    }
-    
-    private void getListaderiscosDoprojeto(){
-     listaRiscosDoProjeto = riscosGerenciarRiscosFacade.findListaRiscoByIdProjeto(projetoSelecionado);
+//    private void getListaRiscos() {
+//        listaRiscos = riscosGerenciarRiscosFacade.listarRiscosByProjeto(projetoSelecionado);
+//    }
+
+    private void getListaderiscosDoprojeto() {
+        listaRiscosDoProjeto = riscosGerenciarRiscosFacade.findListaRiscoByIdProjeto(projetoSelecionado);
     }
 
     //Método que atualiza a lista de categorias de risco
@@ -153,12 +153,12 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
     private void getListaContem() {
         listaContem = organizacionalPortfolioFacade.listarContem();
     }
-    
+
     //Método que limpa todos os Campos e componentes de Gerenciar Risco
-    public void limpaCamposGerenciarRisco(){
+    public void limpaCamposGerenciarRisco() {
         riscoSelecionado = new Risco();
         riscoSelecionado.setIdRisco(null);
-        
+
         //[Informações Gerais]limpa  todos os campos de informações gerais
         limparCampos();
         //[Relações] limpa tabela de riscos apresentados compossibilidade de ter relação com risco selecioando
@@ -172,7 +172,7 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
         //[Condições] limpa todos os Campos de Relações entre as Subcondições 
         limparListaRelacoesSubcondicoes();
         //[Condições] limapa as tabelas
-        limpaTabelaSubcondicoesERelacoeas();       
+        limpaTabelaSubcondicoesERelacoeas();
         //[Plano Mitigação] limpa todos os campos
         limparCamposPlanoMitigacao();
         //[Plano Mitigação] limpa a lista de planos de mitigação
@@ -183,7 +183,7 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
         limparListaPlanoContingencia();
         //[Histórico de Risco]limpa a tabela
         limparTabelaHistoricoAlteracoes();
-        
+
         //método para Habilitar os botões
         habilitaBotoesSeTemRiscoSelecionado();
         //método que inicia os botões de Plano Mitigação
@@ -191,10 +191,10 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
         //método que inicia os botões de Plano Contigência
         iniciaBotoesCinzaPlanoContingencia();
     }
-    
+
     //Método que habilita os botões caso um risco tenha si selecionado;  
-     private void habilitaBotoesSeTemRiscoSelecionado(){
-        if (riscoSelecionado.getIdRisco() == null){
+    private void habilitaBotoesSeTemRiscoSelecionado() {
+        if (riscoSelecionado.getIdRisco() == null) {
             // Aba relações
             relacoesInfluenciarRiscoJButton.setEnabled(false);
             relacoesRemoverInfluenciaJButton.setEnabled(false);
@@ -203,7 +203,7 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
             limparCamposJButton.setEnabled(false);
             subcondicoesSalvarAlteracoesDaCondicaoJButtob.setEnabled(false);
             subcondicoesCriarCondicaoJButton.setEnabled(false);
-            
+
             inserirCondicaoCampo1JButton.setEnabled(false);
             inserirRelacaoCampo1JButton.setEnabled(false);
             inserirCondicaoCampo2JButton.setEnabled(false);
@@ -222,7 +222,7 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
             limparCamposJButton.setEnabled(true);
             subcondicoesSalvarAlteracoesDaCondicaoJButtob.setEnabled(true);
             subcondicoesCriarCondicaoJButton.setEnabled(true);
-            
+
             inserirCondicaoCampo1JButton.setEnabled(true);
             inserirRelacaoCampo1JButton.setEnabled(true);
             inserirCondicaoCampo2JButton.setEnabled(true);
@@ -234,15 +234,15 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
             informacoesGeraisRemoverRiscoJButton.setEnabled(true);
         }
     }
-    
+
     //Método que constrói a Tabela de Riscos
     void criarTabelaRiscos() {
         tabelaRiscosJTable = new JTable();
-        modeloTabelaRiscosJTable = new DefaultTableModel(){
+        modeloTabelaRiscosJTable = new DefaultTableModel() {
             @Override
-            public boolean isCellEditable(int row, int col) {  
-            return false;  
-            }  
+            public boolean isCellEditable(int row, int col) {
+                return false;
+            }
         };
         modeloTabelaRiscosJTable.setColumnIdentifiers(new String[]{"Identificação", "Probabilidade", "Impacto", "Grau de Severidade", "Prioridade", "Estado"});
         tabelaRiscosJTable.setModel(modeloTabelaRiscosJTable);
@@ -260,15 +260,15 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
 
     //Método que preenche os dados da Tabela de Riscos, conforme o projeto selecionado
     void preencherDadosTabelaRiscos() {
-        for (int i = 0; i < listaRiscos.size(); i++) {
+        for (int i = 0; i < listaRiscosDoProjeto.size(); i++) {
             //Verifica se o ID do projeto selecionado é igual ao ID do Projeto do Contém do Risco atual
-            if (projetoSelecionado.getIdProjeto() == listaRiscos.get(i).getContem().getProjeto().getIdProjeto()) {
-                String identificacao = listaRiscos.get(i).getIdentificacao();
-                String probabilidade = Integer.toString(listaRiscos.get(i).getProbabilidade());
-                String impacto = listaRiscos.get(i).getImpacto();
-                String grauSeveridade = Double.toString(listaRiscos.get(i).getGrauSeveridade());
-                String prioridade = Integer.toString(listaRiscos.get(i).getPrioridade());
-                String statusRisco = listaRiscos.get(i).getStatusRisco();
+            if (projetoSelecionado.getIdProjeto() == listaRiscosDoProjeto.get(i).getContem().getProjeto().getIdProjeto()) {
+                String identificacao = listaRiscosDoProjeto.get(i).getIdentificacao();
+                String probabilidade = Integer.toString(listaRiscosDoProjeto.get(i).getProbabilidade());
+                String impacto = listaRiscosDoProjeto.get(i).getImpacto();
+                String grauSeveridade = Double.toString(listaRiscosDoProjeto.get(i).getGrauSeveridade());
+                String prioridade = Integer.toString(listaRiscosDoProjeto.get(i).getPrioridade());
+                String statusRisco = listaRiscosDoProjeto.get(i).getStatusRisco();
 
                 String[] linha = new String[]{identificacao, probabilidade, impacto, grauSeveridade, prioridade, statusRisco};
                 modeloTabelaRiscosJTable.addRow(linha);
@@ -278,7 +278,7 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
 
     //Método para reconstruir a tabela quando for selecionado um novo risco
     public void reiniciarTabelaRiscos() {
-        getListaRiscos();
+        getListaderiscosDoprojeto();
         getListaCategorias();
         modeloTabelaRiscosJTable = null;
         criarTabelaRiscos();
@@ -300,7 +300,7 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
         informacoesGeraisGrauDeSeveridadeJTextField.setText("0");
         tabelaRiscosJTable.clearSelection();
         relacoesListaRiscosJList.setListData(listaVazia);
-        
+
     }
 
     //Define os eventos para quando um item da tabela for selecionado
@@ -311,9 +311,9 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
                     int selected = tabelaRiscosJTable.getSelectedRow();
 
                     //Procura o risco selecionado
-                    for (int i = 0; i < listaRiscos.size(); i++) {
-                        if (tabelaRiscosJTable.getValueAt(selected, 0).equals(listaRiscos.get(i).getIdentificacao())) {
-                            riscoSelecionado = listaRiscos.get(i);
+                    for (int i = 0; i < listaRiscosDoProjeto.size(); i++) {
+                        if (tabelaRiscosJTable.getValueAt(selected, 0).equals(listaRiscosDoProjeto.get(i).getIdentificacao())) {
+                            riscoSelecionado = listaRiscosDoProjeto.get(i);
                             break;
                         }
                     }
@@ -336,7 +336,7 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
 
                     //Preenche combo box de data limite em plano de contingência
                     preencheComboBoxDataLimiteContingencia();
-                    
+
                     //Preenche lista de riscos que influencia
                     if (riscosNaoAdd.size() > 0) {
                         riscosNaoAdd = null;
@@ -363,14 +363,14 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
                     informacoesGeraisProbabilidadeJSpinner.setValue(riscoSelecionado.getProbabilidade());
                     informacoesGeraisGrauDeSeveridadeJTextField.setText(Double.toString(riscoSelecionado.getGrauSeveridade()));
                     estadoAtualRiscoJLabel.setText(riscoSelecionado.getStatusRisco());
-                    
+
                     campo1Condicao = null;
                     campo1Relacao = null;
                     campo1JTextField.setText("");
                     campo2Condicao = null;
                     campo2Relacao = null;
                     campo2JTextField.setText("");
-                    
+
                     /*
                      // Determina qual caixa de status do risco será selecionada
                      if (riscoSelecionado.getStatusRisco().equals("Novo")) {
@@ -442,7 +442,7 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
                     limparCamposPlanoContingencia();
 
                     planoDeContingenciaAdicionarPlanoJButton.setEnabled(true);
-                    
+
                     //Habilita botões da tela relação 
                     habilitaBotoesSeTemRiscoSelecionado();
                 }
@@ -498,7 +498,7 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
         planoMitigacaoListModel = new DefaultListModel();
         if (listaMitigacao.size() > 0) {
             for (int i = 0; i < listaMitigacao.size(); i++) {
-                planoMitigacaoListModel.addElement(listaMitigacao.get(i).getIdentificacaoPlanoMitigacao()); 
+                planoMitigacaoListModel.addElement(listaMitigacao.get(i).getIdentificacaoPlanoMitigacao());
             }
             planoDeMitigacaoListaPlanosJList.setModel(planoMitigacaoListModel);
         }
@@ -546,34 +546,34 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
         listaPontoControle = riscosGerenciarRiscosFacade.listarPontosControleProjetoSelecionado(projetoSelecionado);
         listaMarcosDoProjeto = riscosGerenciarRiscosFacade.listarMarcosProjetoProjetoSelecionado(projetoSelecionado);
         planoMitigacaoDataLimiteJComboBox.addItem("--Selecione--");
-        
+
         DateFormat df = DateFormat.getDateInstance(DateFormat.MEDIUM);
         String dataAtual = df.format(new Date());
         if (listaPontoControle.size() > 0) {
-           
+
             for (int i = 0; i < listaPontoControle.size(); i++) {
                 Calendar dataPontoSelecionado = Calendar.getInstance();
-                
+
                 dataPontoSelecionado.setTime(listaPontosControle.get(i).getDataPontoControle());
                 String dataPonto = df.format(dataPontoSelecionado.getTime());
                 // se Data do ponto de controle for igual ou maior a data atual
-                if (dataPontoSelecionado.getTime().after(new Date()) || dataPonto.equals(dataAtual)){
+                if (dataPontoSelecionado.getTime().after(new Date()) || dataPonto.equals(dataAtual)) {
                     planoMitigacaoDataLimiteJComboBox.addItem(listaPontoControle.get(i).getNomePontoDeControle());
                 }
-                
+
             }
         }
         if (listaMarcosDoProjeto.size() > 0) {
             for (int i = 0; i < listaMarcosDoProjeto.size(); i++) {
                 Calendar dataMarcosProjeto = Calendar.getInstance();
-                
+
                 dataMarcosProjeto.setTime(listaMarcosDoProjeto.get(i).getDataMarcoProjeto());
                 String dataMarco = df.format(dataMarcosProjeto.getTime());
                 // se Data do Marco do projeto for igual ou maior a data atual
-                if (dataMarcosProjeto.getTime().after(new Date()) || dataMarco.equals(dataAtual)){
+                if (dataMarcosProjeto.getTime().after(new Date()) || dataMarco.equals(dataAtual)) {
                     planoMitigacaoDataLimiteJComboBox.addItem(listaMarcosDoProjeto.get(i).getNomeMarcoDoProjeto());
                 }
-                
+
             }
         }
     }
@@ -624,7 +624,6 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
                     //dataLimite.setTime(planoMitigacaoSelecionado.getDataLimite());
                     //planoDeMitigacaoDataLimiteJDateChooser.setCalendar(dataLimite);
                     //Determina qual campo do comboBox de dataLimite será selecionado
-                    
                     if (listaMitigacao.get(indexSelecionado).getDataRealizacao() == null) {
                         planoDeMitigacaoSalvarAlteracoesJButton.setEnabled(true);
                         planoDeMitigacaoRemoverPlanoJButton.setEnabled(true);
@@ -667,7 +666,7 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
             for (int i = 0; i < listaContingencia.size(); i++) {
                 planoContingenciaListModel.addElement(listaContingencia.get(i).getIdentificacaoPlanoContingencia());
             }
-                
+
             planoDeContingenciaListaPlanosJList.setModel(planoContingenciaListModel);
         }
     }
@@ -685,23 +684,23 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
         if (listaPontoControle.size() > 0) {
             for (int i = 0; i < listaPontoControle.size(); i++) {
                 Calendar dataPontoSelecionado = Calendar.getInstance();
-                
+
                 dataPontoSelecionado.setTime(listaPontosControle.get(i).getDataPontoControle());
                 String dataPonto = df.format(dataPontoSelecionado.getTime());
                 // se Data do ponto de controle for igual ou maior a data atual
-                if (dataPontoSelecionado.getTime().after(new Date()) || dataPonto.equals(dataAtual)){
+                if (dataPontoSelecionado.getTime().after(new Date()) || dataPonto.equals(dataAtual)) {
                     planoContingenciaDataLimiteJComboBox.addItem(listaPontoControle.get(i).getNomePontoDeControle());
-                } 
+                }
             }
         }
         if (listaMarcosProjeto.size() > 0) {
             for (int i = 0; i < listaMarcosProjeto.size(); i++) {
                 Calendar dataMarcosProjeto = Calendar.getInstance();
-                
+
                 dataMarcosProjeto.setTime(listaMarcosProjeto.get(i).getDataMarcoProjeto());
                 String dataMarco = df.format(dataMarcosProjeto.getTime());
                 // se Data do Marco do projeto for igual ou maior a data atual
-                if (dataMarcosProjeto.getTime().after(new Date()) || dataMarco.equals(dataAtual)){
+                if (dataMarcosProjeto.getTime().after(new Date()) || dataMarco.equals(dataAtual)) {
                     planoContingenciaDataLimiteJComboBox.addItem(listaMarcosProjeto.get(i).getNomeMarcoDoProjeto());
                 }
             }
@@ -728,7 +727,7 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
     public void iniciaBotoesCinzaPlanoContingencia() {
         planoDeContingenciaAdicionarPlanoJButton.setEnabled(false);
         planoDeContingenciaRemoverPlanoJButton.setEnabled(false);
-        planoDeContingenciaSalvarAlteracoesJButton.setEnabled(false);     
+        planoDeContingenciaSalvarAlteracoesJButton.setEnabled(false);
     }
 
     //Método que limpa os campos de Plano de Contingência
@@ -757,7 +756,7 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
                             planoContingenciaSelecionado = listaContingencia.get(i);
                         }
                     }
-                    
+
                     //Procura se o plano de contingência possui um Marco ou ponto de controle já definido
                     if (planoContingenciaSelecionado.getIdMarcoDoProjeto() != null) {
                         String nomeMarco = planoContingenciaSelecionado.getIdMarcoDoProjeto().getNomeMarcoDoProjeto();
@@ -783,7 +782,7 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
                     planoDeContingenciaDescricaoJTextArea.setText(planoContingenciaSelecionado.getDescricaoPlanoContingencia());
                     planoDeContingenciaComoSeraFeitoJTextArea.setText(planoContingenciaSelecionado.getComoRealizar());
                     planoDeContingenciaInfAdicionaisJTextArea.setText(planoContingenciaSelecionado.getInformacoesAdicionais());
-                    
+
                     if (listaContingencia.get(indexSelecionado).getDataRealizacao() == null) {
                         planoDeContingenciaSalvarAlteracoesJButton.setEnabled(true);
                         planoDeContingenciaRemoverPlanoJButton.setEnabled(true);
@@ -822,12 +821,16 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
         limparListaRiscosInfluencia();
         modelListaRiscosInfluencia = null;
         modelListaRiscosInfluencia = new DefaultListModel();
+
         List<Risco> listaRiscosInfluencia = riscoSelecionado.getRiscoList2(); // Retorna a lista de riscos influenciados pelo selecionado
+
         if (listaRiscosInfluencia.size() > 0) {
             for (int i = 0; i < listaRiscosInfluencia.size(); i++) {
-                modelListaRiscosInfluencia.addElement(listaRiscosInfluencia.get(i).getIdentificacao().toString());
-                //Adiciona o risco na lista riscosNaoAdd para não aparecer na lista de riscos apresentados
-                riscosNaoAdd.add(listaRiscosInfluencia.get(i));
+                if (Objects.equals(listaRiscosInfluencia.get(i).getContem().getProjeto().getIdProjeto(), projetoSelecionado.getIdProjeto())) {
+                    modelListaRiscosInfluencia.addElement(listaRiscosInfluencia.get(i).getIdentificacao());
+                    //Adiciona o risco na lista riscosNaoAdd para não aparecer na lista de riscos apresentados
+                    riscosNaoAdd.add(listaRiscosInfluencia.get(i));
+                }
             }
             relacoesListaInfluenciaJList.setModel(modelListaRiscosInfluencia);
         }
@@ -849,9 +852,9 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
                     String selecao = relacoesListaInfluenciaJList.getModel().getElementAt(indexSelecionado).toString();
 
                     //Procura e seleciona o risco selecionado na JList
-                    for (int i = 0; i < listaRiscos.size(); i++) {
-                        if (selecao.equals(listaRiscos.get(i).getIdentificacao())) {
-                            riscoSelecionadoInfluencia = listaRiscos.get(i);
+                    for (int i = 0; i < listaRiscosDoProjeto.size(); i++) {
+                        if (selecao.equals(listaRiscosDoProjeto.get(i).getIdentificacao())) {
+                            riscoSelecionadoInfluencia = listaRiscosDoProjeto.get(i);
                         }
                     }
 
@@ -877,17 +880,17 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
         modelListaRiscosInfluenciados = null;
         modelListaRiscosInfluenciados = new DefaultListModel();
         // Procurando em todos os riscos, se o riscoSelecionado aparece no campo riscoInfluenciado de algum risco
-        if (listaRiscos.size() > 0) {
-            for (int i = 0; i < listaRiscos.size(); i++) {
-                List<Risco> listaRiscosInfluencia2 = listaRiscos.get(i).getRiscoList2();
+        if (listaRiscosDoProjeto.size() > 0) {
+            for (int i = 0; i < listaRiscosDoProjeto.size(); i++) {
+                List<Risco> listaRiscosInfluencia2 = listaRiscosDoProjeto.get(i).getRiscoList2();
                 //Dentro da lista de riscos que influencia...
                 if (listaRiscosInfluencia2.size() > 0) {
                     for (int j = 0; j < listaRiscosInfluencia2.size(); j++) {
                         //Se o risco atual influencia no riscoSelecionado
                         if (listaRiscosInfluencia2.get(j) == riscoSelecionado) {
                             //Então o riscoSelecionado é INFLUENCIADO pelo riscoAtual
-                            riscosNaoAdd.add(listaRiscos.get(i));
-                            modelListaRiscosInfluenciados.addElement(listaRiscos.get(i).getIdentificacao());
+                            riscosNaoAdd.add(listaRiscosDoProjeto.get(i));
+                            modelListaRiscosInfluenciados.addElement(listaRiscosDoProjeto.get(i).getIdentificacao());
                         }
                     }
                 }
@@ -940,12 +943,12 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
     //Metódo que filtra a lista de riscos apresentados
     private void filtraListaRiscosApresentados() {
         //System.out.println("Linhas: " + modelListaRiscosApresentados.getSize());
-        if (!(modelListaRiscosApresentados == null) || (modelListaRiscosApresentados.getSize() > 0) ) {
+        if (!(modelListaRiscosApresentados == null) || (modelListaRiscosApresentados.getSize() > 0)) {
             for (int i = 0; i < modelListaRiscosApresentados.getSize(); i++) {
                 for (int j = 0; j < riscosNaoAdd.size(); j++) {
                     if (modelListaRiscosApresentados.get(i).toString().equals(riscosNaoAdd.get(j).getIdentificacao())) {
                         modelListaRiscosApresentados.remove(i);
-                        if (modelListaRiscosApresentados.size() == 0){
+                        if (modelListaRiscosApresentados.size() == 0) {
                             break;
                         }
                         i = 0;
@@ -965,9 +968,9 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
                     String selecao = relacoesListaRiscosJList.getModel().getElementAt(indexSelecionado).toString();
 
                     //Procura e seleciona o risco selecionado na JList
-                    for (int i = 0; i < listaRiscos.size(); i++) {
-                        if (selecao.equals(listaRiscos.get(i).getIdentificacao())) {
-                            riscoSelecionadoRelacoes = listaRiscos.get(i);
+                    for (int i = 0; i < listaRiscosDoProjeto.size(); i++) {
+                        if (selecao.equals(listaRiscosDoProjeto.get(i).getIdentificacao())) {
+                            riscoSelecionadoRelacoes = listaRiscosDoProjeto.get(i);
                         }
                     }
                     relacoesListaInfluenciaJList.clearSelection();
@@ -989,11 +992,11 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
     //Metodo que constrói a tabela de Histórico de Alterações
     private void criaTabelaHistoricoAlteracoes() {
         tabelaHistoricoAlteracoes = new JTable();
-        modeloTabelaHistoricoAlteracoes = new DefaultTableModel(){
+        modeloTabelaHistoricoAlteracoes = new DefaultTableModel() {
             @Override
-            public boolean isCellEditable(int row, int col) {  
-            return false;  
-            }  
+            public boolean isCellEditable(int row, int col) {
+                return false;
+            }
         };
         modeloTabelaHistoricoAlteracoes.setColumnIdentifiers(new String[]{"Alteração", "Data de realização"});
         tabelaHistoricoAlteracoes.setModel(modeloTabelaHistoricoAlteracoes);
@@ -1044,18 +1047,18 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
     Subcondicao campo2Condicao = new Subcondicao();
     //Instanciando variável que armazena a relação entre condições que está no campo2JTextField
     Gruporelacao campo2Relacao = new Gruporelacao();
-    
+
     //Criando model da lista de relações de subcondições
     DefaultListModel modeloListaSubcondicoes = new DefaultListModel();
 
     //Método que constrói a Tabela de Subcondições
     private void criarTabelaSubcondicoes() {
         tabelaSubcondicoesJTable = new JTable();
-        modeloTabelaSubcondicoesJTable = new DefaultTableModel(){
+        modeloTabelaSubcondicoesJTable = new DefaultTableModel() {
             @Override
-            public boolean isCellEditable(int row, int col) {  
-            return false;  
-            }  
+            public boolean isCellEditable(int row, int col) {
+                return false;
+            }
         };
         modeloTabelaSubcondicoesJTable.setColumnIdentifiers(new String[]{"Identificação da condição", "Grupo de relações", "Ocorreu?"});
         tabelaSubcondicoesJTable.setModel(modeloTabelaSubcondicoesJTable);
@@ -1063,23 +1066,24 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
     }
 
     //Método que controi a tabela de Relações
-    private void criarTabelaRelacoes(){
+    private void criarTabelaRelacoes() {
         tabelaRelacoes = new JTable();
-        modeloTabelaRelacoes = new DefaultTableModel(){
+        modeloTabelaRelacoes = new DefaultTableModel() {
             @Override
-            public boolean isCellEditable(int row, int col) {  
-            return false;  
-            }  
+            public boolean isCellEditable(int row, int col) {
+                return false;
+            }
         };
         modeloTabelaRelacoes.setColumnIdentifiers(new Object[]{"Relação", "Condição 1", "Condição 2", "Relação 1", "Relação 2", "Tipo da Relação"});
         tabelaRelacoes.setModel(modeloTabelaRelacoes);
         tabelaRelacoesJScrollPane.setViewportView(tabelaRelacoes);
     }
-    
+
     //Método que atualiza a lista de relações das condições do risco selecionado
-    private void getListaRelacoes(){
+    private void getListaRelacoes() {
         listaRelacoes = riscosGerenciarRiscosFacade.getListaGrupoRelacaoByRisco(riscoSelecionado);
     }
+
     //Método que atualiza a lista de subcondicoes do risco selecionado
     private void getListaSubcondicoes(Risco idRisco) {
         listaSubcondicoes = riscosGerenciarRiscosFacade.listarSubcondicoesByIdRisco(idRisco);
@@ -1097,59 +1101,58 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
                 modeloTabelaSubcondicoesJTable.addRow(linha);
             }
         } else {
-           // desabilitaCamposSubcondicao();
+            // desabilitaCamposSubcondicao();
         }
     }
-    
+
     //Método que preenche os dados da tabela de relações das condições do risco selecionado
-    private void preencherDadosTabelaRelacoes(){
+    private void preencherDadosTabelaRelacoes() {
         getListaRelacoes();
-        if(listaRelacoes != null){
-            for(int i = 0; i < listaRelacoes.size(); i++){
-                
+        if (listaRelacoes != null) {
+            for (int i = 0; i < listaRelacoes.size(); i++) {
+
                 String idRelacao = null;
                 String condicao1 = null;
                 String condicao2 = null;
                 String relacao1 = null;
                 String relacao2 = null;
                 String tipoRelacao = null;
-                
+
                 //preenchendo condicao 1
-                if(listaRelacoes.get(i).getIdSubcondicao1() != null){
-                    for(int j=0; j < listaSubcondicoes.size(); j++){
-                    if(listaSubcondicoes.get(j).getIdSubcondicao() == listaRelacoes.get(i).getIdSubcondicao1()){
-                        condicao1 = listaSubcondicoes.get(j).getIdentificacaoSubcondicao();
+                if (listaRelacoes.get(i).getIdSubcondicao1() != null) {
+                    for (int j = 0; j < listaSubcondicoes.size(); j++) {
+                        if (listaSubcondicoes.get(j).getIdSubcondicao() == listaRelacoes.get(i).getIdSubcondicao1()) {
+                            condicao1 = listaSubcondicoes.get(j).getIdentificacaoSubcondicao();
+                        }
                     }
                 }
-                }
-                
+
                 //preenchendo condicao 2
-                if(listaRelacoes.get(i).getIdSubcondicao2() != null){
-                    for(int j=0; j < listaSubcondicoes.size(); j++){
-                    if(listaSubcondicoes.get(j).getIdSubcondicao() == listaRelacoes.get(i).getIdSubcondicao2()){
-                        condicao2 = listaSubcondicoes.get(j).getIdentificacaoSubcondicao();
+                if (listaRelacoes.get(i).getIdSubcondicao2() != null) {
+                    for (int j = 0; j < listaSubcondicoes.size(); j++) {
+                        if (listaSubcondicoes.get(j).getIdSubcondicao() == listaRelacoes.get(i).getIdSubcondicao2()) {
+                            condicao2 = listaSubcondicoes.get(j).getIdentificacaoSubcondicao();
+                        }
                     }
                 }
-                }
-                
-                
+
                 //preenchendo relacao 1
-                if(listaRelacoes.get(i).getIdRelacao1() != null){
-                relacao1 = listaRelacoes.get(i).getIdRelacao1().toString();
+                if (listaRelacoes.get(i).getIdRelacao1() != null) {
+                    relacao1 = listaRelacoes.get(i).getIdRelacao1().toString();
                 }
                 //preenchendo relacao 2
-                if(listaRelacoes.get(i).getIdRelacao2() != null){
-                relacao2 = listaRelacoes.get(i).getIdRelacao2().toString();
+                if (listaRelacoes.get(i).getIdRelacao2() != null) {
+                    relacao2 = listaRelacoes.get(i).getIdRelacao2().toString();
                 }
                 //preenchendo tipo da relação
                 tipoRelacao = listaRelacoes.get(i).getRelacao();
-                
+
                 //preenchendo id da relação
                 idRelacao = listaRelacoes.get(i).getIdGrupo().toString();
-                
-                Object[] linha = new Object[]{idRelacao , condicao1 , condicao2 , relacao1 , relacao2 , tipoRelacao};
+
+                Object[] linha = new Object[]{idRelacao, condicao1, condicao2, relacao1, relacao2, tipoRelacao};
                 modeloTabelaRelacoes.addRow(linha);
-                
+
             }
         }
     }
@@ -1160,12 +1163,12 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
         criarTabelaSubcondicoes();
         preencherDadosTabelaSubcondicoes();
         definirEventosTabelaSubcondicoes();
-        
+
         reiniciarTabelaRelacoes();
     }
-    
+
     //método que reseta a tabela de relações
-    private void reiniciarTabelaRelacoes(){
+    private void reiniciarTabelaRelacoes() {
         modeloTabelaRelacoes = null;
         criarTabelaRelacoes();
         preencherDadosTabelaRelacoes();
@@ -1206,36 +1209,36 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
     }
 
     //Definindo eventos de seleção ma tabela de relações
-    private void definirEventosTabelaRelações(){
+    private void definirEventosTabelaRelações() {
         tabelaRelacoes.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
                 if (e.getClickCount() == 1) {
-                    
+
                     int selected = tabelaRelacoes.getSelectedRow();
 
-                    for(int i = 0; i < listaRelacoes.size(); i++){
-                        if(tabelaRelacoes.getValueAt(selected, 0).equals(listaRelacoes.get(i).getIdGrupo().toString())){
+                    for (int i = 0; i < listaRelacoes.size(); i++) {
+                        if (tabelaRelacoes.getValueAt(selected, 0).equals(listaRelacoes.get(i).getIdGrupo().toString())) {
                             relacaoSelecionada = listaRelacoes.get(i);
                         }
                     }
-                
+
                 }
             }
         });
     }
-    
+
     //Método que limpa os campos de informações da subcondição
     private void limparCamposSubcondicao() {
         descricaoSubcondicaoJTextArea.setText("");
         subcondicoesIdentificacaoDaCondicaoJTextField.setText("");
     }
-    
-    private void limpaTabelaSubcondicoesERelacoeas(){
-        if (modeloTabelaSubcondicoesJTable.getRowCount() != 0){
+
+    private void limpaTabelaSubcondicoesERelacoeas() {
+        if (modeloTabelaSubcondicoesJTable.getRowCount() != 0) {
             modeloTabelaSubcondicoesJTable.setNumRows(0);
         }
-        if (modeloTabelaRelacoes != null){
+        if (modeloTabelaRelacoes != null) {
             modeloTabelaRelacoes.setNumRows(0);
         }
     }
@@ -1295,7 +1298,6 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
      * WARNING: Do NOT modify this code. The content of this method is always
      * regenerated by the Form Editor.
      */
-    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -2364,20 +2366,20 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
         if ("".equals(novoRisco.getIdentificacao())) {
             valorNulo = true;
         }
-        
+
         novoRisco.setProbabilidade(Integer.parseInt(informacoesGeraisProbabilidadeJSpinner.getValue().toString()));
-        if (!(novoRisco.getProbabilidade() >= 0) && (novoRisco.getProbabilidade() <= 100)){
+        if (!(novoRisco.getProbabilidade() >= 0) && (novoRisco.getProbabilidade() <= 100)) {
             valorNulo = true;
         }
-        
+
         novoRisco.setImpacto(informacoesGeraisImpactoJComboBox.getSelectedItem().toString());
-        if (novoRisco.getImpacto().equals("--Selecione--")){
+        if (novoRisco.getImpacto().equals("--Selecione--")) {
             valorNulo = true;
         }
 
         if (valorNulo == true) {
             JOptionPane.showMessageDialog(null, "Um ou mais campos apresentam valores invalidos. Preencha-os corretamente antes de adicionar um novo risco");
-        } else { 
+        } else {
 
             boolean probabilidadeInvalida = false;
             boolean riscoOcorreu = false;
@@ -2399,12 +2401,12 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
                 } else {
                     boolean identificacaoRepetido = false;
                     getListaderiscosDoprojeto();
-                        for (int i = 0; i < listaRiscosDoProjeto.size(); i++) {
-                            if (novoRisco.getIdentificacao().equals(listaRiscosDoProjeto.get(i).getIdentificacao())) {
-                                identificacaoRepetido = true;
-                            }
-                        } 
-                    
+                    for (int i = 0; i < listaRiscosDoProjeto.size(); i++) {
+                        if (novoRisco.getIdentificacao().equals(listaRiscosDoProjeto.get(i).getIdentificacao())) {
+                            identificacaoRepetido = true;
+                        }
+                    }
+
                     if (identificacaoRepetido == false) {
 
                         String categoriaSelecionada = informacoesGeraisCategoriaDeRiscoJComboBox.getSelectedItem().toString();
@@ -2423,7 +2425,7 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
 
                         contemPK.setIdCategoriaDeRisco(categoriaComboBox.getIdCategoriaDeRisco());
                         contemPK.setIdProjeto(projetoSelecionado.getIdProjeto());
-                        getListaRiscos();
+                        getListaderiscosDoprojeto();
                         contemComboBox.setContemPK(contemPK);
 
                         novoRisco.setContem(contemComboBox);
@@ -2470,7 +2472,7 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
                         getListaHistoricoAlteracoes(novoRisco);
                         limparTabelaHistoricoAlteracoes();
                         preencheTabelaHistoricoAlteracoes();
-                        
+
                         limparCampos();
                     } else {
                         JOptionPane.showMessageDialog(null, "Um risco com a mesma identificação já foi previamente adicionado!\n"
@@ -2513,21 +2515,21 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
         if ("".equals(novoRisco.getIdentificacao())) {
             valorNulo = true;
         }
-        
+
         novoRisco.setProbabilidade(Integer.parseInt(informacoesGeraisProbabilidadeJSpinner.getValue().toString()));
-        if (!(novoRisco.getProbabilidade() >= 0) && (novoRisco.getProbabilidade() <= 100)){
+        if (!(novoRisco.getProbabilidade() >= 0) && (novoRisco.getProbabilidade() <= 100)) {
             valorNulo = true;
         }
-        
+
         novoRisco.setImpacto(informacoesGeraisImpactoJComboBox.getSelectedItem().toString());
-        if (novoRisco.getImpacto().equals("--Selecione--")){
+        if (novoRisco.getImpacto().equals("--Selecione--")) {
             valorNulo = true;
         }
 
         if (valorNulo == true) {
             JOptionPane.showMessageDialog(null, "Um ou mais campos apresentam valores invalidos. Preencha-os corretamente antes de adicionar um novo risco");
-            
-        }else if (riscoSelecionado.getIdRisco() > 0) {
+
+        } else if (riscoSelecionado.getIdRisco() > 0) {
             int linhaSelecionada = tabelaRiscosJTable.getSelectedRow();
             riscoSelecionado.setEmissor(informacoesGeraisEmissorJTextField.getText());
             riscoSelecionado.setDataIdentificacao((Date) dataIdentificacaoDoRisco.getValue());
@@ -2566,7 +2568,7 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
             getListaHistoricoAlteracoes(riscoSelecionado);
             limparTabelaHistoricoAlteracoes();
             preencheTabelaHistoricoAlteracoes();
-            
+
             limparCampos();
         }
     }//GEN-LAST:event_informacoesGeraisSalvarAlteracoesDoRiscoJButtonActionPerformed
@@ -2611,17 +2613,17 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
 
             planoMitigacaoSelecionado.setIdentificacaoPlanoMitigacao(planoDeMitigacaoIdentificacaoJTextField.getText());
             planoMitigacaoSelecionado.setResponsavel(planoDeMitigacaoResponsavelJTextField.getText());
-            
-                if (mitigacaoEhMarco == true) {
 
-                    planoMitigacaoSelecionado.setIdMarcoDoProjeto(marcoSelecionado);
-                    planoMitigacaoSelecionado.setIdPontoDeControle(null);
-                } else {
+            if (mitigacaoEhMarco == true) {
 
-                    planoMitigacaoSelecionado.setIdPontoDeControle(pontoControleSelecionado);
-                    planoMitigacaoSelecionado.setIdMarcoDoProjeto(null);
-                }
-            
+                planoMitigacaoSelecionado.setIdMarcoDoProjeto(marcoSelecionado);
+                planoMitigacaoSelecionado.setIdPontoDeControle(null);
+            } else {
+
+                planoMitigacaoSelecionado.setIdPontoDeControle(pontoControleSelecionado);
+                planoMitigacaoSelecionado.setIdMarcoDoProjeto(null);
+            }
+
             planoMitigacaoSelecionado.setDescricaoPlanoMitigacao(planoDeMitigacaoDescricaoJTextArea.getText());
             planoMitigacaoSelecionado.setComoRealizar(planoDeMitigacaoComoSeraFeitoJTextArea.getText());
             planoMitigacaoSelecionado.setInformacoesAdicionais(planoDeMitigacaoInfAdicionaisJTextArea.getText());
@@ -2639,9 +2641,9 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
             getListaHistoricoAlteracoes(riscoSelecionado);
             limparTabelaHistoricoAlteracoes();
             preencheTabelaHistoricoAlteracoes();
-        }  else {
-                JOptionPane.showMessageDialog(null, "Você precisa escolher uma data limite.");
-            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Você precisa escolher uma data limite.");
+        }
     }//GEN-LAST:event_planoDeMitigacaoSalvarAlteracoesJButtonActionPerformed
 
     private void planoDeMitigacaoAdicionarPlanoJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_planoDeMitigacaoAdicionarPlanoJButtonActionPerformed
@@ -2651,10 +2653,10 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
         novoPlanoMitigacao.setResponsavel(planoDeMitigacaoResponsavelJTextField.getText());
 
         if (mitigacaoEhMarco == true) {
-            
+
             novoPlanoMitigacao.setIdMarcoDoProjeto(marcoSelecionado);
         } else {
-            
+
             novoPlanoMitigacao.setIdPontoDeControle(pontoControleSelecionado);
         }
         novoPlanoMitigacao.setDescricaoPlanoMitigacao(planoDeMitigacaoDescricaoJTextArea.getText());
@@ -2665,7 +2667,6 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
 
         boolean nulo = false;
 
-        
         if ("".equals(novoPlanoMitigacao.getResponsavel())) {
             nulo = true;
         }
@@ -2692,27 +2693,27 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
             if (repetido == true) {
                 JOptionPane.showMessageDialog(null, "Já existe um identificador para tal Plano de Mitigação. Escolha outro nome.");
             } else {
-                if(planoMitigacaoDataLimiteJComboBox.getSelectedItem() != "--Selecione--"){
-                riscosGerenciarRiscosFacade.adicionarPlanoMitigacao(novoPlanoMitigacao);
-                iniciaBotoesCinzaPlanoMitigacao();
-                planoDeMitigacaoAdicionarPlanoJButton.setEnabled(true);
-                atualizaPreencheEventosListaPlanoMitigacao();
-                limparCamposPlanoMitigacao();
+                if (planoMitigacaoDataLimiteJComboBox.getSelectedItem() != "--Selecione--") {
+                    riscosGerenciarRiscosFacade.adicionarPlanoMitigacao(novoPlanoMitigacao);
+                    iniciaBotoesCinzaPlanoMitigacao();
+                    planoDeMitigacaoAdicionarPlanoJButton.setEnabled(true);
+                    atualizaPreencheEventosListaPlanoMitigacao();
+                    limparCamposPlanoMitigacao();
 
-                JOptionPane.showMessageDialog(null, "Plano de Mitigação criado com sucesso para o risco: " + riscoSelecionado.getIdentificacao());
-                Historicoalteracao historico = new Historicoalteracao();
-                historico.setDescricaoAlteracao("Plano de mitigacao " + novoPlanoMitigacao.getIdentificacaoPlanoMitigacao() + " criado.");
-                Calendar c = Calendar.getInstance();
-                historico.setDataAlteracao(c.getTime());
-                historico.setIdRisco(riscoSelecionado);
-                riscosGerenciarRiscosFacade.criaHistorioAlteracao(historico);
-                getListaHistoricoAlteracoes(riscoSelecionado);
-                limparTabelaHistoricoAlteracoes();
-                preencheTabelaHistoricoAlteracoes();
-                }else {
+                    JOptionPane.showMessageDialog(null, "Plano de Mitigação criado com sucesso para o risco: " + riscoSelecionado.getIdentificacao());
+                    Historicoalteracao historico = new Historicoalteracao();
+                    historico.setDescricaoAlteracao("Plano de mitigacao " + novoPlanoMitigacao.getIdentificacaoPlanoMitigacao() + " criado.");
+                    Calendar c = Calendar.getInstance();
+                    historico.setDataAlteracao(c.getTime());
+                    historico.setIdRisco(riscoSelecionado);
+                    riscosGerenciarRiscosFacade.criaHistorioAlteracao(historico);
+                    getListaHistoricoAlteracoes(riscoSelecionado);
+                    limparTabelaHistoricoAlteracoes();
+                    preencheTabelaHistoricoAlteracoes();
+                } else {
                     JOptionPane.showMessageDialog(null, "Você precisa escolher uma data limite.");
                 }
-            } 
+            }
 
         }
 
@@ -2725,12 +2726,11 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
         //Calendar dataIdentificacao = Calendar.getInstance();
         //Date data = dataIdentificacao.getTime();
 
-        
         if (contingenciaEhMarco == true) {
-            
+
             novoPlanoContingencia.setIdMarcoDoProjeto(marcoSelecionado);
         } else {
-            
+
             novoPlanoContingencia.setIdPontoDeControle(pontoControleSelecionado);
         }
         novoPlanoContingencia.setDescricaoPlanoContingencia(planoDeContingenciaDescricaoJTextArea.getText());
@@ -2741,7 +2741,6 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
 
         boolean nulo = false;
 
-        
         if ("".equals(novoPlanoContingencia.getResponsavel())) {
             nulo = true;
         }
@@ -2768,23 +2767,23 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
             if (repetido == true) {
                 JOptionPane.showMessageDialog(null, "Já existe um identificador para tal Plano de Contingência. Escolha outro nome.");
             } else {
-                if (planoContingenciaDataLimiteJComboBox.getSelectedItem() != "--Selecione--"){
-                riscosGerenciarRiscosFacade.adicionarPlanoContingencia(novoPlanoContingencia);
-                iniciaBotoesCinzaPlanoContingencia();
-                atualizaPreencheEventosListaPlanoContingencia();
-                planoDeContingenciaAdicionarPlanoJButton.setEnabled(true);
-                limparCamposPlanoContingencia();
-                
-                JOptionPane.showMessageDialog(null, "Plano de Contingência criado com sucesso para o risco: " + riscoSelecionado.getIdentificacao());
-                Historicoalteracao historico = new Historicoalteracao();
-                historico.setDescricaoAlteracao("Plano de contingência " + novoPlanoContingencia.getIdentificacaoPlanoContingencia() + " criado.");
-                Calendar c = Calendar.getInstance();
-                historico.setDataAlteracao(c.getTime());
-                historico.setIdRisco(riscoSelecionado);
-                riscosGerenciarRiscosFacade.criaHistorioAlteracao(historico);
-                getListaHistoricoAlteracoes(riscoSelecionado);
-                limparTabelaHistoricoAlteracoes();
-                preencheTabelaHistoricoAlteracoes();
+                if (planoContingenciaDataLimiteJComboBox.getSelectedItem() != "--Selecione--") {
+                    riscosGerenciarRiscosFacade.adicionarPlanoContingencia(novoPlanoContingencia);
+                    iniciaBotoesCinzaPlanoContingencia();
+                    atualizaPreencheEventosListaPlanoContingencia();
+                    planoDeContingenciaAdicionarPlanoJButton.setEnabled(true);
+                    limparCamposPlanoContingencia();
+
+                    JOptionPane.showMessageDialog(null, "Plano de Contingência criado com sucesso para o risco: " + riscoSelecionado.getIdentificacao());
+                    Historicoalteracao historico = new Historicoalteracao();
+                    historico.setDescricaoAlteracao("Plano de contingência " + novoPlanoContingencia.getIdentificacaoPlanoContingencia() + " criado.");
+                    Calendar c = Calendar.getInstance();
+                    historico.setDataAlteracao(c.getTime());
+                    historico.setIdRisco(riscoSelecionado);
+                    riscosGerenciarRiscosFacade.criaHistorioAlteracao(historico);
+                    getListaHistoricoAlteracoes(riscoSelecionado);
+                    limparTabelaHistoricoAlteracoes();
+                    preencheTabelaHistoricoAlteracoes();
                 } else {
                     JOptionPane.showMessageDialog(null, "Você precisa escolher uma data limite.");
                 }
@@ -2822,15 +2821,15 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
 
             planoContingenciaSelecionado.setResponsavel(planoDeContingenciaResponsavelJTextField.getText());
             if (contingenciaEhMarco == true) {
-                
+
                 planoContingenciaSelecionado.setIdMarcoDoProjeto(marcoSelecionado);
                 planoContingenciaSelecionado.setIdPontoDeControle(null);
             } else {
-                
+
                 planoContingenciaSelecionado.setIdPontoDeControle(pontoControleSelecionado);
                 planoContingenciaSelecionado.setIdMarcoDoProjeto(null);
             }
-            
+
             planoContingenciaSelecionado.setDescricaoPlanoContingencia(planoDeContingenciaDescricaoJTextArea.getText());
             planoContingenciaSelecionado.setComoRealizar(planoDeContingenciaComoSeraFeitoJTextArea.getText());
             planoContingenciaSelecionado.setInformacoesAdicionais(planoDeContingenciaInfAdicionaisJTextArea.getText());
@@ -2849,13 +2848,12 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
             limparTabelaHistoricoAlteracoes();
             preencheTabelaHistoricoAlteracoes();
         } else {
-                JOptionPane.showMessageDialog(null, "Você precisa escolher uma data limite.");
-            }
+            JOptionPane.showMessageDialog(null, "Você precisa escolher uma data limite.");
+        }
     }//GEN-LAST:event_planoDeContingenciaSalvarAlteracoesJButtonActionPerformed
 
     private void relacoesInfluenciarRiscoJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_relacoesInfluenciarRiscoJButtonActionPerformed
-        
-        
+
         try {
             if (riscoSelecionadoRelacoes != null) {
                 List<Risco> listaInfluneciaTemp = riscoSelecionado.getRiscoList2();
@@ -2864,7 +2862,7 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
                 try {
                     //riscosGerenciarRiscosFacade.editarRisco(riscoSelecionado);
                     riscosGerenciarRiscosFacade.inserirRelacoesEntreRiscos(riscoSelecionadoRelacoes, riscoSelecionado);
-                    
+
                 } catch (Exception e) {
                     JOptionPane.showMessageDialog(null, "Erro ao adicionar influência. Tabela desatualizada.");
                 }
@@ -2949,7 +2947,7 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_relacoesRemoverInfluenciaJButtonActionPerformed
 
     private void planoMitigacaoDataLimiteJComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_planoMitigacaoDataLimiteJComboBoxActionPerformed
- 
+
         if (planoMitigacaoDataLimiteJComboBox.getSelectedItem() != null) {
             String nomeItem = planoMitigacaoDataLimiteJComboBox.getSelectedItem().toString();
             mitigacaoEhMarco = false;
@@ -3026,34 +3024,31 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_planoContingenciaDataLimiteJComboBoxActionPerformed
 
     private void informacoesGeraisProbabilidadeJSpinnerFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_informacoesGeraisProbabilidadeJSpinnerFocusLost
-        
+
     }//GEN-LAST:event_informacoesGeraisProbabilidadeJSpinnerFocusLost
 
     private void informacoesGeraisImpactoJComboBoxFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_informacoesGeraisImpactoJComboBoxFocusLost
-   
+
     }//GEN-LAST:event_informacoesGeraisImpactoJComboBoxFocusLost
 
     private void informacoesGeraisImpactoJComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_informacoesGeraisImpactoJComboBoxItemStateChanged
         double impactoDouble;
         int probabilidade = Integer.parseInt(informacoesGeraisProbabilidadeJSpinner.getValue().toString());
-        String impactoTemp  = informacoesGeraisImpactoJComboBox.getSelectedItem().toString();
-        
-        if (impactoTemp == "Alto"){
+        String impactoTemp = informacoesGeraisImpactoJComboBox.getSelectedItem().toString();
+
+        if (impactoTemp == "Alto") {
             impactoDouble = 0.75;
             String grauDeSeveridade = String.valueOf(impactoDouble * probabilidade);
             informacoesGeraisGrauDeSeveridadeJTextField.setText((grauDeSeveridade));
-        }
-        else if (impactoTemp == "Médio"){
+        } else if (impactoTemp == "Médio") {
             impactoDouble = 0.5;
             String grauDeSeveridade = String.valueOf(impactoDouble * probabilidade);
             informacoesGeraisGrauDeSeveridadeJTextField.setText((grauDeSeveridade));
-        }
-        else if (impactoTemp == "Baixo"){
+        } else if (impactoTemp == "Baixo") {
             impactoDouble = 0.25;
             String grauDeSeveridade = String.valueOf(impactoDouble * probabilidade);
             informacoesGeraisGrauDeSeveridadeJTextField.setText((grauDeSeveridade));
-        }
-        else if (impactoTemp == "Crítico"){
+        } else if (impactoTemp == "Crítico") {
             impactoDouble = 1;
             String grauDeSeveridade = String.valueOf(impactoDouble * probabilidade);
             informacoesGeraisGrauDeSeveridadeJTextField.setText((grauDeSeveridade));
@@ -3063,24 +3058,21 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
     private void informacoesGeraisProbabilidadeJSpinnerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_informacoesGeraisProbabilidadeJSpinnerMouseClicked
         double impactoDouble;
         int probabilidade = Integer.parseInt(informacoesGeraisProbabilidadeJSpinner.getValue().toString());
-        String impactoTemp  = informacoesGeraisImpactoJComboBox.getSelectedItem().toString();
-        
-        if (impactoTemp == "Alto"){
+        String impactoTemp = informacoesGeraisImpactoJComboBox.getSelectedItem().toString();
+
+        if (impactoTemp == "Alto") {
             impactoDouble = 0.75;
             String grauDeSeveridade = String.valueOf(impactoDouble * probabilidade);
             informacoesGeraisGrauDeSeveridadeJTextField.setText((grauDeSeveridade));
-        }
-        else if (impactoTemp == "Médio"){
+        } else if (impactoTemp == "Médio") {
             impactoDouble = 0.5;
             String grauDeSeveridade = String.valueOf(impactoDouble * probabilidade);
             informacoesGeraisGrauDeSeveridadeJTextField.setText((grauDeSeveridade));
-        }
-        else if (impactoTemp == "Baixo"){
+        } else if (impactoTemp == "Baixo") {
             impactoDouble = 0.25;
             String grauDeSeveridade = String.valueOf(impactoDouble * probabilidade);
             informacoesGeraisGrauDeSeveridadeJTextField.setText((grauDeSeveridade));
-        }
-        else if (impactoTemp == "Crítico"){
+        } else if (impactoTemp == "Crítico") {
             impactoDouble = 1;
             String grauDeSeveridade = String.valueOf(impactoDouble * probabilidade);
             informacoesGeraisGrauDeSeveridadeJTextField.setText((grauDeSeveridade));
@@ -3090,24 +3082,21 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
     private void informacoesGeraisProbabilidadeJSpinnerKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_informacoesGeraisProbabilidadeJSpinnerKeyTyped
         double impactoDouble;
         int probabilidade = Integer.parseInt(informacoesGeraisProbabilidadeJSpinner.getValue().toString());
-        String impactoTemp  = informacoesGeraisImpactoJComboBox.getSelectedItem().toString();
-        
-        if (impactoTemp == "Alto"){
+        String impactoTemp = informacoesGeraisImpactoJComboBox.getSelectedItem().toString();
+
+        if (impactoTemp == "Alto") {
             impactoDouble = 0.75;
             String grauDeSeveridade = String.valueOf(impactoDouble * probabilidade);
             informacoesGeraisGrauDeSeveridadeJTextField.setText((grauDeSeveridade));
-        }
-        else if (impactoTemp == "Médio"){
+        } else if (impactoTemp == "Médio") {
             impactoDouble = 0.5;
             String grauDeSeveridade = String.valueOf(impactoDouble * probabilidade);
             informacoesGeraisGrauDeSeveridadeJTextField.setText((grauDeSeveridade));
-        }
-        else if (impactoTemp == "Baixo"){
+        } else if (impactoTemp == "Baixo") {
             impactoDouble = 0.25;
             String grauDeSeveridade = String.valueOf(impactoDouble * probabilidade);
             informacoesGeraisGrauDeSeveridadeJTextField.setText((grauDeSeveridade));
-        }
-        else if (impactoTemp == "Crítico"){
+        } else if (impactoTemp == "Crítico") {
             impactoDouble = 1;
             String grauDeSeveridade = String.valueOf(impactoDouble * probabilidade);
             informacoesGeraisGrauDeSeveridadeJTextField.setText((grauDeSeveridade));
@@ -3120,90 +3109,82 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
 
     private void subcondicoesCriarCondicaoJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_subcondicoesCriarCondicaoJButtonActionPerformed
 
-       
-        if(riscoSelecionado.getIdRisco() != null){
-            
-        boolean existeCondicaoComEsteNome = false;
-        for(int k=0; k < listaSubcondicoes.size(); k++){
-            if(listaSubcondicoes.get(k).getIdentificacaoSubcondicao().equals(subcondicoesIdentificacaoDaCondicaoJTextField.getText())){
-                existeCondicaoComEsteNome = true;
+        if (riscoSelecionado.getIdRisco() != null) {
+
+            boolean existeCondicaoComEsteNome = false;
+            for (int k = 0; k < listaSubcondicoes.size(); k++) {
+                if (listaSubcondicoes.get(k).getIdentificacaoSubcondicao().equals(subcondicoesIdentificacaoDaCondicaoJTextField.getText())) {
+                    existeCondicaoComEsteNome = true;
+                }
             }
-        }
-            
-        if(existeCondicaoComEsteNome){
-            JOptionPane.showMessageDialog(this, "Ja existe uma condição com este nome.");
-        } else {
-            
-        Subcondicao novaCondicao = new Subcondicao();
-        
-        
-        String identificacao = subcondicoesIdentificacaoDaCondicaoJTextField.getText();
-        
-        novaCondicao.setIdentificacaoSubcondicao(identificacao);
-        
-        novaCondicao.setDescricaoSubcondicao(descricaoSubcondicaoJTextArea.getText());
-        novaCondicao.setStatusSubcondicao("Não Ocorrido");
-        novaCondicao.setIdRisco(riscoSelecionado);
-        
-        riscosGerenciarRiscosFacade.criaSubcondicao(novaCondicao);
-        
-        
-        
-        subcondicaoSelecionada = null;
-        subcondicoesIdentificacaoDaCondicaoJTextField.setText("");
-        descricaoSubcondicaoJTextArea.setText("");
-        
-        criarTabelaSubcondicoes();
-        reiniciarTabelaSubcondicoes();
-        JOptionPane.showMessageDialog(this, "Condição criada com sucesso.");
-        
-        getListaSubcondicoes(riscoSelecionado);
-        reiniciarTabelaSubcondicoes();
-        
-        }
+
+            if (existeCondicaoComEsteNome) {
+                JOptionPane.showMessageDialog(this, "Ja existe uma condição com este nome.");
+            } else {
+
+                Subcondicao novaCondicao = new Subcondicao();
+
+                String identificacao = subcondicoesIdentificacaoDaCondicaoJTextField.getText();
+
+                novaCondicao.setIdentificacaoSubcondicao(identificacao);
+
+                novaCondicao.setDescricaoSubcondicao(descricaoSubcondicaoJTextArea.getText());
+                novaCondicao.setStatusSubcondicao("Não Ocorrido");
+                novaCondicao.setIdRisco(riscoSelecionado);
+
+                riscosGerenciarRiscosFacade.criaSubcondicao(novaCondicao);
+
+                subcondicaoSelecionada = null;
+                subcondicoesIdentificacaoDaCondicaoJTextField.setText("");
+                descricaoSubcondicaoJTextArea.setText("");
+
+                criarTabelaSubcondicoes();
+                reiniciarTabelaSubcondicoes();
+                JOptionPane.showMessageDialog(this, "Condição criada com sucesso.");
+
+                getListaSubcondicoes(riscoSelecionado);
+                reiniciarTabelaSubcondicoes();
+
+            }
         } else {
             JOptionPane.showMessageDialog(this, "Selecione um risco para criar uma condição.");
         }
-    // TODO add your handling code here:
+        // TODO add your handling code here:
     }//GEN-LAST:event_subcondicoesCriarCondicaoJButtonActionPerformed
 
     private void subcondicoesSalvarAlteracoesDaCondicaoJButtobActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_subcondicoesSalvarAlteracoesDaCondicaoJButtobActionPerformed
 
-    if(subcondicaoSelecionada != null){
-        
-        subcondicaoSelecionada.setIdentificacaoSubcondicao(subcondicoesIdentificacaoDaCondicaoJTextField.getText());
-        subcondicaoSelecionada.setDescricaoSubcondicao(descricaoSubcondicaoJTextArea.getText());
-        
-        riscosGerenciarRiscosFacade.alterarSubCondicao(subcondicaoSelecionada);
-        
-        tabelaSubcondicoesJTable.clearSelection();
-        subcondicaoSelecionada = null;
-        subcondicoesIdentificacaoDaCondicaoJTextField.setText("");
-        descricaoSubcondicaoJTextArea.setText("");
-        getListaSubcondicoes(riscoSelecionado);
-        reiniciarTabelaSubcondicoes();
-        
-        JOptionPane.showMessageDialog(this, "Condição alterada com sucesso.");
-        
-    } else {
-        JOptionPane.showMessageDialog(this, "Por favor selecione uma subcondição.");
-    }   
+        if (subcondicaoSelecionada != null) {
 
-    // TODO add your handling code here:
+            subcondicaoSelecionada.setIdentificacaoSubcondicao(subcondicoesIdentificacaoDaCondicaoJTextField.getText());
+            subcondicaoSelecionada.setDescricaoSubcondicao(descricaoSubcondicaoJTextArea.getText());
+
+            riscosGerenciarRiscosFacade.alterarSubCondicao(subcondicaoSelecionada);
+
+            tabelaSubcondicoesJTable.clearSelection();
+            subcondicaoSelecionada = null;
+            subcondicoesIdentificacaoDaCondicaoJTextField.setText("");
+            descricaoSubcondicaoJTextArea.setText("");
+            getListaSubcondicoes(riscoSelecionado);
+            reiniciarTabelaSubcondicoes();
+
+            JOptionPane.showMessageDialog(this, "Condição alterada com sucesso.");
+
+        } else {
+            JOptionPane.showMessageDialog(this, "Por favor selecione uma subcondição.");
+        }
+
+        // TODO add your handling code here:
     }//GEN-LAST:event_subcondicoesSalvarAlteracoesDaCondicaoJButtobActionPerformed
 
     private void limparCamposJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limparCamposJButtonActionPerformed
-        
-        
+
         tabelaSubcondicoesJTable.clearSelection();
         subcondicaoSelecionada = null;
-        
-        
-        
+
         subcondicoesIdentificacaoDaCondicaoJTextField.setText("");
         descricaoSubcondicaoJTextArea.setText("");
-        
-        
+
         // TODO add your handling code here:
     }//GEN-LAST:event_limparCamposJButtonActionPerformed
 
@@ -3212,167 +3193,159 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_subcondicoesIdentificacaoDaCondicaoJTextFieldActionPerformed
 
     private void inserirCondicaoCampo1JButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inserirCondicaoCampo1JButtonActionPerformed
-        if(subcondicaoSelecionada != null){
-        campo1JTextField.setText(subcondicaoSelecionada.getIdentificacaoSubcondicao());
-        campo1Condicao = subcondicaoSelecionada;
-        campo1Relacao = new Gruporelacao();
+        if (subcondicaoSelecionada != null) {
+            campo1JTextField.setText(subcondicaoSelecionada.getIdentificacaoSubcondicao());
+            campo1Condicao = subcondicaoSelecionada;
+            campo1Relacao = new Gruporelacao();
         }
         // TODO add your handling code here:
     }//GEN-LAST:event_inserirCondicaoCampo1JButtonActionPerformed
 
     private void inserirCondicaoCampo2JButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inserirCondicaoCampo2JButtonActionPerformed
-        if(subcondicaoSelecionada != null){
-        campo2JTextField.setText(subcondicaoSelecionada.getIdentificacaoSubcondicao());
-        campo2Condicao = subcondicaoSelecionada;
-        campo2Relacao = new Gruporelacao();
+        if (subcondicaoSelecionada != null) {
+            campo2JTextField.setText(subcondicaoSelecionada.getIdentificacaoSubcondicao());
+            campo2Condicao = subcondicaoSelecionada;
+            campo2Relacao = new Gruporelacao();
         }
 // TODO add your handling code here:
     }//GEN-LAST:event_inserirCondicaoCampo2JButtonActionPerformed
 
     private void inserirRelacaoCampo1JButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inserirRelacaoCampo1JButtonActionPerformed
 
-        if(relacaoSelecionada != null){
-        campo1JTextField.setText(relacaoSelecionada.getIdGrupo().toString());
-        campo1Condicao = new Subcondicao();
-        campo1Relacao = relacaoSelecionada;
+        if (relacaoSelecionada != null) {
+            campo1JTextField.setText(relacaoSelecionada.getIdGrupo().toString());
+            campo1Condicao = new Subcondicao();
+            campo1Relacao = relacaoSelecionada;
         }
         // TODO add your handling code here:
     }//GEN-LAST:event_inserirRelacaoCampo1JButtonActionPerformed
 
     private void inserirRelacaoCampo2JButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inserirRelacaoCampo2JButtonActionPerformed
-        
-        if(relacaoSelecionada != null){
-        campo2JTextField.setText(relacaoSelecionada.getIdGrupo().toString());
-        campo2Condicao = new Subcondicao();
-        campo2Relacao = relacaoSelecionada;
+
+        if (relacaoSelecionada != null) {
+            campo2JTextField.setText(relacaoSelecionada.getIdGrupo().toString());
+            campo2Condicao = new Subcondicao();
+            campo2Relacao = relacaoSelecionada;
         }
 // TODO add your handling code here:
     }//GEN-LAST:event_inserirRelacaoCampo2JButtonActionPerformed
 
     private void criarRelacaoJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_criarRelacaoJButtonActionPerformed
-        
-       if(campo1JTextField.getText().equals(null) || campo2JTextField.getText().equals(null)){
-           JOptionPane.showMessageDialog(this, "Finalize os campos para criação da relação.");
-       } else {
-           
-           
-           
-        Gruporelacao novaRelacao = new Gruporelacao();
-        if(campo1Condicao.getIdSubcondicao() != null){
-        novaRelacao.setIdSubcondicao1(campo1Condicao.getIdSubcondicao());
-        }
-        if(campo2Condicao.getIdSubcondicao() != null){
-        novaRelacao.setIdSubcondicao2(campo2Condicao.getIdSubcondicao());
-        }
-        if(campo1Relacao.getIdGrupo() != null){
-        novaRelacao.setIdRelacao1(campo1Relacao.getIdGrupo());
-        }
-        if(campo2Relacao.getIdGrupo() != null){
-        novaRelacao.setIdRelacao2(campo2Relacao.getIdGrupo());
-        }
-        
-        novaRelacao.setRelacao(subcondicoesTipoDeRelacaoJComboBox.getSelectedItem().toString());
-        
-        boolean existeRelacaoIgual = false;
-           for(int i=0; i < listaRelacoes.size(); i++){
-               if((listaRelacoes.get(i).getIdRelacao1() == novaRelacao.getIdRelacao1())
-                       && (listaRelacoes.get(i).getIdRelacao2() == novaRelacao.getIdRelacao2())
-                       && (listaRelacoes.get(i).getIdSubcondicao1() == novaRelacao.getIdSubcondicao1())
-                       && (listaRelacoes.get(i).getIdSubcondicao2() == novaRelacao.getIdSubcondicao2())
-                       && (listaRelacoes.get(i).getRelacao().equals(novaRelacao.getRelacao()))){
-                   existeRelacaoIgual = true;
-               }
-           }
-        
-           
-           if(existeRelacaoIgual){
-               JOptionPane.showMessageDialog(this, "Ja existe uma relação igual a esta.");
-           } else {
-               
+
+        if (campo1JTextField.getText().equals(null) || campo2JTextField.getText().equals(null)) {
+            JOptionPane.showMessageDialog(this, "Finalize os campos para criação da relação.");
+        } else {
+
+            Gruporelacao novaRelacao = new Gruporelacao();
+            if (campo1Condicao.getIdSubcondicao() != null) {
+                novaRelacao.setIdSubcondicao1(campo1Condicao.getIdSubcondicao());
+            }
+            if (campo2Condicao.getIdSubcondicao() != null) {
+                novaRelacao.setIdSubcondicao2(campo2Condicao.getIdSubcondicao());
+            }
+            if (campo1Relacao.getIdGrupo() != null) {
+                novaRelacao.setIdRelacao1(campo1Relacao.getIdGrupo());
+            }
+            if (campo2Relacao.getIdGrupo() != null) {
+                novaRelacao.setIdRelacao2(campo2Relacao.getIdGrupo());
+            }
+
+            novaRelacao.setRelacao(subcondicoesTipoDeRelacaoJComboBox.getSelectedItem().toString());
+
+            boolean existeRelacaoIgual = false;
+            for (int i = 0; i < listaRelacoes.size(); i++) {
+                if ((listaRelacoes.get(i).getIdRelacao1() == novaRelacao.getIdRelacao1())
+                        && (listaRelacoes.get(i).getIdRelacao2() == novaRelacao.getIdRelacao2())
+                        && (listaRelacoes.get(i).getIdSubcondicao1() == novaRelacao.getIdSubcondicao1())
+                        && (listaRelacoes.get(i).getIdSubcondicao2() == novaRelacao.getIdSubcondicao2())
+                        && (listaRelacoes.get(i).getRelacao().equals(novaRelacao.getRelacao()))) {
+                    existeRelacaoIgual = true;
+                }
+            }
+
+            if (existeRelacaoIgual) {
+                JOptionPane.showMessageDialog(this, "Ja existe uma relação igual a esta.");
+            } else {
+
                 riscosGerenciarRiscosFacade.criarNovaRelacao(novaRelacao);
-        
+
                 reiniciarTabelaSubcondicoes();
-        
+
                 campo1Condicao = null;
                 campo1Relacao = null;
                 campo1JTextField.setText("");
                 campo2Condicao = null;
                 campo2Relacao = null;
                 campo2JTextField.setText("");
-            
-                
+
                 JOptionPane.showMessageDialog(this, "Nova relação criada com sucesso.");
-                
-                
-           }
-        
+
+            }
+
         }
-        
-        
+
+
     }//GEN-LAST:event_criarRelacaoJButtonActionPerformed
 
     private void deletarCondicaoJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deletarCondicaoJButtonActionPerformed
-        
-        if(subcondicaoSelecionada != null){
-        
-        boolean existeRelacaoComASubcondicaoSelecionada = false;
-        
-        for(int i = 0; i < listaRelacoes.size(); i++){
-            
-            if(subcondicaoSelecionada.getIdSubcondicao() == listaRelacoes.get(i).getIdSubcondicao1() || subcondicaoSelecionada.getIdSubcondicao() == listaRelacoes.get(i).getIdSubcondicao2()){
-                existeRelacaoComASubcondicaoSelecionada = true;
+
+        if (subcondicaoSelecionada != null) {
+
+            boolean existeRelacaoComASubcondicaoSelecionada = false;
+
+            for (int i = 0; i < listaRelacoes.size(); i++) {
+
+                if (subcondicaoSelecionada.getIdSubcondicao() == listaRelacoes.get(i).getIdSubcondicao1() || subcondicaoSelecionada.getIdSubcondicao() == listaRelacoes.get(i).getIdSubcondicao2()) {
+                    existeRelacaoComASubcondicaoSelecionada = true;
+                }
+
             }
-            
-        }
-        
-        
-        if(existeRelacaoComASubcondicaoSelecionada){
-            JOptionPane.showMessageDialog(this, "Existem relações com esta condição.");
-        } else {
-            
-            riscosGerenciarRiscosFacade.deletarSubCondicao(subcondicaoSelecionada);
-            
-            getListaSubcondicoes(riscoSelecionado);
-            reiniciarTabelaSubcondicoes();
-            
-            tabelaSubcondicoesJTable.clearSelection();
-            subcondicaoSelecionada = null;
-        
-            subcondicoesIdentificacaoDaCondicaoJTextField.setText("");
-            descricaoSubcondicaoJTextArea.setText("");
-            
-            JOptionPane.showMessageDialog(this, "Condição deletada com sucesso.");
-        }
-        
+
+            if (existeRelacaoComASubcondicaoSelecionada) {
+                JOptionPane.showMessageDialog(this, "Existem relações com esta condição.");
+            } else {
+
+                riscosGerenciarRiscosFacade.deletarSubCondicao(subcondicaoSelecionada);
+
+                getListaSubcondicoes(riscoSelecionado);
+                reiniciarTabelaSubcondicoes();
+
+                tabelaSubcondicoesJTable.clearSelection();
+                subcondicaoSelecionada = null;
+
+                subcondicoesIdentificacaoDaCondicaoJTextField.setText("");
+                descricaoSubcondicaoJTextArea.setText("");
+
+                JOptionPane.showMessageDialog(this, "Condição deletada com sucesso.");
+            }
+
         } else {
             JOptionPane.showMessageDialog(this, "Por favor selecione uma condição.");
         }
-        
-        
-        
+
+
     }//GEN-LAST:event_deletarCondicaoJButtonActionPerformed
 
     private void deletarRelacaoJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deletarRelacaoJButtonActionPerformed
 
-        if(relacaoSelecionada != null){
-                
-        boolean existeRelacaoComARelacaoSelecionada = false;
-        for(int i=0; i < listaRelacoes.size(); i++){
-            if(listaRelacoes.get(i).getIdRelacao1() == relacaoSelecionada.getIdGrupo() || listaRelacoes.get(i).getIdRelacao2() == relacaoSelecionada.getIdGrupo()){
-                existeRelacaoComARelacaoSelecionada = true;
-            }
-        }
-        
-        if(existeRelacaoComARelacaoSelecionada){
-            JOptionPane.showMessageDialog(this, "Existem relações envolvendo esta relação");
-        } else {
-            
-            riscosGerenciarRiscosFacade.deletarRelacao(relacaoSelecionada);
-            
-            reiniciarTabelaRelacoes();
-            relacaoSelecionada = null;
+        if (relacaoSelecionada != null) {
 
-                        
+            boolean existeRelacaoComARelacaoSelecionada = false;
+            for (int i = 0; i < listaRelacoes.size(); i++) {
+                if (listaRelacoes.get(i).getIdRelacao1() == relacaoSelecionada.getIdGrupo() || listaRelacoes.get(i).getIdRelacao2() == relacaoSelecionada.getIdGrupo()) {
+                    existeRelacaoComARelacaoSelecionada = true;
+                }
+            }
+
+            if (existeRelacaoComARelacaoSelecionada) {
+                JOptionPane.showMessageDialog(this, "Existem relações envolvendo esta relação");
+            } else {
+
+                riscosGerenciarRiscosFacade.deletarRelacao(relacaoSelecionada);
+
+                reiniciarTabelaRelacoes();
+                relacaoSelecionada = null;
+
                 campo1Condicao = null;
                 campo1Relacao = null;
                 campo1JTextField.setText("");
@@ -3380,14 +3353,13 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
                 campo2Relacao = null;
                 campo2JTextField.setText("");
 
-            
-            JOptionPane.showMessageDialog(this, "Relação deletada com sucesso.");
-                
-        }
+                JOptionPane.showMessageDialog(this, "Relação deletada com sucesso.");
+
+            }
         } else {
             JOptionPane.showMessageDialog(this, "Por favor selecione uma relação.");
         }
-        
+
     }//GEN-LAST:event_deletarRelacaoJButtonActionPerformed
 
 

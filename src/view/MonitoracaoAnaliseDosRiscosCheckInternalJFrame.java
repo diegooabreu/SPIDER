@@ -862,7 +862,7 @@ public class MonitoracaoAnaliseDosRiscosCheckInternalJFrame extends javax.swing.
         boolean temDataLimiteFutura = false;
         for (int i=0;  i < listaPC.size();i++){
             Calendar dataSelecionada = Calendar.getInstance();
-            if (listaPC.get(i).getIdMarcoDoProjeto().getIdMarcoDoProjeto() == null){
+            if (listaPC.get(i).getIdMarcoDoProjeto() == null){
                 dataSelecionada.setTime(listaPC.get(i).getIdPontoDeControle().getDataPontoControle()); 
                 String dataPonto = df.format(dataSelecionada.getTime()) ;
                 if(dataSelecionada.after(new Date()) || dataPonto.equals(dataAtual)){

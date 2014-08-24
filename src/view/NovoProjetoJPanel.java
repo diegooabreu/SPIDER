@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package view;
 
 import facade.OrganizacaoDetalhesFacade;
@@ -178,70 +177,70 @@ public class NovoProjetoJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_nomeDoProjetoJTextFieldActionPerformed
 
     private void salvarNovoProjetoJToggleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvarNovoProjetoJToggleButtonActionPerformed
-        Projeto projeto =  new Projeto();
-        int confirmador = 0;
-        while(confirmador == 0){
-            if (nomeDoProjetoJTextField == null){
+        Projeto projeto = new Projeto();
+        int campoNulo = 0;
+        int contCamposNulos = 0;
+        projeto.setNomeProjeto(nomeDoProjetoJTextField.getText());
+        if ("".equals(projeto.getNomeProjeto())) {
+            campoNulo = 1;
+            contCamposNulos++;
+        }
+        projeto.setResponsavelProjeto(responsavelPeloProjetoJTextField.getText());
+        if ("".equals(projeto.getResponsavelProjeto())) {
+            campoNulo = 2;
+            contCamposNulos++;
+        }
+        projeto.setResponsavelGerenciaRiscos(responsavelGerenciaRiscosJTextField.getText());
+        if ("".equals(projeto.getResponsavelGerenciaRiscos())) {
+            campoNulo = 3;
+            contCamposNulos++;
+        }
+        projeto.setDescricaoProjeto(descricaoDoProjetoJTextArea.getText());
+        if ("".equals(projeto.getDescricaoProjeto())) {
+            campoNulo = 4;
+            contCamposNulos++;
+        }
+
+        if (contCamposNulos > 1){
+            JOptionPane.showMessageDialog(this, "Um ou mais campos estão vazios. "
+                    + "Para cadastrar um novo Projeto é necessário preencher todos os campos.");
+            campoNulo = -1;
+        }
+        
+        switch (campoNulo) {
+            case 1:
                 JOptionPane.showMessageDialog(this, "O campo 'Nome do projeto' está vazio. Preencha este campo");
-            }
-            else{
-                projeto.setNomeProjeto(nomeDoProjetoJTextField.getText());
-                confirmador++;
-            }
-        }
-        
-        confirmador--;
-        
-        while (confirmador == 0){
-            if(responsavelPeloProjetoJTextField == null){
+                break;
+            case 2:
                 JOptionPane.showMessageDialog(this, "O campo 'Responsável pelo Projeto' está vazio. Preencha este campo");
-            }
-            else{
-                projeto.setResponsavelProjeto(responsavelPeloProjetoJTextField.getText());
-                confirmador++;
-            }
-        }
-        
-        confirmador--;
-        
-        while (confirmador == 0){
-            if(responsavelGerenciaRiscosJTextField == null){
+                break;
+            case 3:
                 JOptionPane.showMessageDialog(this, "O campo 'Responsável pela Gerência de riscos' está vazio. Preencha este campo");
-            }
-            else{
-                projeto.setResponsavelGerenciaRiscos(responsavelGerenciaRiscosJTextField.getText());
-                confirmador++;
+                break;
+            case 4:
+                JOptionPane.showMessageDialog(this, "O campo 'Descrição do Projeto' está vazio. Preencha este campo");
+                break;
+            case 0: {
+                projeto.setConcluido(false);
+
+                OrganizacaoDetalhesFacade detalhesFacade = new OrganizacaoDetalhesFacade();
+
+                projeto.setIdOrganizacao(detalhesFacade.getDetalhes());
+
+                ProjetoFacade projetoFachada = new ProjetoFacade();
+                projetoFachada.salvarNovoProjeto(projeto);
+                projetoFachada.adicionarEAR(projeto);
+
+                JOptionPane.showMessageDialog(this, "Projeto criado com sucesso!");
+
+                nomeDoProjetoJTextField.setText(null);
+                responsavelPeloProjetoJTextField.setText(null);
+                responsavelGerenciaRiscosJTextField.setText(null);
+                descricaoDoProjetoJTextArea.setText(null);
+                
+                break;
             }
         }
-        
-        confirmador--;
-        
-        while (confirmador == 0){
-            if(descricaoDoProjetoJTextArea == null){
-                JOptionPane.showMessageDialog(this, "O campo 'Responsável pelo Projeto' está vazio. Preencha este campo");
-            }
-            else{
-                projeto.setDescricaoProjeto(descricaoDoProjetoJTextArea.getText());
-                confirmador++;
-            }
-        } 
-        
-        projeto.setConcluido(false);
-        
-        OrganizacaoDetalhesFacade detalhesFacade = new OrganizacaoDetalhesFacade();
-        
-        projeto.setIdOrganizacao(detalhesFacade.getDetalhes());
-        
-        ProjetoFacade projetoFachada = new ProjetoFacade();
-        projetoFachada.salvarNovoProjeto(projeto);
-        projetoFachada.adicionarEAR(projeto);
-        
-        JOptionPane.showMessageDialog(this, "Projeto criado com sucesso!");
-        
-        nomeDoProjetoJTextField.setText(null);
-        responsavelPeloProjetoJTextField.setText(null);
-        responsavelGerenciaRiscosJTextField.setText(null);
-        descricaoDoProjetoJTextArea.setText(null);
     }//GEN-LAST:event_salvarNovoProjetoJToggleButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

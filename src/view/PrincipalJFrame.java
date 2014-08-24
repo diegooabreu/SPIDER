@@ -11,6 +11,8 @@ import facade.RiscosGerenciarRiscosFacade;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTree;
@@ -37,7 +39,7 @@ public class PrincipalJFrame extends javax.swing.JFrame {
     final OrganizacionalEARJPanel organizacionalEARJPanel = new OrganizacionalEARJPanel();
     final OrganizacionalPoliticaOrganizacionalJPanel organizacionalPoliticaOrganizacionalJPanel = new OrganizacionalPoliticaOrganizacionalJPanel();
     final OrganizacionalPortfolioJPanel organizacionalPortfolioJPanel = new OrganizacionalPortfolioJPanel();
-    final ProjetoDetalhesJPanel projetoDetalhesJPanel = new ProjetoDetalhesJPanel();
+    static ProjetoDetalhesJPanel projetoDetalhesJPanel = new ProjetoDetalhesJPanel();
     final ProjetoPlanoRiscoJPanel projetoPlanoRiscoJpanel = new ProjetoPlanoRiscoJPanel();
     final ProjetoEstruturaAnaliticaRiscosJpanel projetoEstruturaAnaliticaRiscosJpanel = new ProjetoEstruturaAnaliticaRiscosJpanel();
     final ProjetoCalendarioJPanel projetoCalendarioJPanel = new ProjetoCalendarioJPanel();
@@ -61,6 +63,7 @@ public class PrincipalJFrame extends javax.swing.JFrame {
     static RiscosRiscosOcorridosJInternalFrame riscosRiscosOcorridosJInternalFrame = new RiscosRiscosOcorridosJInternalFrame();
     static CalendarioDetalhesMarcoEpontoDoDiaInternalJFrame calendarioDetalhesMarcoEpontoDoDiaInternalJFrame = new CalendarioDetalhesMarcoEpontoDoDiaInternalJFrame();
     static MonitorarPlanosPendentesMaisInformaçõesInternalFrame monitorarPlanosPendentesMaisInformaçõesInternalFrame = new MonitorarPlanosPendentesMaisInformaçõesInternalFrame();
+    static ProjetoConcluirProjetoInternalJFrame projetoConcluirProjetoInternalJFrame = new ProjetoConcluirProjetoInternalJFrame();
 
     // Criando Arvore de Funcionalidades - Menu //
     private JTree arvoreFuncionalidadesJTree;
@@ -97,10 +100,11 @@ public class PrincipalJFrame extends javax.swing.JFrame {
         criarArvore();
         definirEventosArvore();
         definirEventoRedimensionamento();
-        //teste.setVisible(true);
+        //Desabilita o botão maximizar da tela Principal
+        this.setResizable(false);
 
     }
-
+    
     public void definirEventoRedimensionamento() {
         this.addComponentListener(new java.awt.event.ComponentListener() {
             public void componentResized(java.awt.event.ComponentEvent e) {
@@ -374,6 +378,10 @@ public class PrincipalJFrame extends javax.swing.JFrame {
         monitorarPlanosPendentesMaisInformaçõesInternalFrame.setVisible(true);
     }
 
+    static void aparecerInternalFrameProjetoConcluirProjeto() {
+        projetoConcluirProjetoInternalJFrame.setVisible(true);
+    }
+
     private void configuracoesFerramentaJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_configuracoesFerramentaJButtonActionPerformed
         esconderFrames();
         configuracoesFerramentaJPanel.setVisible(true);
@@ -404,6 +412,7 @@ public class PrincipalJFrame extends javax.swing.JFrame {
                         riscosResumoDeRiscosJPanel.preencherDadosTabelaResumoDeRiscos(listaDeRiscoPorProjeto);
 
                         // Na tela Gerenciar Riscos
+                        riscosGerenciarRiscosJPanel.limpaCamposGerenciarRisco();
                         //Na aba Informações Gerais
                         riscosGerenciarRiscosJPanel.setProjetoSelecionado(projetoSelecionado);
                         riscosGerenciarRiscosJPanel.limparCampos();
@@ -540,7 +549,7 @@ public class PrincipalJFrame extends javax.swing.JFrame {
     }
 
     public void popularComboBox() {
-
+        projetoSelecionadoJComboBox.addItem("--Selecione um Projeto--");
         if (listaProjetos.size() > 0) {
 
             for (int i = 0; i < listaProjetos.size(); i++) {
@@ -626,6 +635,8 @@ public class PrincipalJFrame extends javax.swing.JFrame {
 
         camadasJDesktopPane.add(monitorarPlanosPendentesMaisInformaçõesInternalFrame);
 
+        camadasJDesktopPane.add(projetoConcluirProjetoInternalJFrame);
+
         //riscosPriorizarRiscosJPanel.setBounds(0, 0, 861, 529);
         //camadasJDesktopPane.add(riscosPriorizarRiscosJPanel);
         //camadasJDesktopPane.add(riscosSelecionarRiscosParaMonitorarInternalJFrame);
@@ -659,6 +670,7 @@ public class PrincipalJFrame extends javax.swing.JFrame {
         riscosRiscosOcorridosJInternalFrame.setVisible(false);
         calendarioDetalhesMarcoEpontoDoDiaInternalJFrame.setVisible(false);
         monitorarPlanosPendentesMaisInformaçõesInternalFrame.setVisible(false);
+        projetoConcluirProjetoInternalJFrame.setVisible(false);
     }
 
     // Criando os nós da arvore e adicionando-os //
@@ -735,71 +747,94 @@ public class PrincipalJFrame extends javax.swing.JFrame {
 
                     esconderFrames();
 
-                    if (node == organizacional) {
-                        organizacionalDetalhesJPanel.setVisible(true);
-                        organizacionalDetalhesJPanel.preencheForm();
+                    if (projetoSelecionadoJComboBox.getSelectedItem() == "--Selecione um Projeto--") {
+                        if (node == organizacional) {
+                            organizacionalDetalhesJPanel.setVisible(true);
+                            organizacionalDetalhesJPanel.preencheForm();
 
-                    } else if (node == politicaOrganizacional) {
-                        organizacionalPoliticaOrganizacionalJPanel.setVisible(true);
-                        organizacionalPoliticaOrganizacionalJPanel.preenchePolitica();
-                    } else if (node == estruturaAnaliticaRiscos) {
-                        organizacionalEARJPanel.setVisible(true);
-                        organizacionalEARJPanel.criarArvore();
-                        organizacionalEARJPanel.criarTabela();
-                        organizacionalEARJPanel.popularArvoreEtabela();
-                        organizacionalEARJPanel.definirEventosArvore();
-                        organizacionalEARJPanel.definirEventosTabela();
-                    } else if (node == portfolio) {
-                        organizacionalPortfolioJPanel.setVisible(true);
-                        organizacionalPortfolioJPanel.reiniciarTabelaPortfolio();
-                    } else if (node == projeto) {
-                        projetoDetalhesJPanel.setVisible(true);
-                        projetoDetalhesJPanel.preencheDetalhes(projetoSelecionado);
-                    } else if (node == planoDeRisco) {
-                        projetoPlanoRiscoJpanel.setVisible(true);
-                        projetoPlanoRiscoJpanel.preenchePlanoRisco(projetoSelecionado);
-                    } else if (node == gerenciarRiscos) {
-                        riscosGerenciarRiscosJPanel.setVisible(true);
-                        riscosGerenciarRiscosJPanel.limpaCamposGerenciarRisco();
-                        riscosGerenciarRiscosJPanel.reiniciarTabelaRiscos();
-                    } else if (node == earProjeto) {
-                        projetoEstruturaAnaliticaRiscosJpanel.setVisible(true);
-                    } else if (node == calendario) {
-                        projetoCalendarioJPanel.setVisible(true);
-                    } else if (node == priorizarRiscos) {
-                        riscosPriorizarRiscosJPanel.setVisible(true);
-                        riscosPriorizarRiscosJPanel.criaTabela();
-                        RiscosGerenciarRiscosFacade rGRfacade = new RiscosGerenciarRiscosFacade();
-                        List<Risco> listaDeRisco = rGRfacade.listarRiscosPOrdemGrauDeEsposicao(projetoSelecionado);
-                        riscosPriorizarRiscosJPanel.populaTabelaDeRiscos(listaDeRisco, false);
-                        riscosPriorizarRiscosJPanel.definirEventosTabelaPriorizarRiscos();
-                    } else if (node == riscosOcorridos) {
-                        riscosRiscosOcorridosJPanel.setVisible(true);
-                        riscosRiscosOcorridosJPanel.criarTabelaRiscosOcorridos();
-                        riscosRiscosOcorridosJPanel.getProjeto(projetoSelecionado);
-                        riscosRiscosOcorridosJPanel.popularTabelaRiscosOcorridos();
-                    } else if (node == analiseRiscos) {
-                        monitoracaoAnaliseDosRiscosJPanel.setVisible(true);
-                        monitoracaoAnaliseDosRiscosJPanel.criarTabelaAnalisarRiscos();
-                        MonitoracaoAnaliseDosRiscosFacade analiseFacade = new MonitoracaoAnaliseDosRiscosFacade();
-                        List<Risco> listaDeRisco = analiseFacade.listarRiscosPOrdemGrauDeEsposicaoByStatus(projetoSelecionado, "Mitigando");
-                        monitoracaoAnaliseDosRiscosJPanel.populaTabelaDeRiscos(listaDeRisco, false);
-                        monitoracaoAnaliseDosRiscosJPanel.definirEventosTabelaDeRiscos();
-                    } else if (node == planosPendentes) {
-                        ProjetoFacade projetoFacade = new ProjetoFacade();
-                        monitoracaoPlanosPendentesJPanel.criarTabelaPlanosPendentes(projetoFacade.buscaPlanosDeContingenciaPendentes(projetoSelecionado), projetoFacade.buscaPlanosDeMitigacaoPendentes(projetoSelecionado));
-                        monitoracaoPlanosPendentesJPanel.setProjetoSelecionado(projetoSelecionado);
-                        monitoracaoPlanosPendentesJPanel.setVisible(true);
-                    } else if (node == planosRealizados) {
-                        ProjetoFacade projetoFacade = new ProjetoFacade();
-                        monitoracaoPlanosRealizadosJPanel.criarTabelaPlanosRealizados(projetoFacade.buscaPlanosDeContingenciaRealizados(projetoSelecionado), projetoFacade.buscaPlanosDeMitigacaoRealizados(projetoSelecionado));
-                        monitoracaoPlanosRealizadosJPanel.setVisible(true);
-                    } else if (node == riscos) {
-                        RiscosGerenciarRiscosFacade riscosGerenciarRiscosFacade = new RiscosGerenciarRiscosFacade();
-                        List<Risco> listaDeRiscoPorProjeto = riscosGerenciarRiscosFacade.listarRiscosByProjeto(projetoSelecionado);
-                        riscosResumoDeRiscosJPanel.criaTabelResumoDeRiscos();
-                        riscosResumoDeRiscosJPanel.preencherDadosTabelaResumoDeRiscos(listaDeRiscoPorProjeto);
-                        riscosResumoDeRiscosJPanel.setVisible(true);
+                        } else if (node == politicaOrganizacional) {
+                            organizacionalPoliticaOrganizacionalJPanel.setVisible(true);
+                            organizacionalPoliticaOrganizacionalJPanel.preenchePolitica();
+                        } else if (node == estruturaAnaliticaRiscos) {
+                            organizacionalEARJPanel.setVisible(true);
+                            organizacionalEARJPanel.criarArvore();
+                            organizacionalEARJPanel.criarTabela();
+                            organizacionalEARJPanel.popularArvoreEtabela();
+                            organizacionalEARJPanel.definirEventosArvore();
+                            organizacionalEARJPanel.definirEventosTabela();
+                        } else if (node == portfolio) {
+                            organizacionalPortfolioJPanel.setVisible(true);
+                            organizacionalPortfolioJPanel.reiniciarTabelaPortfolio();
+                        } else {
+                            JOptionPane.showMessageDialog(null, "É necessário selecionar um Projeto para acessar essa área.");
+                        }
+                    } else {
+                        if (node == organizacional) {
+                            organizacionalDetalhesJPanel.setVisible(true);
+                            organizacionalDetalhesJPanel.preencheForm();
+
+                        } else if (node == politicaOrganizacional) {
+                            organizacionalPoliticaOrganizacionalJPanel.setVisible(true);
+                            organizacionalPoliticaOrganizacionalJPanel.preenchePolitica();
+                        } else if (node == estruturaAnaliticaRiscos) {
+                            organizacionalEARJPanel.setVisible(true);
+                            organizacionalEARJPanel.criarArvore();
+                            organizacionalEARJPanel.criarTabela();
+                            organizacionalEARJPanel.popularArvoreEtabela();
+                            organizacionalEARJPanel.definirEventosArvore();
+                            organizacionalEARJPanel.definirEventosTabela();
+                        } else if (node == portfolio) {
+                            organizacionalPortfolioJPanel.setVisible(true);
+                            organizacionalPortfolioJPanel.reiniciarTabelaPortfolio();
+                        } else if (node == projeto) {
+                            projetoDetalhesJPanel.setVisible(true);
+                            projetoDetalhesJPanel.preencheDetalhes(projetoSelecionado);
+                        } else if (node == planoDeRisco) {
+                            projetoPlanoRiscoJpanel.setVisible(true);
+                            projetoPlanoRiscoJpanel.preenchePlanoRisco(projetoSelecionado);
+                        } else if (node == gerenciarRiscos) {
+                            riscosGerenciarRiscosJPanel.setVisible(true);
+                            riscosGerenciarRiscosJPanel.limpaCamposGerenciarRisco();
+                            riscosGerenciarRiscosJPanel.reiniciarTabelaRiscos();
+                        } else if (node == earProjeto) {
+                            projetoEstruturaAnaliticaRiscosJpanel.setVisible(true);
+                        } else if (node == calendario) {
+                            projetoCalendarioJPanel.setVisible(true);
+                        } else if (node == priorizarRiscos) {
+                            riscosPriorizarRiscosJPanel.setVisible(true);
+                            riscosPriorizarRiscosJPanel.criaTabela();
+                            RiscosGerenciarRiscosFacade rGRfacade = new RiscosGerenciarRiscosFacade();
+                            List<Risco> listaDeRisco = rGRfacade.listarRiscosPOrdemGrauDeEsposicao(projetoSelecionado);
+                            riscosPriorizarRiscosJPanel.populaTabelaDeRiscos(listaDeRisco, false);
+                            riscosPriorizarRiscosJPanel.definirEventosTabelaPriorizarRiscos();
+                        } else if (node == riscosOcorridos) {
+                            riscosRiscosOcorridosJPanel.setVisible(true);
+                            riscosRiscosOcorridosJPanel.criarTabelaRiscosOcorridos();
+                            riscosRiscosOcorridosJPanel.getProjeto(projetoSelecionado);
+                            riscosRiscosOcorridosJPanel.popularTabelaRiscosOcorridos();
+                        } else if (node == analiseRiscos) {
+                            monitoracaoAnaliseDosRiscosJPanel.setVisible(true);
+                            monitoracaoAnaliseDosRiscosJPanel.criarTabelaAnalisarRiscos();
+                            MonitoracaoAnaliseDosRiscosFacade analiseFacade = new MonitoracaoAnaliseDosRiscosFacade();
+                            List<Risco> listaDeRisco = analiseFacade.listarRiscosPOrdemGrauDeEsposicaoByStatus(projetoSelecionado, "Mitigando");
+                            monitoracaoAnaliseDosRiscosJPanel.populaTabelaDeRiscos(listaDeRisco, false);
+                            monitoracaoAnaliseDosRiscosJPanel.definirEventosTabelaDeRiscos();
+                        } else if (node == planosPendentes) {
+                            ProjetoFacade projetoFacade = new ProjetoFacade();
+                            monitoracaoPlanosPendentesJPanel.criarTabelaPlanosPendentes(projetoFacade.buscaPlanosDeContingenciaPendentes(projetoSelecionado), projetoFacade.buscaPlanosDeMitigacaoPendentes(projetoSelecionado));
+                            monitoracaoPlanosPendentesJPanel.setProjetoSelecionado(projetoSelecionado);
+                            monitoracaoPlanosPendentesJPanel.setVisible(true);
+                        } else if (node == planosRealizados) {
+                            ProjetoFacade projetoFacade = new ProjetoFacade();
+                            monitoracaoPlanosRealizadosJPanel.criarTabelaPlanosRealizados(projetoFacade.buscaPlanosDeContingenciaRealizados(projetoSelecionado), projetoFacade.buscaPlanosDeMitigacaoRealizados(projetoSelecionado));
+                            monitoracaoPlanosRealizadosJPanel.setVisible(true);
+                        } else if (node == riscos) {
+                            RiscosGerenciarRiscosFacade riscosGerenciarRiscosFacade = new RiscosGerenciarRiscosFacade();
+                            List<Risco> listaDeRiscoPorProjeto = riscosGerenciarRiscosFacade.listarRiscosByProjeto(projetoSelecionado);
+                            riscosResumoDeRiscosJPanel.criaTabelResumoDeRiscos();
+                            riscosResumoDeRiscosJPanel.preencherDadosTabelaResumoDeRiscos(listaDeRiscoPorProjeto);
+                            riscosResumoDeRiscosJPanel.setVisible(true);
+                        }
                     }
                 }
             }
