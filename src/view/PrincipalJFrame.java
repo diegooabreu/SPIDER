@@ -44,8 +44,8 @@ public class PrincipalJFrame extends javax.swing.JFrame {
     final ProjetoEstruturaAnaliticaRiscosJpanel projetoEstruturaAnaliticaRiscosJpanel = new ProjetoEstruturaAnaliticaRiscosJpanel();
     final ProjetoCalendarioJPanel projetoCalendarioJPanel = new ProjetoCalendarioJPanel();
     final ConfiguracoesFerramentaJPanel configuracoesFerramentaJPanel = new ConfiguracoesFerramentaJPanel();
-    RiscosGerenciarRiscosJPanel riscosGerenciarRiscosJPanel = new RiscosGerenciarRiscosJPanel();
-    final NovoProjetoJPanel novoProjetoJPanel = new NovoProjetoJPanel();
+    final RiscosGerenciarRiscosJPanel riscosGerenciarRiscosJPanel = new RiscosGerenciarRiscosJPanel();
+    static NovoProjetoJPanel novoProjetoJPanel = new NovoProjetoJPanel();
     final OrganizacionalEditarEARJPanel organizacionalEditarEARJPanel = new OrganizacionalEditarEARJPanel();
     static RiscosPriorizarRiscosJPanel riscosPriorizarRiscosJPanel = new RiscosPriorizarRiscosJPanel();
     final RiscosRiscosOcorridosJPanel riscosRiscosOcorridosJPanel = new RiscosRiscosOcorridosJPanel();
@@ -748,7 +748,8 @@ public class PrincipalJFrame extends javax.swing.JFrame {
                     esconderFrames();
 
                     if (projetoSelecionadoJComboBox.getSelectedItem() == "--Selecione um Projeto--") {
-                        if (node == organizacional) {
+                        if (node == funcionalidades){
+                        } else if (node == organizacional) {
                             organizacionalDetalhesJPanel.setVisible(true);
                             organizacionalDetalhesJPanel.preencheForm();
 

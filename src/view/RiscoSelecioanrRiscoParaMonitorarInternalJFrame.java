@@ -323,7 +323,7 @@ public class RiscoSelecioanrRiscoParaMonitorarInternalJFrame extends javax.swing
 
         criarTabelaSelecionarRiscos(listaRiscos);
 
-        JOptionPane.showMessageDialog(this, "Riscos selecionados agora estão sendo monitorados, seus planos de mitigação agora são\ntarefas a serem realizadas.");
+        JOptionPane.showMessageDialog(this, "Riscos selecionados agora estão sendo monitorados, seus planos de mitigação agora são\ntarefas a serem realizadas em \"Planos Pendentes\".");
 
         // TODO add your handling code here:
     }//GEN-LAST:event_monitorarJButtonActionPerformed

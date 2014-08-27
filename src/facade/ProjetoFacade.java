@@ -10,11 +10,13 @@ import controller.ContemJpaController;
 import controller.PlanocontingenciaJpaController;
 import controller.PlanomitigacaoJpaController;
 import controller.ProjetoJpaController;
+import controller.ProjetoModificadoJpaController;
 import controller.exceptions.NonexistentEntityException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import model.Categoriaderisco;
 import model.Contem;
 import model.Planocontingencia;
@@ -163,5 +165,15 @@ public class ProjetoFacade {
 
         return listaPM;
     }
-
+    
+    public void removeProjeto (Projeto projeto){
+        ProjetoModificadoJpaController projetoModificadoJpaController = new ProjetoModificadoJpaController();
+        
+        try {
+            projetoModificadoJpaController.destroy(projeto);
+            JOptionPane.showMessageDialog(null, "Projeto removido com sucesso.");
+        } catch (Exception error){ 
+            error.printStackTrace();
+        }
+    }
 }
