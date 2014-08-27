@@ -90,6 +90,7 @@ public class ProjetoDetalhesJPanel extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         statusProjetoJLabel = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        removerProjeto = new javax.swing.JButton();
 
         jTextField1.setText("jTextField1");
 
@@ -134,6 +135,13 @@ public class ProjetoDetalhesJPanel extends javax.swing.JPanel {
             }
         });
 
+        removerProjeto.setText("Remover");
+        removerProjeto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                removerProjetoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -145,6 +153,8 @@ public class ProjetoDetalhesJPanel extends javax.swing.JPanel {
                     .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(removerProjeto)
+                        .addGap(37, 37, 37)
                         .addComponent(salvarAlteracoesJButton))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -196,7 +206,9 @@ public class ProjetoDetalhesJPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(salvarAlteracoesJButton)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(salvarAlteracoesJButton)
+                    .addComponent(removerProjeto))
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -237,6 +249,19 @@ public class ProjetoDetalhesJPanel extends javax.swing.JPanel {
         PrincipalJFrame.aparecerInternalFrameProjetoConcluirProjeto();
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void removerProjetoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removerProjetoActionPerformed
+        int resposta = JOptionPane.showConfirmDialog(this, "Tem certeza que você deseja remover este projeto?");
+        if (resposta == 0) {
+            ProjetoFacade projetoFacade = new ProjetoFacade();
+            if (projetoSelecionado.getConcluido()) {
+                JOptionPane.showMessageDialog(null, "Projeto concluído não pode ser removido.");
+            } else {
+                projetoFacade.removeProjeto(projetoSelecionado);
+                this.setVisible(false);
+            }
+        }
+    }//GEN-LAST:event_removerProjetoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel descricaoProjetoJLabel;
@@ -248,6 +273,7 @@ public class ProjetoDetalhesJPanel extends javax.swing.JPanel {
     private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel nomeProjetoJLabel;
     private javax.swing.JTextField nomeProjetoJTextField;
+    private javax.swing.JButton removerProjeto;
     private javax.swing.JLabel responsavelGerenciaRiscosJLabel;
     private javax.swing.JTextField responsavelGerenciaRiscosJTextField;
     private javax.swing.JLabel responsavelProjetoJLabel;

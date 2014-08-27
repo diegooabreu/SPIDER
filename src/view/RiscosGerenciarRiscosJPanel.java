@@ -739,6 +739,8 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
         planoDeContingenciaDescricaoJTextArea.setText("");
         planoDeContingenciaComoSeraFeitoJTextArea.setText("");
         planoDeContingenciaInfAdicionaisJTextArea.setText("");
+        planoContingenciaDataLimiteJComboBox.setSelectedItem("--Selecione--");
+        planoContingenciaDataSelecionadaJLabel.setText("");
     }
 
     //Método que cria um evento quando for selecionado um Plano de Contingência da Lista de Planos de Contingência
