@@ -862,6 +862,7 @@ public class MonitoracaoAnaliseDosRiscosCheckInternalJFrame extends javax.swing.
         boolean temDataLimiteFutura = false;
         for (int i=0;  i < listaPC.size();i++){
             Calendar dataSelecionada = Calendar.getInstance();
+            //caso estaja sendo utilizado ponto de controle (sem marco do projeto)
             if (listaPC.get(i).getIdMarcoDoProjeto() == null){
                 dataSelecionada.setTime(listaPC.get(i).getIdPontoDeControle().getDataPontoControle()); 
                 String dataPonto = df.format(dataSelecionada.getTime()) ;
@@ -869,6 +870,7 @@ public class MonitoracaoAnaliseDosRiscosCheckInternalJFrame extends javax.swing.
                     temDataLimiteFutura = true;
                 }
             } else {
+                //caso estaja usando marco (sem pronto de controle)
                 dataSelecionada.setTime(listaPC.get(i).getIdMarcoDoProjeto().getDataMarcoProjeto());
                 String dataMarco = df.format(dataSelecionada.getTime());
                 if (dataSelecionada.getTime().after(new Date()) || dataMarco.equals(dataAtual)){
