@@ -5,6 +5,7 @@
  */
 package view;
 
+import java.text.DateFormat;
 import java.util.Date;
 import java.util.List;
 import javax.swing.JTable;
@@ -47,13 +48,14 @@ public class MonitoracaoResumoDeMonitoracao extends javax.swing.JPanel {
 
     public void preencherDadosTabelResumoDeStatusDeRiscos(List<Risco> listaRiscos) {
         for (int i = 0; i < listaRiscos.size(); i++) {
-            //Verifica se o ID do projeto selecionado é igual ao ID do Projeto do Contém do Risco atual
-            String identificacao = listaRiscos.get(i).getIdentificacao();
-            String emissor = (listaRiscos.get(i).getEmissor());
-            String statusRisco = listaRiscos.get(i).getStatusRisco();
+            if (!(listaRiscos.get(i).getStatusRisco().equals("Novo"))) {
+                String identificacao = listaRiscos.get(i).getIdentificacao();
+                String emissor = (listaRiscos.get(i).getEmissor());
+                String statusRisco = listaRiscos.get(i).getStatusRisco();
 
-            String[] linha = new String[]{identificacao, emissor, statusRisco};
-            modeloTabelaDeResumoDeStatusDeRiscos.addRow(linha);
+                String[] linha = new String[]{identificacao, emissor, statusRisco};
+                modeloTabelaDeResumoDeStatusDeRiscos.addRow(linha);
+            }
         }
     }
 
@@ -61,32 +63,28 @@ public class MonitoracaoResumoDeMonitoracao extends javax.swing.JPanel {
         tabelaResumoPlanosPendentes = new JTable();
         modeloTabelaDeResumoPlanosPendentes = new DefaultTableModel();
 
-        modeloTabelaDeResumoPlanosPendentes.setColumnIdentifiers(new String[]{"IdentificaçãoPlano", "identificacaoRisco", "Responsável"});
+        modeloTabelaDeResumoPlanosPendentes.setColumnIdentifiers(new String[]{"Identificação do Plano", "Identificação do Risco", "Responsável"});
         tabelaResumoPlanosPendentes.setModel(modeloTabelaDeResumoPlanosPendentes);
         tabelaResumoDePlanosPendentesJScrollPane.setViewportView(tabelaResumoPlanosPendentes);
     }
 
     public void criaListaDePlanosTabela(List<Planocontingencia> listaPlanoContigencia, List<Planomitigacao> listaPlanoMitigacao) {
         for (int i = 0; i < listaPlanoMitigacao.size(); i++) {
-            if (listaPlanoMitigacao.get(i).getDataRealizacao() == null) {
-                String identificacaoPlano = listaPlanoMitigacao.get(i).getIdentificacaoPlanoMitigacao();
-                String identificacaoRisco = listaPlanoMitigacao.get(i).getIdRisco().getIdentificacao();
-                String responsavel = listaPlanoMitigacao.get(i).getResponsavel();
+            String identificacaoPlano = listaPlanoMitigacao.get(i).getIdentificacaoPlanoMitigacao();
+            String identificacaoRisco = listaPlanoMitigacao.get(i).getIdRisco().getIdentificacao();
+            String responsavel = listaPlanoMitigacao.get(i).getResponsavel();
 
-                String[] linha = new String[]{identificacaoPlano, identificacaoRisco, responsavel};
-                modeloTabelaDeResumoPlanosPendentes.addRow(linha);
-            }
+            String[] linha = new String[]{identificacaoPlano, identificacaoRisco, responsavel};
+            modeloTabelaDeResumoPlanosPendentes.addRow(linha);
         }
 
         for (int j = 0; j < listaPlanoContigencia.size(); j++) {
-            if (listaPlanoContigencia.get(j).getDataRealizacao() == null) {
-                String identificacaoPlano = listaPlanoContigencia.get(j).getIdentificacaoPlanoContingencia();
-                String identificacaoRisco = listaPlanoContigencia.get(j).getIdRisco().getIdentificacao();
-                String responsavel = listaPlanoContigencia.get(j).getResponsavel();
+            String identificacaoPlano = listaPlanoContigencia.get(j).getIdentificacaoPlanoContingencia();
+            String identificacaoRisco = listaPlanoContigencia.get(j).getIdRisco().getIdentificacao();
+            String responsavel = listaPlanoContigencia.get(j).getResponsavel();
 
-                String[] linha = new String[]{identificacaoPlano, identificacaoRisco, responsavel};
-                modeloTabelaDeResumoPlanosPendentes.addRow(linha);
-            }
+            String[] linha = new String[]{identificacaoPlano, identificacaoRisco, responsavel};
+            modeloTabelaDeResumoPlanosPendentes.addRow(linha);
         }
 
         respostaTotalDePlanosPendentesJLabel.setText(Integer.toString(listaPlanoContigencia.size() + listaPlanoMitigacao.size()));
@@ -102,25 +100,25 @@ public class MonitoracaoResumoDeMonitoracao extends javax.swing.JPanel {
     }
 
     public void preencheTabelResumoDeMarcosEPontoDeControle(List<Marcodoprojeto> listaMarcosDoProjeto, List<Pontodecontrole> listaPontoDeControle) {
+        DateFormat dataFormatada = DateFormat.getDateInstance(DateFormat.MEDIUM);
         Date dataAtual = new Date();
         for (int i = 0; i < listaMarcosDoProjeto.size(); i++) {
             if (listaMarcosDoProjeto.get(i).getDataMarcoProjeto().after(dataAtual)) {
                 String tipo = "Marco do Projeto";
-                String data = (listaMarcosDoProjeto.get(i).getDataMarcoProjeto().toString());
+                String data = dataFormatada.format(listaMarcosDoProjeto.get(i).getDataMarcoProjeto());
 
                 String[] linha = new String[]{tipo, data};
-                modeloTabelaDeResumoDeStatusDeRiscos.addRow(linha);
+                modeloTabelaDeResumoDeMarcosEPontosDeControle.addRow(linha);
             }
-
         }
-        
+
         for (int i = 0; i < listaPontoDeControle.size(); i++) {
             if (listaPontoDeControle.get(i).getDataPontoControle().after(dataAtual)) {
                 String tipo = "Marco do Projeto";
-                String data = (listaPontoDeControle.get(i).getDataPontoControle().toString());
+                String data = dataFormatada.format(listaPontoDeControle.get(i).getDataPontoControle());
 
                 String[] linha = new String[]{tipo, data};
-                modeloTabelaDeResumoDeStatusDeRiscos.addRow(linha);
+                modeloTabelaDeResumoDeMarcosEPontosDeControle.addRow(linha);
             }
 
         }
@@ -209,14 +207,11 @@ public class MonitoracaoResumoDeMonitoracao extends javax.swing.JPanel {
                 .addComponent(tabelaResumoStatusDeRiscosJPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(tabelaResumoDePlanosPendentesJPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addComponent(respostaTotalDePlanosPendentesJLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(totalDePlanosPendentesJLabel)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(totalDePlanosPendentesJLabel)
+                    .addComponent(respostaTotalDePlanosPendentesJLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(19, 19, 19)
                 .addComponent(tabelaResumosDeMarcosEPontosDeControleJPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );

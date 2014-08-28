@@ -6,6 +6,7 @@ package view;
 
 import facade.MonitoracaoAnaliseDosRiscosFacade;
 import facade.PrincipalFacade;
+import facade.ProjetoCalendarioFacade;
 import facade.ProjetoFacade;
 import facade.RiscosGerenciarRiscosFacade;
 import java.awt.event.MouseAdapter;
@@ -18,7 +19,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
+import model.Marcodoprojeto;
 import model.Planocontingencia;
+import model.Planomitigacao;
+import model.Pontodecontrole;
 import model.Projeto;
 import model.Risco;
 
@@ -50,6 +54,7 @@ public class PrincipalJFrame extends javax.swing.JFrame {
     static RiscosPriorizarRiscosJPanel riscosPriorizarRiscosJPanel = new RiscosPriorizarRiscosJPanel();
     final RiscosRiscosOcorridosJPanel riscosRiscosOcorridosJPanel = new RiscosRiscosOcorridosJPanel();
     final RiscosResumoDeRiscosJPanel riscosResumoDeRiscosJPanel = new RiscosResumoDeRiscosJPanel();
+    final MonitoracaoResumoDeMonitoracao monitoracaoResumoDeMonitoracao = new MonitoracaoResumoDeMonitoracao();
 
     static MonitoracaoAnaliseDosRiscosJPanel monitoracaoAnaliseDosRiscosJPanel = new MonitoracaoAnaliseDosRiscosJPanel();
 
@@ -104,7 +109,7 @@ public class PrincipalJFrame extends javax.swing.JFrame {
         this.setResizable(false);
 
     }
-    
+
     public void definirEventoRedimensionamento() {
         this.addComponentListener(new java.awt.event.ComponentListener() {
             public void componentResized(java.awt.event.ComponentEvent e) {
@@ -128,6 +133,8 @@ public class PrincipalJFrame extends javax.swing.JFrame {
                 configuracoesFerramentaJPanel.setBounds(camadasJDesktopPane.getBounds());
 
                 riscosResumoDeRiscosJPanel.setBounds(camadasJDesktopPane.getBounds());
+
+                monitoracaoResumoDeMonitoracao.setBounds(camadasJDesktopPane.getBounds());
 
                 riscosGerenciarRiscosJPanel.setBounds(camadasJDesktopPane.getBounds());
 
@@ -411,6 +418,24 @@ public class PrincipalJFrame extends javax.swing.JFrame {
                         riscosResumoDeRiscosJPanel.criaTabelResumoDeRiscos();
                         riscosResumoDeRiscosJPanel.preencherDadosTabelaResumoDeRiscos(listaDeRiscoPorProjeto);
 
+                        //Na tela Resumo de Monitoração
+                        ProjetoCalendarioFacade projetoCalendarioFacade = new ProjetoCalendarioFacade();
+                        ProjetoFacade projetoFacade = new ProjetoFacade();
+                        List<Marcodoprojeto> listaDeMarcosDoProjetoPorProjetoParaResumoDeMonitoracao = projetoCalendarioFacade.getListaMarcosDoProjetoSelecionado(projetoSelecionado);
+                        List<Pontodecontrole> listaDePontosDeControlePorProjetoParaResumoDeMonitoracao = projetoCalendarioFacade.getListaPontosDeControleDoProjetoSelecionado(projetoSelecionado);
+                        List<Risco> listaDeRiscoPorProjetoParaResumoDeMonitoracao = riscosGerenciarRiscosFacade.listarRiscosByProjeto(projetoSelecionado);
+                        List<Planocontingencia> listaPlanoContingenciaPorProjetoParaResumoDeMonitoracao = projetoFacade.buscaPlanosDeContingenciaPendentes(projetoSelecionado);
+                        List<Planomitigacao> listaPlanoMitigacaoContingenciaPorProjetoParaResumoDeMonitoracao = projetoFacade.buscaPlanosDeMitigacaoPendentes(projetoSelecionado);
+
+                        monitoracaoResumoDeMonitoracao.criaTabelResumoDeStatusDeRiscos();
+                        monitoracaoResumoDeMonitoracao.preencherDadosTabelResumoDeStatusDeRiscos(listaDeRiscoPorProjetoParaResumoDeMonitoracao);
+
+                        monitoracaoResumoDeMonitoracao.criaTabelResumoDePlanosPendentes();
+                        monitoracaoResumoDeMonitoracao.criaListaDePlanosTabela(listaPlanoContingenciaPorProjetoParaResumoDeMonitoracao, listaPlanoMitigacaoContingenciaPorProjetoParaResumoDeMonitoracao);
+
+                        monitoracaoResumoDeMonitoracao.criaTabelResumoDeMarcosEPontosDeControle();
+                        monitoracaoResumoDeMonitoracao.preencheTabelResumoDeMarcosEPontoDeControle(listaDeMarcosDoProjetoPorProjetoParaResumoDeMonitoracao, listaDePontosDeControlePorProjetoParaResumoDeMonitoracao);
+
                         // Na tela Gerenciar Riscos
                         riscosGerenciarRiscosJPanel.limpaCamposGerenciarRisco();
                         //Na aba Informações Gerais
@@ -606,6 +631,9 @@ public class PrincipalJFrame extends javax.swing.JFrame {
         riscosResumoDeRiscosJPanel.setBounds(camadasJDesktopPane.getBounds());
         camadasJDesktopPane.add(riscosResumoDeRiscosJPanel);
 
+        monitoracaoResumoDeMonitoracao.setBounds(camadasJDesktopPane.getBounds());
+        camadasJDesktopPane.add(monitoracaoResumoDeMonitoracao);
+
         riscosPriorizarRiscosJPanel.setBounds(camadasJDesktopPane.getBounds());
         camadasJDesktopPane.add(riscosPriorizarRiscosJPanel);
 
@@ -655,6 +683,7 @@ public class PrincipalJFrame extends javax.swing.JFrame {
         configuracoesFerramentaJPanel.setVisible(false);
         riscosGerenciarRiscosJPanel.setVisible(false);
         riscosResumoDeRiscosJPanel.setVisible(false);
+        monitoracaoResumoDeMonitoracao.setVisible(false);
         novoProjetoJPanel.setVisible(false);
         organizacionalEditarEARJPanel.setVisible(false);
         riscosPriorizarRiscosJPanel.setVisible(false);
@@ -748,7 +777,7 @@ public class PrincipalJFrame extends javax.swing.JFrame {
                     esconderFrames();
 
                     if (projetoSelecionadoJComboBox.getSelectedItem() == "--Selecione um Projeto--") {
-                        if (node == funcionalidades){
+                        if (node == funcionalidades) {
                         } else if (node == organizacional) {
                             organizacionalDetalhesJPanel.setVisible(true);
                             organizacionalDetalhesJPanel.preencheForm();
@@ -835,6 +864,26 @@ public class PrincipalJFrame extends javax.swing.JFrame {
                             riscosResumoDeRiscosJPanel.criaTabelResumoDeRiscos();
                             riscosResumoDeRiscosJPanel.preencherDadosTabelaResumoDeRiscos(listaDeRiscoPorProjeto);
                             riscosResumoDeRiscosJPanel.setVisible(true);
+                        } else if (node == monitoracao) {
+                            RiscosGerenciarRiscosFacade riscosGerenciarRiscosFacade = new RiscosGerenciarRiscosFacade();
+                            ProjetoCalendarioFacade projetoCalendarioFacade = new ProjetoCalendarioFacade();
+                            ProjetoFacade projetoFacade = new ProjetoFacade();
+                            List<Marcodoprojeto> listaDeMarcosDoProjetoPorProjetoParaResumoDeMonitoracao = projetoCalendarioFacade.getListaMarcosDoProjetoSelecionado(projetoSelecionado);
+                            List<Pontodecontrole> listaDePontosDeControlePorProjetoParaResumoDeMonitoracao = projetoCalendarioFacade.getListaPontosDeControleDoProjetoSelecionado(projetoSelecionado);
+                            List<Risco> listaDeRiscoPorProjetoParaResumoDeMonitoracao = riscosGerenciarRiscosFacade.listarRiscosByProjeto(projetoSelecionado);
+                            List<Planocontingencia> listaPlanoContingenciaPorProjetoParaResumoDeMonitoracao = projetoFacade.buscaPlanosDeContingenciaPendentes(projetoSelecionado);
+                            List<Planomitigacao> listaPlanoMitigacaoContingenciaPorProjetoParaResumoDeMonitoracao = projetoFacade.buscaPlanosDeMitigacaoPendentes(projetoSelecionado);
+
+                            monitoracaoResumoDeMonitoracao.criaTabelResumoDeStatusDeRiscos();
+                            monitoracaoResumoDeMonitoracao.preencherDadosTabelResumoDeStatusDeRiscos(listaDeRiscoPorProjetoParaResumoDeMonitoracao);
+
+                            monitoracaoResumoDeMonitoracao.criaTabelResumoDePlanosPendentes();
+                            monitoracaoResumoDeMonitoracao.criaListaDePlanosTabela(listaPlanoContingenciaPorProjetoParaResumoDeMonitoracao, listaPlanoMitigacaoContingenciaPorProjetoParaResumoDeMonitoracao);
+
+                            monitoracaoResumoDeMonitoracao.criaTabelResumoDeMarcosEPontosDeControle();
+                            monitoracaoResumoDeMonitoracao.preencheTabelResumoDeMarcosEPontoDeControle(listaDeMarcosDoProjetoPorProjetoParaResumoDeMonitoracao, listaDePontosDeControlePorProjetoParaResumoDeMonitoracao);
+                            
+                            monitoracaoResumoDeMonitoracao.setVisible(true);
                         }
                     }
                 }
