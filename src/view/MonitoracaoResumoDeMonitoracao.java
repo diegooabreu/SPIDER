@@ -7,6 +7,8 @@ package view;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import javax.swing.JTable;
@@ -101,7 +103,7 @@ public class MonitoracaoResumoDeMonitoracao extends javax.swing.JPanel {
     }
 
     public void preencheTabelResumoDeMarcosEPontoDeControle(List<Marcodoprojeto> listaMarcosDoProjeto, List<Pontodecontrole> listaPontoDeControle) {
-        //SimpleDateFormat dataFormatada = new SimpleDateFormat("dd-MM-yyyy");
+        List<Object> listaDeMarcosEPontosDeControle =  new ArrayList<>();
         DateFormat dataFormatada = DateFormat.getDateInstance(DateFormat.MEDIUM);
         String dataString;
         Date dataAtual = new Date();
@@ -111,7 +113,8 @@ public class MonitoracaoResumoDeMonitoracao extends javax.swing.JPanel {
             String dataMP = dataFormatada.format(listaMarcosDoProjeto.get(i).getDataMarcoProjeto());
             if ((listaMarcosDoProjeto.get(i).getDataMarcoProjeto().after(dataAtual)) || (dataMP.equals(dataString))) {
                 String tipo = "Marco do Projeto";
-
+                
+                listaDeMarcosEPontosDeControle.add(listaMarcosDoProjeto.get(i));
                 String[] linha = new String[]{tipo, dataMP};
                 modeloTabelaDeResumoDeMarcosEPontosDeControle.addRow(linha);
             }
@@ -121,11 +124,54 @@ public class MonitoracaoResumoDeMonitoracao extends javax.swing.JPanel {
             String dataPC = dataFormatada.format(listaPontoDeControle.get(i).getDataPontoControle());
             if ((listaPontoDeControle.get(i).getDataPontoControle().after(dataAtual)) || (dataPC.equals(dataString))) {
                 String tipo = "Ponto de Controle";
-
+                
+                listaDeMarcosEPontosDeControle.add(listaPontoDeControle.get(i));
                 String[] linha = new String[]{tipo, dataPC};
                 modeloTabelaDeResumoDeMarcosEPontosDeControle.addRow(linha);
             }
+        }
+        
+        /*for (int i = 0; i < listaDeMarcosEPontosDeControle.size(); i++){
+            Collections.sort(listaDeMarcosEPontosDeControle, i);
+            modeloTabelaDeResumoDeMarcosEPontosDeControle.
+        }*/
+    }
+    
+    public class MarcoPontoDeControle{
+        
+        private String tipo;
+        private Date data;
+        
+        public MarcoPontoDeControle(){
+            
+        }
 
+        /**
+         * @return the tipo
+         */
+        public String getTipo() {
+            return tipo;
+        }
+
+        /**
+         * @param tipo the tipo to set
+         */
+        public void setTipo(String tipo) {
+            this.tipo = tipo;
+        }
+
+        /**
+         * @return the data
+         */
+        public Date getData() {
+            return data;
+        }
+
+        /**
+         * @param data the data to set
+         */
+        public void setData(Date data) {
+            this.data = data;
         }
     }
 

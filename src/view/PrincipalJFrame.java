@@ -474,6 +474,20 @@ public class PrincipalJFrame extends javax.swing.JFrame {
                         riscosRiscosOcorridosJPanel.criarTabelaRiscosOcorridos();
                         riscosRiscosOcorridosJPanel.getProjeto(projetoSelecionado);
                         riscosRiscosOcorridosJPanel.popularTabelaRiscosOcorridos();
+                        
+                        // Na tela Planos Pendentes
+                        monitoracaoPlanosPendentesJPanel.criarTabelaPlanosPendentes(projetoFacade.buscaPlanosDeContingenciaPendentes(projetoSelecionado), projetoFacade.buscaPlanosDeMitigacaoPendentes(projetoSelecionado));
+                        monitoracaoPlanosPendentesJPanel.setProjetoSelecionado(projetoSelecionado);
+                        
+                        // Na tela Planos Realizados
+                        monitoracaoPlanosRealizadosJPanel.criarTabelaPlanosRealizados(projetoFacade.buscaPlanosDeContingenciaRealizados(projetoSelecionado), projetoFacade.buscaPlanosDeMitigacaoRealizados(projetoSelecionado));
+                        
+                        // Na tela Analizar Riscos
+                        monitoracaoAnaliseDosRiscosJPanel.criarTabelaAnalisarRiscos();
+                        MonitoracaoAnaliseDosRiscosFacade analiseFacade = new MonitoracaoAnaliseDosRiscosFacade();
+                        List<Risco> listaDeRiscoAnalizarRiscos = analiseFacade.listarRiscosPOrdemGrauDeEsposicaoByStatus(projetoSelecionado, "Mitigando");
+                        monitoracaoAnaliseDosRiscosJPanel.populaTabelaDeRiscos(listaDeRiscoAnalizarRiscos, false);
+                        monitoracaoAnaliseDosRiscosJPanel.definirEventosTabelaDeRiscos();
 
                         if (listaProjetos.get(j).getConcluido()) {
                             desabilitarProjetoConcluido();
@@ -882,7 +896,7 @@ public class PrincipalJFrame extends javax.swing.JFrame {
 
                             monitoracaoResumoDeMonitoracao.criaTabelResumoDeMarcosEPontosDeControle();
                             monitoracaoResumoDeMonitoracao.preencheTabelResumoDeMarcosEPontoDeControle(listaDeMarcosDoProjetoPorProjetoParaResumoDeMonitoracao, listaDePontosDeControlePorProjetoParaResumoDeMonitoracao);
-                            
+
                             monitoracaoResumoDeMonitoracao.setVisible(true);
                         }
                     }

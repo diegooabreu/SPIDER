@@ -71,7 +71,7 @@ public class MonitoracaoTarefasPlanosPendentesJPanel extends javax.swing.JPanel 
         modeloTabelaPlanosPendentes = new PlanosPendentesTabelaModel();
         modeloTabelaPlanosPendentes = planoTabelaModel;
 
-        tabelaPlanosPendentesJTable.setModel(modeloTabelaPlanosPendentes);
+        tabelaPlanosPendentesJTable.setModel(planoTabelaModel);
 
         tabelaPlanosPendentesJScrollPane.setViewportView(tabelaPlanosPendentesJTable);
 
@@ -189,7 +189,7 @@ public class MonitoracaoTarefasPlanosPendentesJPanel extends javax.swing.JPanel 
     private void initComponents() {
 
         MonitoracaoTarefasTarefasPendentesJPanel = new javax.swing.JPanel();
-        jPanel1 = new javax.swing.JPanel();
+        tabelaPlanosPendentesJPanel = new javax.swing.JPanel();
         tabelaPlanosPendentesJScrollPane = new javax.swing.JScrollPane();
         jPanel2 = new javax.swing.JPanel();
         SalvarRealizaçãoDePlanosJButton = new javax.swing.JButton();
@@ -197,14 +197,14 @@ public class MonitoracaoTarefasPlanosPendentesJPanel extends javax.swing.JPanel 
 
         MonitoracaoTarefasTarefasPendentesJPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Planos Pendentes", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout tabelaPlanosPendentesJPanelLayout = new javax.swing.GroupLayout(tabelaPlanosPendentesJPanel);
+        tabelaPlanosPendentesJPanel.setLayout(tabelaPlanosPendentesJPanelLayout);
+        tabelaPlanosPendentesJPanelLayout.setHorizontalGroup(
+            tabelaPlanosPendentesJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(tabelaPlanosPendentesJScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 829, Short.MAX_VALUE)
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        tabelaPlanosPendentesJPanelLayout.setVerticalGroup(
+            tabelaPlanosPendentesJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(tabelaPlanosPendentesJScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 419, Short.MAX_VALUE)
         );
 
@@ -239,7 +239,7 @@ public class MonitoracaoTarefasPlanosPendentesJPanel extends javax.swing.JPanel 
             .addGroup(MonitoracaoTarefasTarefasPendentesJPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(MonitoracaoTarefasTarefasPendentesJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(tabelaPlanosPendentesJPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(MonitoracaoTarefasTarefasPendentesJPanelLayout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -250,7 +250,7 @@ public class MonitoracaoTarefasPlanosPendentesJPanel extends javax.swing.JPanel 
             MonitoracaoTarefasTarefasPendentesJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(MonitoracaoTarefasTarefasPendentesJPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(tabelaPlanosPendentesJPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(MonitoracaoTarefasTarefasPendentesJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -340,8 +340,8 @@ public class MonitoracaoTarefasPlanosPendentesJPanel extends javax.swing.JPanel 
     private javax.swing.JPanel MonitoracaoTarefasTarefasPendentesJPanel;
     private javax.swing.JButton SalvarRealizaçãoDePlanosJButton;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel tabelaPlanosPendentesJPanel;
     private javax.swing.JScrollPane tabelaPlanosPendentesJScrollPane;
     // End of variables declaration//GEN-END:variables
 
