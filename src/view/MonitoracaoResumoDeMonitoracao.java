@@ -6,6 +6,7 @@
 package view;
 
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import javax.swing.JTable;
@@ -100,24 +101,28 @@ public class MonitoracaoResumoDeMonitoracao extends javax.swing.JPanel {
     }
 
     public void preencheTabelResumoDeMarcosEPontoDeControle(List<Marcodoprojeto> listaMarcosDoProjeto, List<Pontodecontrole> listaPontoDeControle) {
+        //SimpleDateFormat dataFormatada = new SimpleDateFormat("dd-MM-yyyy");
         DateFormat dataFormatada = DateFormat.getDateInstance(DateFormat.MEDIUM);
+        String dataString;
         Date dataAtual = new Date();
+        dataString = dataFormatada.format(dataAtual);
+        
         for (int i = 0; i < listaMarcosDoProjeto.size(); i++) {
-            if (listaMarcosDoProjeto.get(i).getDataMarcoProjeto().after(dataAtual)) {
+            String dataMP = dataFormatada.format(listaMarcosDoProjeto.get(i).getDataMarcoProjeto());
+            if ((listaMarcosDoProjeto.get(i).getDataMarcoProjeto().after(dataAtual)) || (dataMP.equals(dataString))) {
                 String tipo = "Marco do Projeto";
-                String data = dataFormatada.format(listaMarcosDoProjeto.get(i).getDataMarcoProjeto());
 
-                String[] linha = new String[]{tipo, data};
+                String[] linha = new String[]{tipo, dataMP};
                 modeloTabelaDeResumoDeMarcosEPontosDeControle.addRow(linha);
             }
         }
 
         for (int i = 0; i < listaPontoDeControle.size(); i++) {
-            if (listaPontoDeControle.get(i).getDataPontoControle().after(dataAtual)) {
-                String tipo = "Marco do Projeto";
-                String data = dataFormatada.format(listaPontoDeControle.get(i).getDataPontoControle());
+            String dataPC = dataFormatada.format(listaPontoDeControle.get(i).getDataPontoControle());
+            if ((listaPontoDeControle.get(i).getDataPontoControle().after(dataAtual)) || (dataPC.equals(dataString))) {
+                String tipo = "Ponto de Controle";
 
-                String[] linha = new String[]{tipo, data};
+                String[] linha = new String[]{tipo, dataPC};
                 modeloTabelaDeResumoDeMarcosEPontosDeControle.addRow(linha);
             }
 
