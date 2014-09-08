@@ -18,7 +18,6 @@ import java.util.Objects;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
 import javax.swing.JSpinner;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -134,7 +133,6 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
 //    private void getListaRiscos() {
 //        listaRiscos = riscosGerenciarRiscosFacade.listarRiscosByProjeto(projetoSelecionado);
 //    }
-
     private void getListaderiscosDoprojeto() {
         listaRiscosDoProjeto = riscosGerenciarRiscosFacade.findListaRiscoByIdProjeto(projetoSelecionado);
     }

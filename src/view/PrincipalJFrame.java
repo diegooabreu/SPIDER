@@ -12,9 +12,6 @@ import facade.RiscosGerenciarRiscosFacade;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -49,7 +46,7 @@ public class PrincipalJFrame extends javax.swing.JFrame {
     final ProjetoCalendarioJPanel projetoCalendarioJPanel = new ProjetoCalendarioJPanel();
     final ConfiguracoesFerramentaJPanel configuracoesFerramentaJPanel = new ConfiguracoesFerramentaJPanel();
     final RiscosGerenciarRiscosJPanel riscosGerenciarRiscosJPanel = new RiscosGerenciarRiscosJPanel();
-    static NovoProjetoJPanel novoProjetoJPanel = new NovoProjetoJPanel();
+    final NovoProjetoJPanel novoProjetoJPanel = new NovoProjetoJPanel();
     final OrganizacionalEditarEARJPanel organizacionalEditarEARJPanel = new OrganizacionalEditarEARJPanel();
     static RiscosPriorizarRiscosJPanel riscosPriorizarRiscosJPanel = new RiscosPriorizarRiscosJPanel();
     final RiscosRiscosOcorridosJPanel riscosRiscosOcorridosJPanel = new RiscosRiscosOcorridosJPanel();
@@ -62,14 +59,13 @@ public class PrincipalJFrame extends javax.swing.JFrame {
     final MonitoracaoTarefasPlanosPendentesJPanel monitoracaoPlanosPendentesJPanel = new MonitoracaoTarefasPlanosPendentesJPanel();
     final MonitoracaoTarefasPlanosRealizadosJPanel monitoracaoPlanosRealizadosJPanel = new MonitoracaoTarefasPlanosRealizadosJPanel();
 
-    // static TesteInternalFrame testeInternalFrame = new TesteInternalFrame();
     static RiscoSelecioanrRiscoParaMonitorarInternalJFrame riscoSelecioanrRiscoParaMonitorarInternalJFrame = new RiscoSelecioanrRiscoParaMonitorarInternalJFrame();
     static MonitoracaoAnaliseDosRiscosCheckInternalJFrame monitoracaoAnaliseDosRiscosCheckInternalJFrame = new MonitoracaoAnaliseDosRiscosCheckInternalJFrame();
     static RiscosRiscosOcorridosJInternalFrame riscosRiscosOcorridosJInternalFrame = new RiscosRiscosOcorridosJInternalFrame();
     static CalendarioDetalhesMarcoEpontoDoDiaInternalJFrame calendarioDetalhesMarcoEpontoDoDiaInternalJFrame = new CalendarioDetalhesMarcoEpontoDoDiaInternalJFrame();
     static MonitorarPlanosPendentesMaisInformaçõesInternalFrame monitorarPlanosPendentesMaisInformaçõesInternalFrame = new MonitorarPlanosPendentesMaisInformaçõesInternalFrame();
     static ProjetoConcluirProjetoInternalJFrame projetoConcluirProjetoInternalJFrame = new ProjetoConcluirProjetoInternalJFrame();
-
+   
     // Criando Arvore de Funcionalidades - Menu //
     private JTree arvoreFuncionalidadesJTree;
     private DefaultMutableTreeNode funcionalidades;
@@ -157,29 +153,19 @@ public class PrincipalJFrame extends javax.swing.JFrame {
                 System.out.println("componentResized()"); // TODO Auto-generated Event stub componentResized()  
             }
 
+            @Override
             public void componentMoved(java.awt.event.ComponentEvent e) {
             }
 
+            @Override
             public void componentShown(java.awt.event.ComponentEvent e) {
             }
 
+            @Override
             public void componentHidden(java.awt.event.ComponentEvent e) {
             }
         });
     }
-    /*
-     this.addComponentListener(new java.awt.event.ComponentListener() {  
-     public void componentResized(java.awt.event.ComponentEvent e) {  
-     System.out.println("componentResized()"); // TODO Auto-generated Event stub componentResized()  
-     }  
-     public void componentMoved(java.awt.event.ComponentEvent e) {  
-     }  
-     public void componentShown(java.awt.event.ComponentEvent e) {  
-     }  
-     public void componentHidden(java.awt.event.ComponentEvent e) {  
-     }  
-     });  
-     */
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -385,7 +371,7 @@ public class PrincipalJFrame extends javax.swing.JFrame {
         monitorarPlanosPendentesMaisInformaçõesInternalFrame.setVisible(true);
     }
 
-    static void aparecerInternalFrameProjetoConcluirProjeto() {
+     static void aparecerInternalFrameProjetoConcluirProjeto() {
         projetoConcluirProjetoInternalJFrame.setVisible(true);
     }
 
@@ -474,14 +460,14 @@ public class PrincipalJFrame extends javax.swing.JFrame {
                         riscosRiscosOcorridosJPanel.criarTabelaRiscosOcorridos();
                         riscosRiscosOcorridosJPanel.getProjeto(projetoSelecionado);
                         riscosRiscosOcorridosJPanel.popularTabelaRiscosOcorridos();
-                        
+
                         // Na tela Planos Pendentes
                         monitoracaoPlanosPendentesJPanel.criarTabelaPlanosPendentes(projetoFacade.buscaPlanosDeContingenciaPendentes(projetoSelecionado), projetoFacade.buscaPlanosDeMitigacaoPendentes(projetoSelecionado));
                         monitoracaoPlanosPendentesJPanel.setProjetoSelecionado(projetoSelecionado);
-                        
+
                         // Na tela Planos Realizados
                         monitoracaoPlanosRealizadosJPanel.criarTabelaPlanosRealizados(projetoFacade.buscaPlanosDeContingenciaRealizados(projetoSelecionado), projetoFacade.buscaPlanosDeMitigacaoRealizados(projetoSelecionado));
-                        
+
                         // Na tela Analizar Riscos
                         monitoracaoAnaliseDosRiscosJPanel.criarTabelaAnalisarRiscos();
                         MonitoracaoAnaliseDosRiscosFacade analiseFacade = new MonitoracaoAnaliseDosRiscosFacade();
@@ -562,9 +548,13 @@ public class PrincipalJFrame extends javax.swing.JFrame {
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
         try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                System.out.println("nome  dos looks: " + info.getName() );  
+//            }
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    System.out.println("nome  dos looks: " + info.getClassName());
                     break;
                 }
             }
@@ -581,6 +571,7 @@ public class PrincipalJFrame extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new PrincipalJFrame().setVisible(true);
             }
@@ -678,10 +669,6 @@ public class PrincipalJFrame extends javax.swing.JFrame {
         camadasJDesktopPane.add(monitorarPlanosPendentesMaisInformaçõesInternalFrame);
 
         camadasJDesktopPane.add(projetoConcluirProjetoInternalJFrame);
-
-        //riscosPriorizarRiscosJPanel.setBounds(0, 0, 861, 529);
-        //camadasJDesktopPane.add(riscosPriorizarRiscosJPanel);
-        //camadasJDesktopPane.add(riscosSelecionarRiscosParaMonitorarInternalJFrame);
     }
     //**************************************************************//
 

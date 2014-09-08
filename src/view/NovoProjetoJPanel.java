@@ -43,8 +43,8 @@ public class NovoProjetoJPanel extends javax.swing.JPanel {
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         descricaoDoProjetoJTextArea = new javax.swing.JTextArea();
-        salvarNovoProjetoJToggleButton = new javax.swing.JToggleButton();
         jLabel1 = new javax.swing.JLabel();
+        jButtonSalvarProjeto = new javax.swing.JButton();
 
         novoProjetoJPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Novo Projeto"));
 
@@ -113,14 +113,14 @@ public class NovoProjetoJPanel extends javax.swing.JPanel {
         descricaoDoProjetoJTextArea.setWrapStyleWord(true);
         jScrollPane1.setViewportView(descricaoDoProjetoJTextArea);
 
-        salvarNovoProjetoJToggleButton.setText("Salvar Novo Projeto");
-        salvarNovoProjetoJToggleButton.addActionListener(new java.awt.event.ActionListener() {
+        jLabel1.setText("* = Campo obrigatório");
+
+        jButtonSalvarProjeto.setText("Salvar Novo Projeto");
+        jButtonSalvarProjeto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                salvarNovoProjetoJToggleButtonActionPerformed(evt);
+                jButtonSalvarProjetoActionPerformed(evt);
             }
         });
-
-        jLabel1.setText("* = Campo obrigatório");
 
         javax.swing.GroupLayout novoProjetoJPanelLayout = new javax.swing.GroupLayout(novoProjetoJPanel);
         novoProjetoJPanel.setLayout(novoProjetoJPanelLayout);
@@ -135,7 +135,7 @@ public class NovoProjetoJPanel extends javax.swing.JPanel {
                             .addGroup(novoProjetoJPanelLayout.createSequentialGroup()
                                 .addComponent(jLabel1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(salvarNovoProjetoJToggleButton)))
+                                .addComponent(jButtonSalvarProjeto)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(dadosDoProjetoJPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -155,7 +155,7 @@ public class NovoProjetoJPanel extends javax.swing.JPanel {
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addGroup(novoProjetoJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(salvarNovoProjetoJToggleButton)
+                            .addComponent(jButtonSalvarProjeto)
                             .addComponent(jLabel1))))
                 .addContainerGap(153, Short.MAX_VALUE))
         );
@@ -176,8 +176,9 @@ public class NovoProjetoJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_nomeDoProjetoJTextFieldActionPerformed
 
-    private void salvarNovoProjetoJToggleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvarNovoProjetoJToggleButtonActionPerformed
-        Projeto projeto = new Projeto();
+    private void jButtonSalvarProjetoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarProjetoActionPerformed
+        // TODO add your handling code here:
+         Projeto projeto = new Projeto();
         int campoNulo = 0;
         int contCamposNulos = 0;
         projeto.setNomeProjeto(nomeDoProjetoJTextField.getText());
@@ -241,11 +242,12 @@ public class NovoProjetoJPanel extends javax.swing.JPanel {
                 break;
             }
         }
-    }//GEN-LAST:event_salvarNovoProjetoJToggleButtonActionPerformed
+    }//GEN-LAST:event_jButtonSalvarProjetoActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel dadosDoProjetoJPanel;
     private javax.swing.JTextArea descricaoDoProjetoJTextArea;
+    private javax.swing.JButton jButtonSalvarProjeto;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
@@ -256,6 +258,5 @@ public class NovoProjetoJPanel extends javax.swing.JPanel {
     private javax.swing.JTextField responsavelGerenciaRiscosJTextField;
     private javax.swing.JLabel responsavelPeloProjetoJLabel;
     private javax.swing.JTextField responsavelPeloProjetoJTextField;
-    private javax.swing.JToggleButton salvarNovoProjetoJToggleButton;
     // End of variables declaration//GEN-END:variables
 }

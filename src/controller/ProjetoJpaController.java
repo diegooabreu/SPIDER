@@ -20,6 +20,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.swing.JOptionPane;
 import model.Contem;
 import model.Pontodecontrole;
 import model.Aviso;
@@ -43,7 +44,13 @@ public class ProjetoJpaController implements Serializable {
     private EntityManagerFactory emf = null;
 
     public EntityManager getEntityManager() {
-        return emf.createEntityManager();
+        try {
+            return emf.createEntityManager();
+        }catch(Exception erro){
+            JOptionPane.showMessageDialog(null, "Erro ao tentar conectar o Banco de dados","Erro", JOptionPane.ERROR_MESSAGE);
+            erro.printStackTrace();
+            throw erro;
+        }   
     }
 
     public void create(Projeto projeto) {

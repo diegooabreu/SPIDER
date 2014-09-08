@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package view;
 
 import facade.ProjetoCalendarioFacade;
@@ -12,11 +11,7 @@ import facade.ProjetoFacade;
 import facade.RiscosGerenciarRiscosFacade;
 import facade.RiscosRiscosOcorridosFacade;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 import model.Contem;
 import model.Historicorisco;
 import model.Marcodoprojeto;
@@ -33,6 +28,7 @@ import model.Risco;
 public class ProjetoConcluirProjetoInternalJFrame extends javax.swing.JInternalFrame {
 
     Projeto projetoSelecionado;
+
     /**
      * Creates new form ProjetoConcluirProjetoInternalJFrame
      */
@@ -73,7 +69,7 @@ public class ProjetoConcluirProjetoInternalJFrame extends javax.swing.JInternalF
         }
 
         respostaStatusMitigandoJLabel.setText(Integer.toString(quantidadeDeRiscosMitigando));
-        
+
         int quantidadeDeRiscosNovo = 0;
         for (int i = 0; i < listaDeRiscos.size(); i++) {
             if (listaDeRiscos.get(i).getStatusRisco().equals("Novo")) {
@@ -81,9 +77,9 @@ public class ProjetoConcluirProjetoInternalJFrame extends javax.swing.JInternalF
             }
 
         }
-        
+
         respostaStatusNovoJLabel.setText(Integer.toString(quantidadeDeRiscosNovo));
-        
+
         int quantidadeDeRiscosContingenciando = 0;
         for (int i = 0; i < listaDeRiscos.size(); i++) {
             if (listaDeRiscos.get(i).getStatusRisco().equals("Contingenciando")) {
@@ -91,37 +87,37 @@ public class ProjetoConcluirProjetoInternalJFrame extends javax.swing.JInternalF
             }
 
         }
-        
+
         respostaStatusContingenciandoJLabel.setText(Integer.toString(quantidadeDeRiscosContingenciando));
-        
+
         RiscosRiscosOcorridosFacade riscosRiscosOcorridosFacade = new RiscosRiscosOcorridosFacade();
         List<Historicorisco> listaDeRiscosOcorridos = riscosRiscosOcorridosFacade.getListaHistoricoriscosByIdProjeto(projetoSelecionado.getIdProjeto());
-        
+
         respostaQuantidadeDeRiscosOcorridosJLabel.setText(Integer.toString(listaDeRiscosOcorridos.size()));
-        
+
         ProjetoCalendarioFacade projetoCalendarioFacade = new ProjetoCalendarioFacade();
         List<Marcodoprojeto> listaMarcosDoProjeto = projetoCalendarioFacade.getListaMarcosDoProjetoSelecionado(projetoSelecionado);
-        
+
         respostaQuantidadeDeMarcosJLabel.setText(Integer.toString(listaMarcosDoProjeto.size()));
-        
+
         List<Pontodecontrole> listaPontosDeControle = projetoCalendarioFacade.getListaPontosDeControleDoProjetoSelecionado(projetoSelecionado);
-        
+
         respostaQuantidadeDePontosDeControleJLabel.setText(Integer.toString(listaPontosDeControle.size()));
-        
+
         List<Planocontingencia> listaPlanosContingenciaPendentes = projetoFacade.buscaPlanosDeContingenciaPendentes(projetoSelecionado);
-        
+
         respostaQuantidadeDePlanosContingenciaPendentesJLabel.setText(Integer.toString(listaPlanosContingenciaPendentes.size()));
-           
+
         List<Planocontingencia> listaPlanosContingenciaRealizados = projetoFacade.buscaPlanosDeContingenciaRealizados(projetoSelecionado);
-        
+
         respostaQuantidadeDePlanosContigenciaRealizadosJLabel.setText(Integer.toString(listaPlanosContingenciaRealizados.size()));
-        
+
         List<Planomitigacao> listaPlanosMitigacaoPendentes = projetoFacade.buscaPlanosDeMitigacaoPendentes(projetoSelecionado);
-        
+
         respostaQuantidadeDePlanosDeMitigacaoPendentes.setText(Integer.toString(listaPlanosMitigacaoPendentes.size()));
-        
+
         List<Planomitigacao> listaPlanosMitigacaoRealizados = projetoFacade.buscaPlanosDeMitigacaoRealizados(projetoSelecionado);
-        
+
         respostaQuantidadeDePlanosDeMitigacaoRealizados.setText(Integer.toString(listaPlanosMitigacaoRealizados.size()));
 
         if (projeto.getConcluido()) {
@@ -131,6 +127,7 @@ public class ProjetoConcluirProjetoInternalJFrame extends javax.swing.JInternalF
         }
 
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -179,6 +176,8 @@ public class ProjetoConcluirProjetoInternalJFrame extends javax.swing.JInternalF
         respostaQuantidadeDePlanosDeMitigacaoRealizados = new javax.swing.JLabel();
         concluirProjetoJButton = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+
+        setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Relatório do Projeto"));
 
@@ -397,7 +396,7 @@ public class ProjetoConcluirProjetoInternalJFrame extends javax.swing.JInternalF
                     .addComponent(respostaQuantidadeDePlanosDeMitigacaoPendentes)
                     .addComponent(quantidadeDePlanosDeMitigacaoRealizados)
                     .addComponent(respostaQuantidadeDePlanosDeMitigacaoRealizados))
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addContainerGap(41, Short.MAX_VALUE))
         );
 
         concluirProjetoJButton.setText("Concluir Projeto");
@@ -465,7 +464,7 @@ public class ProjetoConcluirProjetoInternalJFrame extends javax.swing.JInternalF
     }//GEN-LAST:event_concluirProjetoJButtonActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        PrincipalJFrame.projetoConcluirProjetoInternalJFrame.setVisible(false);  
+       this.setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
 
 
@@ -511,4 +510,36 @@ public class ProjetoConcluirProjetoInternalJFrame extends javax.swing.JInternalF
     private javax.swing.JLabel statusNovoJLabel;
     // End of variables declaration//GEN-END:variables
 
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(RiscosSelecionarRiscosParaMonitorarJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(RiscosSelecionarRiscosParaMonitorarJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(RiscosSelecionarRiscosParaMonitorarJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(RiscosSelecionarRiscosParaMonitorarJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                new ProjetoConcluirProjetoInternalJFrame().setVisible(true);
+            }
+        });
+    }
 }

@@ -6,8 +6,6 @@
 package view;
 
 import facade.ProjetoFacade;
-import java.util.List;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import model.Projeto;
 
@@ -65,7 +63,6 @@ public class ProjetoDetalhesJPanel extends javax.swing.JPanel {
         salvarAlteracoesJButton.setEnabled(false);
 
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -242,9 +239,8 @@ public class ProjetoDetalhesJPanel extends javax.swing.JPanel {
 
 
     }//GEN-LAST:event_salvarAlteracoesJButtonActionPerformed
-
+          
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
         PrincipalJFrame.projetoConcluirProjetoInternalJFrame.preencherRelatorio(projetoSelecionado);
         PrincipalJFrame.aparecerInternalFrameProjetoConcluirProjeto();
     }//GEN-LAST:event_jButton1ActionPerformed

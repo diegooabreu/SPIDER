@@ -298,8 +298,12 @@ public class MonitoracaoTarefasPlanosPendentesJPanel extends javax.swing.JPanel 
                 }
             }
         }
+        if (!listaplanosTabela.isEmpty()){
+            JOptionPane.showMessageDialog(this, "O(s) Plano(s) selecionados foram marcados como realizados.");
+        } else {
+            JOptionPane.showMessageDialog(this, "Não existem planos pendentes para este projeto.");
+        }
         reiniciaTabaladePlanosPendentes();
-        JOptionPane.showMessageDialog(this, "O(s) Plano(s) selecionados foram marcados como realizados");
     }//GEN-LAST:event_SalvarRealizaçãoDePlanosJButtonActionPerformed
 
     public void mudaStatusDeRisco(int indice, String tipo) {
