@@ -38,7 +38,14 @@ public class ProjetoJpaController implements Serializable {
     }
     
     public ProjetoJpaController(){
-        emf = Persistence.createEntityManagerFactory("SpiderRMPU");
+        
+        try {
+            emf = Persistence.createEntityManagerFactory("SpiderRMPU");
+        }catch(Exception erro){
+            JOptionPane.showMessageDialog(null, "Erro ao tentar conectar o Banco de dados","Erro", JOptionPane.ERROR_MESSAGE);
+            erro.printStackTrace();
+            throw erro;
+        }   
     }
     
     private EntityManagerFactory emf = null;
