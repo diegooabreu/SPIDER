@@ -1,0 +1,434 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JDialogFormInfo">
+  <Properties>
+    <Property name="defaultCloseOperation" type="int" value="2"/>
+  </Properties>
+  <SyntheticProperties>
+    <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
+    <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
+  </SyntheticProperties>
+  <AuxValues>
+    <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
+    <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_i18nAutoMode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_layoutCodeTarget" type="java.lang.Integer" value="1"/>
+    <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
+  </AuxValues>
+
+  <Layout>
+    <DimensionLayout dim="0">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="jPanel1" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+          </Group>
+      </Group>
+    </DimensionLayout>
+    <DimensionLayout dim="1">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Component id="jPanel1" max="32767" attributes="0"/>
+      </Group>
+    </DimensionLayout>
+  </Layout>
+  <SubComponents>
+    <Container class="javax.swing.JPanel" name="jPanel1">
+      <Properties>
+        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+          <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+            <TitledBorder title="Relat&#xf3;rio do Projeto"/>
+          </Border>
+        </Property>
+      </Properties>
+
+      <Layout>
+        <DimensionLayout dim="0">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="jScrollPane1" alignment="0" max="32767" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
+                                  <Component id="respostaQuantidadeDeRiscosOcorridosJLabel" min="-2" pref="34" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="quantidadeNovasCategoriasJLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="quantidadeDeRiscosTotalJLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="QuantidadeDeRiscosNovosJLabel" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                                          <Component id="statusNovoJLabel" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                      <Component id="quantidadeNovasCategoriasJLabel2" alignment="0" pref="34" max="32767" attributes="0"/>
+                                      <Component id="respostaStatusNovoJLabel" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="respostaQuantidadeDeRiscosTotalJLabel" alignment="0" max="32767" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <Component id="respostaQuantidadeDeMarcosJLabel" alignment="1" min="-2" pref="34" max="-2" attributes="0"/>
+                              <Component id="respostaQuantidadeDePontosDeControleJLabel" alignment="1" min="-2" pref="34" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+                          <Component id="statusMitigandoJLabel" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="respostaStatusMitigandoJLabel" min="-2" pref="32" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="statusContingenciandoJLabel" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="respostaStatusContingenciandoJLabel" min="-2" pref="31" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="descricaoProjetoJLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="quantidadeDeMarcosJLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="quantidadeDePontosDeControleJLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="responsavelGerenciaRiscosJLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="responsavelProjetoJLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="nomeProjetoJLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="nomeProjetoJLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="responsavelGerenciaRiscosJLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="responsavelProjetoJLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="1" attributes="0">
+                                      <Component id="concluirProjetoJButton" min="-2" pref="148" max="-2" attributes="0"/>
+                                      <Group type="102" attributes="0">
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="quantidadeDePlanosDeContingencia" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="quantidadeDePlanosDeMitigacao" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                              <Group type="102" alignment="0" attributes="0">
+                                                  <Component id="quantidadeDePlanosDeMitigacaoPendentes" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="respostaQuantidadeDePlanosDeMitigacaoPendentes" max="32767" attributes="0"/>
+                                              </Group>
+                                              <Group type="102" alignment="0" attributes="0">
+                                                  <Component id="quantidadequantidadeDePlanosDeContingenciaPendentes" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="respostaQuantidadeDePlanosContingenciaPendentesJLabel" min="-2" pref="34" max="-2" attributes="0"/>
+                                              </Group>
+                                          </Group>
+                                      </Group>
+                                  </Group>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="quantidadeDePlanosDeContingenciaRealizados" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="respostaQuantidadeDePlanosContigenciaRealizadosJLabel" min="-2" pref="34" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="quantidadeDePlanosDeMitigacaoRealizados" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="respostaQuantidadeDePlanosDeMitigacaoRealizados" max="32767" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                              </Group>
+                          </Group>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      </Group>
+                  </Group>
+              </Group>
+          </Group>
+        </DimensionLayout>
+        <DimensionLayout dim="1">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="nomeProjetoJLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="nomeProjetoJLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="responsavelProjetoJLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="responsavelProjetoJLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="responsavelGerenciaRiscosJLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="responsavelGerenciaRiscosJLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="descricaoProjetoJLabel" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="jScrollPane1" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="quantidadeNovasCategoriasJLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="quantidadeNovasCategoriasJLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="quantidadeDeRiscosTotalJLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="respostaQuantidadeDeRiscosTotalJLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="QuantidadeDeRiscosNovosJLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="statusNovoJLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="respostaStatusNovoJLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="statusMitigandoJLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="respostaStatusMitigandoJLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="statusContingenciandoJLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="respostaStatusContingenciandoJLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="respostaQuantidadeDeRiscosOcorridosJLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="quantidadeDeMarcosJLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="respostaQuantidadeDeMarcosJLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="quantidadeDePontosDeControleJLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="respostaQuantidadeDePontosDeControleJLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="quantidadeDePlanosDeContingencia" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="quantidadequantidadeDePlanosDeContingenciaPendentes" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="respostaQuantidadeDePlanosContingenciaPendentesJLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="quantidadeDePlanosDeContingenciaRealizados" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="respostaQuantidadeDePlanosContigenciaRealizadosJLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="quantidadeDePlanosDeMitigacao" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="quantidadeDePlanosDeMitigacaoPendentes" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="respostaQuantidadeDePlanosDeMitigacaoPendentes" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="quantidadeDePlanosDeMitigacaoRealizados" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="respostaQuantidadeDePlanosDeMitigacaoRealizados" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Component id="concluirProjetoJButton" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+      </Layout>
+      <SubComponents>
+        <Component class="javax.swing.JLabel" name="nomeProjetoJLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Nome do Projeto:"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="responsavelProjetoJLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Respons&#xe1;vel pelo Projeto:"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="responsavelGerenciaRiscosJLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Respons&#xe1;vel pela Ger&#xea;ncia de Riscos:"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="descricaoProjetoJLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Descri&#xe7;&#xe3;o do Projeto:"/>
+          </Properties>
+        </Component>
+        <Container class="javax.swing.JScrollPane" name="jScrollPane1">
+          <AuxValues>
+            <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+          </AuxValues>
+
+          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+          <SubComponents>
+            <Component class="javax.swing.JTextArea" name="descricaoProjetoJTextArea">
+              <Properties>
+                <Property name="editable" type="boolean" value="false"/>
+                <Property name="columns" type="int" value="20"/>
+                <Property name="lineWrap" type="boolean" value="true"/>
+                <Property name="rows" type="int" value="5"/>
+                <Property name="wrapStyleWord" type="boolean" value="true"/>
+              </Properties>
+            </Component>
+          </SubComponents>
+        </Container>
+        <Component class="javax.swing.JLabel" name="quantidadeNovasCategoriasJLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Quantidade de novas Categorias de Risco:"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="nomeProjetoJLabel2">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="nome"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="responsavelProjetoJLabel2">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="responsavel"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="responsavelGerenciaRiscosJLabel2">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="responsavel riscos"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="quantidadeNovasCategoriasJLabel2">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="0"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel1">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Quantidade de riscos ocorridos:"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="quantidadeDeRiscosTotalJLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Quantidade de riscos (Total):"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="respostaQuantidadeDeRiscosTotalJLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="0"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="respostaQuantidadeDeRiscosOcorridosJLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="0"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="QuantidadeDeRiscosNovosJLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Quantidade de riscos por status:"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="statusNovoJLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Novo:"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="respostaStatusNovoJLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="0"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="statusMitigandoJLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Mitigando"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="respostaStatusMitigandoJLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="0"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="statusContingenciandoJLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Contingenciando"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="respostaStatusContingenciandoJLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="0"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="quantidadeDeMarcosJLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Quantidade de marcos de projeto:"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="respostaQuantidadeDeMarcosJLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="0"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="quantidadeDePontosDeControleJLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Quantidade de pontos de controle:"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="respostaQuantidadeDePontosDeControleJLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="0"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="quantidadeDePlanosDeContingencia">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Quantidade de planos de Contig&#xea;ncia: "/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="quantidadequantidadeDePlanosDeContingenciaPendentes">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Pendentes:"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="respostaQuantidadeDePlanosContingenciaPendentesJLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="0"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="respostaQuantidadeDePlanosContigenciaRealizadosJLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="0"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="quantidadeDePlanosDeContingenciaRealizados">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Realizados:"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="quantidadeDePlanosDeMitigacao">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Quantidade de planos de Mitiga&#xe7;&#xe3;o:"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="quantidadeDePlanosDeMitigacaoPendentes">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Pendentes:"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="respostaQuantidadeDePlanosDeMitigacaoPendentes">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="0"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="quantidadeDePlanosDeMitigacaoRealizados">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Realizados:"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="respostaQuantidadeDePlanosDeMitigacaoRealizados">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="0"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="concluirProjetoJButton">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Concluir Projeto"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="concluirProjetoJButtonActionPerformed"/>
+          </Events>
+        </Component>
+      </SubComponents>
+    </Container>
+  </SubComponents>
+</Form>

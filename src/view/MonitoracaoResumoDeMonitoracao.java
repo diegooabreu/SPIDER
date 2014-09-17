@@ -6,9 +6,7 @@
 package view;
 
 import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import javax.swing.JTable;
@@ -18,7 +16,6 @@ import model.Planocontingencia;
 import model.Planomitigacao;
 import model.Pontodecontrole;
 import model.Risco;
-import view.tabelas.PlanoTabela;
 
 /**
  *
@@ -42,7 +39,12 @@ public class MonitoracaoResumoDeMonitoracao extends javax.swing.JPanel {
 
     public void criaTabelResumoDeStatusDeRiscos() {
         tabelaResumoDeStatusDeRiscos = new JTable();
-        modeloTabelaDeResumoDeStatusDeRiscos = new DefaultTableModel();
+        modeloTabelaDeResumoDeStatusDeRiscos = new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int row, int col) {
+                return false;
+            }
+        };
 
         modeloTabelaDeResumoDeStatusDeRiscos.setColumnIdentifiers(new String[]{"Identificação", "Emissor", "Estado"});
         tabelaResumoDeStatusDeRiscos.setModel(modeloTabelaDeResumoDeStatusDeRiscos);
@@ -64,7 +66,12 @@ public class MonitoracaoResumoDeMonitoracao extends javax.swing.JPanel {
 
     public void criaTabelResumoDePlanosPendentes() {
         tabelaResumoPlanosPendentes = new JTable();
-        modeloTabelaDeResumoPlanosPendentes = new DefaultTableModel();
+        modeloTabelaDeResumoPlanosPendentes = new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int row, int col) {
+                return false;
+            }
+        };
 
         modeloTabelaDeResumoPlanosPendentes.setColumnIdentifiers(new String[]{"Identificação do Plano", "Identificação do Risco", "Responsável"});
         tabelaResumoPlanosPendentes.setModel(modeloTabelaDeResumoPlanosPendentes);
@@ -95,7 +102,12 @@ public class MonitoracaoResumoDeMonitoracao extends javax.swing.JPanel {
 
     public void criaTabelResumoDeMarcosEPontosDeControle() {
         tabelaResumoDeMarcosEPontosDeControle = new JTable();
-        modeloTabelaDeResumoDeMarcosEPontosDeControle = new DefaultTableModel();
+        modeloTabelaDeResumoDeMarcosEPontosDeControle = new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int row, int col) {
+                return false;
+            }
+        };
 
         modeloTabelaDeResumoDeMarcosEPontosDeControle.setColumnIdentifiers(new String[]{"Tipo", "Data"});
         tabelaResumoDeMarcosEPontosDeControle.setModel(modeloTabelaDeResumoDeMarcosEPontosDeControle);
@@ -103,17 +115,17 @@ public class MonitoracaoResumoDeMonitoracao extends javax.swing.JPanel {
     }
 
     public void preencheTabelResumoDeMarcosEPontoDeControle(List<Marcodoprojeto> listaMarcosDoProjeto, List<Pontodecontrole> listaPontoDeControle) {
-        List<Object> listaDeMarcosEPontosDeControle =  new ArrayList<>();
+        List<Object> listaDeMarcosEPontosDeControle = new ArrayList<>();
         DateFormat dataFormatada = DateFormat.getDateInstance(DateFormat.MEDIUM);
         String dataString;
         Date dataAtual = new Date();
         dataString = dataFormatada.format(dataAtual);
-        
+
         for (int i = 0; i < listaMarcosDoProjeto.size(); i++) {
             String dataMP = dataFormatada.format(listaMarcosDoProjeto.get(i).getDataMarcoProjeto());
             if ((listaMarcosDoProjeto.get(i).getDataMarcoProjeto().after(dataAtual)) || (dataMP.equals(dataString))) {
                 String tipo = "Marco do Projeto";
-                
+
                 listaDeMarcosEPontosDeControle.add(listaMarcosDoProjeto.get(i));
                 String[] linha = new String[]{tipo, dataMP};
                 modeloTabelaDeResumoDeMarcosEPontosDeControle.addRow(linha);
@@ -124,26 +136,26 @@ public class MonitoracaoResumoDeMonitoracao extends javax.swing.JPanel {
             String dataPC = dataFormatada.format(listaPontoDeControle.get(i).getDataPontoControle());
             if ((listaPontoDeControle.get(i).getDataPontoControle().after(dataAtual)) || (dataPC.equals(dataString))) {
                 String tipo = "Ponto de Controle";
-                
+
                 listaDeMarcosEPontosDeControle.add(listaPontoDeControle.get(i));
                 String[] linha = new String[]{tipo, dataPC};
                 modeloTabelaDeResumoDeMarcosEPontosDeControle.addRow(linha);
             }
         }
-        
+
         /*for (int i = 0; i < listaDeMarcosEPontosDeControle.size(); i++){
-            Collections.sort(listaDeMarcosEPontosDeControle, i);
-            modeloTabelaDeResumoDeMarcosEPontosDeControle.
-        }*/
+         Collections.sort(listaDeMarcosEPontosDeControle, i);
+         modeloTabelaDeResumoDeMarcosEPontosDeControle.
+         }*/
     }
-    
-    public class MarcoPontoDeControle{
-        
+
+    public class MarcoPontoDeControle {
+
         private String tipo;
         private Date data;
-        
-        public MarcoPontoDeControle(){
-            
+
+        public MarcoPontoDeControle() {
+
         }
 
         /**

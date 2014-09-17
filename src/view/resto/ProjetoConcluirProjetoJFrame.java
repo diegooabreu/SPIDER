@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package view;
+package view.resto;
 
 import facade.ProjetoCalendarioFacade;
 import facade.ProjetoConcluirProjetoFacade;
@@ -23,17 +23,18 @@ import model.Risco;
 
 /**
  *
- * @author BlenoVale
+ * @author Diego
  */
-public class ProjetoConcluirProjetoInternalJFrame extends javax.swing.JInternalFrame {
+public class ProjetoConcluirProjetoJFrame extends javax.swing.JFrame {
 
     Projeto projetoSelecionado;
 
     /**
-     * Creates new form ProjetoConcluirProjetoInternalJFrame
+     * Creates new form ProjetoConcluirProjetoJFrame
      */
-    public ProjetoConcluirProjetoInternalJFrame() {
+    public ProjetoConcluirProjetoJFrame() {
         initComponents();
+
     }
 
     public void preencherRelatorio(Projeto projeto) {
@@ -69,7 +70,7 @@ public class ProjetoConcluirProjetoInternalJFrame extends javax.swing.JInternalF
         }
 
         respostaStatusMitigandoJLabel.setText(Integer.toString(quantidadeDeRiscosMitigando));
-
+        
         int quantidadeDeRiscosNovo = 0;
         for (int i = 0; i < listaDeRiscos.size(); i++) {
             if (listaDeRiscos.get(i).getStatusRisco().equals("Novo")) {
@@ -77,9 +78,9 @@ public class ProjetoConcluirProjetoInternalJFrame extends javax.swing.JInternalF
             }
 
         }
-
+        
         respostaStatusNovoJLabel.setText(Integer.toString(quantidadeDeRiscosNovo));
-
+        
         int quantidadeDeRiscosContingenciando = 0;
         for (int i = 0; i < listaDeRiscos.size(); i++) {
             if (listaDeRiscos.get(i).getStatusRisco().equals("Contingenciando")) {
@@ -87,38 +88,32 @@ public class ProjetoConcluirProjetoInternalJFrame extends javax.swing.JInternalF
             }
 
         }
-
+        
         respostaStatusContingenciandoJLabel.setText(Integer.toString(quantidadeDeRiscosContingenciando));
-
+        
         RiscosRiscosOcorridosFacade riscosRiscosOcorridosFacade = new RiscosRiscosOcorridosFacade();
         List<Historicorisco> listaDeRiscosOcorridos = riscosRiscosOcorridosFacade.getListaHistoricoriscosByIdProjeto(projetoSelecionado.getIdProjeto());
-
+        
         respostaQuantidadeDeRiscosOcorridosJLabel.setText(Integer.toString(listaDeRiscosOcorridos.size()));
-
+        
         ProjetoCalendarioFacade projetoCalendarioFacade = new ProjetoCalendarioFacade();
         List<Marcodoprojeto> listaMarcosDoProjeto = projetoCalendarioFacade.getListaMarcosDoProjetoSelecionado(projetoSelecionado);
-
+        
         respostaQuantidadeDeMarcosJLabel.setText(Integer.toString(listaMarcosDoProjeto.size()));
-
+        
         List<Pontodecontrole> listaPontosDeControle = projetoCalendarioFacade.getListaPontosDeControleDoProjetoSelecionado(projetoSelecionado);
-
+        
         respostaQuantidadeDePontosDeControleJLabel.setText(Integer.toString(listaPontosDeControle.size()));
-
+        
         List<Planocontingencia> listaPlanosContingenciaPendentes = projetoFacade.buscaPlanosDeContingenciaPendentes(projetoSelecionado);
-
-        respostaQuantidadeDePlanosContingenciaPendentesJLabel.setText(Integer.toString(listaPlanosContingenciaPendentes.size()));
-
-        List<Planocontingencia> listaPlanosContingenciaRealizados = projetoFacade.buscaPlanosDeContingenciaRealizados(projetoSelecionado);
-
-        respostaQuantidadeDePlanosContigenciaRealizadosJLabel.setText(Integer.toString(listaPlanosContingenciaRealizados.size()));
-
         List<Planomitigacao> listaPlanosMitigacaoPendentes = projetoFacade.buscaPlanosDeMitigacaoPendentes(projetoSelecionado);
-
-        respostaQuantidadeDePlanosDeMitigacaoPendentes.setText(Integer.toString(listaPlanosMitigacaoPendentes.size()));
-
+        
+        respostaQuantidadeDePlanosPendentesJLabel.setText(Integer.toString(listaPlanosContingenciaPendentes.size() + listaPlanosMitigacaoPendentes.size()));
+        
+        List<Planocontingencia> listaPlanosContingenciaRealizados = projetoFacade.buscaPlanosDeContingenciaRealizados(projetoSelecionado);
         List<Planomitigacao> listaPlanosMitigacaoRealizados = projetoFacade.buscaPlanosDeMitigacaoRealizados(projetoSelecionado);
-
-        respostaQuantidadeDePlanosDeMitigacaoRealizados.setText(Integer.toString(listaPlanosMitigacaoRealizados.size()));
+        
+        respostaQuantidadeDePlanosRealizadosJLabel.setText(Integer.toString(listaPlanosContingenciaRealizados.size() + listaPlanosMitigacaoRealizados.size()));
 
         if (projeto.getConcluido()) {
             concluirProjetoJButton.setEnabled(false);
@@ -164,20 +159,13 @@ public class ProjetoConcluirProjetoInternalJFrame extends javax.swing.JInternalF
         respostaQuantidadeDeMarcosJLabel = new javax.swing.JLabel();
         quantidadeDePontosDeControleJLabel = new javax.swing.JLabel();
         respostaQuantidadeDePontosDeControleJLabel = new javax.swing.JLabel();
-        quantidadeDePlanosDeContingencia = new javax.swing.JLabel();
-        quantidadequantidadeDePlanosDeContingenciaPendentes = new javax.swing.JLabel();
-        respostaQuantidadeDePlanosContingenciaPendentesJLabel = new javax.swing.JLabel();
-        respostaQuantidadeDePlanosContigenciaRealizadosJLabel = new javax.swing.JLabel();
-        quantidadeDePlanosDeContingenciaRealizados = new javax.swing.JLabel();
-        quantidadeDePlanosDeMitigacao = new javax.swing.JLabel();
-        quantidadeDePlanosDeMitigacaoPendentes = new javax.swing.JLabel();
-        respostaQuantidadeDePlanosDeMitigacaoPendentes = new javax.swing.JLabel();
-        quantidadeDePlanosDeMitigacaoRealizados = new javax.swing.JLabel();
-        respostaQuantidadeDePlanosDeMitigacaoRealizados = new javax.swing.JLabel();
+        quantidadeDePlanosPendentesJLabel = new javax.swing.JLabel();
+        respostaQuantidadeDePlanosPendentesJLabel = new javax.swing.JLabel();
+        quantidadeDePlanosRealizadosJLabel = new javax.swing.JLabel();
+        respostaQuantidadeDePlanosRealizadosJLabel = new javax.swing.JLabel();
         concluirProjetoJButton = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
 
-        setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Relatório do Projeto"));
 
@@ -236,25 +224,13 @@ public class ProjetoConcluirProjetoInternalJFrame extends javax.swing.JInternalF
 
         respostaQuantidadeDePontosDeControleJLabel.setText("0");
 
-        quantidadeDePlanosDeContingencia.setText("Quantidade de planos de Contigência: ");
+        quantidadeDePlanosPendentesJLabel.setText("Quantidade de planos pendentes:");
 
-        quantidadequantidadeDePlanosDeContingenciaPendentes.setText("Pendentes:");
+        respostaQuantidadeDePlanosPendentesJLabel.setText("0");
 
-        respostaQuantidadeDePlanosContingenciaPendentesJLabel.setText("0");
+        quantidadeDePlanosRealizadosJLabel.setText("Quantidade de planos realizados:");
 
-        respostaQuantidadeDePlanosContigenciaRealizadosJLabel.setText("0");
-
-        quantidadeDePlanosDeContingenciaRealizados.setText("Realizados:");
-
-        quantidadeDePlanosDeMitigacao.setText("Quantidade de planos de Mitigação:");
-
-        quantidadeDePlanosDeMitigacaoPendentes.setText("Pendentes:");
-
-        respostaQuantidadeDePlanosDeMitigacaoPendentes.setText("0");
-
-        quantidadeDePlanosDeMitigacaoRealizados.setText("Realizados:");
-
-        respostaQuantidadeDePlanosDeMitigacaoRealizados.setText("0");
+        respostaQuantidadeDePlanosRealizadosJLabel.setText("0");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -284,12 +260,14 @@ public class ProjetoConcluirProjetoInternalJFrame extends javax.swing.JInternalF
                                     .addComponent(respostaStatusNovoJLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(respostaQuantidadeDeRiscosTotalJLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                             .addComponent(respostaQuantidadeDeMarcosJLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(respostaQuantidadeDePontosDeControleJLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, 0)
+                            .addComponent(respostaQuantidadeDePontosDeControleJLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(respostaQuantidadeDePlanosPendentesJLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(respostaQuantidadeDePlanosRealizadosJLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(37, 37, 37)
                         .addComponent(statusMitigandoJLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(respostaStatusMitigandoJLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
                         .addComponent(statusContingenciandoJLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(respostaStatusContingenciandoJLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -298,6 +276,8 @@ public class ProjetoConcluirProjetoInternalJFrame extends javax.swing.JInternalF
                             .addComponent(descricaoProjetoJLabel)
                             .addComponent(quantidadeDeMarcosJLabel)
                             .addComponent(quantidadeDePontosDeControleJLabel)
+                            .addComponent(quantidadeDePlanosPendentesJLabel)
+                            .addComponent(quantidadeDePlanosRealizadosJLabel)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(responsavelGerenciaRiscosJLabel)
@@ -307,32 +287,9 @@ public class ProjetoConcluirProjetoInternalJFrame extends javax.swing.JInternalF
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(nomeProjetoJLabel2)
                                     .addComponent(responsavelGerenciaRiscosJLabel2)
-                                    .addComponent(responsavelProjetoJLabel2)))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(quantidadeDePlanosDeContingencia)
-                                    .addComponent(quantidadeDePlanosDeMitigacao))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(quantidadeDePlanosDeMitigacaoPendentes)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(respostaQuantidadeDePlanosDeMitigacaoPendentes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(quantidadequantidadeDePlanosDeContingenciaPendentes)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(respostaQuantidadeDePlanosContingenciaPendentesJLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(quantidadeDePlanosDeContingenciaRealizados)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(respostaQuantidadeDePlanosContigenciaRealizadosJLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(quantidadeDePlanosDeMitigacaoRealizados)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(respostaQuantidadeDePlanosDeMitigacaoRealizados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                                    .addComponent(responsavelProjetoJLabel2))))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -384,19 +341,13 @@ public class ProjetoConcluirProjetoInternalJFrame extends javax.swing.JInternalF
                     .addComponent(respostaQuantidadeDePontosDeControleJLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(quantidadeDePlanosDeContingencia)
-                    .addComponent(quantidadequantidadeDePlanosDeContingenciaPendentes)
-                    .addComponent(respostaQuantidadeDePlanosContingenciaPendentesJLabel)
-                    .addComponent(quantidadeDePlanosDeContingenciaRealizados)
-                    .addComponent(respostaQuantidadeDePlanosContigenciaRealizadosJLabel))
+                    .addComponent(quantidadeDePlanosPendentesJLabel)
+                    .addComponent(respostaQuantidadeDePlanosPendentesJLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(quantidadeDePlanosDeMitigacao)
-                    .addComponent(quantidadeDePlanosDeMitigacaoPendentes)
-                    .addComponent(respostaQuantidadeDePlanosDeMitigacaoPendentes)
-                    .addComponent(quantidadeDePlanosDeMitigacaoRealizados)
-                    .addComponent(respostaQuantidadeDePlanosDeMitigacaoRealizados))
-                .addContainerGap(41, Short.MAX_VALUE))
+                    .addComponent(quantidadeDePlanosRealizadosJLabel)
+                    .addComponent(respostaQuantidadeDePlanosRealizadosJLabel))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         concluirProjetoJButton.setText("Concluir Projeto");
@@ -406,35 +357,22 @@ public class ProjetoConcluirProjetoInternalJFrame extends javax.swing.JInternalF
             }
         });
 
-        jButton1.setText("Fechar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(concluirProjetoJButton))
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(concluirProjetoJButton)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(concluirProjetoJButton)
-                    .addComponent(jButton1))
+                .addGap(18, 18, 18)
+                .addComponent(concluirProjetoJButton)
                 .addContainerGap())
         );
 
@@ -460,56 +398,12 @@ public class ProjetoConcluirProjetoInternalJFrame extends javax.swing.JInternalF
         } else {
             JOptionPane.showMessageDialog(this, "Projeto não concluído.");
         }
-        ProjetoDetalhesJPanel.atualizaDetalhesDoProjeto();
+
     }//GEN-LAST:event_concluirProjetoJButtonActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       this.setVisible(false);
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel QuantidadeDeRiscosNovosJLabel;
-    private javax.swing.JButton concluirProjetoJButton;
-    private javax.swing.JLabel descricaoProjetoJLabel;
-    private javax.swing.JTextArea descricaoProjetoJTextArea;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel nomeProjetoJLabel;
-    private javax.swing.JLabel nomeProjetoJLabel2;
-    private javax.swing.JLabel quantidadeDeMarcosJLabel;
-    private javax.swing.JLabel quantidadeDePlanosDeContingencia;
-    private javax.swing.JLabel quantidadeDePlanosDeContingenciaRealizados;
-    private javax.swing.JLabel quantidadeDePlanosDeMitigacao;
-    private javax.swing.JLabel quantidadeDePlanosDeMitigacaoPendentes;
-    private javax.swing.JLabel quantidadeDePlanosDeMitigacaoRealizados;
-    private javax.swing.JLabel quantidadeDePontosDeControleJLabel;
-    private javax.swing.JLabel quantidadeDeRiscosTotalJLabel;
-    private javax.swing.JLabel quantidadeNovasCategoriasJLabel;
-    private javax.swing.JLabel quantidadeNovasCategoriasJLabel2;
-    private javax.swing.JLabel quantidadequantidadeDePlanosDeContingenciaPendentes;
-    private javax.swing.JLabel responsavelGerenciaRiscosJLabel;
-    private javax.swing.JLabel responsavelGerenciaRiscosJLabel2;
-    private javax.swing.JLabel responsavelProjetoJLabel;
-    private javax.swing.JLabel responsavelProjetoJLabel2;
-    private javax.swing.JLabel respostaQuantidadeDeMarcosJLabel;
-    private javax.swing.JLabel respostaQuantidadeDePlanosContigenciaRealizadosJLabel;
-    private javax.swing.JLabel respostaQuantidadeDePlanosContingenciaPendentesJLabel;
-    private javax.swing.JLabel respostaQuantidadeDePlanosDeMitigacaoPendentes;
-    private javax.swing.JLabel respostaQuantidadeDePlanosDeMitigacaoRealizados;
-    private javax.swing.JLabel respostaQuantidadeDePontosDeControleJLabel;
-    private javax.swing.JLabel respostaQuantidadeDeRiscosOcorridosJLabel;
-    private javax.swing.JLabel respostaQuantidadeDeRiscosTotalJLabel;
-    private javax.swing.JLabel respostaStatusContingenciandoJLabel;
-    private javax.swing.JLabel respostaStatusMitigandoJLabel;
-    private javax.swing.JLabel respostaStatusNovoJLabel;
-    private javax.swing.JLabel statusContingenciandoJLabel;
-    private javax.swing.JLabel statusMitigandoJLabel;
-    private javax.swing.JLabel statusNovoJLabel;
-    // End of variables declaration//GEN-END:variables
-
+    /**
+     * @param args the command line arguments
+     */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -524,22 +418,56 @@ public class ProjetoConcluirProjetoInternalJFrame extends javax.swing.JInternalF
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(RiscosSelecionarRiscosParaMonitorarJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ProjetoConcluirProjetoJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(RiscosSelecionarRiscosParaMonitorarJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ProjetoConcluirProjetoJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(RiscosSelecionarRiscosParaMonitorarJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ProjetoConcluirProjetoJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(RiscosSelecionarRiscosParaMonitorarJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ProjetoConcluirProjetoJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
-            @Override
             public void run() {
-                new ProjetoConcluirProjetoInternalJFrame().setVisible(true);
+                new ProjetoConcluirProjetoJFrame().setVisible(true);
             }
         });
     }
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel QuantidadeDeRiscosNovosJLabel;
+    private javax.swing.JButton concluirProjetoJButton;
+    private javax.swing.JLabel descricaoProjetoJLabel;
+    private javax.swing.JTextArea descricaoProjetoJTextArea;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel nomeProjetoJLabel;
+    private javax.swing.JLabel nomeProjetoJLabel2;
+    private javax.swing.JLabel quantidadeDeMarcosJLabel;
+    private javax.swing.JLabel quantidadeDePlanosPendentesJLabel;
+    private javax.swing.JLabel quantidadeDePlanosRealizadosJLabel;
+    private javax.swing.JLabel quantidadeDePontosDeControleJLabel;
+    private javax.swing.JLabel quantidadeDeRiscosTotalJLabel;
+    private javax.swing.JLabel quantidadeNovasCategoriasJLabel;
+    private javax.swing.JLabel quantidadeNovasCategoriasJLabel2;
+    private javax.swing.JLabel responsavelGerenciaRiscosJLabel;
+    private javax.swing.JLabel responsavelGerenciaRiscosJLabel2;
+    private javax.swing.JLabel responsavelProjetoJLabel;
+    private javax.swing.JLabel responsavelProjetoJLabel2;
+    private javax.swing.JLabel respostaQuantidadeDeMarcosJLabel;
+    private javax.swing.JLabel respostaQuantidadeDePlanosPendentesJLabel;
+    private javax.swing.JLabel respostaQuantidadeDePlanosRealizadosJLabel;
+    private javax.swing.JLabel respostaQuantidadeDePontosDeControleJLabel;
+    private javax.swing.JLabel respostaQuantidadeDeRiscosOcorridosJLabel;
+    private javax.swing.JLabel respostaQuantidadeDeRiscosTotalJLabel;
+    private javax.swing.JLabel respostaStatusContingenciandoJLabel;
+    private javax.swing.JLabel respostaStatusMitigandoJLabel;
+    private javax.swing.JLabel respostaStatusNovoJLabel;
+    private javax.swing.JLabel statusContingenciandoJLabel;
+    private javax.swing.JLabel statusMitigandoJLabel;
+    private javax.swing.JLabel statusNovoJLabel;
+    // End of variables declaration//GEN-END:variables
 }

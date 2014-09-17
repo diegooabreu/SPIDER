@@ -40,7 +40,7 @@ public class PrincipalJFrame extends javax.swing.JFrame {
     final OrganizacionalEARJPanel organizacionalEARJPanel = new OrganizacionalEARJPanel();
     final OrganizacionalPoliticaOrganizacionalJPanel organizacionalPoliticaOrganizacionalJPanel = new OrganizacionalPoliticaOrganizacionalJPanel();
     final OrganizacionalPortfolioJPanel organizacionalPortfolioJPanel = new OrganizacionalPortfolioJPanel();
-    static ProjetoDetalhesJPanel projetoDetalhesJPanel = new ProjetoDetalhesJPanel();
+    final ProjetoDetalhesJPanel projetoDetalhesJPanel = new ProjetoDetalhesJPanel();
     final ProjetoPlanoRiscoJPanel projetoPlanoRiscoJpanel = new ProjetoPlanoRiscoJPanel();
     final ProjetoEstruturaAnaliticaRiscosJpanel projetoEstruturaAnaliticaRiscosJpanel = new ProjetoEstruturaAnaliticaRiscosJpanel();
     final ProjetoCalendarioJPanel projetoCalendarioJPanel = new ProjetoCalendarioJPanel();
@@ -54,18 +54,13 @@ public class PrincipalJFrame extends javax.swing.JFrame {
     final MonitoracaoResumoDeMonitoracao monitoracaoResumoDeMonitoracao = new MonitoracaoResumoDeMonitoracao();
 
     static MonitoracaoAnaliseDosRiscosJPanel monitoracaoAnaliseDosRiscosJPanel = new MonitoracaoAnaliseDosRiscosJPanel();
-
+    
     final MonitoracaoTabelaDeAlteracaoJPanel monitoracoaTabelaDeAlteracaoJPanel = new MonitoracaoTabelaDeAlteracaoJPanel();
     final MonitoracaoTarefasPlanosPendentesJPanel monitoracaoPlanosPendentesJPanel = new MonitoracaoTarefasPlanosPendentesJPanel();
     final MonitoracaoTarefasPlanosRealizadosJPanel monitoracaoPlanosRealizadosJPanel = new MonitoracaoTarefasPlanosRealizadosJPanel();
-
-    static RiscoSelecioanrRiscoParaMonitorarInternalJFrame riscoSelecioanrRiscoParaMonitorarInternalJFrame = new RiscoSelecioanrRiscoParaMonitorarInternalJFrame();
-    static MonitoracaoAnaliseDosRiscosCheckInternalJFrame monitoracaoAnaliseDosRiscosCheckInternalJFrame = new MonitoracaoAnaliseDosRiscosCheckInternalJFrame();
-    static RiscosRiscosOcorridosJInternalFrame riscosRiscosOcorridosJInternalFrame = new RiscosRiscosOcorridosJInternalFrame();
+ 
     static CalendarioDetalhesMarcoEpontoDoDiaInternalJFrame calendarioDetalhesMarcoEpontoDoDiaInternalJFrame = new CalendarioDetalhesMarcoEpontoDoDiaInternalJFrame();
-    static MonitorarPlanosPendentesMaisInformaçõesInternalFrame monitorarPlanosPendentesMaisInformaçõesInternalFrame = new MonitorarPlanosPendentesMaisInformaçõesInternalFrame();
-    static ProjetoConcluirProjetoInternalJFrame projetoConcluirProjetoInternalJFrame = new ProjetoConcluirProjetoInternalJFrame();
-   
+
     // Criando Arvore de Funcionalidades - Menu //
     private JTree arvoreFuncionalidadesJTree;
     private DefaultMutableTreeNode funcionalidades;
@@ -105,7 +100,7 @@ public class PrincipalJFrame extends javax.swing.JFrame {
         this.setResizable(false);
 
     }
-
+    
     public void definirEventoRedimensionamento() {
         this.addComponentListener(new java.awt.event.ComponentListener() {
             public void componentResized(java.awt.event.ComponentEvent e) {
@@ -350,29 +345,8 @@ public class PrincipalJFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    static void aparecerInternalFrame() {
-        //testeInternalFrame.setVisible(true);
-        riscoSelecioanrRiscoParaMonitorarInternalJFrame.setVisible(true);
-    }
-
-    static void aparecerInternalFrameMonitoracao() {
-        monitoracaoAnaliseDosRiscosCheckInternalJFrame.setVisible(true);
-    }
-
-    static void aparecerInternalFrameRiscosOcorridos() {
-        riscosRiscosOcorridosJInternalFrame.setVisible(true);
-    }
-
     static void aparecerInternalCalendarioDetalhesMarcoEPonto() {
         calendarioDetalhesMarcoEpontoDoDiaInternalJFrame.setVisible(true);
-    }
-
-    static void aparecerInternalFramePlanosPendentes() {
-        monitorarPlanosPendentesMaisInformaçõesInternalFrame.setVisible(true);
-    }
-
-     static void aparecerInternalFrameProjetoConcluirProjeto() {
-        projetoConcluirProjetoInternalJFrame.setVisible(true);
     }
 
     private void configuracoesFerramentaJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_configuracoesFerramentaJButtonActionPerformed
@@ -657,18 +631,9 @@ public class PrincipalJFrame extends javax.swing.JFrame {
         monitoracaoPlanosRealizadosJPanel.setBounds(camadasJDesktopPane.getBounds());
         camadasJDesktopPane.add(monitoracaoPlanosRealizadosJPanel);
 
-        camadasJDesktopPane.add(riscoSelecioanrRiscoParaMonitorarInternalJFrame);
-
-        camadasJDesktopPane.add(monitoracaoAnaliseDosRiscosCheckInternalJFrame);
-
-        camadasJDesktopPane.add(riscosRiscosOcorridosJInternalFrame);
-
         calendarioDetalhesMarcoEpontoDoDiaInternalJFrame.setBounds(0, 0, 615, 420);
         camadasJDesktopPane.add(calendarioDetalhesMarcoEpontoDoDiaInternalJFrame);
 
-        camadasJDesktopPane.add(monitorarPlanosPendentesMaisInformaçõesInternalFrame);
-
-        camadasJDesktopPane.add(projetoConcluirProjetoInternalJFrame);
     }
     //**************************************************************//
 
@@ -695,12 +660,7 @@ public class PrincipalJFrame extends javax.swing.JFrame {
         monitoracaoPlanosRealizadosJPanel.setVisible(false);
 
         //InternaisFrame
-        riscoSelecioanrRiscoParaMonitorarInternalJFrame.setVisible(false);
-        monitoracaoAnaliseDosRiscosCheckInternalJFrame.setVisible(false);
-        riscosRiscosOcorridosJInternalFrame.setVisible(false);
         calendarioDetalhesMarcoEpontoDoDiaInternalJFrame.setVisible(false);
-        monitorarPlanosPendentesMaisInformaçõesInternalFrame.setVisible(false);
-        projetoConcluirProjetoInternalJFrame.setVisible(false);
     }
 
     // Criando os nós da arvore e adicionando-os //

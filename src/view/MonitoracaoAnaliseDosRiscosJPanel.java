@@ -3,14 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package view;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -22,45 +20,45 @@ import model.Risco;
  */
 public class MonitoracaoAnaliseDosRiscosJPanel extends javax.swing.JPanel {
 
-    
     private List<Risco> listaDeRisco;
-    
+
     private JTable tabelaAnalisarRiscos;
     private DefaultTableModel modeloTabelaAnalisarRiscos;
-    
+
     Risco riscoSelecionado;
-    
+
+    MonitoracaoAnaliseDosRiscosCheckDialog monitoracaoAnaliseDosRiscosCheckDialog = new MonitoracaoAnaliseDosRiscosCheckDialog(null, true);
+
     /**
      * Creates new form MonitoracaoQuadroDeAvisosJPanel
      */
     public MonitoracaoAnaliseDosRiscosJPanel() {
         initComponents();
-        
+
     }
 
-    
-    public void criarTabelaAnalisarRiscos(){
-        
+    public void criarTabelaAnalisarRiscos() {
+
         tabelaAnalisarRiscos = new JTable();
-        modeloTabelaAnalisarRiscos = new DefaultTableModel(){
+        modeloTabelaAnalisarRiscos = new DefaultTableModel() {
             @Override
-            public boolean isCellEditable(int row, int col) {  
-            return false;  
-            }  
+            public boolean isCellEditable(int row, int col) {
+                return false;
+            }
         };
         modeloTabelaAnalisarRiscos.setColumnIdentifiers(new String[]{"Identificação", "Descrição", "Estado"});
         tabelaAnalisarRiscos.setModel(modeloTabelaAnalisarRiscos);
         tabelaRiscosAnaliseScrollPane.setViewportView(tabelaAnalisarRiscos);
         /*
-        tabelaAnalisarRiscos.addMouseListener(new MouseAdapter() {
-            public void mousePressed(MouseEvent e){
-                int riscoSelecionado = e.getClickCount();
+         tabelaAnalisarRiscos.addMouseListener(new MouseAdapter() {
+         public void mousePressed(MouseEvent e){
+         int riscoSelecionado = e.getClickCount();
                 
-            }
-        });
-        */
+         }
+         });
+         */
     }
-    
+
     public void definirEventosTabelaDeRiscos() {
         tabelaAnalisarRiscos.addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent e) {
@@ -76,12 +74,11 @@ public class MonitoracaoAnaliseDosRiscosJPanel extends javax.swing.JPanel {
                             break;
                         }
                     }
-                    
+
                     //emissorJTextField.setText(RiscoSelecionado.getEmissor());
                     //probabilidadeJTextField.setText(Integer.toString(RiscoSelecionado.getProbabilidade()));
                     //impactoJTextField.setText((RiscoSelecionado.getImpacto()));
                     //grauDeSeveridadeJTextField.setText(Integer.toString(RiscoSelecionado.getGrauSeveridade()));
-                    
                 } else if (e.getClickCount() == 2) {
                     int selected = tabelaAnalisarRiscos.getSelectedRow();
 
@@ -90,26 +87,24 @@ public class MonitoracaoAnaliseDosRiscosJPanel extends javax.swing.JPanel {
 
                         if (tabelaAnalisarRiscos.getValueAt(tabelaAnalisarRiscos.getSelectedRow(), 0).equals(listaDeRisco.get(i).getIdentificacao())) {
                             riscoSelecionado = listaDeRisco.get(i);
-                            
-                            PrincipalJFrame.monitoracaoAnaliseDosRiscosCheckInternalJFrame.setRiscoOcorreuFalse();
-                            
-                            PrincipalJFrame.monitoracaoAnaliseDosRiscosCheckInternalJFrame.getListaGrupoRelacao(riscoSelecionado);
-                            
-                            PrincipalJFrame.monitoracaoAnaliseDosRiscosCheckInternalJFrame.preencherInformacoes(riscoSelecionado);
-            
-                            PrincipalJFrame.monitoracaoAnaliseDosRiscosCheckInternalJFrame.criarTabelaCondicoes(riscoSelecionado);
-            
-                            PrincipalJFrame.aparecerInternalFrameMonitoracao(); 
+
+                            monitoracaoAnaliseDosRiscosCheckDialog.setRiscoOcorreuFalse();
+                            monitoracaoAnaliseDosRiscosCheckDialog.getListaGrupoRelacao(riscoSelecionado);
+                            monitoracaoAnaliseDosRiscosCheckDialog.preencherInformacoes(riscoSelecionado);
+                            monitoracaoAnaliseDosRiscosCheckDialog.criarTabelaCondicoes(riscoSelecionado);
+                            monitoracaoAnaliseDosRiscosCheckDialog.setLocationRelativeTo(null);
+                            monitoracaoAnaliseDosRiscosCheckDialog.setVisible(true);
                             break;
                         }
                     }
                 }
-                
+
             }
         });
     }
+
     public void populaTabelaDeRiscos(List<Risco> novaListaDeRisco, boolean atualizacao) {
-        if (atualizacao == false){
+        if (atualizacao == false) {
             listaDeRisco = novaListaDeRisco;
         }
         List<Risco> listaTemp = new ArrayList<Risco>();
@@ -132,7 +127,7 @@ public class MonitoracaoAnaliseDosRiscosJPanel extends javax.swing.JPanel {
             modeloTabelaAnalisarRiscos.addRow(linha);
         }
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -191,16 +186,16 @@ public class MonitoracaoAnaliseDosRiscosJPanel extends javax.swing.JPanel {
     private void checarRiscoInternalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checarRiscoInternalActionPerformed
         // TODO add your handling code here:
 
-        if(riscoSelecionado == null){
+        if (riscoSelecionado == null) {
             JOptionPane.showMessageDialog(this, "Selecione um risco para checar.");
         } else {
-            PrincipalJFrame.monitoracaoAnaliseDosRiscosCheckInternalJFrame.setRiscoOcorreuFalse();
-            PrincipalJFrame.monitoracaoAnaliseDosRiscosCheckInternalJFrame.preencherInformacoes(riscoSelecionado);
-            PrincipalJFrame.monitoracaoAnaliseDosRiscosCheckInternalJFrame.getListaGrupoRelacao(riscoSelecionado);
-            PrincipalJFrame.monitoracaoAnaliseDosRiscosCheckInternalJFrame.criarTabelaCondicoes(riscoSelecionado);
-            
-            
-            PrincipalJFrame.aparecerInternalFrameMonitoracao();  
+
+            monitoracaoAnaliseDosRiscosCheckDialog.setRiscoOcorreuFalse();
+            monitoracaoAnaliseDosRiscosCheckDialog.getListaGrupoRelacao(riscoSelecionado);
+            monitoracaoAnaliseDosRiscosCheckDialog.preencherInformacoes(riscoSelecionado);
+            monitoracaoAnaliseDosRiscosCheckDialog.criarTabelaCondicoes(riscoSelecionado);
+            monitoracaoAnaliseDosRiscosCheckDialog.setLocationRelativeTo(null);
+            monitoracaoAnaliseDosRiscosCheckDialog.setVisible(true);
         }
     }//GEN-LAST:event_checarRiscoInternalActionPerformed
 

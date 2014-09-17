@@ -8,7 +8,6 @@ package view;
 import java.util.List;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import model.Projeto;
 import model.Risco;
 
 /**
@@ -29,7 +28,12 @@ public class RiscosResumoDeRiscosJPanel extends javax.swing.JPanel {
 
     public void criaTabelResumoDeRiscos() {
         tabelaResumoDeRiscos = new JTable();
-        modeloTabelaDeResumoDeRiscos = new DefaultTableModel();
+        modeloTabelaDeResumoDeRiscos = new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int row, int col) {
+                return false;
+            }
+        };
 
         modeloTabelaDeResumoDeRiscos.setColumnIdentifiers(new String[]{"Identificação", "Prioridade", "Estado", "Plano de Mitigação", "Plano de Contingencia"});
         tabelaResumoDeRiscos.setModel(modeloTabelaDeResumoDeRiscos);
@@ -44,20 +48,17 @@ public class RiscosResumoDeRiscosJPanel extends javax.swing.JPanel {
             String statusRisco = listaRiscos.get(i).getStatusRisco();
             String planoMitigacao;
             String planoContingencia;
-            if (listaRiscos.get(i).getPlanomitigacaoList().isEmpty()){
+            if (listaRiscos.get(i).getPlanomitigacaoList().isEmpty()) {
                 planoMitigacao = "--";
-            }
-            else{
+            } else {
                 planoMitigacao = Integer.toString(listaRiscos.get(i).getPlanomitigacaoList().size()) + " Plano(s)";
             }
-            
-            if (listaRiscos.get(i).getPlanocontingenciaList().isEmpty()){
+
+            if (listaRiscos.get(i).getPlanocontingenciaList().isEmpty()) {
                 planoContingencia = "--";
-            }
-            else{
+            } else {
                 planoContingencia = Integer.toString(listaRiscos.get(i).getPlanocontingenciaList().size()) + " Plano(s)";
             }
-            
 
             String[] linha = new String[]{identificacao, prioridade, statusRisco, planoMitigacao, planoContingencia};
             modeloTabelaDeResumoDeRiscos.addRow(linha);

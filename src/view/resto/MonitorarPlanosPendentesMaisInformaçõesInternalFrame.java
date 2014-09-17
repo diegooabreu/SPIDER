@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package view;
+package view.resto;
 
 import java.text.DateFormat;
 import java.util.List;
@@ -188,7 +188,7 @@ public class MonitorarPlanosPendentesMaisInformaçõesInternalFrame extends java
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(fecharInternalFrameJButton)
-                .addContainerGap(64, Short.MAX_VALUE))
+                .addContainerGap(69, Short.MAX_VALUE))
         );
 
         pack();

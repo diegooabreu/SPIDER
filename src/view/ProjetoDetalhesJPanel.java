@@ -40,9 +40,8 @@ public class ProjetoDetalhesJPanel extends javax.swing.JPanel {
 
     }
 
-    public static void atualizaDetalhesDoProjeto() {
-        PrincipalJFrame.projetoDetalhesJPanel.setVisible(true);
-        PrincipalJFrame.projetoDetalhesJPanel.preencheDetalhes(projetoSelecionado);
+    public  void atualizaDetalhesDoProjeto() {
+        this.repaint();
     }
 
     public void habilitarProjetoDetalhesJPanel() {
@@ -61,8 +60,10 @@ public class ProjetoDetalhesJPanel extends javax.swing.JPanel {
         descricaoProjetoJTextArea.setEnabled(false);
 
         salvarAlteracoesJButton.setEnabled(false);
-
+        
+        ProjetoConcluirProjetoDialog projetoConcluirProjetoDialog =  new ProjetoConcluirProjetoDialog(null, true);
     }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -86,8 +87,8 @@ public class ProjetoDetalhesJPanel extends javax.swing.JPanel {
         jSeparator1 = new javax.swing.JSeparator();
         jLabel3 = new javax.swing.JLabel();
         statusProjetoJLabel = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
         removerProjeto = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         jTextField1.setText("jTextField1");
 
@@ -125,17 +126,17 @@ public class ProjetoDetalhesJPanel extends javax.swing.JPanel {
 
         statusProjetoJLabel.setText("status");
 
-        jButton1.setText("Resumo do Projeto");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
         removerProjeto.setText("Remover");
         removerProjeto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 removerProjetoActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("Resumo do Projeto");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
             }
         });
 
@@ -172,12 +173,12 @@ public class ProjetoDetalhesJPanel extends javax.swing.JPanel {
                                 .addComponent(responsavelGerenciaRiscosJLabel)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(responsavelGerenciaRiscosJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 428, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
-                .addGap(369, 369, 369)
-                .addComponent(jButton1)
-                .addContainerGap(372, Short.MAX_VALUE))
+                .addGap(355, 355, 355)
+                .addComponent(jButton2)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -209,7 +210,7 @@ public class ProjetoDetalhesJPanel extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton1)
+                .addComponent(jButton2)
                 .addContainerGap(83, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -240,11 +241,6 @@ public class ProjetoDetalhesJPanel extends javax.swing.JPanel {
 
     }//GEN-LAST:event_salvarAlteracoesJButtonActionPerformed
           
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        PrincipalJFrame.projetoConcluirProjetoInternalJFrame.preencherRelatorio(projetoSelecionado);
-        PrincipalJFrame.aparecerInternalFrameProjetoConcluirProjeto();
-    }//GEN-LAST:event_jButton1ActionPerformed
-
     private void removerProjetoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removerProjetoActionPerformed
         int resposta = JOptionPane.showConfirmDialog(this, "Tem certeza que você deseja remover este projeto?");
         if (resposta == 0) {
@@ -258,11 +254,20 @@ public class ProjetoDetalhesJPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_removerProjetoActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        ProjetoConcluirProjetoDialog projetoConcluirProjetoDialog = new ProjetoConcluirProjetoDialog(null, true);
+        projetoConcluirProjetoDialog.preencherRelatorio(projetoSelecionado);
+        projetoConcluirProjetoDialog.setLocationRelativeTo(null);
+        projetoConcluirProjetoDialog.setVisible(true);
+        projetoSelecionado = new ProjetoFacade().getProjeto(projetoSelecionado.getIdProjeto());
+        preencheDetalhes(projetoSelecionado);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel descricaoProjetoJLabel;
     private javax.swing.JTextArea descricaoProjetoJTextArea;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;

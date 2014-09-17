@@ -154,20 +154,29 @@ public class MonitoracaoTarefasPlanosPendentesJPanel extends javax.swing.JPanel 
 
                     for (int i = 0; i < listaplanosTabela.size(); i++) {
                         if (i == selected) {
-
+                            MonitorarPlanosPendentesMaisInformaçõesDialog monitorarPlanosPendentesMaisInformaçõesDialog = new MonitorarPlanosPendentesMaisInformaçõesDialog(null, true);
+                            
                             if (listaplanosTabela.get(selected).getTipo().equals("Mitigação")) {
                                 Planomitigacao planoMitigacao = planosFacade.buscaPlanoMitigacaoById(listaplanosTabela.get(i).getIdPlano());
 
-                                PrincipalJFrame.monitorarPlanosPendentesMaisInformaçõesInternalFrame.preencheTelaParaPlanoDeMitigacao(planoMitigacao);
-                                PrincipalJFrame.aparecerInternalFramePlanosPendentes();
+//                                PrincipalJFrame.monitorarPlanosPendentesMaisInformaçõesInternalFrame.preencheTelaParaPlanoDeMitigacao(planoMitigacao);
+//                                PrincipalJFrame.aparecerInternalFramePlanosPendentes();
+                                
+                                monitorarPlanosPendentesMaisInformaçõesDialog.preencheTelaParaPlanoDeMitigacao(planoMitigacao);
+                                monitorarPlanosPendentesMaisInformaçõesDialog.setLocationRelativeTo(null);
+                                monitorarPlanosPendentesMaisInformaçõesDialog.setVisible(true);
                                 break;
 
                             }
                             if (listaplanosTabela.get(selected).getTipo().equals("Contingencia")) {
                                 Planocontingencia planoContingencia = planosFacade.buscaPlanoContingenciaById(listaplanosTabela.get(i).getIdPlano());
 
-                                PrincipalJFrame.monitorarPlanosPendentesMaisInformaçõesInternalFrame.preencheTelaParaPlanoDeContingencia(planoContingencia);
-                                PrincipalJFrame.aparecerInternalFramePlanosPendentes();
+//                                PrincipalJFrame.monitorarPlanosPendentesMaisInformaçõesInternalFrame.preencheTelaParaPlanoDeContingencia(planoContingencia);
+//                                PrincipalJFrame.aparecerInternalFramePlanosPendentes();
+                                
+                                monitorarPlanosPendentesMaisInformaçõesDialog.preencheTelaParaPlanoDeContingencia(planoContingencia);
+                                monitorarPlanosPendentesMaisInformaçõesDialog.setLocationRelativeTo(null);
+                                monitorarPlanosPendentesMaisInformaçõesDialog.setVisible(true);
                                 break;
 
                             }

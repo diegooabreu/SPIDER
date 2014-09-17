@@ -2,44 +2,25 @@
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
- *//*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- *//*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- *//*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
  */
-
-
 package view;
 
 import facade.MonitoracaoAnaliseDosRiscosFacade;
-import facade.OrganizacionalPortfolioFacade;
-import facade.PlanosFacade;
 import facade.RiscosGerenciarRiscosFacade;
 import facade.RiscosSelecionarRiscosParaMonitorarFacade;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.DateFormat;
-import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import model.Gruporelacao;
 import model.Historicoalteracao;
 import model.Historicorisco;
 import model.Planocontingencia;
-//import static model.Relacaosubcondicao.subcondicao;
 import model.Risco;
 import model.Subcondicao;
 import view.tabelas.CondicaoTabela;
@@ -49,11 +30,8 @@ import view.tabelas.CondicaoTabelaModel;
  *
  * @author BlenoVale
  */
-public class MonitoracaoAnaliseDosRiscosCheckInternalJFrame extends javax.swing.JInternalFrame {
+public class MonitoracaoAnaliseDosRiscosCheckDialog extends javax.swing.JDialog {
 
-    /**
-     * Creates new form MonitorarAnaliseDosRiscosCheckInternalJFrame
-     */
     MonitoracaoAnaliseDosRiscosFacade monitoracaoAnaliseDosRiscosFacade = new MonitoracaoAnaliseDosRiscosFacade();
 
     JTable tabelaCondicoes;
@@ -70,11 +48,12 @@ public class MonitoracaoAnaliseDosRiscosCheckInternalJFrame extends javax.swing.
     RiscosGerenciarRiscosFacade riscosGerenciarRiscosFacade = new RiscosGerenciarRiscosFacade();
     RiscosSelecionarRiscosParaMonitorarFacade riscosSelecionarRiscosParaMonitorarFacade = new RiscosSelecionarRiscosParaMonitorarFacade();
 
-    public MonitoracaoAnaliseDosRiscosCheckInternalJFrame() {
+    public MonitoracaoAnaliseDosRiscosCheckDialog(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
         initComponents();
     }
-
-    public void definirEventosTabelaCondicoes() {
+    
+     public void definirEventosTabelaCondicoes() {
         tabelaCondicoes.addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent e) {
                 if (e.getClickCount() >= 1) {
@@ -710,9 +689,10 @@ public class MonitoracaoAnaliseDosRiscosCheckInternalJFrame extends javax.swing.
         confirmarJButton = new javax.swing.JButton();
         statusRiscoJComboBox = new javax.swing.JComboBox();
         jLabel3 = new javax.swing.JLabel();
-        fechar = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         riscoOcorreuJLabel = new javax.swing.JLabel();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setText("Identificação do Risco:");
 
@@ -757,13 +737,6 @@ public class MonitoracaoAnaliseDosRiscosCheckInternalJFrame extends javax.swing.
 
         jLabel3.setText("Próximo status do Risco:");
 
-        fechar.setText("Fechar");
-        fechar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                fecharActionPerformed(evt);
-            }
-        });
-
         jLabel5.setText("Risco ocorreu:");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -788,15 +761,11 @@ public class MonitoracaoAnaliseDosRiscosCheckInternalJFrame extends javax.swing.
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel4)
                                     .addComponent(jLabel2))
-                                .addGap(0, 0, Short.MAX_VALUE))
+                                .addGap(0, 300, Short.MAX_VALUE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(riscoOcorreuJLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                        .addGap(215, 215, 215)
-                        .addComponent(fechar)
-                        .addGap(0, 248, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel3)
@@ -829,21 +798,18 @@ public class MonitoracaoAnaliseDosRiscosCheckInternalJFrame extends javax.swing.
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(statusRiscoJComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addComponent(confirmarJButton, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(fechar)
-                .addContainerGap())
+                .addGap(10, 10, 10))
         );
-
-        statusRiscoJComboBox.getAccessibleContext().setAccessibleName("");
-        statusRiscoJComboBox.getAccessibleContext().setAccessibleDescription("");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -860,27 +826,27 @@ public class MonitoracaoAnaliseDosRiscosCheckInternalJFrame extends javax.swing.
         DateFormat df = DateFormat.getDateInstance(DateFormat.MEDIUM);
         String dataAtual = df.format(new Date());
         boolean temDataLimiteFutura = false;
-        for (int i=0;  i < listaPC.size();i++){
+        for (int i = 0; i < listaPC.size(); i++) {
             Calendar dataSelecionada = Calendar.getInstance();
             //caso estaja sendo utilizado ponto de controle (sem marco do projeto)
-            if (listaPC.get(i).getIdMarcoDoProjeto() == null){
-                dataSelecionada.setTime(listaPC.get(i).getIdPontoDeControle().getDataPontoControle()); 
-                String dataPonto = df.format(dataSelecionada.getTime()) ;
-                if(dataSelecionada.after(new Date()) || dataPonto.equals(dataAtual)){
+            if (listaPC.get(i).getIdMarcoDoProjeto() == null) {
+                dataSelecionada.setTime(listaPC.get(i).getIdPontoDeControle().getDataPontoControle());
+                String dataPonto = df.format(dataSelecionada.getTime());
+                if (dataSelecionada.after(new Date()) || dataPonto.equals(dataAtual)) {
                     temDataLimiteFutura = true;
                 }
             } else {
                 //caso estaja usando marco (sem pronto de controle)
                 dataSelecionada.setTime(listaPC.get(i).getIdMarcoDoProjeto().getDataMarcoProjeto());
                 String dataMarco = df.format(dataSelecionada.getTime());
-                if (dataSelecionada.getTime().after(new Date()) || dataMarco.equals(dataAtual)){
-                   temDataLimiteFutura = true;
+                if (dataSelecionada.getTime().after(new Date()) || dataMarco.equals(dataAtual)) {
+                    temDataLimiteFutura = true;
                 }
             }
-            }
-//            Calendar dataSelecionada = Calendar.getInstance();
-//            dataSelecionada.setTime(listaPC.get(i).getIdMarcoDoProjeto().);
-        
+        }
+        //            Calendar dataSelecionada = Calendar.getInstance();
+        //            dataSelecionada.setTime(listaPC.get(i).getIdMarcoDoProjeto().);
+
         if ((listaPC.size() < 1) && (statusRiscoJComboBox.getSelectedItem().equals("Contingenciando"))) {
             JOptionPane.showMessageDialog(this, "O risco não possui planos de contingencia.");
         } else if (temDataLimiteFutura != false) {
@@ -907,7 +873,7 @@ public class MonitoracaoAnaliseDosRiscosCheckInternalJFrame extends javax.swing.
                 riscoSel.setStatusRisco("Contingenciando");
                 monitoracaoAnaliseDosRiscosFacade.editRisco(riscoSel);
             }
-            
+
             //if(riscoSel.getStatusRisco().equals("Contingenciando")){
             if (riscoOcorreu) {
                 Historicorisco historico = new Historicorisco();
@@ -926,12 +892,12 @@ public class MonitoracaoAnaliseDosRiscosCheckInternalJFrame extends javax.swing.
                 registraHistoricoAlteracoes(riscoSel, "Risco ocorrido, status do Risco Alterado para 'Contingenciando'.");
             }
 
-
             PrincipalJFrame.monitoracaoAnaliseDosRiscosJPanel.criarTabelaAnalisarRiscos();
             MonitoracaoAnaliseDosRiscosFacade analiseFacade = new MonitoracaoAnaliseDosRiscosFacade();
             List<Risco> listaDeRisco = analiseFacade.listarRiscosPOrdemGrauDeEsposicaoByStatus(riscoSel.getContem().getProjeto(), "Mitigando");
-            PrincipalJFrame.monitoracaoAnaliseDosRiscosJPanel.populaTabelaDeRiscos(listaDeRisco, maximizable);
+            PrincipalJFrame.monitoracaoAnaliseDosRiscosJPanel.populaTabelaDeRiscos(listaDeRisco, false);
             PrincipalJFrame.monitoracaoAnaliseDosRiscosJPanel.definirEventosTabelaDeRiscos();
+            
             JOptionPane.showMessageDialog(this, "Risco analisado.");
             this.setVisible(false);
 
@@ -941,25 +907,59 @@ public class MonitoracaoAnaliseDosRiscosCheckInternalJFrame extends javax.swing.
         // TODO add your handling code here:
     }//GEN-LAST:event_confirmarJButtonActionPerformed
 
-    private void fecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fecharActionPerformed
+    private void statusRiscoJComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_statusRiscoJComboBoxItemStateChanged
         // TODO add your handling code here:
-        this.setVisible(false);
-    }//GEN-LAST:event_fecharActionPerformed
+    }//GEN-LAST:event_statusRiscoJComboBoxItemStateChanged
 
     private void statusRiscoJComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_statusRiscoJComboBoxActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_statusRiscoJComboBoxActionPerformed
 
-    private void statusRiscoJComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_statusRiscoJComboBoxItemStateChanged
-        // TODO add your handling code here:
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(MonitoracaoAnaliseDosRiscosCheckDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(MonitoracaoAnaliseDosRiscosCheckDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(MonitoracaoAnaliseDosRiscosCheckDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(MonitoracaoAnaliseDosRiscosCheckDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
 
-    }//GEN-LAST:event_statusRiscoJComboBoxItemStateChanged
-
+        /* Create and display the dialog */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                MonitoracaoAnaliseDosRiscosCheckDialog dialog = new MonitoracaoAnaliseDosRiscosCheckDialog(new javax.swing.JFrame(), true);
+                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
+                    public void windowClosing(java.awt.event.WindowEvent e) {
+                        System.exit(0);
+                    }
+                });
+                dialog.setVisible(true);
+            }
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton confirmarJButton;
     private javax.swing.JTextArea descricaoRiscoJTextArea;
-    private javax.swing.JButton fechar;
     private javax.swing.JLabel identificacaRiscoJLabel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -973,5 +973,4 @@ public class MonitoracaoAnaliseDosRiscosCheckInternalJFrame extends javax.swing.
     private javax.swing.JComboBox statusRiscoJComboBox;
     private javax.swing.JScrollPane tabelaCondicoesRiscoJScrollPane;
     // End of variables declaration//GEN-END:variables
-
 }

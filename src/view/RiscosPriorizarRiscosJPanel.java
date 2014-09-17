@@ -77,7 +77,7 @@ public class RiscosPriorizarRiscosJPanel extends javax.swing.JPanel {
         grauDeSeveridadeJTextField = new javax.swing.JTextField();
         descartarAlteraçõesJButton = new javax.swing.JButton();
         resetarPrioridadesJButton = new javax.swing.JButton();
-        MonitorarRisco = new javax.swing.JButton();
+        jButtonSelecionarRiscoParaMonitorar = new javax.swing.JButton();
 
         RiscosPriorizarRiscosJPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Priorizar Riscos", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP));
 
@@ -211,10 +211,10 @@ public class RiscosPriorizarRiscosJPanel extends javax.swing.JPanel {
             }
         });
 
-        MonitorarRisco.setText("Selecionar risco para monitorar");
-        MonitorarRisco.addActionListener(new java.awt.event.ActionListener() {
+        jButtonSelecionarRiscoParaMonitorar.setText("Selecionar risco para monitorar");
+        jButtonSelecionarRiscoParaMonitorar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MonitorarRiscoActionPerformed(evt);
+                jButtonSelecionarRiscoParaMonitorarActionPerformed(evt);
             }
         });
 
@@ -236,10 +236,10 @@ public class RiscosPriorizarRiscosJPanel extends javax.swing.JPanel {
                             .addComponent(descartarAlteraçõesJButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(resetarPrioridadesJButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
-            .addGroup(RiscosPriorizarRiscosJPanelLayout.createSequentialGroup()
-                .addGap(332, 332, 332)
-                .addComponent(MonitorarRisco)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, RiscosPriorizarRiscosJPanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButtonSelecionarRiscoParaMonitorar)
+                .addGap(327, 327, 327))
         );
         RiscosPriorizarRiscosJPanelLayout.setVerticalGroup(
             RiscosPriorizarRiscosJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -247,7 +247,7 @@ public class RiscosPriorizarRiscosJPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(TabelaDeRiscosJScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 283, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(MonitorarRisco)
+                .addComponent(jButtonSelecionarRiscoParaMonitorar)
                 .addGap(18, 18, 18)
                 .addGroup(RiscosPriorizarRiscosJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(RiscosPriorizarRiscosJPanelLayout.createSequentialGroup()
@@ -381,13 +381,13 @@ public class RiscosPriorizarRiscosJPanel extends javax.swing.JPanel {
         definirEventosTabelaPriorizarRiscos();
     }//GEN-LAST:event_descartarAlteraçõesJButtonActionPerformed
 
-    private void MonitorarRiscoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MonitorarRiscoActionPerformed
-        RiscoSelecioanrRiscoParaMonitorarInternalJFrame selecionar = new RiscoSelecioanrRiscoParaMonitorarInternalJFrame();
-        selecionar.setVisible(true);
-        selecionar.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-        PrincipalJFrame.riscoSelecioanrRiscoParaMonitorarInternalJFrame.criarTabelaSelecionarRiscos(listaDeRisco);
-        PrincipalJFrame.aparecerInternalFrame();
-    }//GEN-LAST:event_MonitorarRiscoActionPerformed
+    private void jButtonSelecionarRiscoParaMonitorarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSelecionarRiscoParaMonitorarActionPerformed
+        // TODO add your handling code here:
+        RiscoSelecionarRiscosParaMonitorarDialog riscoSelecionarRiscosParaMonitorarDialog = new RiscoSelecionarRiscosParaMonitorarDialog(null, true);
+        riscoSelecionarRiscosParaMonitorarDialog.setLocationRelativeTo(null);
+        riscoSelecionarRiscosParaMonitorarDialog.criarTabelaSelecionarRiscos(listaDeRisco);
+        riscoSelecionarRiscosParaMonitorarDialog.setVisible(true);
+    }//GEN-LAST:event_jButtonSelecionarRiscoParaMonitorarActionPerformed
 
     public void definirEventosTabelaPriorizarRiscos() {
         tabelaDeRiscosJTable.addMouseListener(new MouseAdapter() {
@@ -495,7 +495,6 @@ public class RiscosPriorizarRiscosJPanel extends javax.swing.JPanel {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton MonitorarRisco;
     private javax.swing.JButton RiscosPriorizarRiscosAcoesAumentarPrioridadeJButton;
     private javax.swing.JButton RiscosPriorizarRiscosAcoesDiminuirPrioridadeJButton;
     private javax.swing.JPanel RiscosPriorizarRiscosAcoesJPanel;
@@ -509,6 +508,7 @@ public class RiscosPriorizarRiscosJPanel extends javax.swing.JPanel {
     private javax.swing.JTextField grauDeSeveridadeJTextField;
     private javax.swing.JLabel impactoJLabel;
     private javax.swing.JTextField impactoJTextField;
+    private javax.swing.JButton jButtonSelecionarRiscoParaMonitorar;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel probabilidadeJLabel;
     private javax.swing.JTextField probabilidadeJTextField;

@@ -97,8 +97,10 @@ public class RiscosRiscosOcorridosJPanel extends javax.swing.JPanel {
 
                             historicoriscoSelecionado = listaHistoricoRisco.get(i);
                             System.err.println("----------->" + listaHistoricoRisco.get(i).getIdHistoricoRisco());
-                            PrincipalJFrame.riscosRiscosOcorridosJInternalFrame.preencherTela(historicoriscoSelecionado);
-                            PrincipalJFrame.aparecerInternalFrameRiscosOcorridos();
+                            RiscosRiscosOcorridosDialog riscosOcorridosDialog = new RiscosRiscosOcorridosDialog(null, true);
+                            riscosOcorridosDialog.setLocationRelativeTo(null);
+                            riscosOcorridosDialog.preencherTela(historicoriscoSelecionado);
+                            riscosOcorridosDialog.setVisible(true);
                             break;
                         }
                     }

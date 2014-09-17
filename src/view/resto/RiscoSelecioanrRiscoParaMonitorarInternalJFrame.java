@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package view;
+package view.resto;
 
 import facade.OrganizacionalPortfolioFacade;
 import facade.RiscosGerenciarRiscosFacade;
@@ -23,6 +23,9 @@ import model.Historicoalteracao;
 import model.Projeto;
 import model.Risco;
 import model.Subcondicao;
+import view.PrincipalJFrame;
+import view.RiscosPriorizarRiscosJPanel;
+import view.RiscosSelecionarRiscosParaMonitorarJFrame;
 import view.tabelas.RiscoTabela;
 import view.tabelas.RiscoTabelaModel;
 
@@ -363,7 +366,7 @@ public class RiscoSelecioanrRiscoParaMonitorarInternalJFrame extends javax.swing
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         RiscosPriorizarRiscosJPanel.atualizarPriorizarRisco();
-        PrincipalJFrame.riscoSelecioanrRiscoParaMonitorarInternalJFrame.setVisible(false);
+//        PrincipalJFrame.riscoSelecioanrRiscoParaMonitorarInternalJFrame.setVisible(false);
         //setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
 
