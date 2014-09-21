@@ -5,6 +5,7 @@
  */
 package view;
 
+import facade.MonitoracaoAnaliseDosRiscosFacade;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -94,6 +95,9 @@ public class MonitoracaoAnaliseDosRiscosJPanel extends javax.swing.JPanel {
                             monitoracaoAnaliseDosRiscosCheckDialog.criarTabelaCondicoes(riscoSelecionado);
                             monitoracaoAnaliseDosRiscosCheckDialog.setLocationRelativeTo(null);
                             monitoracaoAnaliseDosRiscosCheckDialog.setVisible(true);
+
+                            List<Risco> novaListaDeRisco = new MonitoracaoAnaliseDosRiscosFacade().listarRiscosPOrdemGrauDeEsposicaoByStatus(riscoSelecionado.getContem().getProjeto(), "Mitigando");
+                            atualizarTabelaDeAnaliseDeRiscos(novaListaDeRisco);
                             break;
                         }
                     }
@@ -126,6 +130,12 @@ public class MonitoracaoAnaliseDosRiscosJPanel extends javax.swing.JPanel {
                 novaListaDeRisco.get(i).getStatusRisco()};
             modeloTabelaAnalisarRiscos.addRow(linha);
         }
+    }
+
+    public void atualizarTabelaDeAnaliseDeRiscos(List<Risco> listaRiscos) {
+        criarTabelaAnalisarRiscos();
+        populaTabelaDeRiscos(listaRiscos, true);
+        definirEventosTabelaDeRiscos();
     }
 
     /**
@@ -196,6 +206,9 @@ public class MonitoracaoAnaliseDosRiscosJPanel extends javax.swing.JPanel {
             monitoracaoAnaliseDosRiscosCheckDialog.criarTabelaCondicoes(riscoSelecionado);
             monitoracaoAnaliseDosRiscosCheckDialog.setLocationRelativeTo(null);
             monitoracaoAnaliseDosRiscosCheckDialog.setVisible(true);
+
+            List<Risco> novaListaDeRisco = new MonitoracaoAnaliseDosRiscosFacade().listarRiscosPOrdemGrauDeEsposicaoByStatus(riscoSelecionado.getContem().getProjeto(), "Mitigando");
+            atualizarTabelaDeAnaliseDeRiscos(novaListaDeRisco);
         }
     }//GEN-LAST:event_checarRiscoInternalActionPerformed
 

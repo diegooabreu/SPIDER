@@ -3,17 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package view;
 
 import facade.RiscosRiscosOcorridosFacade;
-import facade.RiscosSelecionarRiscosParaMonitorarFacade;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.List;
-import javax.swing.JFrame;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import model.Historicorisco;
@@ -21,7 +18,7 @@ import model.Projeto;
 
 /**
  *
- * @author Victor
+ * @author Bleno Vale
  */
 public class RiscosRiscosOcorridosJPanel extends javax.swing.JPanel {
 
@@ -29,12 +26,12 @@ public class RiscosRiscosOcorridosJPanel extends javax.swing.JPanel {
     // criando tabela
     private JTable tabelaRiscosOcorridos;
     private DefaultTableModel modeloTabelaRiscosOcorridos;
-    
+
     private Projeto projetoSelecionado;
-    
+
     private List<Historicorisco> listaHistoricoRisco;
     private Historicorisco historicoriscoSelecionado;
-    
+
     /**
      * Creates new form RiscosRiscosOcorridosJPanel
      */
@@ -42,42 +39,41 @@ public class RiscosRiscosOcorridosJPanel extends javax.swing.JPanel {
         initComponents();
     }
 
-     public void getProjeto (Projeto projeto){
+    public void getProjeto(Projeto projeto) {
         this.projetoSelecionado = projeto;
     }
-    
-    public void criarTabelaRiscosOcorridos(){
-        
+
+    public void criarTabelaRiscosOcorridos() {
+
         tabelaRiscosOcorridos = new JTable();
-        modeloTabelaRiscosOcorridos = new DefaultTableModel(){
+        modeloTabelaRiscosOcorridos = new DefaultTableModel() {
             @Override
-            public boolean isCellEditable(int row, int col) {  
-            return false;  
-            }  
+            public boolean isCellEditable(int row, int col) {
+                return false;
+            }
         };
-        modeloTabelaRiscosOcorridos.setColumnIdentifiers(new Object[] {"Identificação", "Descrição", "Data de ocorrencia"});
+        modeloTabelaRiscosOcorridos.setColumnIdentifiers(new Object[]{"Identificação", "Descrição", "Data de ocorrencia"});
         tabelaRiscosOcorridos.setModel(modeloTabelaRiscosOcorridos);
         tabelaRiscosOcorridosJScrollPane.setViewportView(tabelaRiscosOcorridos);
-        
+
         definirEventosTabelaRiscosOcorridos();
     }
-    
-    public void popularTabelaRiscosOcorridos(){
-        
+
+    public void popularTabelaRiscosOcorridos() {
+
         listaHistoricoRisco = riscosOcorridosFacade.getListaHistoricoriscosByIdProjeto(projetoSelecionado.getIdProjeto());
-        for (int i=0; i < listaHistoricoRisco.size(); i++){
-            
+        for (int i = 0; i < listaHistoricoRisco.size(); i++) {
+
             DateFormat df = DateFormat.getDateInstance(DateFormat.MEDIUM);
             Date data = listaHistoricoRisco.get(i).getDataOcorrencia();
-               
-            
+
             Object[] linha = new Object[]{listaHistoricoRisco.get(i).getIdRisco().getIdentificacao(), listaHistoricoRisco.get(i).getIdRisco().getDescricao(), df.format(data)};
             modeloTabelaRiscosOcorridos.addRow(linha);
-            
-            //System.err.println("subcondição: ---" + listaHistoricoRisco.get(i).getSubcondicaoList().get(i));
+
+            //System.err.println("risco: ---" + listaHistoricoRisco.get(i).getIdRisco().getIdentificacao());
         }
     }
-    
+
     public void definirEventosTabelaRiscosOcorridos() {
         tabelaRiscosOcorridos.addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent e) {
@@ -108,7 +104,7 @@ public class RiscosRiscosOcorridosJPanel extends javax.swing.JPanel {
             }
         });
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

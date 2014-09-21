@@ -529,8 +529,10 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
     public void limparCamposPlanoMitigacao() {
         planoDeMitigacaoIdentificacaoJTextField.setText("");
         planoDeMitigacaoResponsavelJTextField.setText("");
-        //planoDeMitigacaoDataLimiteJDateChooser.setDate(null);
-        //planoMitigacaoDataLimiteJComboBox.setSelectedIndex(0);
+        planoMitigacaoDataSelecionadaJLabel.setText("");
+        marcoSelecionado = null;
+        pontoControleSelecionado = null;
+        planoMitigacaoDataLimiteJComboBox.setSelectedItem("--Selecione--");
         planoDeMitigacaoDescricaoJTextArea.setText("");
         planoDeMitigacaoComoSeraFeitoJTextArea.setText("");
         planoDeMitigacaoInfAdicionaisJTextArea.setText("");

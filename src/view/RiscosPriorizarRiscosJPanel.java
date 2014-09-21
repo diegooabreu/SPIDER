@@ -387,6 +387,8 @@ public class RiscosPriorizarRiscosJPanel extends javax.swing.JPanel {
         riscoSelecionarRiscosParaMonitorarDialog.setLocationRelativeTo(null);
         riscoSelecionarRiscosParaMonitorarDialog.criarTabelaSelecionarRiscos(listaDeRisco);
         riscoSelecionarRiscosParaMonitorarDialog.setVisible(true);
+        listaDeRisco = new RiscosGerenciarRiscosFacade().listarRiscosByProjeto(projetoSelecionado);
+        atualizaTabelaPriorizarRiscos(listaDeRisco);
     }//GEN-LAST:event_jButtonSelecionarRiscoParaMonitorarActionPerformed
 
     public void definirEventosTabelaPriorizarRiscos() {
@@ -482,16 +484,6 @@ public class RiscosPriorizarRiscosJPanel extends javax.swing.JPanel {
     public void atualizaTabelaPriorizarRiscos(List<Risco> outraListaDeRisco) {
         criaTabela();
         atualizarTabela(outraListaDeRisco);
-    }
-
-    public static void atualizarPriorizarRisco() {
-        PrincipalJFrame.riscosPriorizarRiscosJPanel.setVisible(true);
-        PrincipalJFrame.riscosPriorizarRiscosJPanel.criaTabela();
-        RiscosGerenciarRiscosFacade rGRfacade = new RiscosGerenciarRiscosFacade();
-        List<Risco> listaDeRisco = rGRfacade.listarRiscosPOrdemGrauDeEsposicao(projetoSelecionado);
-        PrincipalJFrame.riscosPriorizarRiscosJPanel.populaTabelaDeRiscos(listaDeRisco, false);
-        PrincipalJFrame.riscosPriorizarRiscosJPanel.definirEventosTabelaPriorizarRiscos();
-
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

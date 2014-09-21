@@ -832,7 +832,7 @@ public class MonitoracaoAnaliseDosRiscosCheckDialog extends javax.swing.JDialog 
             if (listaPC.get(i).getIdMarcoDoProjeto() == null) {
                 dataSelecionada.setTime(listaPC.get(i).getIdPontoDeControle().getDataPontoControle());
                 String dataPonto = df.format(dataSelecionada.getTime());
-                if (dataSelecionada.after(new Date()) || dataPonto.equals(dataAtual)) {
+                if (dataSelecionada.getTime().after(new Date()) || dataPonto.equals(dataAtual)) {
                     temDataLimiteFutura = true;
                 }
             } else {
@@ -872,16 +872,23 @@ public class MonitoracaoAnaliseDosRiscosCheckDialog extends javax.swing.JDialog 
             } else if (statusRiscoJComboBox.getSelectedItem().equals("Contingenciando")) {
                 riscoSel.setStatusRisco("Contingenciando");
                 monitoracaoAnaliseDosRiscosFacade.editRisco(riscoSel);
-            }
-
-            //if(riscoSel.getStatusRisco().equals("Contingenciando")){
-            if (riscoOcorreu) {
+                
                 Historicorisco historico = new Historicorisco();
                 Calendar c = Calendar.getInstance();
                 historico.setDataOcorrencia(c.getTime());
                 historico.setIdRisco(riscoSel);
                 historico.setSubcondicaoList(getSubcondicoesMarcadas());
                 monitoracaoAnaliseDosRiscosFacade.criarHistorico(historico);
+            }
+
+            //if(riscoSel.getStatusRisco().equals("Contingenciando")){
+            if (riscoOcorreu) {
+//                Historicorisco historico = new Historicorisco();
+//                Calendar c = Calendar.getInstance();
+//                historico.setDataOcorrencia(c.getTime());
+//                historico.setIdRisco(riscoSel);
+//                historico.setSubcondicaoList(getSubcondicoesMarcadas());
+//                monitoracaoAnaliseDosRiscosFacade.criarHistorico(historico);
 
             }
 
@@ -891,12 +898,6 @@ public class MonitoracaoAnaliseDosRiscosCheckDialog extends javax.swing.JDialog 
             } else if (riscoSel.getStatusRisco().equals("Contingenciando")) {
                 registraHistoricoAlteracoes(riscoSel, "Risco ocorrido, status do Risco Alterado para 'Contingenciando'.");
             }
-
-            PrincipalJFrame.monitoracaoAnaliseDosRiscosJPanel.criarTabelaAnalisarRiscos();
-            MonitoracaoAnaliseDosRiscosFacade analiseFacade = new MonitoracaoAnaliseDosRiscosFacade();
-            List<Risco> listaDeRisco = analiseFacade.listarRiscosPOrdemGrauDeEsposicaoByStatus(riscoSel.getContem().getProjeto(), "Mitigando");
-            PrincipalJFrame.monitoracaoAnaliseDosRiscosJPanel.populaTabelaDeRiscos(listaDeRisco, false);
-            PrincipalJFrame.monitoracaoAnaliseDosRiscosJPanel.definirEventosTabelaDeRiscos();
             
             JOptionPane.showMessageDialog(this, "Risco analisado.");
             this.setVisible(false);

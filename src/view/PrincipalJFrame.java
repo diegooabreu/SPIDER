@@ -48,12 +48,12 @@ public class PrincipalJFrame extends javax.swing.JFrame {
     final RiscosGerenciarRiscosJPanel riscosGerenciarRiscosJPanel = new RiscosGerenciarRiscosJPanel();
     final NovoProjetoJPanel novoProjetoJPanel = new NovoProjetoJPanel();
     final OrganizacionalEditarEARJPanel organizacionalEditarEARJPanel = new OrganizacionalEditarEARJPanel();
-    static RiscosPriorizarRiscosJPanel riscosPriorizarRiscosJPanel = new RiscosPriorizarRiscosJPanel();
+    final RiscosPriorizarRiscosJPanel riscosPriorizarRiscosJPanel = new RiscosPriorizarRiscosJPanel();
     final RiscosRiscosOcorridosJPanel riscosRiscosOcorridosJPanel = new RiscosRiscosOcorridosJPanel();
     final RiscosResumoDeRiscosJPanel riscosResumoDeRiscosJPanel = new RiscosResumoDeRiscosJPanel();
     final MonitoracaoResumoDeMonitoracao monitoracaoResumoDeMonitoracao = new MonitoracaoResumoDeMonitoracao();
 
-    static MonitoracaoAnaliseDosRiscosJPanel monitoracaoAnaliseDosRiscosJPanel = new MonitoracaoAnaliseDosRiscosJPanel();
+    final MonitoracaoAnaliseDosRiscosJPanel monitoracaoAnaliseDosRiscosJPanel = new MonitoracaoAnaliseDosRiscosJPanel();
     
     final MonitoracaoTabelaDeAlteracaoJPanel monitoracoaTabelaDeAlteracaoJPanel = new MonitoracaoTabelaDeAlteracaoJPanel();
     final MonitoracaoTarefasPlanosPendentesJPanel monitoracaoPlanosPendentesJPanel = new MonitoracaoTarefasPlanosPendentesJPanel();
