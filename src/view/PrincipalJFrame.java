@@ -98,6 +98,7 @@ public class PrincipalJFrame extends javax.swing.JFrame {
         definirEventoRedimensionamento();
         //Desabilita o botão maximizar da tela Principal
         this.setResizable(false);
+        this.setLocationRelativeTo(null);
 
     }
 
