@@ -45,25 +45,25 @@ public class ProjetoPlanoRiscoJPanel extends javax.swing.JPanel {
 
     }
     
-    public void habilitarProjetoPlanoRiscoJPanel(){
-        importacaoJRadioButton.setEnabled(true);
-        escreverPlanoDeRiscoJRadioButton.setEnabled(true);
-        importarDocumentoJButton.setEnabled(true);
+    public void habilitarProjetoPlanoRiscoJPanel(boolean habilita){
+        importacaoJRadioButton.setEnabled(habilita);
+        escreverPlanoDeRiscoJRadioButton.setEnabled(habilita);
+        importarDocumentoJButton.setEnabled(habilita);
         
-        planoDeRiscoJTextArea.setEditable(true);
+        planoDeRiscoJTextArea.setEditable(habilita);
         
-        salvarjButton.setEnabled(true);
+        salvarjButton.setEnabled(habilita);
     }
     
-    public void desabilitarProjetoPlanoRiscoJPanel(){
-        importacaoJRadioButton.setEnabled(false);
-        escreverPlanoDeRiscoJRadioButton.setEnabled(false);
-        importarDocumentoJButton.setEnabled(false);
-        
-        planoDeRiscoJTextArea.setEditable(false);
-        
-        salvarjButton.setEnabled(false);
-    }
+//    public void desabilitarProjetoPlanoRiscoJPanel(){
+//        importacaoJRadioButton.setEnabled(false);
+//        escreverPlanoDeRiscoJRadioButton.setEnabled(false);
+//        importarDocumentoJButton.setEnabled(false);
+//        
+//        planoDeRiscoJTextArea.setEditable(false);
+//        
+//        salvarjButton.setEnabled(false);
+//    }
 
     private void defineSelecaoPadraoBotaoRadio(Projeto proj){
         

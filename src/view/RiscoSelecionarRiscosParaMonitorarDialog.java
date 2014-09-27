@@ -69,7 +69,7 @@ public class RiscoSelecionarRiscosParaMonitorarDialog extends javax.swing.JDialo
 
     public void criarTabelaSelecionarRiscos(List<Risco> listaDeRiscos) {
 
-        if (listaDeRiscos != null) {
+        if (!listaDeRiscos.isEmpty()) {
             projetoSelecionado = listaDeRiscos.get(0).getContem().getProjeto();
         }
 
@@ -141,6 +141,7 @@ public class RiscoSelecionarRiscosParaMonitorarDialog extends javax.swing.JDialo
     }
 
     int selected;
+    boolean temPlanoNaoRealizado = true;
 
     public void definirEventosTabela() {
         tabelaSelecionarRiscosMonitorarJTable.addMouseListener(new MouseAdapter() {
@@ -150,9 +151,18 @@ public class RiscoSelecionarRiscosParaMonitorarDialog extends javax.swing.JDialo
                     selected = tabelaSelecionarRiscosMonitorarJTable.getSelectedRow();
                     riscoTabelaModel.isCellEditable(selected, 0);
 
-                    if (listaRiscos.get(selected).getPlanomitigacaoList().isEmpty()) {
+                    for (int i = 0; i < listaRiscos.get(selected).getPlanomitigacaoList().size(); i++) {
+                        if (listaRiscos.get(selected).getPlanomitigacaoList().get(i).getDataRealizacao() == null) {
+                            temPlanoNaoRealizado = true;
+                        } else {
+                            temPlanoNaoRealizado = false;
+                        }
+                    }
+
+                    if (listaRiscos.get(selected).getPlanomitigacaoList().isEmpty() || temPlanoNaoRealizado == false) {
                         JOptionPane.showMessageDialog(tabelaSelecionarRiscosMonitorarJTable, "O risco selecionado não possui Planos de Mitigação.\nPara monitorá-lo inclua novo plano de mitigação.");
                     } else {
+
                         //se monitorar nao estiver marcado entao marca
                         if ((boolean) riscoTabelaModel.getValueAt(selected, 0) == false) {
                             riscoTabelaModel.setValueAt(true, selected, 0);
@@ -191,7 +201,11 @@ public class RiscoSelecionarRiscosParaMonitorarDialog extends javax.swing.JDialo
         riscosGerenciarRiscosFacade.criaHistorioAlteracao(historicoalteracao);
         getListaHistoricoAlteracoes(riscoSelecionado);
     }
-
+    
+    public void desabilitabotaoMotitorar (){
+        monitorarJButton.setEnabled(false);
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -274,7 +288,7 @@ public class RiscoSelecionarRiscosParaMonitorarDialog extends javax.swing.JDialo
     }// </editor-fold>//GEN-END:initComponents
 
     private void monitorarJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_monitorarJButtonActionPerformed
-
+      
         Risco RiscoSelecionado;
         for (int i = 0; i < listaRiscosTabela.size(); i++) {
             if ((Boolean) riscoTabelaModel.getValueAt(i, 0) == true) {

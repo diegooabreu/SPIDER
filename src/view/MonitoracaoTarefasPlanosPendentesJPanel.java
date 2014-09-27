@@ -396,4 +396,8 @@ public class MonitoracaoTarefasPlanosPendentesJPanel extends javax.swing.JPanel 
         ProjetoFacade projetoFacade = new ProjetoFacade();
         criarTabelaPlanosPendentes(projetoFacade.buscaPlanosDeContingenciaPendentes(projetoSelecionado), projetoFacade.buscaPlanosDeMitigacaoPendentes(projetoSelecionado));
     }
+    
+    public void habilitaBotoesMonitorarTarefasPlanosPendentes (boolean habilitar){
+        SalvarRealizaçãoDePlanosJButton.setEnabled(habilitar);
+    }
 }

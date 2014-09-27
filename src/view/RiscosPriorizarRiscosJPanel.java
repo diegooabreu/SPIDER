@@ -383,12 +383,16 @@ public class RiscosPriorizarRiscosJPanel extends javax.swing.JPanel {
 
     private void jButtonSelecionarRiscoParaMonitorarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSelecionarRiscoParaMonitorarActionPerformed
         // TODO add your handling code here:
-        RiscoSelecionarRiscosParaMonitorarDialog riscoSelecionarRiscosParaMonitorarDialog = new RiscoSelecionarRiscosParaMonitorarDialog(null, true);
-        riscoSelecionarRiscosParaMonitorarDialog.setLocationRelativeTo(null);
-        riscoSelecionarRiscosParaMonitorarDialog.criarTabelaSelecionarRiscos(listaDeRisco);
-        riscoSelecionarRiscosParaMonitorarDialog.setVisible(true);
-        listaDeRisco = new RiscosGerenciarRiscosFacade().listarRiscosByProjeto(projetoSelecionado);
-        atualizaTabelaPriorizarRiscos(listaDeRisco);
+        if (!listaDeRisco.isEmpty()) {
+            RiscoSelecionarRiscosParaMonitorarDialog riscoSelecionarRiscosParaMonitorarDialog = new RiscoSelecionarRiscosParaMonitorarDialog(null, true);
+            riscoSelecionarRiscosParaMonitorarDialog.setLocationRelativeTo(null);
+            riscoSelecionarRiscosParaMonitorarDialog.criarTabelaSelecionarRiscos(listaDeRisco);
+            riscoSelecionarRiscosParaMonitorarDialog.setVisible(true);
+            listaDeRisco = new RiscosGerenciarRiscosFacade().listarRiscosByProjeto(projetoSelecionado);
+            atualizaTabelaPriorizarRiscos(listaDeRisco);
+        } else {
+            JOptionPane.showMessageDialog(null, "Não à Riscos cadastrados para este projeto.");
+        }
     }//GEN-LAST:event_jButtonSelecionarRiscoParaMonitorarActionPerformed
 
     public void definirEventosTabelaPriorizarRiscos() {
@@ -520,5 +524,14 @@ public class RiscosPriorizarRiscosJPanel extends javax.swing.JPanel {
         probabilidadeJTextField.setText("");
         impactoJTextField.setText("");
         grauDeSeveridadeJTextField.setText("");
+    }
+
+    public void habilitarbotõesPriorizarRiscosJpanel(boolean habilitar) {
+        RiscosPriorizarRiscosAcoesAumentarPrioridadeJButton.setEnabled(habilitar);
+        RiscosPriorizarRiscosAcoesDiminuirPrioridadeJButton.setEnabled(habilitar);
+        resetarPrioridadesJButton.setEnabled(habilitar);
+        descartarAlteraçõesJButton.setEnabled(habilitar);
+        RiscosPriorizarRiscosSalvarAlteracoesJButton.setEnabled(habilitar);
+        jButtonSelecionarRiscoParaMonitorar.setEnabled(habilitar);
     }
 }

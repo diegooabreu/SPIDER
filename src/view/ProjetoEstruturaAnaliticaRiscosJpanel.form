@@ -527,7 +527,7 @@
                                   <Group type="102" alignment="1" attributes="0">
                                       <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="32767" attributes="0"/>
-                                      <Component id="jButton2" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jButtonAdicionarCategoriaProjeto" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <Component id="jPanel6" alignment="1" max="32767" attributes="0"/>
                               </Group>
@@ -543,7 +543,7 @@
                               <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jButton2" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
+                                  <Component id="jButtonAdicionarCategoriaProjeto" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
                               <Component id="arvoreCategoriasEAROrganizacionalScrollPane" min="-2" pref="207" max="-2" attributes="0"/>
@@ -560,12 +560,12 @@
                     </DimensionLayout>
                   </Layout>
                   <SubComponents>
-                    <Component class="javax.swing.JButton" name="jButton2">
+                    <Component class="javax.swing.JButton" name="jButtonAdicionarCategoriaProjeto">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="Adicionar Categoria ao Projeto"/>
                       </Properties>
                       <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton2ActionPerformed"/>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonAdicionarCategoriaProjetoActionPerformed"/>
                       </Events>
                     </Component>
                     <Container class="javax.swing.JScrollPane" name="arvoreCategoriasEAROrganizacionalScrollPane">

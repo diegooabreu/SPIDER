@@ -36,7 +36,7 @@ import model.Subcondicao;
 
 /**
  *
- * @author Victor
+ * @author Bleno
  */
 public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
 
@@ -86,9 +86,8 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
 
     public RiscosGerenciarRiscosJPanel() {
         initComponents();
+        // riscoSelecionado = new Risco();
         criarTabelaRiscos();
-        //criarListaPlanoMitigacao();
-        //criarListaPlanoContingencia();
         getListaderiscosDoprojeto();
         getListaCategorias();
         preencherDadosTabelaRiscos();
@@ -119,8 +118,14 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
 
     //Método que inicia os botões de Salvar alterações de risco e remover risco selecionado desativados
     public void iniciaBotosRiscoCinza() {
-        informacoesGeraisSalvarAlteracoesDoRiscoJButton.setEnabled(false);
-        informacoesGeraisRemoverRiscoJButton.setEnabled(false);
+        //se projeto estiver concluído não habilita
+        if (projetoSelecionado.getConcluido()) {
+            informacoesGeraisSalvarAlteracoesDoRiscoJButton.setEnabled(false);
+            informacoesGeraisRemoverRiscoJButton.setEnabled(false);
+        } else {
+            informacoesGeraisLimparCamposJButton.setEnabled(true);
+            informacoesGeraisAdicionarNovoRiscoJButton.setEnabled(true);
+        }
     }
 
     //Método que seleciona o projeto selecionado
@@ -192,7 +197,7 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
 
     //Método que habilita os botões caso um risco tenha si selecionado;  
     private void habilitaBotoesSeTemRiscoSelecionado() {
-        if (riscoSelecionado.getIdRisco() == null) {
+        if (riscoSelecionado.getIdRisco() == null && (!projetoSelecionado.getConcluido())) {
             // Aba relações
             relacoesInfluenciarRiscoJButton.setEnabled(false);
             relacoesRemoverInfluenciaJButton.setEnabled(false);
@@ -211,7 +216,9 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
             //Aba Informações Gerais
             informacoesGeraisSalvarAlteracoesDoRiscoJButton.setEnabled(false);
             informacoesGeraisRemoverRiscoJButton.setEnabled(false);
-        } else {
+            informacoesGeraisLimparCamposJButton.setEnabled(true);
+            informacoesGeraisAdicionarNovoRiscoJButton.setEnabled(true);
+        } else if (!projetoSelecionado.getConcluido()) {
             // Aba relações
             relacoesInfluenciarRiscoJButton.setEnabled(true);
             relacoesRemoverInfluenciaJButton.setEnabled(true);
@@ -230,6 +237,34 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
             //Aba Informações Gerais
             informacoesGeraisSalvarAlteracoesDoRiscoJButton.setEnabled(true);
             informacoesGeraisRemoverRiscoJButton.setEnabled(true);
+        } else {
+            System.err.println("bloqueia todos os botões Gerenciar Riscos-Projeto Concluído");
+            desabilitaBotoesSeTemRiscoSelecionado();
+        }
+    }
+
+    public void desabilitaBotoesSeTemRiscoSelecionado() {
+        if (projetoSelecionado.getConcluido()) {
+            // Aba relações
+            relacoesInfluenciarRiscoJButton.setEnabled(false);
+            relacoesRemoverInfluenciaJButton.setEnabled(false);
+            // Abacondições
+            deletarCondicaoJButton.setEnabled(false);
+            limparCamposJButton.setEnabled(false);
+            subcondicoesSalvarAlteracoesDaCondicaoJButtob.setEnabled(false);
+            subcondicoesCriarCondicaoJButton.setEnabled(false);
+
+            inserirCondicaoCampo1JButton.setEnabled(false);
+            inserirRelacaoCampo1JButton.setEnabled(false);
+            inserirCondicaoCampo2JButton.setEnabled(false);
+            inserirRelacaoCampo2JButton.setEnabled(false);
+            criarRelacaoJButton.setEnabled(false);
+            deletarRelacaoJButton.setEnabled(false);
+            //Aba Informações Gerais
+            informacoesGeraisSalvarAlteracoesDoRiscoJButton.setEnabled(false);
+            informacoesGeraisRemoverRiscoJButton.setEnabled(false);
+            informacoesGeraisLimparCamposJButton.setEnabled(false);
+            informacoesGeraisAdicionarNovoRiscoJButton.setEnabled(false);
         }
     }
 
@@ -246,15 +281,6 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
         tabelaRiscosJTable.setModel(modeloTabelaRiscosJTable);
         tabelaRiscosJScrollPane.setViewportView(tabelaRiscosJTable);
     }
-    /*
-     //Método que desabilita as caixas de status do risco
-     private void desabilitaCheckBoxStatusRisco() {
-     informacoesGeraisMitigandoJCheckBox.setSelected(false);
-     informacoesGeraisContingenciandoJCheckBox.setSelected(false);
-     informacoesGeraisNovoJCheckBox.setSelected(false);
-     informacoesGeraisResolvidoJCheckBox.setSelected(false);
-     }
-     */
 
     //Método que preenche os dados da Tabela de Riscos, conforme o projeto selecionado
     void preencherDadosTabelaRiscos() {
@@ -369,22 +395,6 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
                     campo2Relacao = null;
                     campo2JTextField.setText("");
 
-                    /*
-                     // Determina qual caixa de status do risco será selecionada
-                     if (riscoSelecionado.getStatusRisco().equals("Novo")) {
-                     desabilitaCheckBoxStatusRisco();
-                     informacoesGeraisNovoJCheckBox.setSelected(true);
-                     } else if (riscoSelecionado.getStatusRisco().equals("Contingenciando")) {
-                     desabilitaCheckBoxStatusRisco();
-                     informacoesGeraisContingenciandoJCheckBox.setSelected(true);
-                     } else if (riscoSelecionado.getStatusRisco().equals("Mitigando")) {
-                     desabilitaCheckBoxStatusRisco();
-                     informacoesGeraisMitigandoJCheckBox.setSelected(true);
-                     } else if (riscoSelecionado.getStatusRisco().equals("Resolvido")) {
-                     desabilitaCheckBoxStatusRisco();
-                     informacoesGeraisResolvidoJCheckBox.setSelected(true);
-                     }
-                     */
                     // Determina qual campo do comboBox de Impacto será selecionado
                     if (riscoSelecionado.getImpacto().equals("Alto")) {
                         informacoesGeraisImpactoJComboBox.setSelectedIndex(2);
@@ -408,9 +418,8 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
                     InformacoesGeraisDescricaoDeRiscoJTextArea.setText(riscoSelecionado.getDescricao());
 
                     //Habilita os botões de salvar alterações de risco e remover risco selecionado
-                    informacoesGeraisRemoverRiscoJButton.setEnabled(true);
-                    informacoesGeraisSalvarAlteracoesDoRiscoJButton.setEnabled(true);
-
+//                    informacoesGeraisRemoverRiscoJButton.setEnabled(true);
+//                    informacoesGeraisSalvarAlteracoesDoRiscoJButton.setEnabled(true);
                     //******************Na aba Plano de Mitigacao***********************
                     // Reinicia a lista de Planos de Mitigação
                     planoMitigacaoListModel.clear();
@@ -424,9 +433,10 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
                     //Limpa os campos de Plano de Mitigação
                     limparCamposPlanoMitigacao();
 
-                    planoDeMitigacaoAdicionarPlanoJButton.setEnabled(true);
+                    if (!projetoSelecionado.getConcluido()) {
+                        planoDeMitigacaoAdicionarPlanoJButton.setEnabled(true);
+                    }
                     //******************Na aba Plano de Contingência*******************
-
                     // Reinicia a lista de Planos de Contingencia
                     planoContingenciaListModel.clear();
 
@@ -439,7 +449,9 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
                     //Limpa os campos de Plano de Contingencia
                     limparCamposPlanoContingencia();
 
-                    planoDeContingenciaAdicionarPlanoJButton.setEnabled(true);
+                    if (!projetoSelecionado.getConcluido()) {
+                        planoDeContingenciaAdicionarPlanoJButton.setEnabled(true);
+                    }
 
                     //Habilita botões da tela relação 
                     habilitaBotoesSeTemRiscoSelecionado();
@@ -620,10 +632,6 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
                     planoDeMitigacaoComoSeraFeitoJTextArea.setText(planoMitigacaoSelecionado.getComoRealizar());
                     planoDeMitigacaoInfAdicionaisJTextArea.setText(planoMitigacaoSelecionado.getInformacoesAdicionais());
 
-                    //Calendar dataLimite = Calendar.getInstance();
-                    //dataLimite.setTime(planoMitigacaoSelecionado.getDataLimite());
-                    //planoDeMitigacaoDataLimiteJDateChooser.setCalendar(dataLimite);
-                    //Determina qual campo do comboBox de dataLimite será selecionado
                     if (listaMitigacao.get(indexSelecionado).getDataRealizacao() == null) {
                         planoDeMitigacaoSalvarAlteracoesJButton.setEnabled(true);
                         planoDeMitigacaoRemoverPlanoJButton.setEnabled(true);
@@ -836,13 +844,6 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
             }
             relacoesListaInfluenciaJList.setModel(modelListaRiscosInfluencia);
         }
-        /*
-         if (listaRiscos.size() > 0) {
-         for (int i = 0; i < listaRiscos.size(); i++) {
-         modelListaRiscosInfluencia.addElement(listaRiscos.get(i).getIdentificacao().toString());
-         }
-         relacoesListaInfluenciaJList.setModel(modelListaRiscosInfluencia);
-         }*/
     }
 
     //Definindo evento para lista de riscos que influencia

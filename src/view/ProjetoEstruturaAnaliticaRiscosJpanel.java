@@ -66,39 +66,41 @@ public class ProjetoEstruturaAnaliticaRiscosJpanel extends javax.swing.JPanel {
 
     
     
-    public void habilitarProjetoEstruturaAnaliticaRiscosJpanel(){
-        removerCategoriaJButton.setEnabled(true);
-        categoriaSelecionadaJTextField.setEditable(true);
-        descricaoJTextArea.setEditable(true);
-        possiveisOrigensJTextArea.setEditable(true);
-        criteriosImpactoJTextArea.setEditable(true);
-        criteriosProbabilidadeJTextArea.setEditable(true);
-        salvarJButton.setEnabled(true);
+    public void habilitarProjetoEstruturaAnaliticaRiscosJpanel(Boolean habilitar){
+        removerCategoriaJButton.setEnabled(habilitar);
+        categoriaSelecionadaJTextField.setEditable(habilitar);
+        descricaoJTextArea.setEditable(habilitar);
+        possiveisOrigensJTextArea.setEditable(habilitar);
+        criteriosImpactoJTextArea.setEditable(habilitar);
+        criteriosProbabilidadeJTextArea.setEditable(habilitar);
+        salvarJButton.setEnabled(habilitar);
         
-        nomeNovaCategoriaJTextField.setEnabled(true);
-        descricaoNovaCategoriaJTextArea.setEnabled(true);
-        possiveisOrigensNovaCategoriaJTextArea.setEnabled(true);
-        criteriosProbabilidadeNovaCategoriaJTextArea.setEnabled(true);
-        criteriosImpactoNovaCategoriaJTextArea.setEnabled(true);
-        salvaNovaCategoriaJButton.setEnabled(true);
+        nomeNovaCategoriaJTextField.setEnabled(habilitar);
+        descricaoNovaCategoriaJTextArea.setEnabled(habilitar);
+        possiveisOrigensNovaCategoriaJTextArea.setEnabled(habilitar);
+        criteriosProbabilidadeNovaCategoriaJTextArea.setEnabled(habilitar);
+        criteriosImpactoNovaCategoriaJTextArea.setEnabled(habilitar);
+        salvaNovaCategoriaJButton.setEnabled(habilitar);
+        jButtonAdicionarCategoriaProjeto.setEnabled(habilitar);
     }
     
-    public void desabilitarProjetoEstruturaAnaliticaRiscosJpanel(){
-        removerCategoriaJButton.setEnabled(false);
-        categoriaSelecionadaJTextField.setEditable(false);
-        descricaoJTextArea.setEditable(false);
-        possiveisOrigensJTextArea.setEditable(false);
-        criteriosImpactoJTextArea.setEditable(false);
-        criteriosProbabilidadeJTextArea.setEditable(false);
-        salvarJButton.setEnabled(false);
-        
-        nomeNovaCategoriaJTextField.setEnabled(false);
-        descricaoNovaCategoriaJTextArea.setEnabled(false);
-        possiveisOrigensNovaCategoriaJTextArea.setEnabled(false);
-        criteriosProbabilidadeNovaCategoriaJTextArea.setEnabled(false);
-        criteriosImpactoNovaCategoriaJTextArea.setEnabled(false);
-        salvaNovaCategoriaJButton.setEnabled(false);
-    }
+//    public void desabilitarProjetoEstruturaAnaliticaRiscosJpanel(){
+//        removerCategoriaJButton.setEnabled(false);
+//        categoriaSelecionadaJTextField.setEditable(false);
+//        descricaoJTextArea.setEditable(false);
+//        possiveisOrigensJTextArea.setEditable(false);
+//        criteriosImpactoJTextArea.setEditable(false);
+//        criteriosProbabilidadeJTextArea.setEditable(false);
+//        salvarJButton.setEnabled(false);
+//        
+//        nomeNovaCategoriaJTextField.setEnabled(false);
+//        descricaoNovaCategoriaJTextArea.setEnabled(false);
+//        possiveisOrigensNovaCategoriaJTextArea.setEnabled(false);
+//        criteriosProbabilidadeNovaCategoriaJTextArea.setEnabled(false);
+//        criteriosImpactoNovaCategoriaJTextArea.setEnabled(false);
+//        salvaNovaCategoriaJButton.setEnabled(false);
+//        jButtonAdicionarCategoriaProjeto.setEnabled(false);
+//    }
     
     
     public void criarArvore(){
@@ -502,7 +504,7 @@ public class ProjetoEstruturaAnaliticaRiscosJpanel extends javax.swing.JPanel {
         earSelecionarProjetoJScrollPane = new javax.swing.JScrollPane();
         jScrollPane7 = new javax.swing.JScrollPane();
         jPanel15 = new javax.swing.JPanel();
-        jButton2 = new javax.swing.JButton();
+        jButtonAdicionarCategoriaProjeto = new javax.swing.JButton();
         arvoreCategoriasEAROrganizacionalScrollPane = new javax.swing.JScrollPane();
         jLabel6 = new javax.swing.JLabel();
         categoriaSelecionadaAdicionarEAROrganizacionalJLabel = new javax.swing.JLabel();
@@ -748,10 +750,10 @@ public class ProjetoEstruturaAnaliticaRiscosJpanel extends javax.swing.JPanel {
 
         jScrollPane7.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
-        jButton2.setText("Adicionar Categoria ao Projeto");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        jButtonAdicionarCategoriaProjeto.setText("Adicionar Categoria ao Projeto");
+        jButtonAdicionarCategoriaProjeto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                jButtonAdicionarCategoriaProjetoActionPerformed(evt);
             }
         });
 
@@ -798,7 +800,7 @@ public class ProjetoEstruturaAnaliticaRiscosJpanel extends javax.swing.JPanel {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel15Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton2))
+                        .addComponent(jButtonAdicionarCategoriaProjeto))
                     .addComponent(jPanel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(31, 31, 31))
         );
@@ -810,7 +812,7 @@ public class ProjetoEstruturaAnaliticaRiscosJpanel extends javax.swing.JPanel {
                 .addGap(8, 8, 8)
                 .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButtonAdicionarCategoriaProjeto, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(9, 9, 9)
                 .addComponent(arvoreCategoriasEAROrganizacionalScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -991,7 +993,7 @@ public class ProjetoEstruturaAnaliticaRiscosJpanel extends javax.swing.JPanel {
 
     }//GEN-LAST:event_removerCategoriaJButtonActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void jButtonAdicionarCategoriaProjetoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAdicionarCategoriaProjetoActionPerformed
         // TODO add your handling code here:
         boolean existeCategoriaSelecionadaNoProjeto = false;
         
@@ -1027,7 +1029,7 @@ public class ProjetoEstruturaAnaliticaRiscosJpanel extends javax.swing.JPanel {
             
         }
         
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_jButtonAdicionarCategoriaProjetoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1045,16 +1047,11 @@ public class ProjetoEstruturaAnaliticaRiscosJpanel extends javax.swing.JPanel {
     private javax.swing.JTextArea descricaoNovaCategoriaJTextArea;
     private javax.swing.JScrollPane earProjetoJScrollPane;
     private javax.swing.JScrollPane earSelecionarProjetoJScrollPane;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButtonAdicionarCategoriaProjeto;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel12;
-    private javax.swing.JPanel jPanel13;
-    private javax.swing.JPanel jPanel14;
     private javax.swing.JPanel jPanel15;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -1063,7 +1060,6 @@ public class ProjetoEstruturaAnaliticaRiscosJpanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
-    private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane10;
     private javax.swing.JScrollPane jScrollPane11;
@@ -1084,7 +1080,5 @@ public class ProjetoEstruturaAnaliticaRiscosJpanel extends javax.swing.JPanel {
     private javax.swing.JButton removerCategoriaJButton;
     private javax.swing.JButton salvaNovaCategoriaJButton;
     private javax.swing.JButton salvarJButton;
-    private javax.swing.JScrollPane tabelaAdicionarEAROrganizacionalNoProjetoScrollPane;
-    private javax.swing.JScrollPane tabelaAdicionarEAROrganizacionalNoProjetoScrollPane1;
     // End of variables declaration//GEN-END:variables
 }

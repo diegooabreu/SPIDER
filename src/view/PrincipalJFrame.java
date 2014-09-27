@@ -54,11 +54,11 @@ public class PrincipalJFrame extends javax.swing.JFrame {
     final MonitoracaoResumoDeMonitoracao monitoracaoResumoDeMonitoracao = new MonitoracaoResumoDeMonitoracao();
 
     final MonitoracaoAnaliseDosRiscosJPanel monitoracaoAnaliseDosRiscosJPanel = new MonitoracaoAnaliseDosRiscosJPanel();
-    
+
     final MonitoracaoTabelaDeAlteracaoJPanel monitoracoaTabelaDeAlteracaoJPanel = new MonitoracaoTabelaDeAlteracaoJPanel();
     final MonitoracaoTarefasPlanosPendentesJPanel monitoracaoPlanosPendentesJPanel = new MonitoracaoTarefasPlanosPendentesJPanel();
     final MonitoracaoTarefasPlanosRealizadosJPanel monitoracaoPlanosRealizadosJPanel = new MonitoracaoTarefasPlanosRealizadosJPanel();
- 
+
     static CalendarioDetalhesMarcoEpontoDoDiaInternalJFrame calendarioDetalhesMarcoEpontoDoDiaInternalJFrame = new CalendarioDetalhesMarcoEpontoDoDiaInternalJFrame();
 
     // Criando Arvore de Funcionalidades - Menu //
@@ -100,7 +100,7 @@ public class PrincipalJFrame extends javax.swing.JFrame {
         this.setResizable(false);
 
     }
-    
+
     public void definirEventoRedimensionamento() {
         this.addComponentListener(new java.awt.event.ComponentListener() {
             public void componentResized(java.awt.event.ComponentEvent e) {
@@ -360,6 +360,13 @@ public class PrincipalJFrame extends javax.swing.JFrame {
             if (projetoSelecionadoJComboBox.getSelectedItem() != null) {
                 for (int j = 0; j < listaProjetos.size(); j++) {
                     if (listaProjetos.get(j).getNomeProjeto().equals(projetoSelecionadoJComboBox.getSelectedItem())) {
+                        //Caso projeto tenha sido concluído
+                        if (listaProjetos.get(j).getConcluido()) {
+                            projetoSelecionadoJLabel.setText("Projeto [Concluído]:");
+                        } else {
+                            projetoSelecionadoJLabel.setText("Projeto:");
+                        }
+
                         projetoSelecionado = listaProjetos.get(j);
 
                         projetoDetalhesJPanel.preencheDetalhes(projetoSelecionado);
@@ -450,9 +457,9 @@ public class PrincipalJFrame extends javax.swing.JFrame {
                         monitoracaoAnaliseDosRiscosJPanel.definirEventosTabelaDeRiscos();
 
                         if (listaProjetos.get(j).getConcluido()) {
-                            desabilitarProjetoConcluido();
+                            habilitarProjetoConcluido(false);
                         } else {
-                            habilitarProjetoConcluido();
+                            habilitarProjetoConcluido(true);
                         }
 
                     }
@@ -558,7 +565,6 @@ public class PrincipalJFrame extends javax.swing.JFrame {
 
             for (int i = 0; i < listaProjetos.size(); i++) {
                 projetoSelecionadoJComboBox.addItem(listaProjetos.get(i).getNomeProjeto());
-
             }
 
         } else {
@@ -723,6 +729,7 @@ public class PrincipalJFrame extends javax.swing.JFrame {
 
     private void definirEventosArvore() {
         arvoreFuncionalidadesJTree.addMouseListener(new MouseAdapter() {
+            @Override
             public void mousePressed(MouseEvent e) {
                 if (e.getClickCount() == 1) {
                     TreePath selPath = arvoreFuncionalidadesJTree.getPathForLocation(e.getX(),
@@ -846,23 +853,31 @@ public class PrincipalJFrame extends javax.swing.JFrame {
 
                             monitoracaoResumoDeMonitoracao.setVisible(true);
                         }
+                        if (projetoSelecionado.getConcluido()) {
+                            habilitarProjetoConcluido(false);
+                        } else {
+                            habilitarProjetoConcluido(true);
+                        }
                     }
                 }
             }
-
         });
     }
 
-    private void habilitarProjetoConcluido() {
-        projetoDetalhesJPanel.habilitarProjetoDetalhesJPanel();
-        projetoPlanoRiscoJpanel.habilitarProjetoPlanoRiscoJPanel();
-        projetoEstruturaAnaliticaRiscosJpanel.habilitarProjetoEstruturaAnaliticaRiscosJpanel();
-    }
+//    private void habilitarProjetoConcluido() {
+//        projetoDetalhesJPanel.habilitarProjetoDetalhesJPanel();
+//        projetoPlanoRiscoJpanel.habilitarProjetoPlanoRiscoJPanel();
+//        projetoEstruturaAnaliticaRiscosJpanel.habilitarProjetoEstruturaAnaliticaRiscosJpanel();
+//    }
 
-    private void desabilitarProjetoConcluido() {
-        projetoDetalhesJPanel.desabilitarProjetoDetalhesJPanel();
-        projetoPlanoRiscoJpanel.desabilitarProjetoPlanoRiscoJPanel();
-        projetoEstruturaAnaliticaRiscosJpanel.desabilitarProjetoEstruturaAnaliticaRiscosJpanel();
+    private void habilitarProjetoConcluido(Boolean habilitar) {
+        projetoDetalhesJPanel.habilitarProjetoDetalhesJPanel(habilitar);
+        projetoEstruturaAnaliticaRiscosJpanel.habilitarProjetoEstruturaAnaliticaRiscosJpanel(habilitar);
+        riscosGerenciarRiscosJPanel.desabilitaBotoesSeTemRiscoSelecionado();
+        projetoCalendarioJPanel.habilitaBotoesProjetoCalendarioJpanel(habilitar);
+        riscosPriorizarRiscosJPanel.habilitarbotõesPriorizarRiscosJpanel(habilitar);
+        monitoracaoAnaliseDosRiscosJPanel.habilitarBotoesMonitoracaoAnaliseDeRiscosJpanel(habilitar);
+        monitoracaoPlanosPendentesJPanel.habilitaBotoesMonitorarTarefasPlanosPendentes(habilitar);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

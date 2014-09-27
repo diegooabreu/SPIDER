@@ -44,22 +44,22 @@ public class ProjetoDetalhesJPanel extends javax.swing.JPanel {
         this.repaint();
     }
 
-    public void habilitarProjetoDetalhesJPanel() {
-        //nomeProjetoJTextField.setEnabled(true);
-        responsavelProjetoJTextField.setEnabled(true);
-        responsavelGerenciaRiscosJTextField.setEnabled(true);
-        descricaoProjetoJTextArea.setEnabled(true);
+//    public void habilitarProjetoDetalhesJPanel() {
+//        //nomeProjetoJTextField.setEnabled(true);
+//        responsavelProjetoJTextField.setEnabled(true);
+//        responsavelGerenciaRiscosJTextField.setEnabled(true);
+//        descricaoProjetoJTextArea.setEnabled(true);
+//
+//        salvarAlteracoesJButton.setEnabled(true);
+//    }
 
-        salvarAlteracoesJButton.setEnabled(true);
-    }
-
-    public void desabilitarProjetoDetalhesJPanel() {
+    public void habilitarProjetoDetalhesJPanel(Boolean habilita) {
         // nomeProjetoJTextField.setEnabled(false);
-        responsavelProjetoJTextField.setEnabled(false);
-        responsavelGerenciaRiscosJTextField.setEnabled(false);
-        descricaoProjetoJTextArea.setEnabled(false);
+        responsavelProjetoJTextField.setEnabled(habilita);
+        responsavelGerenciaRiscosJTextField.setEnabled(habilita);
+        descricaoProjetoJTextArea.setEnabled(habilita);
 
-        salvarAlteracoesJButton.setEnabled(false);
+        salvarAlteracoesJButton.setEnabled(habilita);
         
         ProjetoConcluirProjetoDialog projetoConcluirProjetoDialog =  new ProjetoConcluirProjetoDialog(null, true);
     }
@@ -223,7 +223,7 @@ public class ProjetoDetalhesJPanel extends javax.swing.JPanel {
 
         if (projetoSelecionado.getConcluido()) {
             JOptionPane.showMessageDialog(this, "O projeto selecionado está concluiro e não pode mais ter suas informações alteradas.");
-            desabilitarProjetoDetalhesJPanel();
+            habilitarProjetoDetalhesJPanel(false);
         } else {
 
             //seto as alterações
@@ -282,4 +282,5 @@ public class ProjetoDetalhesJPanel extends javax.swing.JPanel {
     private javax.swing.JButton salvarAlteracoesJButton;
     private javax.swing.JLabel statusProjetoJLabel;
     // End of variables declaration//GEN-END:variables
+
 }
