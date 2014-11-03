@@ -4,6 +4,7 @@
  */
 package view;
 
+import configuracao.ConfiguracaoBancoDeDados;
 import facade.MonitoracaoAnaliseDosRiscosFacade;
 import facade.PrincipalFacade;
 import facade.ProjetoCalendarioFacade;
@@ -88,9 +89,10 @@ public class PrincipalJFrame extends javax.swing.JFrame {
     /**
      * Creates new form FramePrincipal
      */
+    ConfiguracaoBancoDeDados configuracaoBancoDeDados = new ConfiguracaoBancoDeDados(null, true);
+
     public PrincipalJFrame() {
         initComponents();
-        popularComboBox();
         adicionarFrames();
         esconderFrames();
         criarArvore();
@@ -550,12 +552,12 @@ public class PrincipalJFrame extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(PrincipalJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
                 new PrincipalJFrame().setVisible(true);
+
             }
         });
     }
@@ -870,7 +872,6 @@ public class PrincipalJFrame extends javax.swing.JFrame {
 //        projetoPlanoRiscoJpanel.habilitarProjetoPlanoRiscoJPanel();
 //        projetoEstruturaAnaliticaRiscosJpanel.habilitarProjetoEstruturaAnaliticaRiscosJpanel();
 //    }
-
     private void habilitarProjetoConcluido(Boolean habilitar) {
         projetoDetalhesJPanel.habilitarProjetoDetalhesJPanel(habilitar);
         projetoEstruturaAnaliticaRiscosJpanel.habilitarProjetoEstruturaAnaliticaRiscosJpanel(habilitar);

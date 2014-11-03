@@ -16,9 +16,9 @@ import model.Projeto;
  */
 public class PrincipalFacade {
 
-    public List<Projeto> listarProjetos(){
+    ProjetoJpaController projetoJPA = new ProjetoJpaController();
         
-        ProjetoJpaController projetoJPA = new ProjetoJpaController();
+    public List<Projeto> listarProjetos(){
         
         List<Projeto> listaProjetos = projetoJPA.findProjetoEntities();
         
