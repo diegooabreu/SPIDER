@@ -503,3 +503,8 @@ insert into categoriaderisco(nomeCategoria, idOrganizacao, earOrganizacional, fk
 insert into categoriaderisco(nomeCategoria, idOrganizacao, earOrganizacional, fk_idCategoriaDeRisco) values("Planejamento", 1 , true, 4);
 insert into categoriaderisco(nomeCategoria, idOrganizacao, earOrganizacional, fk_idCategoriaDeRisco) values("Controle", 1 , true, 4);
 insert into categoriaderisco(nomeCategoria, idOrganizacao, earOrganizacional, fk_idCategoriaDeRisco) values("Comunicação", 1 , true, 4);
+
+-- -----------------------------------------------------
+-- Criando Usuario spider_rm
+-- -----------------------------------------------------
+CREATE USER 'spider_rm'@'localhost' IDENTIFIED BY 'spider_rm';

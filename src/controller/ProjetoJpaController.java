@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package controller;
 
 import controller.exceptions.IllegalOrphanException;
@@ -36,31 +35,19 @@ public class ProjetoJpaController implements Serializable {
     public ProjetoJpaController(EntityManagerFactory emf) {
         this.emf = emf;
     }
-    
-    public ProjetoJpaController(){
-        
-        try {
-            emf = Persistence.createEntityManagerFactory("SpiderRMPU");
-        }catch(Exception erro){
-            JOptionPane.showMessageDialog(null, "Erro ao tentar conectar o Banco de dados","Erro", JOptionPane.ERROR_MESSAGE);
-            erro.printStackTrace();
-            throw erro;
-        }   
+
+    public ProjetoJpaController() throws Exception {
+
+        emf = Persistence.createEntityManagerFactory("SpiderRMPU");
     }
-    
+
     private EntityManagerFactory emf = null;
 
-    public EntityManager getEntityManager() {
-        try {
-            return emf.createEntityManager();
-        }catch(Exception erro){
-            JOptionPane.showMessageDialog(null, "Erro ao tentar conectar o Banco de dados","Erro", JOptionPane.ERROR_MESSAGE);
-            erro.printStackTrace();
-            throw erro;
-        }   
+    public EntityManager getEntityManager() throws Exception {
+        return emf.createEntityManager();
     }
 
-    public void create(Projeto projeto) {
+    public void create(Projeto projeto) throws Exception {
         if (projeto.getAvaliacaoprojetoList() == null) {
             projeto.setAvaliacaoprojetoList(new ArrayList<Avaliacaoprojeto>());
         }
@@ -355,7 +342,7 @@ public class ProjetoJpaController implements Serializable {
         }
     }
 
-    public void destroy(Integer id) throws IllegalOrphanException, NonexistentEntityException {
+    public void destroy(Integer id) throws IllegalOrphanException, NonexistentEntityException, Exception {
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -420,15 +407,15 @@ public class ProjetoJpaController implements Serializable {
         }
     }
 
-    public List<Projeto> findProjetoEntities() {
+    public List<Projeto> findProjetoEntities() throws Exception {
         return findProjetoEntities(true, -1, -1);
     }
 
-    public List<Projeto> findProjetoEntities(int maxResults, int firstResult) {
+    public List<Projeto> findProjetoEntities(int maxResults, int firstResult) throws Exception {
         return findProjetoEntities(false, maxResults, firstResult);
     }
 
-    private List<Projeto> findProjetoEntities(boolean all, int maxResults, int firstResult) {
+    private List<Projeto> findProjetoEntities(boolean all, int maxResults, int firstResult) throws Exception {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
@@ -444,7 +431,7 @@ public class ProjetoJpaController implements Serializable {
         }
     }
 
-    public Projeto findProjeto(Integer id) {
+    public Projeto findProjeto(Integer id) throws Exception {
         EntityManager em = getEntityManager();
         try {
             return em.find(Projeto.class, id);
@@ -453,7 +440,7 @@ public class ProjetoJpaController implements Serializable {
         }
     }
 
-    public int getProjetoCount() {
+    public int getProjetoCount() throws Exception {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
@@ -465,5 +452,5 @@ public class ProjetoJpaController implements Serializable {
             em.close();
         }
     }
-    
+
 }

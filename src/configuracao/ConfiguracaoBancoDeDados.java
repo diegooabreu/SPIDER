@@ -68,13 +68,19 @@ public class ConfiguracaoBancoDeDados extends javax.swing.JDialog {
         
     }
     private static void textoDoBat(BufferedWriter bufferedWriter, String porta, String user, String password) throws IOException {
+        
+        String diretorio = System.getProperty("user.dir");
+        
         bufferedWriter.write("@echo off");
         bufferedWriter.newLine();
-
-        bufferedWriter.write("mysql --port="+ porta +" --user=" + user + " --password=" + password + " < " + System.getProperty("user.dir") + "\\spider_RM.sql");
+        
+        bufferedWriter.write("set caminhosql=\"" + diretorio + "\"");
         bufferedWriter.newLine();
 
-        bufferedWriter.write("mysql --port="+ porta +" --user=" + user + " --password=" + password + "< " + System.getProperty("user.dir") + "\\spider_rm2.sql");
+        bufferedWriter.write("mysql --port="+ porta +" --user=" + user + " --password=" + password + " < %caminhosql%\\spider_RM.sql");
+        bufferedWriter.newLine();
+
+        bufferedWriter.write("mysql --port="+ porta +" --user=" + user + " --password=" + password + "<  %caminhosql%\\spider_rm2.sql");
         bufferedWriter.newLine();
 
         bufferedWriter.newLine();
@@ -120,12 +126,21 @@ public class ConfiguracaoBancoDeDados extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Configurações Banco de Dados");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Dados do seu SGBD"));
 
         jLabel1.setText("Usuario:");
 
         jTextFieldUsuario.setText("root");
+        jTextFieldUsuario.setRequestFocusEnabled(false);
         jTextFieldUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldUsuarioActionPerformed(evt);
@@ -134,9 +149,12 @@ public class ConfiguracaoBancoDeDados extends javax.swing.JDialog {
 
         jLabel2.setText("Senha:");
 
+        jPasswordFieldSenha.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+
         jLabel3.setText("Porta:");
 
         jTextFieldPorta.setText("3306");
+        jTextFieldPorta.setRequestFocusEnabled(false);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -226,9 +244,17 @@ public class ConfiguracaoBancoDeDados extends javax.swing.JDialog {
 
     private void jButtonEnviarDadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEnviarDadosActionPerformed
         // TODO add your handling code here:
-        criaPontoBat();
         this.dispose();
     }//GEN-LAST:event_jButtonEnviarDadosActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        // TODO add your handling code here:
+        System.exit(0);
+    }//GEN-LAST:event_formWindowClosing
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        
+    }//GEN-LAST:event_formWindowActivated
 
     /**
      * @param args the command line arguments

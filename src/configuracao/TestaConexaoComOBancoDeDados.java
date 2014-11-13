@@ -2,6 +2,7 @@ package configuracao;
 
 import facade.PrincipalFacade;
 import java.io.IOException;
+import javax.swing.JOptionPane;
 import view.PrincipalJFrame;
 
 /**
@@ -30,6 +31,13 @@ public class TestaConexaoComOBancoDeDados {
             if (testaConexaoComOBancoDeDados.existeConexaoComBanco(user, senha, porta)) {
                 new PrincipalJFrame().main(args);
             } else {
+
+                if (configuracaoBancoDeDados.ArquivoJaExiste()){
+                    JOptionPane.showMessageDialog(null, "Servidor MySQL não foi detectado ou dados inseridos estão incorretos."
+                                                       + "\n Tente novamente!");
+                    System.exit(0);
+                }
+                configuracaoBancoDeDados.criaPontoBat();
                 new ConfiguracaoBancoDeDados(null, true).executaPontoBat();
                 boolean existeExcecao = true;
                 while (existeExcecao) {
