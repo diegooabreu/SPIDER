@@ -6,7 +6,6 @@
 package view;
 
 import controller.ProjetoJpaController;
-import controller.RiscoJpaController;
 import facade.PlanosFacade;
 import facade.ProjetoFacade;
 import facade.RiscosGerenciarRiscosFacade;

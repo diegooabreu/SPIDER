@@ -36,15 +36,23 @@ public class ProjetoJpaController implements Serializable {
         this.emf = emf;
     }
 
-    public ProjetoJpaController() throws Exception {
-
+    public ProjetoJpaController() {
+        try {
         emf = Persistence.createEntityManagerFactory("SpiderRMPU");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private EntityManagerFactory emf = null;
 
-    public EntityManager getEntityManager() throws Exception {
+    public EntityManager getEntityManager() {
+        try {
         return emf.createEntityManager();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     public void create(Projeto projeto) throws Exception {
@@ -431,7 +439,7 @@ public class ProjetoJpaController implements Serializable {
         }
     }
 
-    public Projeto findProjeto(Integer id) throws Exception {
+    public Projeto findProjeto(Integer id) {
         EntityManager em = getEntityManager();
         try {
             return em.find(Projeto.class, id);

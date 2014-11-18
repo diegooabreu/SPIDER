@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package facade;
 
 import controller.ProjetoJpaController;
@@ -17,13 +16,17 @@ import model.Projeto;
 public class PrincipalFacade {
 
     ProjetoJpaController projetoJPA = new ProjetoJpaController();
-        
-    public List<Projeto> listarProjetos(){
-        
-        List<Projeto> listaProjetos = projetoJPA.findProjetoEntities();
-        
-        return listaProjetos;      
-        
+
+    public List<Projeto> listarProjetos() {
+        try {
+            List<Projeto> listaProjetos = projetoJPA.findProjetoEntities();
+
+            return listaProjetos;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+
     }
-    
+
 }

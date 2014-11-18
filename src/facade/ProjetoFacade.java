@@ -85,8 +85,12 @@ public class ProjetoFacade {
     }
 
     public void salvarNovoProjeto(Projeto projeto) {
+        try {
         ProjetoJpaController projetoJpa = new ProjetoJpaController();
         projetoJpa.create(projeto);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public List<Planocontingencia> buscaPlanosDeContingenciaPendentes(Projeto projeto) {
