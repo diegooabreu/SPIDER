@@ -13,6 +13,7 @@ import facade.RiscosGerenciarRiscosFacade;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -53,6 +54,7 @@ public class PrincipalJFrame extends javax.swing.JFrame {
     final RiscosRiscosOcorridosJPanel riscosRiscosOcorridosJPanel = new RiscosRiscosOcorridosJPanel();
     final RiscosResumoDeRiscosJPanel riscosResumoDeRiscosJPanel = new RiscosResumoDeRiscosJPanel();
     final MonitoracaoResumoDeMonitoracao monitoracaoResumoDeMonitoracao = new MonitoracaoResumoDeMonitoracao();
+    final HomeSpider_Jpanel homeSpider_Jpanel = new HomeSpider_Jpanel();
 
     final MonitoracaoAnaliseDosRiscosJPanel monitoracaoAnaliseDosRiscosJPanel = new MonitoracaoAnaliseDosRiscosJPanel();
 
@@ -102,6 +104,10 @@ public class PrincipalJFrame extends javax.swing.JFrame {
         this.setResizable(false);
         this.setLocationRelativeTo(null);
 
+        homeSpider_Jpanel.setVisible(true);
+
+        popularComboBox();
+        this.setIconImage(new ImageIcon(getClass().getResource("/resources/img/spiderES9.png")).getImage());
     }
 
     public void definirEventoRedimensionamento() {
@@ -148,6 +154,8 @@ public class PrincipalJFrame extends javax.swing.JFrame {
 
                 monitoracaoPlanosRealizadosJPanel.setBounds(camadasJDesktopPane.getBounds());
 
+                homeSpider_Jpanel.setBounds(camadasJDesktopPane.getBounds());
+
                 System.out.println("componentResized()"); // TODO Auto-generated Event stub componentResized()  
             }
 
@@ -180,6 +188,7 @@ public class PrincipalJFrame extends javax.swing.JFrame {
         projetoSelecionadoJLabel = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         editarEARJButton = new javax.swing.JButton();
+        jLabel_Logo = new javax.swing.JLabel();
         menuJPanel = new javax.swing.JPanel();
         arvoreFuncionalidadesJScrollPane = new javax.swing.JScrollPane();
         jPanel2 = new javax.swing.JPanel();
@@ -187,6 +196,7 @@ public class PrincipalJFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("SPIDER - Risk Management");
+        setIconImages(null);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
@@ -248,6 +258,8 @@ public class PrincipalJFrame extends javax.swing.JFrame {
             }
         });
 
+        jLabel_Logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/img/spiderES7.png"))); // NOI18N
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -258,7 +270,9 @@ public class PrincipalJFrame extends javax.swing.JFrame {
                 .addComponent(configuracoesFerramentaJButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(editarEARJButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 316, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 127, Short.MAX_VALUE)
+                .addComponent(jLabel_Logo)
+                .addGap(82, 82, 82)
                 .addComponent(projetoSelecionadoJLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(projetoSelecionadoJComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -267,14 +281,20 @@ public class PrincipalJFrame extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(editarEARJButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(projetoSelecionadoJComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(projetoSelecionadoJLabel))
-                    .addComponent(configuracoesFerramentaJButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(editarEARJButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(configuracoesFerramentaJButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(projetoSelecionadoJComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(projetoSelecionadoJLabel))))
                 .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel_Logo))
         );
 
         menuJPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
@@ -287,7 +307,7 @@ public class PrincipalJFrame extends javax.swing.JFrame {
         );
         menuJPanelLayout.setVerticalGroup(
             menuJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(arvoreFuncionalidadesJScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 509, Short.MAX_VALUE)
+            .addComponent(arvoreFuncionalidadesJScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 510, Short.MAX_VALUE)
         );
 
         jPanel2.setAutoscrolls(true);
@@ -340,7 +360,7 @@ public class PrincipalJFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(menuJPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 514, Short.MAX_VALUE)
                         .addGap(1, 1, 1)))
                 .addContainerGap())
         );
@@ -573,7 +593,6 @@ public class PrincipalJFrame extends javax.swing.JFrame {
         } else {
             System.out.println("Não existem projetos. Crie um.");
         }
-
     }
 
     // Adicionando Frames no Painel em Camadas - camadasJLayeredPane //
@@ -643,6 +662,9 @@ public class PrincipalJFrame extends javax.swing.JFrame {
         calendarioDetalhesMarcoEpontoDoDiaInternalJFrame.setBounds(0, 0, 615, 420);
         camadasJDesktopPane.add(calendarioDetalhesMarcoEpontoDoDiaInternalJFrame);
 
+        homeSpider_Jpanel.setBounds(camadasJDesktopPane.getBounds());
+        camadasJDesktopPane.add(homeSpider_Jpanel);
+
     }
     //**************************************************************//
 
@@ -667,6 +689,7 @@ public class PrincipalJFrame extends javax.swing.JFrame {
         monitoracoaTabelaDeAlteracaoJPanel.setVisible(false);
         monitoracaoPlanosPendentesJPanel.setVisible(false);
         monitoracaoPlanosRealizadosJPanel.setVisible(false);
+        homeSpider_Jpanel.setVisible(false);
 
         //InternaisFrame
         calendarioDetalhesMarcoEpontoDoDiaInternalJFrame.setVisible(false);
@@ -748,6 +771,7 @@ public class PrincipalJFrame extends javax.swing.JFrame {
                     esconderFrames();
 
                     if (projetoSelecionadoJComboBox.getSelectedItem() == "--Selecione um Projeto--") {
+                        homeSpider_Jpanel.setVisible(true);
                         if (node == funcionalidades) {
                         } else if (node == organizacional) {
                             organizacionalDetalhesJPanel.setVisible(true);
@@ -888,6 +912,7 @@ public class PrincipalJFrame extends javax.swing.JFrame {
     private javax.swing.JButton configuracoesFerramentaJButton;
     private javax.swing.JButton editarEARJButton;
     private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel_Logo;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel menuJPanel;
