@@ -16,7 +16,7 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="gerenciarRiscosJPanel" pref="857" max="32767" attributes="0"/>
+          <Component id="gerenciarRiscosJPanel" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -32,13 +32,14 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
-                  <Component id="gerenciarRiscosJTabbedPane" pref="0" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="gerenciarRiscosJTabbedPane" pref="847" max="32767" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" max="-2" attributes="0"/>
+                          <Component id="TabelaDeRiscosJPanel" max="32767" attributes="0"/>
+                      </Group>
+                  </Group>
                   <EmptySpace max="-2" attributes="0"/>
-              </Group>
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="TabelaDeRiscosJPanel" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -73,61 +74,36 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="1" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="informacoesGeraisEmissorJLabel" alignment="0" min="-2" pref="107" max="-2" attributes="0"/>
+                              <Component id="informacoesGeraisDataDeIdentificacaoJLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="informacoesGeraisIdentificacaoDeRiscoJLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="informacoesGeraisProbabilidadeJLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="informacoesGeraisCategoriaDeRiscoJLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="informacoesGeraisImpactoJLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="informacoesGeraisEstadoAtualJLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="informacoesGeraisEstadoAtualJLabel" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="estadoAtualRiscoJLabel" min="-2" pref="149" max="-2" attributes="0"/>
-                                  <EmptySpace pref="99" max="32767" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
                               </Group>
-                              <Group type="102" alignment="1" attributes="0">
-                                  <Group type="103" groupAlignment="1" attributes="0">
-                                      <Group type="102" alignment="1" attributes="0">
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="informacoesGeraisProbabilidadeJLabel" min="-2" max="-2" attributes="0"/>
-                                              <Component id="informacoesGeraisCategoriaDeRiscoJLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Component id="informacoesGeraisImpactoJLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Group type="102" alignment="0" attributes="0">
-                                                  <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
-                                                  <Component id="informacoesGeraisCategoriaDeRiscoJComboBox" max="32767" attributes="0"/>
-                                              </Group>
-                                              <Group type="102" alignment="0" attributes="0">
-                                                  <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                                                  <Group type="103" groupAlignment="0" attributes="0">
-                                                      <Component id="informacoesGeraisImpactoJComboBox" max="32767" attributes="0"/>
-                                                      <Group type="102" attributes="0">
-                                                          <Component id="informacoesGeraisProbabilidadeJSpinner" min="-2" pref="61" max="-2" attributes="0"/>
-                                                          <EmptySpace max="-2" attributes="0"/>
-                                                          <Component id="informacoesGeraisProbabilidadePorcentagemJLabel" min="-2" max="-2" attributes="0"/>
-                                                          <EmptySpace pref="100" max="32767" attributes="0"/>
-                                                      </Group>
-                                                  </Group>
-                                              </Group>
-                                          </Group>
+                              <Group type="102" attributes="0">
+                                  <EmptySpace max="32767" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" attributes="0">
+                                          <Component id="informacoesGeraisProbabilidadeJSpinner" min="-2" pref="75" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="informacoesGeraisProbabilidadePorcentagemJLabel" min="-2" max="-2" attributes="0"/>
                                       </Group>
-                                      <Group type="102" alignment="1" attributes="0">
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Group type="102" attributes="0">
-                                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                                  <Component id="informacoesGeraisEmissorJLabel" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace min="-2" pref="73" max="-2" attributes="0"/>
-                                              </Group>
-                                              <Group type="102" attributes="0">
-                                                  <Group type="103" groupAlignment="0" attributes="0">
-                                                      <Component id="informacoesGeraisIdentificacaoDeRiscoJLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                      <Component id="informacoesGeraisDataDeIdentificacaoJLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                  </Group>
-                                                  <EmptySpace max="32767" attributes="0"/>
-                                              </Group>
-                                          </Group>
-                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                              <Component id="informacoesGeraisEmissorJTextField" pref="175" max="32767" attributes="0"/>
-                                              <Component id="informacoesGeraisIdentificacaoDeRiscoJTextField" alignment="0" pref="175" max="32767" attributes="0"/>
-                                              <Component id="dataIdentificacaoDoRisco" max="32767" attributes="0"/>
-                                          </Group>
+                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                          <Component id="informacoesGeraisCategoriaDeRiscoJComboBox" alignment="1" max="32767" attributes="0"/>
+                                          <Component id="informacoesGeraisEmissorJTextField" pref="175" max="32767" attributes="0"/>
+                                          <Component id="informacoesGeraisIdentificacaoDeRiscoJTextField" alignment="0" pref="175" max="32767" attributes="0"/>
+                                          <Component id="dataIdentificacaoDoRisco" max="32767" attributes="0"/>
                                       </Group>
+                                      <Component id="informacoesGeraisImpactoJComboBox" alignment="0" min="-2" pref="175" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
                               </Group>
@@ -426,7 +402,7 @@
                                           </Group>
                                           <Component id="jScrollPane1" alignment="0" max="32767" attributes="0"/>
                                       </Group>
-                                      <EmptySpace pref="175" max="32767" attributes="0"/>
+                                      <EmptySpace pref="164" max="32767" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Group type="102" alignment="1" attributes="0">
                                               <Component id="jLabel14" min="-2" max="-2" attributes="0"/>
@@ -863,7 +839,7 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
                                   <Component id="planoDeMitigacaoPlanoDeMitigacaoJLabel" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace pref="750" max="32767" attributes="0"/>
+                                  <EmptySpace pref="739" max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" attributes="0">
                                   <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
@@ -1177,7 +1153,7 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
                                   <Component id="planoContigenciaPlanoDeContigenciaJLabel" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace pref="739" max="32767" attributes="0"/>
+                                  <EmptySpace pref="728" max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" attributes="0">
                                   <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
@@ -1489,7 +1465,7 @@
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
-                          <Component id="tabelaHistoricoAlteracoesJScrollPane" pref="843" max="32767" attributes="0"/>
+                          <Component id="tabelaHistoricoAlteracoesJScrollPane" pref="832" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -1526,7 +1502,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="tabelaRiscosJScrollPane" pref="815" max="32767" attributes="0"/>
+                      <Component id="tabelaRiscosJScrollPane" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
