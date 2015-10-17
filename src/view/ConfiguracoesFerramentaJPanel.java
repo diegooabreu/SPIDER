@@ -6,6 +6,7 @@
 
 package view;
 
+import view.Organizacional.OrganizacionalPoliticaOrganizacionalJPanel;
 import facade.PoliticaOrganizacionalFacade;
 import facade.ProjetoPlanoRiscoFacade;
 import java.io.File;
