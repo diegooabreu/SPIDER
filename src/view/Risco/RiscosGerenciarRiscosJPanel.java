@@ -1472,6 +1472,12 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
         InformacoesGeraisDescricaoDeRiscoJTextArea.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Descrição de Risco", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP));
         informacoesGeraisDescricaoDeRiscoJScrollPane.setViewportView(InformacoesGeraisDescricaoDeRiscoJTextArea);
 
+        informacoesGeraisGrauDeSeveridadeJTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                informacoesGeraisGrauDeSeveridadeJTextFieldActionPerformed(evt);
+            }
+        });
+
         informacoesGeraisProbabilidadeJSpinner.setModel(new javax.swing.SpinnerNumberModel(0, 0, 100, 1));
         informacoesGeraisProbabilidadeJSpinner.setFocusable(false);
         informacoesGeraisProbabilidadeJSpinner.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1519,22 +1525,23 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
         InformacoesGeraisJPanel.setLayout(InformacoesGeraisJPanelLayout);
         InformacoesGeraisJPanelLayout.setHorizontalGroup(
             InformacoesGeraisJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(InformacoesGeraisJPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(InformacoesGeraisJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(informacoesGeraisEmissorJLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(informacoesGeraisDataDeIdentificacaoJLabel)
-                    .addComponent(informacoesGeraisIdentificacaoDeRiscoJLabel)
-                    .addComponent(informacoesGeraisProbabilidadeJLabel)
-                    .addComponent(informacoesGeraisCategoriaDeRiscoJLabel)
-                    .addComponent(informacoesGeraisImpactoJLabel)
-                    .addComponent(informacoesGeraisEstadoAtualJLabel))
-                .addGroup(InformacoesGeraisJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, InformacoesGeraisJPanelLayout.createSequentialGroup()
+                .addGroup(InformacoesGeraisJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(InformacoesGeraisJPanelLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(informacoesGeraisAdicionarNovoRiscoJButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(estadoAtualRiscoJLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(informacoesGeraisSalvarAlteracoesDoRiscoJButton, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(InformacoesGeraisJPanelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(InformacoesGeraisJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(informacoesGeraisEmissorJLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(informacoesGeraisDataDeIdentificacaoJLabel)
+                            .addComponent(informacoesGeraisIdentificacaoDeRiscoJLabel)
+                            .addComponent(informacoesGeraisProbabilidadeJLabel)
+                            .addComponent(informacoesGeraisCategoriaDeRiscoJLabel)
+                            .addComponent(informacoesGeraisImpactoJLabel)
+                            .addComponent(informacoesGeraisEstadoAtualJLabel))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(InformacoesGeraisJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(InformacoesGeraisJPanelLayout.createSequentialGroup()
@@ -1546,47 +1553,43 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
                                 .addComponent(informacoesGeraisEmissorJTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
                                 .addComponent(informacoesGeraisIdentificacaoDeRiscoJTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
                                 .addComponent(dataIdentificacaoDoRisco, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(informacoesGeraisImpactoJComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(31, 31, 31)))
-                .addGroup(InformacoesGeraisJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(InformacoesGeraisJPanelLayout.createSequentialGroup()
-                        .addGroup(InformacoesGeraisJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(informacoesGeraisAdicionarNovoRiscoJButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(informacoesGeraisLimparCamposJButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(18, 18, 18)
-                        .addGroup(InformacoesGeraisJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(informacoesGeraisSalvarAlteracoesDoRiscoJButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(informacoesGeraisRemoverRiscoJButton, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE)))
-                    .addGroup(InformacoesGeraisJPanelLayout.createSequentialGroup()
-                        .addComponent(informacoesGeraisGrauDeSeveridadeJLabel)
-                        .addGap(18, 18, 18)
-                        .addComponent(informacoesGeraisGrauDeSeveridadeJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 389, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(informacoesGeraisDescricaoDeRiscoJScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 514, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                            .addComponent(informacoesGeraisImpactoJComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(estadoAtualRiscoJLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(31, 31, 31)
+                        .addGroup(InformacoesGeraisJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, InformacoesGeraisJPanelLayout.createSequentialGroup()
+                                .addComponent(informacoesGeraisGrauDeSeveridadeJLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(informacoesGeraisGrauDeSeveridadeJTextField))
+                            .addGroup(InformacoesGeraisJPanelLayout.createSequentialGroup()
+                                .addComponent(informacoesGeraisLimparCamposJButton, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(informacoesGeraisRemoverRiscoJButton, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(informacoesGeraisDescricaoDeRiscoJScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 506, Short.MAX_VALUE))))
+                .addGap(18, 18, 18))
         );
         InformacoesGeraisJPanelLayout.setVerticalGroup(
             InformacoesGeraisJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(InformacoesGeraisJPanelLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(14, 14, 14)
                 .addGroup(InformacoesGeraisJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(InformacoesGeraisJPanelLayout.createSequentialGroup()
-                        .addGap(3, 3, 3)
                         .addGroup(InformacoesGeraisJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(informacoesGeraisIdentificacaoDeRiscoJLabel)
                             .addComponent(informacoesGeraisIdentificacaoDeRiscoJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(InformacoesGeraisJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(informacoesGeraisDataDeIdentificacaoJLabel)
                             .addComponent(dataIdentificacaoDoRisco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(5, 5, 5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(InformacoesGeraisJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(informacoesGeraisEmissorJLabel)
                             .addComponent(informacoesGeraisEmissorJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(InformacoesGeraisJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(informacoesGeraisCategoriaDeRiscoJComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(informacoesGeraisCategoriaDeRiscoJLabel))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(InformacoesGeraisJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(informacoesGeraisProbabilidadeJLabel)
                             .addComponent(informacoesGeraisProbabilidadeJSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1595,26 +1598,25 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
                         .addGroup(InformacoesGeraisJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(informacoesGeraisImpactoJComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(informacoesGeraisImpactoJLabel))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(InformacoesGeraisJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(informacoesGeraisEstadoAtualJLabel)
-                            .addComponent(estadoAtualRiscoJLabel))
-                        .addGap(25, 25, 25))
+                            .addComponent(estadoAtualRiscoJLabel)))
                     .addGroup(InformacoesGeraisJPanelLayout.createSequentialGroup()
-                        .addComponent(informacoesGeraisDescricaoDeRiscoJScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(InformacoesGeraisJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(informacoesGeraisSalvarAlteracoesDoRiscoJButton)
-                            .addComponent(informacoesGeraisLimparCamposJButton))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(InformacoesGeraisJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(informacoesGeraisRemoverRiscoJButton)
-                            .addComponent(informacoesGeraisAdicionarNovoRiscoJButton))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                        .addComponent(informacoesGeraisDescricaoDeRiscoJScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(InformacoesGeraisJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(informacoesGeraisGrauDeSeveridadeJLabel)
                             .addComponent(informacoesGeraisGrauDeSeveridadeJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(66, 66, 66))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(InformacoesGeraisJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(informacoesGeraisSalvarAlteracoesDoRiscoJButton)
+                    .addComponent(informacoesGeraisAdicionarNovoRiscoJButton))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(InformacoesGeraisJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(informacoesGeraisRemoverRiscoJButton)
+                    .addComponent(informacoesGeraisLimparCamposJButton))
+                .addContainerGap(53, Short.MAX_VALUE))
         );
 
         gerenciarRiscosJTabbedPane.addTab("Informações Gerais", InformacoesGeraisJPanel);
@@ -1664,10 +1666,8 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
                             .addComponent(jScrollPane1))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 164, Short.MAX_VALUE)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                                .addComponent(jLabel14)
-                                .addGap(175, 175, 175))
-                            .addComponent(jScrollPane10, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel14))))
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
@@ -2263,7 +2263,7 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
                     .addGroup(PlanoContigenciaJPanelLayout.createSequentialGroup()
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(219, Short.MAX_VALUE))
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 300, Short.MAX_VALUE)))
         );
 
         gerenciarRiscosJTabbedPane.addTab("Plano de Contigência", PlanoContigenciaJPanel);
@@ -2307,7 +2307,7 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
             gerenciarRiscosJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(gerenciarRiscosJPanelLayout.createSequentialGroup()
                 .addGroup(gerenciarRiscosJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(gerenciarRiscosJTabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 847, Short.MAX_VALUE)
+                    .addComponent(gerenciarRiscosJTabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 847, Short.MAX_VALUE)
                     .addGroup(gerenciarRiscosJPanelLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(TabelaDeRiscosJPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
@@ -3350,6 +3350,10 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
         }
 
     }//GEN-LAST:event_deletarRelacaoJButtonActionPerformed
+
+    private void informacoesGeraisGrauDeSeveridadeJTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_informacoesGeraisGrauDeSeveridadeJTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_informacoesGeraisGrauDeSeveridadeJTextFieldActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
