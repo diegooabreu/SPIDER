@@ -188,6 +188,7 @@ public class PrincipalJFrame extends javax.swing.JFrame {
             }
         });
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -527,16 +528,18 @@ public class PrincipalJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_projetoSelecionadoJComboBoxPopupMenuWillBecomeVisible
 
     private void editarEARJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarEARJButtonActionPerformed
-        esconderFrames();
-        organizacionalEditarEARJPanel.setVisible(true);
-        arvoreFuncionalidadesJTree.clearSelection();
-        organizacionalEditarEARJPanel.getOrganizacao(projetoSelecionado.getIdOrganizacao());
-        organizacionalEditarEARJPanel.criarArvore();
-        organizacionalEditarEARJPanel.popularArvore();
-        organizacionalEditarEARJPanel.definirEventosArvore();
-        organizacionalEditarEARJPanel.definirEventosArvoreSelecionarPai();
-
-// TODO add your handling code here:
+        if (projetoSelecionadoJComboBox.getSelectedItem() != "--Selecione um Projeto--") {
+            esconderFrames();
+            organizacionalEditarEARJPanel.setVisible(true);
+            arvoreFuncionalidadesJTree.clearSelection();
+            organizacionalEditarEARJPanel.getOrganizacao(projetoSelecionado.getIdOrganizacao());
+            organizacionalEditarEARJPanel.criarArvore();
+            organizacionalEditarEARJPanel.popularArvore();
+            organizacionalEditarEARJPanel.definirEventosArvore();
+            organizacionalEditarEARJPanel.definirEventosArvoreSelecionarPai();
+        } else {
+            JOptionPane.showMessageDialog(null, "Selecione um projeto no Combobox.");
+        }
     }//GEN-LAST:event_editarEARJButtonActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
