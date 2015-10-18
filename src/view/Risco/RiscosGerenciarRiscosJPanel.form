@@ -21,7 +21,10 @@
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="gerenciarRiscosJPanel" min="-2" pref="499" max="-2" attributes="0"/>
+          <Group type="102" alignment="0" attributes="0">
+              <Component id="gerenciarRiscosJPanel" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+          </Group>
       </Group>
     </DimensionLayout>
   </Layout>
@@ -32,12 +35,14 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="gerenciarRiscosJTabbedPane" pref="847" max="32767" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" max="-2" attributes="0"/>
-                          <Component id="TabelaDeRiscosJPanel" max="32767" attributes="0"/>
+                          <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
+                      <Component id="tabelaRiscosJScrollPane" alignment="1" max="32767" attributes="0"/>
+                      <Component id="gerenciarRiscosJTabbedPane" alignment="1" pref="837" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -46,11 +51,13 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace max="32767" attributes="0"/>
-                  <Component id="gerenciarRiscosJTabbedPane" min="-2" pref="359" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="TabelaDeRiscosJPanel" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
+                  <Component id="gerenciarRiscosJTabbedPane" max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="tabelaRiscosJScrollPane" min="-2" pref="116" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -399,7 +406,7 @@
                                           </Group>
                                           <Component id="jScrollPane1" alignment="0" max="32767" attributes="0"/>
                                       </Group>
-                                      <EmptySpace pref="164" max="32767" attributes="0"/>
+                                      <EmptySpace pref="154" max="32767" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="jScrollPane10" min="-2" pref="329" max="-2" attributes="0"/>
                                           <Component id="jLabel14" min="-2" max="-2" attributes="0"/>
@@ -533,7 +540,7 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jScrollPane13" alignment="0" max="32767" attributes="0"/>
+                      <Component id="jScrollPane13" alignment="0" pref="832" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
@@ -610,7 +617,7 @@
                                           </Group>
                                       </Group>
                                   </Group>
-                                  <EmptySpace pref="36" max="32767" attributes="0"/>
+                                  <EmptySpace pref="37" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>
@@ -828,85 +835,64 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <Component id="planoDeMitigacaoPlanoDeMitigacaoJLabel" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace pref="739" max="32767" attributes="0"/>
-                              </Group>
-                              <Group type="102" attributes="0">
-                                  <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jPanel3" max="32767" attributes="0"/>
-                              </Group>
-                          </Group>
-                      </Group>
+                      <Component id="jPanel1" alignment="0" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="planoDeMitigacaoPlanoDeMitigacaoJLabel" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jPanel1" max="32767" attributes="0"/>
-                              <Group type="102" attributes="0">
-                                  <Component id="jPanel3" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                              </Group>
-                          </Group>
+                          <Component id="jPanel1" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
               </Layout>
               <SubComponents>
-                <Component class="javax.swing.JLabel" name="planoDeMitigacaoPlanoDeMitigacaoJLabel">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Plano de Mitiga&#xe7;&#xe3;o:"/>
-                  </Properties>
-                </Component>
                 <Container class="javax.swing.JPanel" name="jPanel1">
 
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="jScrollPane9" min="-2" pref="130" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="planoDeMitigacaoAdicionarPlanoJButton" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="planoDeMitigacaoRemoverPlanoJButton" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="planoDeMitigacaoSalvarAlteracoesJButton" alignment="0" pref="204" max="32767" attributes="0"/>
+                                      <Component id="jScrollPane9" alignment="0" pref="0" max="32767" attributes="0"/>
+                                  </Group>
+                                  <Component id="planoDeMitigacaoPlanoDeMitigacaoJLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                              </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jScrollPane2" max="32767" attributes="0"/>
-                                  <Component id="jScrollPane3" max="32767" attributes="0"/>
-                                  <Component id="jLabel5" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel6" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-                                  <Group type="102" alignment="0" attributes="0">
+                                  <Component id="jScrollPane3" alignment="1" max="32767" attributes="0"/>
+                                  <Component id="jScrollPane2" alignment="1" max="32767" attributes="0"/>
+                                  <Group type="102" attributes="0">
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace max="32767" attributes="0"/>
-                                          </Group>
-                                          <Group type="102" attributes="0">
-                                              <Component id="jLabel2" max="32767" attributes="0"/>
-                                              <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
-                                          </Group>
+                                          <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                                       </Group>
-                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="planoDeMitigacaoIdentificacaoJTextField" min="-2" pref="374" max="-2" attributes="0"/>
-                                          <Group type="102" alignment="1" attributes="0">
-                                              <Component id="planoDeMitigacaoResponsavelJTextField" max="32767" attributes="0"/>
-                                              <EmptySpace max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="102" attributes="0">
+                                              <Component id="planoDeMitigacaoResponsavelJTextField" min="-2" pref="250" max="-2" attributes="0"/>
+                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                               <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Component id="jLabel4" alignment="0" min="-2" pref="70" max="-2" attributes="0"/>
-                                                  <Component id="jLabel18" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              </Group>
-                                              <EmptySpace max="-2" attributes="0"/>
-                                              <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Component id="planoMitigacaoDataLimiteJComboBox" min="-2" pref="141" max="-2" attributes="0"/>
-                                                  <Component id="planoMitigacaoDataSelecionadaJLabel" min="-2" pref="141" max="-2" attributes="0"/>
+                                                  <Group type="102" attributes="0">
+                                                      <Component id="jLabel18" min="-2" max="-2" attributes="0"/>
+                                                      <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
+                                                      <Component id="planoMitigacaoDataSelecionadaJLabel" min="-2" pref="141" max="-2" attributes="0"/>
+                                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                                  </Group>
+                                                  <Group type="102" attributes="0">
+                                                      <Component id="jLabel4" min="-2" pref="62" max="-2" attributes="0"/>
+                                                      <EmptySpace max="-2" attributes="0"/>
+                                                      <Component id="planoMitigacaoDataLimiteJComboBox" max="32767" attributes="0"/>
+                                                  </Group>
                                               </Group>
                                           </Group>
+                                          <Component id="planoDeMitigacaoIdentificacaoJTextField" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                                   <Component id="jScrollPane4" max="32767" attributes="0"/>
@@ -917,38 +903,46 @@
                     </DimensionLayout>
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="planoDeMitigacaoIdentificacaoJTextField" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="planoDeMitigacaoResponsavelJTextField" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="planoMitigacaoDataLimiteJComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel18" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="planoMitigacaoDataSelecionadaJLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jScrollPane2" min="-2" pref="50" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jScrollPane3" min="-2" pref="50" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jScrollPane4" pref="76" max="32767" attributes="0"/>
-                          </Group>
                           <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="planoDeMitigacaoIdentificacaoJTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="planoDeMitigacaoPlanoDeMitigacaoJLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jScrollPane9" max="32767" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="planoDeMitigacaoResponsavelJTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="planoMitigacaoDataLimiteJComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="planoMitigacaoDataSelecionadaJLabel" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel18" alignment="1" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="jScrollPane2" min="-2" pref="74" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="jScrollPane3" pref="70" max="32767" attributes="0"/>
+                                  </Group>
+                                  <Component id="jScrollPane9" max="32767" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <Component id="planoDeMitigacaoAdicionarPlanoJButton" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="planoDeMitigacaoRemoverPlanoJButton" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="planoDeMitigacaoSalvarAlteracoesJButton" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Component id="jScrollPane4" max="32767" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -966,11 +960,6 @@
                     </Component>
                     <Component class="javax.swing.JTextField" name="planoDeMitigacaoResponsavelJTextField">
                     </Component>
-                    <Component class="javax.swing.JLabel" name="jLabel3">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="Descri&#xe7;&#xe3;o:"/>
-                      </Properties>
-                    </Component>
                     <Container class="javax.swing.JScrollPane" name="jScrollPane2">
                       <AuxValues>
                         <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
@@ -984,6 +973,11 @@
                             <Property name="lineWrap" type="boolean" value="true"/>
                             <Property name="rows" type="int" value="1"/>
                             <Property name="wrapStyleWord" type="boolean" value="true"/>
+                            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                              <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+                                <TitledBorder title="Descri&#xe7;&#xe3;o:"/>
+                              </Border>
+                            </Property>
                           </Properties>
                         </Component>
                       </SubComponents>
@@ -991,11 +985,6 @@
                     <Component class="javax.swing.JLabel" name="jLabel4">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="Data Limite: "/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JLabel" name="jLabel5">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="Como ser&#xe1; feito:"/>
                       </Properties>
                     </Component>
                     <Container class="javax.swing.JScrollPane" name="jScrollPane3">
@@ -1011,28 +1000,11 @@
                             <Property name="lineWrap" type="boolean" value="true"/>
                             <Property name="rows" type="int" value="1"/>
                             <Property name="wrapStyleWord" type="boolean" value="true"/>
-                          </Properties>
-                        </Component>
-                      </SubComponents>
-                    </Container>
-                    <Component class="javax.swing.JLabel" name="jLabel6">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="Informa&#xe7;&#xf5;es Adicionais:"/>
-                      </Properties>
-                    </Component>
-                    <Container class="javax.swing.JScrollPane" name="jScrollPane4">
-                      <AuxValues>
-                        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-                      </AuxValues>
-
-                      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-                      <SubComponents>
-                        <Component class="javax.swing.JTextArea" name="planoDeMitigacaoInfAdicionaisJTextArea">
-                          <Properties>
-                            <Property name="columns" type="int" value="20"/>
-                            <Property name="lineWrap" type="boolean" value="true"/>
-                            <Property name="rows" type="int" value="1"/>
-                            <Property name="wrapStyleWord" type="boolean" value="true"/>
+                            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                              <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+                                <TitledBorder title="Como ser&#xe1; feito:"/>
+                              </Border>
+                            </Property>
                           </Properties>
                         </Component>
                       </SubComponents>
@@ -1072,36 +1044,6 @@
                     </Component>
                     <Component class="javax.swing.JLabel" name="planoMitigacaoDataSelecionadaJLabel">
                     </Component>
-                  </SubComponents>
-                </Container>
-                <Container class="javax.swing.JPanel" name="jPanel3">
-
-                  <Layout>
-                    <DimensionLayout dim="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="planoDeMitigacaoRemoverPlanoJButton" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="planoDeMitigacaoSalvarAlteracoesJButton" max="32767" attributes="0"/>
-                                  <Component id="planoDeMitigacaoAdicionarPlanoJButton" alignment="0" max="32767" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                    </DimensionLayout>
-                    <DimensionLayout dim="1">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="planoDeMitigacaoAdicionarPlanoJButton" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
-                              <Component id="planoDeMitigacaoRemoverPlanoJButton" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="planoDeMitigacaoSalvarAlteracoesJButton" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                    </DimensionLayout>
-                  </Layout>
-                  <SubComponents>
                     <Component class="javax.swing.JButton" name="planoDeMitigacaoAdicionarPlanoJButton">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="Adicionar Plano"/>
@@ -1126,6 +1068,33 @@
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="planoDeMitigacaoRemoverPlanoJButtonActionPerformed"/>
                       </Events>
                     </Component>
+                    <Container class="javax.swing.JScrollPane" name="jScrollPane4">
+                      <AuxValues>
+                        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+                      </AuxValues>
+
+                      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                      <SubComponents>
+                        <Component class="javax.swing.JTextArea" name="planoDeMitigacaoInfAdicionaisJTextArea">
+                          <Properties>
+                            <Property name="columns" type="int" value="20"/>
+                            <Property name="lineWrap" type="boolean" value="true"/>
+                            <Property name="rows" type="int" value="1"/>
+                            <Property name="wrapStyleWord" type="boolean" value="true"/>
+                            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                              <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+                                <TitledBorder title="Informa&#xe7;&#xf5;es Adicionais:"/>
+                              </Border>
+                            </Property>
+                          </Properties>
+                        </Component>
+                      </SubComponents>
+                    </Container>
+                    <Component class="javax.swing.JLabel" name="planoDeMitigacaoPlanoDeMitigacaoJLabel">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Plano de Mitiga&#xe7;&#xe3;o:"/>
+                      </Properties>
+                    </Component>
                   </SubComponents>
                 </Container>
               </SubComponents>
@@ -1142,88 +1111,71 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <Component id="planoContigenciaPlanoDeContigenciaJLabel" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace pref="728" max="32767" attributes="0"/>
-                              </Group>
-                              <Group type="102" attributes="0">
-                                  <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jPanel4" max="32767" attributes="0"/>
-                              </Group>
-                          </Group>
-                      </Group>
+                      <Component id="jPanel2" alignment="0" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
+                      <Group type="102" alignment="1" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="planoContigenciaPlanoDeContigenciaJLabel" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <Component id="jPanel4" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace pref="219" max="32767" attributes="0"/>
-                              </Group>
-                              <Component id="jPanel2" pref="300" max="32767" attributes="0"/>
-                          </Group>
+                          <Component id="jPanel2" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
               </Layout>
               <SubComponents>
-                <Component class="javax.swing.JLabel" name="planoContigenciaPlanoDeContigenciaJLabel">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Plano de Contig&#xea;ncia:"/>
-                  </Properties>
-                </Component>
                 <Container class="javax.swing.JPanel" name="jPanel2">
 
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="jScrollPane5" min="-2" pref="130" max="-2" attributes="0"/>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jLabel10" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel11" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel12" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Group type="102" alignment="0" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <Component id="planoContigenciaPlanoDeContigenciaJLabel" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="109" max="-2" attributes="0"/>
+                                      <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace max="32767" attributes="0"/>
-                                          </Group>
                                           <Group type="102" attributes="0">
-                                              <Component id="jLabel8" max="32767" attributes="0"/>
-                                              <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
+                                              <Component id="planoDeContingenciaResponsavelJTextField" min="-2" pref="253" max="-2" attributes="0"/>
+                                              <EmptySpace min="-2" pref="70" max="-2" attributes="0"/>
+                                              <Component id="planoContingenciaDataSelecionadaJLabel" min="-2" pref="141" max="-2" attributes="0"/>
+                                              <EmptySpace min="0" pref="18" max="32767" attributes="0"/>
                                           </Group>
+                                          <Component id="planoDeContingenciaIdentificacaoJTextField" max="32767" attributes="0"/>
                                       </Group>
+                                  </Group>
+                                  <Group type="102" alignment="0" attributes="0">
                                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="planoDeContingenciaIdentificacaoJTextField" min="-2" pref="374" max="-2" attributes="0"/>
-                                          <Group type="102" alignment="1" attributes="0">
-                                              <Component id="planoDeContingenciaResponsavelJTextField" max="32767" attributes="0"/>
-                                              <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="jScrollPane5" alignment="1" pref="0" max="32767" attributes="0"/>
+                                          <Component id="planoDeContingenciaAdicionarPlanoJButton" alignment="1" max="32767" attributes="0"/>
+                                          <Component id="planoDeContingenciaRemoverPlanoJButton" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="planoDeContingenciaSalvarAlteracoesJButton" alignment="0" pref="205" max="32767" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="jScrollPane8" max="32767" attributes="0"/>
+                                          <Component id="jScrollPane6" max="32767" attributes="0"/>
+                                          <Component id="jScrollPane7" max="32767" attributes="0"/>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Component id="jLabel8" min="-2" pref="80" max="-2" attributes="0"/>
+                                              <EmptySpace min="-2" pref="297" max="-2" attributes="0"/>
                                               <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Component id="jLabel9" alignment="0" min="-2" pref="70" max="-2" attributes="0"/>
-                                                  <Component id="jLabel19" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              </Group>
-                                              <EmptySpace max="-2" attributes="0"/>
-                                              <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Component id="planoContingenciaDataLimiteJComboBox" min="-2" pref="141" max="-2" attributes="0"/>
-                                                  <Component id="planoContingenciaDataSelecionadaJLabel" min="-2" pref="141" max="-2" attributes="0"/>
+                                                  <Group type="102" attributes="0">
+                                                      <Component id="jLabel19" min="-2" max="-2" attributes="0"/>
+                                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                                  </Group>
+                                                  <Group type="102" attributes="0">
+                                                      <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
+                                                      <EmptySpace max="-2" attributes="0"/>
+                                                      <Component id="planoContingenciaDataLimiteJComboBox" max="32767" attributes="0"/>
+                                                  </Group>
                                               </Group>
                                           </Group>
                                       </Group>
                                   </Group>
-                                  <Component id="jScrollPane6" max="32767" attributes="0"/>
-                                  <Component id="jScrollPane7" max="32767" attributes="0"/>
-                                  <Component id="jScrollPane8" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
@@ -1232,39 +1184,46 @@
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="planoDeContingenciaIdentificacaoJTextField" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="planoDeContingenciaIdentificacaoJTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Component id="planoContigenciaPlanoDeContigenciaJLabel" alignment="1" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="planoDeContingenciaResponsavelJTextField" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel9" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="planoContingenciaDataLimiteJComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="planoDeContingenciaResponsavelJTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel9" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="planoContingenciaDataLimiteJComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="jLabel19" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="planoContingenciaDataSelecionadaJLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="jScrollPane6" min="-2" pref="74" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="jScrollPane7" min="-2" pref="70" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Component id="jScrollPane5" min="-2" pref="195" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jLabel10" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel19" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="planoContingenciaDataSelecionadaJLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <Component id="planoDeContingenciaAdicionarPlanoJButton" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="planoDeContingenciaRemoverPlanoJButton" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="planoDeContingenciaSalvarAlteracoesJButton" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Component id="jScrollPane8" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jScrollPane6" min="-2" pref="50" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jScrollPane7" min="-2" pref="50" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jScrollPane8" max="32767" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jScrollPane5" min="-2" pref="288" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -1303,11 +1262,6 @@
                         <Property name="text" type="java.lang.String" value="Data Limite:"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JLabel" name="jLabel10">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="Descri&#xe7;&#xe3;o:"/>
-                      </Properties>
-                    </Component>
                     <Container class="javax.swing.JScrollPane" name="jScrollPane6">
                       <AuxValues>
                         <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
@@ -1321,15 +1275,15 @@
                             <Property name="lineWrap" type="boolean" value="true"/>
                             <Property name="rows" type="int" value="1"/>
                             <Property name="wrapStyleWord" type="boolean" value="true"/>
+                            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                              <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+                                <TitledBorder title="Descri&#xe7;&#xe3;o:"/>
+                              </Border>
+                            </Property>
                           </Properties>
                         </Component>
                       </SubComponents>
                     </Container>
-                    <Component class="javax.swing.JLabel" name="jLabel11">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="Como ser&#xe1; feito:"/>
-                      </Properties>
-                    </Component>
                     <Container class="javax.swing.JScrollPane" name="jScrollPane7">
                       <AuxValues>
                         <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
@@ -1343,15 +1297,15 @@
                             <Property name="lineWrap" type="boolean" value="true"/>
                             <Property name="rows" type="int" value="1"/>
                             <Property name="wrapStyleWord" type="boolean" value="true"/>
+                            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                              <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+                                <TitledBorder title="Como ser&#xe1; feito:"/>
+                              </Border>
+                            </Property>
                           </Properties>
                         </Component>
                       </SubComponents>
                     </Container>
-                    <Component class="javax.swing.JLabel" name="jLabel12">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="Informa&#xe7;&#xf5;es Adicionais:"/>
-                      </Properties>
-                    </Component>
                     <Container class="javax.swing.JScrollPane" name="jScrollPane8">
                       <AuxValues>
                         <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
@@ -1365,6 +1319,11 @@
                             <Property name="lineWrap" type="boolean" value="true"/>
                             <Property name="rows" type="int" value="1"/>
                             <Property name="wrapStyleWord" type="boolean" value="true"/>
+                            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                              <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+                                <TitledBorder title="Informa&#xe7;&#xf5;es Adicionais:"/>
+                              </Border>
+                            </Property>
                           </Properties>
                         </Component>
                       </SubComponents>
@@ -1388,36 +1347,6 @@
                     </Component>
                     <Component class="javax.swing.JLabel" name="planoContingenciaDataSelecionadaJLabel">
                     </Component>
-                  </SubComponents>
-                </Container>
-                <Container class="javax.swing.JPanel" name="jPanel4">
-
-                  <Layout>
-                    <DimensionLayout dim="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="1" attributes="0">
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Component id="planoDeContingenciaSalvarAlteracoesJButton" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="planoDeContingenciaRemoverPlanoJButton" max="32767" attributes="0"/>
-                                  <Component id="planoDeContingenciaAdicionarPlanoJButton" max="32767" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                    </DimensionLayout>
-                    <DimensionLayout dim="1">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="planoDeContingenciaAdicionarPlanoJButton" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="planoDeContingenciaRemoverPlanoJButton" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="planoDeContingenciaSalvarAlteracoesJButton" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                    </DimensionLayout>
-                  </Layout>
-                  <SubComponents>
                     <Component class="javax.swing.JButton" name="planoDeContingenciaAdicionarPlanoJButton">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="Adicionar Plano"/>
@@ -1442,6 +1371,11 @@
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="planoDeContingenciaSalvarAlteracoesJButtonActionPerformed"/>
                       </Events>
                     </Component>
+                    <Component class="javax.swing.JLabel" name="planoContigenciaPlanoDeContigenciaJLabel">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Plano de Contig&#xea;ncia:"/>
+                      </Properties>
+                    </Component>
                   </SubComponents>
                 </Container>
               </SubComponents>
@@ -1458,18 +1392,12 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <Component id="tabelaHistoricoAlteracoesJScrollPane" pref="832" max="32767" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                      </Group>
+                      <Component id="tabelaHistoricoAlteracoesJScrollPane" alignment="0" pref="832" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="tabelaHistoricoAlteracoesJScrollPane" min="-2" pref="304" max="-2" attributes="0"/>
-                          <EmptySpace min="0" pref="27" max="32767" attributes="0"/>
-                      </Group>
+                      <Component id="tabelaHistoricoAlteracoesJScrollPane" alignment="0" pref="331" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
               </Layout>
@@ -1482,38 +1410,15 @@
             </Container>
           </SubComponents>
         </Container>
-        <Container class="javax.swing.JPanel" name="TabelaDeRiscosJPanel">
-          <Properties>
-            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-              <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                <TitledBorder title="Tabela de Riscos"/>
-              </Border>
-            </Property>
-          </Properties>
+        <Container class="javax.swing.JScrollPane" name="tabelaRiscosJScrollPane">
 
-          <Layout>
-            <DimensionLayout dim="0">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="tabelaRiscosJScrollPane" max="32767" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                  </Group>
-              </Group>
-            </DimensionLayout>
-            <DimensionLayout dim="1">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="tabelaRiscosJScrollPane" alignment="0" pref="93" max="32767" attributes="0"/>
-              </Group>
-            </DimensionLayout>
-          </Layout>
-          <SubComponents>
-            <Container class="javax.swing.JScrollPane" name="tabelaRiscosJScrollPane">
-
-              <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-            </Container>
-          </SubComponents>
+          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
         </Container>
+        <Component class="javax.swing.JLabel" name="jLabel3">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Tabela de Riscos:"/>
+          </Properties>
+        </Component>
       </SubComponents>
     </Container>
   </SubComponents>

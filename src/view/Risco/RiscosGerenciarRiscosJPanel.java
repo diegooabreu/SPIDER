@@ -1368,33 +1368,28 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
         deletarCondicaoJButton = new javax.swing.JButton();
         deletarRelacaoJButton = new javax.swing.JButton();
         PlanoDeMitigacaoJPanel = new javax.swing.JPanel();
-        planoDeMitigacaoPlanoDeMitigacaoJLabel = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         planoDeMitigacaoResponsavelJTextField = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         planoDeMitigacaoDescricaoJTextArea = new javax.swing.JTextArea();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         planoDeMitigacaoComoSeraFeitoJTextArea = new javax.swing.JTextArea();
-        jLabel6 = new javax.swing.JLabel();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        planoDeMitigacaoInfAdicionaisJTextArea = new javax.swing.JTextArea();
         planoDeMitigacaoIdentificacaoJTextField = new javax.swing.JTextField();
         jScrollPane9 = new javax.swing.JScrollPane();
         planoDeMitigacaoListaPlanosJList = new javax.swing.JList();
         planoMitigacaoDataLimiteJComboBox = new javax.swing.JComboBox();
         jLabel18 = new javax.swing.JLabel();
         planoMitigacaoDataSelecionadaJLabel = new javax.swing.JLabel();
-        jPanel3 = new javax.swing.JPanel();
         planoDeMitigacaoAdicionarPlanoJButton = new javax.swing.JButton();
         planoDeMitigacaoSalvarAlteracoesJButton = new javax.swing.JButton();
         planoDeMitigacaoRemoverPlanoJButton = new javax.swing.JButton();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        planoDeMitigacaoInfAdicionaisJTextArea = new javax.swing.JTextArea();
+        planoDeMitigacaoPlanoDeMitigacaoJLabel = new javax.swing.JLabel();
         PlanoContigenciaJPanel = new javax.swing.JPanel();
-        planoContigenciaPlanoDeContigenciaJLabel = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane5 = new javax.swing.JScrollPane();
         planoDeContingenciaListaPlanosJList = new javax.swing.JList();
@@ -1402,27 +1397,24 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
         jLabel8 = new javax.swing.JLabel();
         planoDeContingenciaResponsavelJTextField = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
         jScrollPane6 = new javax.swing.JScrollPane();
         planoDeContingenciaDescricaoJTextArea = new javax.swing.JTextArea();
-        jLabel11 = new javax.swing.JLabel();
         jScrollPane7 = new javax.swing.JScrollPane();
         planoDeContingenciaComoSeraFeitoJTextArea = new javax.swing.JTextArea();
-        jLabel12 = new javax.swing.JLabel();
         jScrollPane8 = new javax.swing.JScrollPane();
         planoDeContingenciaInfAdicionaisJTextArea = new javax.swing.JTextArea();
         planoDeContingenciaIdentificacaoJTextField = new javax.swing.JTextField();
         planoContingenciaDataLimiteJComboBox = new javax.swing.JComboBox();
         jLabel19 = new javax.swing.JLabel();
         planoContingenciaDataSelecionadaJLabel = new javax.swing.JLabel();
-        jPanel4 = new javax.swing.JPanel();
         planoDeContingenciaAdicionarPlanoJButton = new javax.swing.JButton();
         planoDeContingenciaRemoverPlanoJButton = new javax.swing.JButton();
         planoDeContingenciaSalvarAlteracoesJButton = new javax.swing.JButton();
+        planoContigenciaPlanoDeContigenciaJLabel = new javax.swing.JLabel();
         HistoricoDeAlteracoesJPanel = new javax.swing.JPanel();
         tabelaHistoricoAlteracoesJScrollPane = new javax.swing.JScrollPane();
-        TabelaDeRiscosJPanel = new javax.swing.JPanel();
         tabelaRiscosJScrollPane = new javax.swing.JScrollPane();
+        jLabel3 = new javax.swing.JLabel();
 
         informacoesGeraisIdentificacaoDeRiscoJLabel.setText("Identificação de Risco:");
 
@@ -1664,7 +1656,7 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
                                 .addGap(55, 55, 55)
                                 .addComponent(relacoesRemoverInfluenciaJButton))
                             .addComponent(jScrollPane1))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 164, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 154, Short.MAX_VALUE)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel14))))
@@ -1846,7 +1838,7 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
                                         .addComponent(criarRelacaoJButton, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(150, 150, 150))
                                     .addComponent(deletarRelacaoJButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                .addContainerGap(36, Short.MAX_VALUE))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1893,7 +1885,7 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
         SubcondicoesJPanel.setLayout(SubcondicoesJPanelLayout);
         SubcondicoesJPanelLayout.setHorizontalGroup(
             SubcondicoesJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane13)
+            .addComponent(jScrollPane13, javax.swing.GroupLayout.DEFAULT_SIZE, 832, Short.MAX_VALUE)
         );
         SubcondicoesJPanelLayout.setVerticalGroup(
             SubcondicoesJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1902,37 +1894,25 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
 
         gerenciarRiscosJTabbedPane.addTab("Condições", SubcondicoesJPanel);
 
-        planoDeMitigacaoPlanoDeMitigacaoJLabel.setText("Plano de Mitigação:");
-
         jLabel1.setText("Identificação do Plano: ");
 
         jLabel2.setText("Responsável: ");
-
-        jLabel3.setText("Descrição:");
 
         planoDeMitigacaoDescricaoJTextArea.setColumns(20);
         planoDeMitigacaoDescricaoJTextArea.setLineWrap(true);
         planoDeMitigacaoDescricaoJTextArea.setRows(1);
         planoDeMitigacaoDescricaoJTextArea.setWrapStyleWord(true);
+        planoDeMitigacaoDescricaoJTextArea.setBorder(javax.swing.BorderFactory.createTitledBorder("Descrição:"));
         jScrollPane2.setViewportView(planoDeMitigacaoDescricaoJTextArea);
 
         jLabel4.setText("Data Limite: ");
-
-        jLabel5.setText("Como será feito:");
 
         planoDeMitigacaoComoSeraFeitoJTextArea.setColumns(20);
         planoDeMitigacaoComoSeraFeitoJTextArea.setLineWrap(true);
         planoDeMitigacaoComoSeraFeitoJTextArea.setRows(1);
         planoDeMitigacaoComoSeraFeitoJTextArea.setWrapStyleWord(true);
+        planoDeMitigacaoComoSeraFeitoJTextArea.setBorder(javax.swing.BorderFactory.createTitledBorder("Como será feito:"));
         jScrollPane3.setViewportView(planoDeMitigacaoComoSeraFeitoJTextArea);
-
-        jLabel6.setText("Informações Adicionais:");
-
-        planoDeMitigacaoInfAdicionaisJTextArea.setColumns(20);
-        planoDeMitigacaoInfAdicionaisJTextArea.setLineWrap(true);
-        planoDeMitigacaoInfAdicionaisJTextArea.setRows(1);
-        planoDeMitigacaoInfAdicionaisJTextArea.setWrapStyleWord(true);
-        jScrollPane4.setViewportView(planoDeMitigacaoInfAdicionaisJTextArea);
 
         jScrollPane9.setViewportView(planoDeMitigacaoListaPlanosJList);
 
@@ -1943,74 +1923,6 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
         });
 
         jLabel18.setText("Data:");
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2)
-                    .addComponent(jScrollPane3)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel3)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(43, 43, 43)))
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(planoDeMitigacaoIdentificacaoJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 374, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(planoDeMitigacaoResponsavelJTextField)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel18))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(planoMitigacaoDataLimiteJComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(planoMitigacaoDataSelecionadaJLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                    .addComponent(jScrollPane4))
-                .addContainerGap())
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(planoDeMitigacaoIdentificacaoJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(planoDeMitigacaoResponsavelJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4)
-                    .addComponent(planoMitigacaoDataLimiteJComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel18)
-                    .addComponent(planoMitigacaoDataSelecionadaJLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 76, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane9))
-        );
 
         planoDeMitigacaoAdicionarPlanoJButton.setText("Adicionar Plano");
         planoDeMitigacaoAdicionarPlanoJButton.addActionListener(new java.awt.event.ActionListener() {
@@ -2033,58 +1945,106 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
             }
         });
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(planoDeMitigacaoRemoverPlanoJButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(planoDeMitigacaoSalvarAlteracoesJButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(planoDeMitigacaoAdicionarPlanoJButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        planoDeMitigacaoInfAdicionaisJTextArea.setColumns(20);
+        planoDeMitigacaoInfAdicionaisJTextArea.setLineWrap(true);
+        planoDeMitigacaoInfAdicionaisJTextArea.setRows(1);
+        planoDeMitigacaoInfAdicionaisJTextArea.setWrapStyleWord(true);
+        planoDeMitigacaoInfAdicionaisJTextArea.setBorder(javax.swing.BorderFactory.createTitledBorder("Informações Adicionais:"));
+        jScrollPane4.setViewportView(planoDeMitigacaoInfAdicionaisJTextArea);
+
+        planoDeMitigacaoPlanoDeMitigacaoJLabel.setText("Plano de Mitigação:");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(planoDeMitigacaoAdicionarPlanoJButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(planoDeMitigacaoRemoverPlanoJButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(planoDeMitigacaoSalvarAlteracoesJButton, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
+                        .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(planoDeMitigacaoPlanoDeMitigacaoJLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(planoDeMitigacaoResponsavelJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel18)
+                                        .addGap(41, 41, 41)
+                                        .addComponent(planoMitigacaoDataSelecionadaJLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(planoMitigacaoDataLimiteJComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(planoDeMitigacaoIdentificacaoJTextField)))
+                    .addComponent(jScrollPane4))
                 .addContainerGap())
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(planoDeMitigacaoAdicionarPlanoJButton)
-                .addGap(5, 5, 5)
-                .addComponent(planoDeMitigacaoRemoverPlanoJButton)
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(planoDeMitigacaoIdentificacaoJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1)
+                    .addComponent(planoDeMitigacaoPlanoDeMitigacaoJLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(planoDeMitigacaoSalvarAlteracoesJButton))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(planoDeMitigacaoResponsavelJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(planoMitigacaoDataLimiteJComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel2))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(planoMitigacaoDataSelecionadaJLabel)
+                            .addComponent(jLabel18, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE))
+                    .addComponent(jScrollPane9))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(planoDeMitigacaoAdicionarPlanoJButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(planoDeMitigacaoRemoverPlanoJButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(planoDeMitigacaoSalvarAlteracoesJButton))
+                    .addComponent(jScrollPane4))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout PlanoDeMitigacaoJPanelLayout = new javax.swing.GroupLayout(PlanoDeMitigacaoJPanel);
         PlanoDeMitigacaoJPanel.setLayout(PlanoDeMitigacaoJPanelLayout);
         PlanoDeMitigacaoJPanelLayout.setHorizontalGroup(
             PlanoDeMitigacaoJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PlanoDeMitigacaoJPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(PlanoDeMitigacaoJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(PlanoDeMitigacaoJPanelLayout.createSequentialGroup()
-                        .addComponent(planoDeMitigacaoPlanoDeMitigacaoJLabel)
-                        .addContainerGap(739, Short.MAX_VALUE))
-                    .addGroup(PlanoDeMitigacaoJPanelLayout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         PlanoDeMitigacaoJPanelLayout.setVerticalGroup(
             PlanoDeMitigacaoJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PlanoDeMitigacaoJPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(planoDeMitigacaoPlanoDeMitigacaoJLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(PlanoDeMitigacaoJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(PlanoDeMitigacaoJPanelLayout.createSequentialGroup()
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         gerenciarRiscosJTabbedPane.addTab("Plano de Mitigação", PlanoDeMitigacaoJPanel);
-
-        planoContigenciaPlanoDeContigenciaJLabel.setText("Plano de Contigência:");
 
         jScrollPane5.setViewportView(planoDeContingenciaListaPlanosJList);
 
@@ -2094,28 +2054,25 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
 
         jLabel9.setText("Data Limite:");
 
-        jLabel10.setText("Descrição:");
-
         planoDeContingenciaDescricaoJTextArea.setColumns(20);
         planoDeContingenciaDescricaoJTextArea.setLineWrap(true);
         planoDeContingenciaDescricaoJTextArea.setRows(1);
         planoDeContingenciaDescricaoJTextArea.setWrapStyleWord(true);
+        planoDeContingenciaDescricaoJTextArea.setBorder(javax.swing.BorderFactory.createTitledBorder("Descrição:"));
         jScrollPane6.setViewportView(planoDeContingenciaDescricaoJTextArea);
-
-        jLabel11.setText("Como será feito:");
 
         planoDeContingenciaComoSeraFeitoJTextArea.setColumns(20);
         planoDeContingenciaComoSeraFeitoJTextArea.setLineWrap(true);
         planoDeContingenciaComoSeraFeitoJTextArea.setRows(1);
         planoDeContingenciaComoSeraFeitoJTextArea.setWrapStyleWord(true);
+        planoDeContingenciaComoSeraFeitoJTextArea.setBorder(javax.swing.BorderFactory.createTitledBorder("Como será feito:"));
         jScrollPane7.setViewportView(planoDeContingenciaComoSeraFeitoJTextArea);
-
-        jLabel12.setText("Informações Adicionais:");
 
         planoDeContingenciaInfAdicionaisJTextArea.setColumns(20);
         planoDeContingenciaInfAdicionaisJTextArea.setLineWrap(true);
         planoDeContingenciaInfAdicionaisJTextArea.setRows(1);
         planoDeContingenciaInfAdicionaisJTextArea.setWrapStyleWord(true);
+        planoDeContingenciaInfAdicionaisJTextArea.setBorder(javax.swing.BorderFactory.createTitledBorder("Informações Adicionais:"));
         jScrollPane8.setViewportView(planoDeContingenciaInfAdicionaisJTextArea);
 
         planoContingenciaDataLimiteJComboBox.addActionListener(new java.awt.event.ActionListener() {
@@ -2125,76 +2082,6 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
         });
 
         jLabel19.setText("Data:");
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel10)
-                    .addComponent(jLabel11)
-                    .addComponent(jLabel12)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel7)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(37, 37, 37)))
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(planoDeContingenciaIdentificacaoJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 374, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                .addComponent(planoDeContingenciaResponsavelJTextField)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel19))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(planoContingenciaDataLimiteJComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(planoContingenciaDataSelecionadaJLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                    .addComponent(jScrollPane6)
-                    .addComponent(jScrollPane7)
-                    .addComponent(jScrollPane8))
-                .addContainerGap())
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(planoDeContingenciaIdentificacaoJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(planoDeContingenciaResponsavelJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel9)
-                    .addComponent(planoContingenciaDataLimiteJComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel10)
-                    .addComponent(jLabel19)
-                    .addComponent(planoContingenciaDataSelecionadaJLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel11)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel12)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane8)
-                .addContainerGap())
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
 
         planoDeContingenciaAdicionarPlanoJButton.setText("Adicionar Plano");
         planoDeContingenciaAdicionarPlanoJButton.addActionListener(new java.awt.event.ActionListener() {
@@ -2217,53 +2104,99 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
             }
         });
 
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(planoDeContingenciaSalvarAlteracoesJButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(planoDeContingenciaRemoverPlanoJButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(planoDeContingenciaAdicionarPlanoJButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        planoContigenciaPlanoDeContigenciaJLabel.setText("Plano de Contigência:");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(planoContigenciaPlanoDeContigenciaJLabel)
+                        .addGap(109, 109, 109)
+                        .addComponent(jLabel7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(planoDeContingenciaResponsavelJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(70, 70, 70)
+                                .addComponent(planoContingenciaDataSelecionadaJLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 18, Short.MAX_VALUE))
+                            .addComponent(planoDeContingenciaIdentificacaoJTextField)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jScrollPane5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(planoDeContingenciaAdicionarPlanoJButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(planoDeContingenciaRemoverPlanoJButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(planoDeContingenciaSalvarAlteracoesJButton, javax.swing.GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane8)
+                            .addComponent(jScrollPane6)
+                            .addComponent(jScrollPane7)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(297, 297, 297)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(jLabel19)
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(jLabel9)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(planoContingenciaDataLimiteJComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))))
                 .addContainerGap())
         );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addComponent(planoDeContingenciaAdicionarPlanoJButton)
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(planoDeContingenciaIdentificacaoJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel7))
+                    .addComponent(planoContigenciaPlanoDeContigenciaJLabel, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(planoDeContingenciaRemoverPlanoJButton)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(planoDeContingenciaResponsavelJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel9)
+                            .addComponent(planoContingenciaDataLimiteJComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel8))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel19)
+                            .addComponent(planoContingenciaDataSelecionadaJLabel))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(planoDeContingenciaSalvarAlteracoesJButton))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(planoDeContingenciaAdicionarPlanoJButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(planoDeContingenciaRemoverPlanoJButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(planoDeContingenciaSalvarAlteracoesJButton))
+                    .addComponent(jScrollPane8))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout PlanoContigenciaJPanelLayout = new javax.swing.GroupLayout(PlanoContigenciaJPanel);
         PlanoContigenciaJPanel.setLayout(PlanoContigenciaJPanelLayout);
         PlanoContigenciaJPanelLayout.setHorizontalGroup(
             PlanoContigenciaJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PlanoContigenciaJPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(PlanoContigenciaJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(PlanoContigenciaJPanelLayout.createSequentialGroup()
-                        .addComponent(planoContigenciaPlanoDeContigenciaJLabel)
-                        .addContainerGap(728, Short.MAX_VALUE))
-                    .addGroup(PlanoContigenciaJPanelLayout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         PlanoContigenciaJPanelLayout.setVerticalGroup(
             PlanoContigenciaJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PlanoContigenciaJPanelLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PlanoContigenciaJPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(planoContigenciaPlanoDeContigenciaJLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(PlanoContigenciaJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(PlanoContigenciaJPanelLayout.createSequentialGroup()
-                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(219, Short.MAX_VALUE))
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 300, Short.MAX_VALUE)))
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         gerenciarRiscosJTabbedPane.addTab("Plano de Contigência", PlanoContigenciaJPanel);
@@ -2272,55 +2205,41 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
         HistoricoDeAlteracoesJPanel.setLayout(HistoricoDeAlteracoesJPanelLayout);
         HistoricoDeAlteracoesJPanelLayout.setHorizontalGroup(
             HistoricoDeAlteracoesJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(HistoricoDeAlteracoesJPanelLayout.createSequentialGroup()
-                .addComponent(tabelaHistoricoAlteracoesJScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 832, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(tabelaHistoricoAlteracoesJScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 832, Short.MAX_VALUE)
         );
         HistoricoDeAlteracoesJPanelLayout.setVerticalGroup(
             HistoricoDeAlteracoesJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(HistoricoDeAlteracoesJPanelLayout.createSequentialGroup()
-                .addComponent(tabelaHistoricoAlteracoesJScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 27, Short.MAX_VALUE))
+            .addComponent(tabelaHistoricoAlteracoesJScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 331, Short.MAX_VALUE)
         );
 
         gerenciarRiscosJTabbedPane.addTab("Histórico de Alterações", HistoricoDeAlteracoesJPanel);
 
-        TabelaDeRiscosJPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Tabela de Riscos"));
-
-        javax.swing.GroupLayout TabelaDeRiscosJPanelLayout = new javax.swing.GroupLayout(TabelaDeRiscosJPanel);
-        TabelaDeRiscosJPanel.setLayout(TabelaDeRiscosJPanelLayout);
-        TabelaDeRiscosJPanelLayout.setHorizontalGroup(
-            TabelaDeRiscosJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(TabelaDeRiscosJPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(tabelaRiscosJScrollPane)
-                .addContainerGap())
-        );
-        TabelaDeRiscosJPanelLayout.setVerticalGroup(
-            TabelaDeRiscosJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(tabelaRiscosJScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
-        );
+        jLabel3.setText("Tabela de Riscos:");
 
         javax.swing.GroupLayout gerenciarRiscosJPanelLayout = new javax.swing.GroupLayout(gerenciarRiscosJPanel);
         gerenciarRiscosJPanel.setLayout(gerenciarRiscosJPanelLayout);
         gerenciarRiscosJPanelLayout.setHorizontalGroup(
             gerenciarRiscosJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(gerenciarRiscosJPanelLayout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(gerenciarRiscosJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(gerenciarRiscosJTabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 847, Short.MAX_VALUE)
                     .addGroup(gerenciarRiscosJPanelLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(TabelaDeRiscosJPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(jLabel3)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(tabelaRiscosJScrollPane, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(gerenciarRiscosJTabbedPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 837, Short.MAX_VALUE))
                 .addContainerGap())
         );
         gerenciarRiscosJPanelLayout.setVerticalGroup(
             gerenciarRiscosJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, gerenciarRiscosJPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(gerenciarRiscosJTabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 359, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap()
+                .addComponent(gerenciarRiscosJTabbedPane)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(TabelaDeRiscosJPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31))
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tabelaRiscosJScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -2331,7 +2250,9 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(gerenciarRiscosJPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 499, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(gerenciarRiscosJPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -3364,7 +3285,6 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
     private javax.swing.JPanel PlanoDeMitigacaoJPanel;
     private javax.swing.JPanel RelacoesJPanel;
     private javax.swing.JPanel SubcondicoesJPanel;
-    private javax.swing.JPanel TabelaDeRiscosJPanel;
     private javax.swing.JTextField campo1JTextField;
     private javax.swing.JTextField campo2JTextField;
     private javax.swing.JButton criarRelacaoJButton;
@@ -3400,9 +3320,6 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
     private javax.swing.JButton inserirRelacaoCampo1JButton;
     private javax.swing.JButton inserirRelacaoCampo2JButton;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
@@ -3413,15 +3330,11 @@ public class RiscosGerenciarRiscosJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
