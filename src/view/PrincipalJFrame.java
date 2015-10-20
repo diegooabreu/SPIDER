@@ -22,7 +22,6 @@ import view.Organizacional.OrganizacionalEditarEARJPanel;
 import view.Organizacional.OrganizacionalEARJPanel;
 import view.Organizacional.OrganizacionalDetalhesJPanel;
 import view.Organizacional.OrganizacionalPoliticaOrganizacionalJPanel;
-import configuracao.ConfiguracaoBancoDeDados;
 import facade.MonitoracaoAnaliseDosRiscosFacade;
 import facade.PrincipalFacade;
 import facade.ProjetoCalendarioFacade;
@@ -103,12 +102,6 @@ public class PrincipalJFrame extends javax.swing.JFrame {
     private DefaultMutableTreeNode planosRealizados;
     private DefaultMutableTreeNode resumoDeRiscos;
 
-    //*****************************************//
-    /**
-     * Creates new form FramePrincipal
-     */
-    ConfiguracaoBancoDeDados configuracaoBancoDeDados = new ConfiguracaoBancoDeDados(null, true);
-
     public PrincipalJFrame() {
         initComponents();
         adicionarFrames();
@@ -172,7 +165,6 @@ public class PrincipalJFrame extends javax.swing.JFrame {
 
                 homeSpider_Jpanel.setBounds(camadasJDesktopPane.getBounds());
 
-                System.out.println("componentResized()"); // TODO Auto-generated Event stub componentResized()  
             }
 
             @Override
@@ -555,7 +547,6 @@ public class PrincipalJFrame extends javax.swing.JFrame {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    System.out.println("nome  dos looks: " + info.getClassName());
                     break;
                 }
             }
@@ -587,8 +578,6 @@ public class PrincipalJFrame extends javax.swing.JFrame {
                 projetoSelecionadoJComboBox.addItem(listaProjetos.get(i).getNomeProjeto());
             }
 
-        } else {
-            System.out.println("Não existem projetos. Crie um.");
         }
     }
 
@@ -758,7 +747,6 @@ public class PrincipalJFrame extends javax.swing.JFrame {
 
                     DefaultMutableTreeNode node = (DefaultMutableTreeNode) selPath.getLastPathComponent();
                     Object userObj = node.getUserObject();
-                    System.out.println("Usuario escolheu: " + selPath);
 
                     esconderFrames();
 
